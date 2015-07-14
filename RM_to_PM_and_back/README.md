@@ -14,5 +14,4 @@ August   of 2014 is version V1.0
 February of 2015 is version V2.0
 
   Signed-off-by:  Mighten Dai
-				  23:30
-                  July 14, 2015
+	          23:40,  July 14, 2015
