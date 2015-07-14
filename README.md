@@ -1,16 +1,8 @@
-README.md
+##  32-bit Protected Mode Assembly language
 
-
-# This is a file useful for those who become crazy due to Assembly Programming Language
-
-
-# Non-profit, funny~!
-
-
-
-#  Signed-off-by:  Mighten Dai
-#                     Jul 13, 2015
-
-
+#  For those who become crazy due to Assembly Programming Language
 
 Have Fun~!
+
+  Signed-off-by:  Mighten Dai
+                  July 14, 2015
