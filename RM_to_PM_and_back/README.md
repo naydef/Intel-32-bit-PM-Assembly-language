@@ -10,8 +10,12 @@ Simultaneously, it output "RM" as well as "PM" on screen
 
 ----------------------------
 # Some sorts concerning Versions 1.0, 2.0
+
 August   of 2014 is version V1.0
+
 February of 2015 is version V2.0
 
+
+
   Signed-off-by:  Mighten Dai
-	          23:40,  July 14, 2015
+	          23:41,  July 14, 2015
