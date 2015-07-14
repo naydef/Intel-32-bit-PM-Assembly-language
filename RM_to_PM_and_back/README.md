@@ -3,9 +3,7 @@
 Description:
 This program using NASM syntax mainly Control the i386 CPU to 
 
-
    switch into the Protected Mode (PM) 
-   
    
       and switch back to Real-Address Mode (RM)
       
@@ -24,4 +22,4 @@ February of 2015 is version V2.0
 
 
   Signed-off-by:  Mighten Dai
-	          23:41,  July 14, 2015
+	          23:42,  July 14, 2015
