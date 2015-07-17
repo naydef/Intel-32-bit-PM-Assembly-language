@@ -15,30 +15,28 @@
 ;		ES:EDI:   *des  ;  ES is also Selector ID
 ;		[AH]:   Color Attributes
 ;	          ------------------------------------------------------------
-;			 | Bit7 | Bit6 | Bit5 | Bit4 |   Bit3 | Bit2  | Bit1 | Bit0 £ü
+;			 | Bit7 | Bit6 | Bit5 | Bit4 |   Bit3 | Bit2  | Bit1 | Bit0 |
 ;			 | flash|   R      G      B  |  High  |    R     G     B    |
 ;			 |      |  Background Color  | light  |     Front  Color    |
 ;	           ----------------------------------------------------------
-
-;	Return:  EAX = String with color in AL have drawn.
-[bits 32]
+;	Return:  EAX = String with color in AH have drawn.
 _32_show_string:
-	push	ecx
-	xor		ecx, ecx
+push	ecx
+xor		ecx, ecx
 
-	_@loop:
-		mov		al, [esi]
-		cmp		al, 0
-		jz		_@loop_end
-		mov		es:[edi], ax
-		inc		esi
-		inc		edi
-		inc		edi
-		inc		ecx
-		
-		jmp	short _@loop
+_@_internal_loop:
+	mov		al, [esi]
+	cmp		al, 0
+	jz		_@_internal_loop_end:
+	mov		[es:edi], ax
+	inc		esi
+	inc		edi
+	inc		edi
+	inc		ecx
+	
+	jmp	short _@_internal_loop
 
-	_@loop_end:
+	_@_internal_loop_end:
 	mov		eax, ecx
 	pop		ecx
 	ret
