@@ -8,8 +8,6 @@
 		
 Are you like being at the mercy of limitation ?
 
-
-
 If NO, ...
 
 _RM_read_floppy_data2memory.asm gives your technical support.
