@@ -18,7 +18,6 @@
 ;			 | flash|   R      G      B  |  High  |    R     G     B    |
 ;			 |      |  Background Color  | light  |     Front  Color    |
 ;	           ----------------------------------------------------------
-;         [CX] Length of the string.
 ;         [DH] Row ID [0,24]
 ;         [DL] Column ID [0,79]
 ;		 ES:BP --> &string[0];
@@ -27,24 +26,24 @@ _16_show_string:
 	push	ax
 	push	bx
 	push	cx
-	
-	xor		cx, cx
+
+	xor		cx, cx      ; Count from 0
 	; Get string number
 	push	bp
 	_@_16show_internal_count:
 		mov		al, [es:bp]
 		cmp		al, 0
-		jz		_@_16show_internal_@@exit
-		inc		cx      ; 0x41 1-byte code
+		je		_@_16show_internal_@@exit
+		inc		cx
 		inc		bp
 		jmp 	_@_16show_internal_count
 	_@_16show_internal_@@exit:
 	pop		bp
-	
-	mov		ax, 0x1301 ; int 0x10 #13, char only, cursor moving
+
+	mov		ax, 0x1301 ; int 0x10 #13, char only, with cursor moving
 	mov		bh, 0x00	; Page ID = 0
 	int		0x10
-	
+
 	pop		cx
 	pop		bx
 	pop		ax
