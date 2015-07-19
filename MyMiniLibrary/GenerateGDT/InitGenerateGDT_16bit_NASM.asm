@@ -1,7 +1,7 @@
 ;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;
 ;	File   name: InitGenerateGDT_16bit_NASM.asm
-;;	Description:
+;;	Description:  (call far ...)
 ;		1> Making GDT structure.
 ;			The NASM-syntax Assembly Routine
 ;		2> If you want to use this routine,
@@ -140,4 +140,4 @@ _InitGenerateGDT16bit:
 
 	mov			sp, bp
 	pop			bp
-	ret			22h
+	retf		22h

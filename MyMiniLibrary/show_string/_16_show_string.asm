@@ -14,7 +14,7 @@
 ;	Parameter: <By Register>
 ;         [BL] is following...
 ;	          ------------------------------------------------------------
-;			 | Bit7 | Bit6 | Bit5 | Bit4 |   Bit3 | Bit2  | Bit1 | Bit0 £ü
+;			 | Bit7 | Bit6 | Bit5 | Bit4 |   Bit3 | Bit2  | Bit1 | Bit0 |
 ;			 | flash|   R      G      B  |  High  |    R     G     B    |
 ;			 |      |  Background Color  | light  |     Front  Color    |
 ;	           ----------------------------------------------------------
@@ -24,7 +24,28 @@
 ;		 ES:BP --> &string[0];
 [bits 16]
 _16_show_string:
+	push	ax
+	push	bx
+	push	cx
+	
+	xor		cx, cx
+	; Get string number
+	push	bp
+	_@_16show_internal_count:
+		mov		al, [es:bp]
+		cmp		al, 0
+		jz		_@_16show_internal_@@exit
+		inc		cx      ; 0x41 1-byte code
+		inc		bp
+		jmp 	_@_16show_internal_count
+	_@_16show_internal_@@exit:
+	pop		bp
+	
 	mov		ax, 0x1301 ; int 0x10 #13, char only, cursor moving
 	mov		bh, 0x00	; Page ID = 0
 	int		0x10
+	
+	pop		cx
+	pop		bx
+	pop		ax
 	ret		;; Return

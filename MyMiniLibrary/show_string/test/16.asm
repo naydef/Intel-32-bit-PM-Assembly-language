@@ -30,9 +30,6 @@ start:
 	mov		ax, data
 	mov		es, ax
 	mov		bp, 0  ; ES:BP = string
-	
-	mov		cx, offset string_end
-	sub		cx, offset string_begin ; Length
 	mov		bl, 70h
 	mov		dx, 0505h
 	call 	_show
@@ -55,11 +52,32 @@ start:
 ;         [DL] Column ID [0,79]
 ;		 ES:BP --> &string[0];
 _show:
-	mov		ax, 1301h 	; int 0x10 #13, char only, cursor moving
-	mov		bh, 0000h	; Page ID = 0
+	push	ax
+	push	bx
+	push	cx
+	
+	xor		cx, cx
+	; Get string number
+	push	bp
+	_@_16show_internal_count:
+		mov		al, es:[bp]
+		cmp		al, 0
+		jz		_@_16show_internal_@@exit
+		inc		cx
+		inc		bp
+		jmp 	_@_16show_internal_count
+	_@_16show_internal_@@exit:
+	pop		bp
+
+	mov		ax, 1301h ; int 0x10 #13, char only, cursor moving
+	mov		bh, 0	; Page ID = 0
 	int		10h
+
+	pop		cx
+	pop		bx
+	pop		ax
 	ret		;; Return
-		
+
 code		ends
 ;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
