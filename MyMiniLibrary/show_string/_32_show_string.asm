@@ -8,7 +8,7 @@
 ;				22:29
 ;				July 16, 2015
 ;
-; Latest Update: 11:39, July 19, 2015
+; Latest Update: 18:17, July 19, 2015
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;		_32_show_string  : Display ASCII string on screen
@@ -25,16 +25,16 @@
 ;	           ------------------------------------------------------------
 ;	Return:  EAX = String with color in AH have drawn.
 _32_show_string:
-push	ecx
-push	eax
-push	ebx
+push		ecx
+push		eax
+push		ebx
 xor		eax, eax
 
 mov		al,  0x50  ; 80 in decimal
 mul		dh         ; AX = DH * 80
-movzx	bx, dl
+movzx		bx, dl
 add		ax, bx
-and     eax, 0x0000_FFFF
+and		eax, 0x0000_FFFF
 mov		cl, 2
 mul		cl         ; AX = (DH * 80 + DL) * 2
 add		edi, eax   ; Point to a specific address.
