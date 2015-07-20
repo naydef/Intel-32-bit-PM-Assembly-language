@@ -4,7 +4,7 @@ Description:
 This program using NASM syntax mainly Control the i386 CPU to 
       in PM prepare two process and do switching stuff.
 
-Simultaneously, create 2 kernel processes.
+Simultaneously, create 3 tasks.
 
 ----------------------------
 # Output on screen, more details  /Screen_Capture are described as PNG-photo file.
@@ -47,7 +47,8 @@ No stack-overflow checking mechanism!!!
 	0x0000_0000 ~ 0x0000_7eff: <Undefined>          (512 Bytes)
 	0x0000_7c00 ~ 0x0000_7dff: MBR                  (512 Bytes)
 	0x0001_0000 ~ 0x0001_ffff: <Undefined>          (512 Bytes)
-	   More details described in /Tasks/SYSinfo.asm
+	
+	   More details of the following are described in /Tasks/SYSinfo.asm
 	0x0002_0000 ~ 0x0002_ffff: System Kernel Codes  (65,536 Bytes)
 	0x0003_0000 ~ 0x0003_ffff: System Information   (65,536 Bytes)
 	0x0004_0000 ~ 0x0004_ffff: System Stack         (65,536 Bytes)
