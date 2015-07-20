@@ -26,7 +26,8 @@ Task  B   print:
 
 ----------------------------
 # File Usage
-Name              LBA-Address    Sector length   Description
+
+	Name              LBA-Address    Sector length   Description
 
 	MBR.asm           0              1               System Bootstrap
 	kernel.asm        1-2            2               System Kernel Codes
