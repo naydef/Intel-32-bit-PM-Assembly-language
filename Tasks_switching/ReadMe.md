@@ -1,4 +1,4 @@
-##  Tasks
+#  Tasks
 
 Description:
 This program using NASM syntax mainly Control the i386 CPU to 
@@ -7,7 +7,7 @@ This program using NASM syntax mainly Control the i386 CPU to
 Simultaneously, create 3 tasks.
 
 ----------------------------
-# Output on screen, more details  /Screen_Capture are described as PNG-photo file.
+## Output on screen, more details  /Screen_Capture are described as PNG-photo file.
 Bootstrap Print: 
 
 	[Loader]: Now The kernel is loaded, and is executing...
@@ -25,7 +25,7 @@ Task  B   print:
 	[Task B]: Hello, I am Task B, Demonstration Over !!!  :)
 
 ----------------------------
-# File Usage
+## File Usage
 
 	Name              LBA-Address    Sector length   Description
 
@@ -42,7 +42,7 @@ Task  B   print:
 No stack-overflow checking mechanism!!!
 
 ----------------------------
-# Memory Arrangement
+## Memory Arrangement
 
 	0x0000_0000 ~ 0x0000_7eff: <Undefined>          (512 Bytes)
 	0x0000_7c00 ~ 0x0000_7dff: MBR                  (512 Bytes)
@@ -58,7 +58,7 @@ No stack-overflow checking mechanism!!!
 	0x0008_0000 ~ 0x0008_ffff: B 's  Stack          (65,536 Bytes)
 
 ----------------------------
-# Some Library Codes used, as shown in Linux-like notation:
+## Some Library Codes used, as shown in Linux-like notation:
 
 		/32-bit-PM-Assembly-language/MyMiniLibrary/show_string/_16_show_string.asm
 		/32-bit-PM-Assembly-language/MyMiniLibrary/show_string/_32_show_string.asm
