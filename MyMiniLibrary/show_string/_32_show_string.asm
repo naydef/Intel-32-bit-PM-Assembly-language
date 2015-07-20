@@ -9,7 +9,11 @@
 ;				July 16, 2015
 ;
 ; Latest Update: 18:17, July 19, 2015
-
+;
+;
+;    ******** During programming, this module proves ineffective when print the screen on a specific location on screen.
+;             Need REPAIRING !!!!! 
+;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;		_32_show_string  : Display ASCII string on screen
 ;	Parameter:       DS ES Selector
