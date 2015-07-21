@@ -1,0 +1,9 @@
+It a good idea to debug when,
+
+the Kernel Task calls Task A with its TSS Selector, what will be remained in Kernel Task's TSS's ESP field ?
+
+  -- The newly storage or remain fixed?
+
+To be or not to be,
+
+that is a matter.   :-D
