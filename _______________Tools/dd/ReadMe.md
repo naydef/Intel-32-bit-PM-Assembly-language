@@ -1,3 +1,9 @@
+Tip: Click "View Raw" to download "dd.exe" file!!!!
+:)
+
+
+This program is in accordance with GNU GENERAL PUBLIC LICENSE
+The following shows you the details of itself.
 
 
 		    GNU GENERAL PUBLIC LICENSE
