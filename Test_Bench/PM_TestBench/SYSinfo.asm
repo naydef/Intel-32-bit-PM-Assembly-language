@@ -49,7 +49,7 @@ Kernel_Task_head:
 	Kernel_ECX_Reg:                dd  0
 	Kernel_EDX_Reg:                dd  0
 	Kernel_EBX_Reg:                dd  0
-	Kernel_ESP_Reg:                dd  0x0005_0000 ; Empty Stack, Range:0x0008_0000 ~ 0x0008_ffff
+	Kernel_ESP_Reg:                dd  0x0005_0000 ; Empty Stack, Range:0x0004_0000 ~ 0x000_FFFF
 	Kernel_EBP_Reg:                dd  0
 	Kernel_ESI_Reg:                dd  0
 	Kernel_EDI_Reg:                dd  0
