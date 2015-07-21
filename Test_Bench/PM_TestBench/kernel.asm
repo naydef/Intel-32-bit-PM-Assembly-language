@@ -42,7 +42,7 @@ kernel_32_bit_entry:
 PM_String:  db '[Kernel]: Hello, I am a regenerated Kernel !', 0   ; Terminated mark.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
-%include "..\MyMiniLibrary\show_string\_32_show_string.asm"
+%include "..\..\MyMiniLibrary\show_string\_32_show_string.asm"
 ;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
