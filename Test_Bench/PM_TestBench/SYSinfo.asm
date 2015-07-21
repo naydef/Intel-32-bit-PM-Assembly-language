@@ -19,7 +19,7 @@ GDT_Head:
 	DQ		0x00CFFA00_0000FFFF	; # 3  Ring3FlatCode.
 	DQ		0x00CFF200_0000FFFF	; # 4  Ring3FlatData.
 
-	DQ		0x00008903_0200006E ; # 5  Kernel Task TSS
+	DQ		0x00008903_0200006E	; # 5  Kernel Task TSS
 
 GDT_Tail:
 
