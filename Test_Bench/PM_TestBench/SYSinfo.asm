@@ -19,7 +19,7 @@ GDT_Head:
 	DQ		0x00CFFA00_0000FFFF	; # 3  Ring3FlatCode.
 	DQ		0x00CFF200_0000FFFF	; # 4  Ring3FlatData.
 
-	DQ		0x00008903_0200006E ; # 5  Kernel Task TSS
+	DQ		0x00008903_0200006E	; # 5  Kernel Task TSS
 
 GDT_Tail:
 
@@ -49,7 +49,7 @@ Kernel_Task_head:
 	Kernel_ECX_Reg:                dd  0
 	Kernel_EDX_Reg:                dd  0
 	Kernel_EBX_Reg:                dd  0
-	Kernel_ESP_Reg:                dd  0x0005_0000 ; Empty Stack, Range:0x0004_0000 ~ 0x000_FFFF
+	Kernel_ESP_Reg:                dd  0x0005_0000 ; Empty Stack, Range:0x0004_0000 ~ 0x0004_FFFF
 	Kernel_EBP_Reg:                dd  0
 	Kernel_ESI_Reg:                dd  0
 	Kernel_EDI_Reg:                dd  0
