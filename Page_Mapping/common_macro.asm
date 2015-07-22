@@ -8,7 +8,9 @@ Ring0FlatCode           EQU	0x08 ; # 1
 Ring0FlatData           EQU	0x10 ; # 2
 Ring3FlatCode           EQU	0x18 ; # 3
 Ring3FlatData           EQU	0x20 ; # 4
+
 Kernel_Task_Selector    EQU	0x28 ; # 5
+Task_A_Selector    		EQU	0x30 ; # 6
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -25,11 +27,18 @@ PDPTE    equ           0x00001_0007 ; Base address: 0x0001_0000 (omit the lower 
 									 ; AVL Leave Blank
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 vir_address_kernel_base   equ 0x0002_0000
-
-
+phy_address_kernel_base   equ 0x0002_0000
 
 vir_address_kernel_empty_stack_esp equ 0x0005_0000
 phy_address_kernel_empty_stack_esp equ 0x0005_0000
 
+vir_address_Task_A_base 	equ 0x0020_0000
+phy_address_Task_A_base 	equ 0x0005_0000
+
+vir_address_Task_A_empty_stack_esp equ 0x0007_0000
+phy_address_Task_A_empty_stack_esp equ 0x0007_0000
+
 vir_address_video_buffer_head  equ 0x000B_8000
+phy_address_video_buffer_head  equ 0x000B_8000

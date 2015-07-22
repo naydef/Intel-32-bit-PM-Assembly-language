@@ -39,9 +39,6 @@ kernel_32_bit_entry:
 	or		eax, 0x8000_0000   ; Set the PG flag in CR0( PG flag is Bit 31 )
 	mov		cr0, eax           ; Enable Paging memory mechanism from then on.
 
-	; Flush the instruction executing flow, 7 is the length of the instruction: far jump 
-	jmp		dword Ring0FlatCode:( $ + 7 + vir_address_kernel_base )
-
 	; here is to solve the potential problem cause by Virtual Address.
 	;     Normally now is the empty stack, and thus I will...
 	mov		eax, Ring0FlatData
@@ -55,8 +52,7 @@ kernel_32_bit_entry:
 	mov		dx, 0x0412
 	call	_32_show_string
 
-;  Kernel Paused infinitely.
-	jmp		short $
+	jmp		dword Task_A_Selector:0xFFFF_FFFF
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -64,19 +60,34 @@ kernel_32_bit_entry:
 ___@@internal_routine_install_PTE_into_PDE_N0:
 pushad
 pushf
+
 mov		eax, 0x0000_0007
-mov		ecx, 1024
+mov		ecx, 0x200
 mov		edi, 0x0001_1000
 
-_@_internal_filling_PTE_of_PDE_0:
+_@_internal_filling_PTE_of_PDE:
+; phy_address_Task_A_base    inside this portion, 
+;   but it is better to omit by default .
 	mov		[edi], eax
 	inc		edi
 	inc		edi
 	inc		edi
 	inc		edi
 	add		eax, 0x0000_1000
-	loop	_@_internal_filling_PTE_of_PDE_0
+	loop	_@_internal_filling_PTE_of_PDE
 
+;    vir_address_Task_A_base = 0x0020_0000
+;    phy_address_Task_A_base = 0x0005_0000
+; turn to the corresponding Location to set   vir_address_Task_A_base,
+;                   so that I can map it to   phy_address_Task_A_base
+mov		eax, 0x0005_0007
+mov		[edi], eax
+inc		edi
+inc		edi
+inc		edi
+inc		edi
+add		eax, 0x0000_1000
+mov		[edi], eax
 popf
 popad
 ret

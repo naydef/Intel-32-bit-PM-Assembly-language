@@ -31,8 +31,8 @@ call	_RM_clean_screen
 ;   Load kernel stored in Floppy A:
 mov		ax, 0x1000
 mov		es, ax
-xor		bx, bx    ; ES:BX = Linear 2000:0000 => Physical 0x0002_0000
-mov		ax, 5     ; LBA-Address 1~2
+xor		bx, bx    ; ES:BX = Linear 1000:0000 => Physical 0x0001_0000
+mov		ax, 5     ; LBA-Address 5~6
 mov		cx, 2     ; Number of sectors to read.
 call	_RM_read_floppy_data2memory
 
@@ -57,6 +57,17 @@ mov		ax, 1     ; LBA-Address 1~2
 mov		cx, 2     ; Number of sectors to read.
 call	_RM_read_floppy_data2memory
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;   Page Map Loading... at Floppy A:  LBA-address 7    Size = 0x200 Bytes = 1,024 Bytes
+;					    To Memory     0x0001_0000 ~ 0x0001_03FF
+;   Load kernel stored in Floppy A:
+mov		ax, 0x5000
+mov		es, ax
+xor		bx, bx    ; ES:BX = Linear 5000:0000 => Physical 0x0005_0000
+mov		ax, 7     ; LBA-Address 7
+mov		cx, 1     ; Number of sectors to read.
+call	_RM_read_floppy_data2memory
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 lgdt	[ PseudoGDT_Head ]
 
@@ -74,11 +85,11 @@ or		eax, 1
 mov		cr0, eax		; Protection Enabled, 
 
 ; Goto Kernel
-jmp		dword	Ring0FlatCode:0x0002_0000
+jmp		dword	Ring0FlatCode:phy_address_kernel_base
 
 ;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 PseudoGDT_Head:
-		dw		0x8 * 6
+		dw		0x8 * 7
 		dd		0x0003_0000
 PseduoGDT_Tail:
 

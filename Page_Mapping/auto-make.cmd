@@ -1,9 +1,10 @@
 @echo off
 echo Compiling...
-nasm -l MBR.lst -o MBR.bin MBR.asm
-nasm -l kernel.lst -o kernel.bin kernel.asm
-nasm -l sysinfo.lst -o sysinfo.bin sysinfo.asm
-nasm -l page.lst -o page.bin page.asm
+nasm -l MBR.lst     -o MBR.bin        MBR.asm
+nasm -l kernel.lst  -o kernel.bin     kernel.asm
+nasm -l sysinfo.lst -o sysinfo.bin    sysinfo.asm
+nasm -l page.lst    -o page.bin       page.asm
+nasm -l task_A.lst  -o task_A.bin     task_A.asm
 echo.  OK!
 echo.
 echo ==========================================================
@@ -31,8 +32,13 @@ dd if=page.bin of="C:\Program Files\Bochs_2_6_7\a.img" seek=5 bs=512 count=2
 echo.
 echo.
 
-echo ==========================================================
-echo Clean temporary file by pressing any key, otherwise please manually close the window.
+echo  **********  writting task_A.bin ...
+dd if=task_A.bin of="C:\Program Files\Bochs_2_6_7\a.img" seek=7 bs=512 count=1
+echo.
+echo.
+
+echo.==========================================================
+echo.  Clean temporary file by pressing any key, otherwise please manually close the window.
 echo.
 echo.
 
