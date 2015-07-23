@@ -20,8 +20,8 @@
 ;		DS:ESI:   *source        ;  DS is selector ID
 ;		ES:EDI    *dest_head     ; the head of the Buffer.
 ;		[AH]:   Color Attributes
-;         [DH] Row/Line ID [0,24]
-;         [DL] Column ID [0,79]
+;         [DH] Row/Line ID [0,24] \ Temporary, Video_Buffer_Head + EDX
+;         [DL] Column ID [0,79]   / 
 ;	            -----------------------------------------------------------
 ;			 | Bit7 | Bit6 | Bit5 | Bit4 |   Bit3 | Bit2  | Bit1 | Bit0 |
 ;			 | flash|   R      G      B  |  High  |    R     G     B    |
@@ -34,14 +34,17 @@ push		eax
 push		ebx
 xor		eax, eax
 
-mov		al,  0x50  ; 80 in decimal
-mul		dh         ; AX = DH * 80
-movzx		bx, dl
-add		ax, bx
-and		eax, 0x0000_FFFF
-mov		cl, 2
-mul		cl         ; AX = (DH * 80 + DL) * 2
-add		edi, eax   ; Point to a specific address.
+;mov		al,  0x50  ; 80 in decimal
+;mul		dh         ; AX = DH * 80
+;movzx		bx, dl
+;add		ax, bx
+;and		eax, 0x0000_FFFF
+;mov		cl, 2
+;mul		cl         ; AX = (DH * 80 + DL) * 2
+;add		edi, eax   ; Point to a specific address.
+
+;;;;;; Replace the unstable version
+add		edi, edx
 
 pop		ebx
 pop		eax
