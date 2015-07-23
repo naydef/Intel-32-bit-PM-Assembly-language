@@ -28,7 +28,6 @@ PDPTE    equ           0x00001_0007 ; Base address: 0x0001_0000 (omit the lower 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-vir_address_kernel_base   equ 0x0002_0000
 phy_address_kernel_base   equ 0x0002_0000
 
 vir_address_kernel_empty_stack_esp equ 0x0005_0000

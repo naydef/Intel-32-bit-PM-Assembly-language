@@ -43,7 +43,7 @@ Kernel_Task_head:
 	Kernel_SS2_selector:           dw  0
                                    dw  0 ; Reserved.
 	Kernel_CR3_Reg:                dd  PDPTE
-	Kernel_EIP_Reg:                dd  0x0002_0000
+	Kernel_EIP_Reg:                dd  phy_address_kernel_base
 	Kernel_EFLAGS:                 dd  0
 	Kernel_EAX_Reg:                dd  0
 	Kernel_ECX_Reg:                dd  0
