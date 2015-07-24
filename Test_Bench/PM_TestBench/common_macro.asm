@@ -21,6 +21,4 @@ GDT_Base:     EQU  0x0003_0000
 ;
 phy_address_kernel_base   EQU 0x0002_0000
 phy_address_kernel_empty_stack_esp EQU 0x0005_0000
-phy_address_Task_A_empty_stack_esp EQU 0x0007_0000
-
 phy_address_video_buffer_head  EQU 0x000B_8000
