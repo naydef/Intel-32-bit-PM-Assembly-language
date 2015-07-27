@@ -7,10 +7,6 @@
 ;                             17:34, July 20, 2015
 ;
 ;##############################################
-;#   Descriptor  located in LBA-address 1
-;#   Kernel Code located in LBA-address 2 to 5  
-;#
-
 %include "common_macro.asm"
 
 

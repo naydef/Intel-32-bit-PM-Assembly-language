@@ -24,7 +24,7 @@ GDT_Tail:
 	times 0x200 - ( $ - GDT_Head ) db 0x00
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  Task A
+;  Kernel Task
 ;      Base address: 0x0003_0200
 ;            Length:  104 Bytes 
 

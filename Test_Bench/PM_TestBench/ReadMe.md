@@ -15,8 +15,7 @@ All the patterns will be settled from then on...
 	kernel.asm        1-2            2               System Kernel Codes
 	SYSinfo.asm       3-4            2               System Information
 	
-	taskA.asm         5              1               Task A
-	taskB.asm         6              1               Task B
+	Kernel.asm        5              1               Task A
 	common_macroasm   0              0               Common Macro Reference
 	
 -------------------------------
