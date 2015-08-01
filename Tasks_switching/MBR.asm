@@ -93,15 +93,15 @@ or		eax, 1
 mov		cr0, eax		; Protection Enabled, 
 
 ; Goto Kernel
-jmp		dword	Ring0FlatCode:0x0002_0000
+jmp		dword	Ring0FlatCode:phy_address_kernel_base
 
 LoaderMessage:			db '[Loader]: Now The kernel is loaded, and is executing...', 0
 LoaderMessageTail:
 
 ;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 PseudoGDT_Head:
-		dw		0x8 * 8
-		dd		0x0003_0000
+		dw		GDT_Limit
+		dd		GDT_Base
 PseduoGDT_Tail:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

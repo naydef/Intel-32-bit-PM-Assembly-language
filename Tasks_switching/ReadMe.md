@@ -24,6 +24,11 @@ Task  B   print:
 
 	[Task B]: Hello, I am Task B, Demonstration Over !!!  :)
 
+********But there existed some bugs in "_32_show_string" routine,
+which results in out-of-order output on screen.
+  
+***This lib will be corrected by me later.
+
 ----------------------------
 ## File Usage
 
@@ -35,7 +40,7 @@ Task  B   print:
 
 	taskA.asm         5              1               Task A
 	taskB.asm         6              1               Task B
-	common_macroasm   0              0               Common Macro Reference
+	common_macro.asm  0              0               Common Macro Reference
 
 ----------------------------
 !!!Caution: Flat-model Memory Usage,
@@ -72,4 +77,4 @@ No stack-overflow checking mechanism!!!
                   July 14, 2015
 
 	Finally Modified by: Mighten Dai<mighten.dai@gmail.com>
-                             17:07, July 20, 2015
+                             19:33, Aug 01, 2015

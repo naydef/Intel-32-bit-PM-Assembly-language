@@ -24,13 +24,13 @@ kernel_32_bit_entry:
 	mov		es, eax
 	mov		ds, eax
 	mov		ss, eax
-	mov		esp, 0x0005_0000     ; Empty System Stack, Ranged 0x0004_0000 ~ 0x0004_ffff:
+	mov		esp, phy_address_kernel_empty_stack_esp
 	
 	mov		eax, Kernel_Task_Selector
 	ltr		ax
 
-	mov		esi, PM_String + 0x0002_0000
-	mov		edi, 0x0000_B8000    ; Video Buffer head.
+	mov		esi, PM_String + phy_address_kernel_base
+	mov		edi, phy_address_video_buffer_head
 	mov		ah, 0x07             ; Color Attributes
 	mov		dx, 0x0412
 	call	_32_show_string
