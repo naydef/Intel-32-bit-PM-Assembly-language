@@ -20,21 +20,20 @@ pushad
 mov		eax, Ring0FlatData
 mov		ds, eax
 mov		es, eax
-mov		esi, Task_A_MSG + 0x0005_0000 ; True Address = Base + Offset
-mov		edi, 0x000B_8000
-mov		edx, 0x0000_0512
-mov		ah, 0x09
+mov		esi, Task_A_MSG + phy_address_Task_A_base
+mov		edi, phy_address_video_buffer_head
+mov		edx, 0x0512   ; Line column ID, parameters for  _32_show_string routine.
+mov		ah, 0x09      ; Color attributes.
 call	_32_show_string
 
 popad
 popf
 
-jmp		Task_B_Selector:0   ; Goto Task B
+call	dword Task_B_Selector:0   ; Goto Task B
 
 Task_A_MSG: db '[Task A]: Hello, I am Task A, Now goto Task B.', 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;     
 %include "common_macro.asm"
 %include "..\MyMiniLibrary\show_string\_32_show_string.asm"
 

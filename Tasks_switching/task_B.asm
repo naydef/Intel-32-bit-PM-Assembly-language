@@ -20,9 +20,9 @@ pushad
 mov		eax, Ring0FlatData
 mov		ds, eax
 mov		es, eax
-mov		esi, Task_B_MSG + 0x0007_0000 ; True Address = Base + Offset
-mov		edi, 0x000B_8000
-mov		edx, 0x0000_0612
+mov		esi, Task_B_MSG + phy_address_Task_B_base
+mov		edi, phy_address_video_buffer_head
+mov		edx, 0612
 mov		ah, 0x0D
 call	_32_show_string
 

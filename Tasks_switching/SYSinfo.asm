@@ -43,13 +43,13 @@ Task_A_TSS_Head:
 	Task_A_SS2_selector:           dw  0
                                    dw  0 ; Reserved.
 	Task_A_CR3_Reg:                dd  0
-	Task_A_EIP_Reg:                dd  0x0005_0000
+	Task_A_EIP_Reg:                dd  phy_address_Task_A_base
 	Task_A_EFLAGS:                 dd  0
 	Task_A_EAX_Reg:                dd  0
 	Task_A_ECX_Reg:                dd  0
 	Task_A_EDX_Reg:                dd  0
 	Task_A_EBX_Reg:                dd  0
-	Task_A_ESP_Reg:                dd  0x0007_0000 ; Empty Stack, Range:0x0006_0000 ~ 0x0006_ffff
+	Task_A_ESP_Reg:                dd  phy_address_Task_A_empty_stack_esp
 	Task_A_EBP_Reg:                dd  0
 	Task_A_ESI_Reg:                dd  0
 	Task_A_EDI_Reg:                dd  0
@@ -90,13 +90,13 @@ Task_B_TSS_Head:
 	Task_B_SS2_selector:           dw  0
                                    dw  0 ; Reserved.
 	Task_B_CR3_Reg:                dd  0
-	Task_B_EIP_Reg:                dd  0x0007_0000
+	Task_B_EIP_Reg:                dd  phy_address_Task_B_base
 	Task_B_EFLAGS:                 dd  0
 	Task_B_EAX_Reg:                dd  0
 	Task_B_ECX_Reg:                dd  0
 	Task_B_EDX_Reg:                dd  0
 	Task_B_EBX_Reg:                dd  0
-	Task_B_ESP_Reg:                dd  0x0009_0000 ; Empty Stack, Range:0x0008_0000 ~ 0x0008_ffff
+	Task_B_ESP_Reg:                dd  phy_address_Task_B_empty_stack_esp
 	Task_B_EBP_Reg:                dd  0
 	Task_B_ESI_Reg:                dd  0
 	Task_B_EDI_Reg:                dd  0
@@ -135,13 +135,13 @@ Kernel_Task_head:
 	Kernel_SS2_selector:           dw  0
                                    dw  0 ; Reserved.
 	Kernel_CR3_Reg:                dd  0
-	Kernel_EIP_Reg:                dd  0x0002_0000
+	Kernel_EIP_Reg:                dd  phy_address_kernel_base
 	Kernel_EFLAGS:                 dd  0
 	Kernel_EAX_Reg:                dd  0
 	Kernel_ECX_Reg:                dd  0
 	Kernel_EDX_Reg:                dd  0
 	Kernel_EBX_Reg:                dd  0
-	Kernel_ESP_Reg:                dd  0x0005_0000 ; Empty Stack, Range:0x0008_0000 ~ 0x0008_ffff
+	Kernel_ESP_Reg:                dd  phy_address_kernel_empty_stack_esp
 	Kernel_EBP_Reg:                dd  0
 	Kernel_ESI_Reg:                dd  0
 	Kernel_EDI_Reg:                dd  0
