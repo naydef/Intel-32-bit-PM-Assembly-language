@@ -1,0 +1,96 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page61.html">上一页</a> <a href="page63.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-62-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td>
+<td colspan=15>
+调　用：INT 21H<br>
+返　回：无
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　批处理文件（.BAT）中常见象"IF ERRORLEVEL 4 GOTO END"这样的语句。其中的"ERRORLEVEL"就是刚运行过的程序通过4CH功能返回给DOS的错误码。这个错误码不仅可用于批处理，而且也可用于其它程序。程序可以通过DOS提供的"4DH"功能取到上一个程序留下的错误码来判断上一个程序执行的情况。关于这方面更多的知识这里不作详细介绍，可查阅有关书籍。现在只需知道这个功能可以十分轻松地结束进程就可以了。<br>
+　　MUSIC程序并未返回什么有实际意义的错误码，因为没有必要。图4－3是这个程序对应的流程图，在数据段中我们定义了三个表：FREQ表中定义了休止符、中音C－B各音符对应的N值；NOTE表中定义了乐谱，我们用数字0表示休止符，用1－7表示C－B，这样做的目的是便于用这些数字作为指针在FREQ表中找到N值。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align="center"><img src="figures/F4_4.gif"><br><font face="楷体_GB2312">图4-3 MUSIC程序流程图</font></td>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　DL_TIME表中定义了每个音符的节拍，我们用220Ms作为一个四分音符的发音时间，对应时钟计数值为4，这使得乐曲听起来比正常的要快一些。那么程序是如何以"音符"作为指针寻找对应N值的呢？
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page61.html">上一页</a> <a href="page63.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

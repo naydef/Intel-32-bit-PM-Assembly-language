@@ -1,0 +1,191 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page176.html">上一页</a> <a href="page178.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-177-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+POSITION<br>
+CUR_REC<br>
+REL_REC<br>
+<br>
+ERRMSG<br>
+DATA
+</td>
+<td colspan=2>
+DB<br>
+DB<br>
+DW<br>
+<br>
+DB<br>
+ENDS
+</td>
+<td colspan=5>
+10 DUP(?)<br>
+?<br>
+2 DUP(?)<br>
+<br>
+'Error',0DH,0AH,24H<br>
+<br>
+</td>
+<td colspan=9>
+；保留空间，由系统填入<br>
+；当前记录号<br>
+；相对记录号<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　运行这个程序，然后用DEL命令删除新建的CONFIG.SYS，看看有何结果。利用ATTRIB命令查一下这个文件，看看它是否具有"只读"属性。<br>
+　　打开与建立只是对文件作进一步处理的准备工作，对文件的读写操作才称得上是真正的文件处理。下面我们就来讨论DOS提供的文件读写功能。<br>
+　　利用FCB完成对文件的访问时，DOS一共提供了三类文件读写功能，第一类称为"顺序读写"，第二类称为"随机读写"，还有一类称为"随机块读写"。这三种功能各具特色，我们现在先讨论第一种方法--顺序读写。<br>
+　　观察FCB的结构，可以看到这样两个数据，第一个是位于FCB偏移0CH处的一个字，这个字指示了当前要处理的记录块号；另一个是位于FCB偏移20H的一个字节，这个字节指示了当前要处理的记录号。所谓顺序读写，指得就是在调用DOS的功能之前首先设置好这两个数据，DOS依靠这两个数据完成读写操作。我们现在来看这个功能的具体用法：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：14H<br>
+用　途：顺序读文件<br>
+参　数：DS：DX指向打开的FCB<br>
+调　用：INT 21H<br>
+返　回：AL = 0  读成功<br>
+　　　　AL = 1  未读入数据，已经到了文件末尾<br>
+　　　　AL = 2  数据传输区超界<br>
+　　　　AL = 3  读入数据不足一个记录已到文件末尾
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个功能返回的信息较多，我们先来看看它是如何应用的。请看下例：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+FCB4.ASM<br>
+<br>
+; 数据段定义与程序FCB1.ASM相同,在此省略<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CODE<br>
+<br>
+MAIN<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+SEGMENT<br>
+ASSUME<br>
+PROC<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT
+</td>
+<td colspan=5>
+<br>
+CS:CODE<br>
+FAR<br>
+AX,DATA<br>
+DS,AX<br>
+<br>
+DX,OFFSET MY_FCB<br>
+AH,0FH<br>
+21H
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+；DX寄存器指向未打开的FCB<br>
+；打开一个文件<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page176.html">上一页</a> <a href="page178.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

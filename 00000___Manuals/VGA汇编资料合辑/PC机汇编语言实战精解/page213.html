@@ -1,0 +1,156 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page212.html">上一页</a> <a href="page214.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-213-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+disp<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+bx<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；恢复BX寄存器<br>
+；返回主过程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序中出现了一个新指令--XCHG，这个指令用于将两个数据的位置进行交换：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：XCHG（Exchange）<br>
+用　途：将两个寄存器或寄存器与存储器中的数据互换。<br>
+格　式：XCHG 寄存器，寄存器<br>
+　　　　XCHG 寄存器，存储单元<br>
+　　　　XCHG 存储单元，寄存器<br>
+执　行：寄存器之间或寄存器与存储单元中的数据交换了位置。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　STARMAP是一个很有趣的程序，出现在屏幕上那些"星号"组成了一个个特殊的符号，大家可以试着使用UCDOS或其它汉字系统的"区位"输入法从区位码"0000"开始输入汉字，再和这个程序输出的"星图"作一对比，就会发现"有趣"之处。<br>
+　　这个程序所揭示的不仅仅是有关读取文件内容的方法，还有一个很重要的知识点。这个知识点将在下一章详细加以讨论。我们现在主要来讨论有关文件的内容。<br>
+　　3FH功能用于从文件中读取数据，使用这个功能时只需将被操作的文件所对应的句柄填入BX寄存器即可。同利用FCB的那些功能相比，它具有这样一些特点：<br>
+<font face="楷体_GB2312">
+　　（1）DS：DX寄存器指向一个预先定义的缓冲区，读入的数据将保存在这个缓冲区中。句柄功能不采用定义DTA的方式保存数据，这给程序的设计带来了一些灵活性，比如我们可以将文件读到内存中任意一个位置，只需变变DS：DX的指向即可，无需反复调用系统功能定义DTA。当然采用这种方法也有不太尽人意的地方，它不象定义DTA那样可以一劳永逸，你必须时刻注意DS:DX的指向。<br>
+　　（2）每次读入的字节数可在CX寄存器中任意设定，最多64K字节。这一点告诉我们需要改变对文件的看法，不能再将文件看成是由记录块和记录所构成，而应将其看作是一串"字节流"。我们可以存取其中任意长度的数据串。<br>
+　　（3）每次执行读取功能后DOS会把实际读入的字节数通过AX寄存器返回，所以一旦AX寄存器返回的数据小于CX寄存器中设定的数值，则说明已读完了所有的数据。<br>
+　　（4）3FH功能能否使用还要取决于打开文件时所设定的存取方式。如果你设定AX寄存器为3D01H打开一个文件，那么对不起，你无法使用3FH功能从这个文件中读取任何内容，因为这个文件是为了写入而打开的。最后一点就是出错处理处理问题，一个样，利用JC/JNC指令依CF标志的状态进行转移即可。<br>
+</font>
+　　这些特点说起来挺多，其实大家只需用DEBUG跟踪一下这个程序就全明白了。<br>
+　　下面这个程序例演示了文件写入功能的应用方法，请大家注意一下这个程序是依据什么来判断文件中所有数据都处理完毕的：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+DUP.ASM<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+data
+</td>
+<td colspan=2>
+segment
+</td>
+<td colspan=5>
+</td>
+<td colspan=9>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page212.html">上一页</a> <a href="page214.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

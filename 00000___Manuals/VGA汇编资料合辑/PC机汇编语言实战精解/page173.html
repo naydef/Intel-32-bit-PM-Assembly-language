@@ -1,0 +1,173 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page172.html">上一页</a> <a href="page174.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-173-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在这个FCB中我需要提醒大家注意这样一个问题那就是填写文件名与扩展名时不要使用这个字符--"\"。利用FCB只能处理"当前目录"下的文件，所以你不能使用"路径名"。至于分割文件名与扩展名的那个句点也是不需要的。特别要记住，文件名在FCB中占据了8个字节空间，如果填入的文件名不足8个字节要用空格补齐。<br>
+　　有了FCB的知识，我们现在就可以开始学习系统功能调用了。我们要学的第一个功能就是"打开文件"，这要使用21H中断的0FH功能：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align=center><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：0FH<br>
+用　途：打开指定的文件供存取处理。<br>
+参　数：DS：DX＝未打开FCB的段：偏移地址<br>
+调　用：INT 21H<br>
+返　回：AL＝00H<br>
+　　　　　　驱动器号：填入实际驱动器号<br>
+　　　　当前记录块号：00H<br>
+　　　　　　记录长度：0080H<br>
+　　　　　　文件长度：目录项的文件长度数值<br>
+　　　　　　建立日期：目录项的建立日期<br>
+　　　　　　建立时间：目录项的建立时间
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　使用这个功能之前我们需要让DS:DX指向一个未打开的FCB，在这个FCB中已经填好了驱动器号，文件及扩展名这三部分信息，然后调用0FH功能即可打开文件。如果DOS确实找到了所要打开的文件那么它会在AL寄存器中返回00H，并且DOS会自动填好FCB中那些由它负责的数据。如果它没有找到指定的文件，那么DOS会在AL寄存器中返回-1表示出现了错误。请看下面这个程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+FCB1.ASM<br>
+DATA<br>
+<br>
+MY_FCB<br>
+DRIVE<br>
+FILE_NAME<br>
+EXT_NAME<br>
+CUR_BLOCK<br>
+REC_SIZE<br>
+FILE_SIZE<br>
+CREA_DATE<br>
+POSITION<br>
+CUR_REC<br>
+REL_REC<br>
+ERRMSG<br>
+DATA
+</td>
+<td colspan=2>
+<br>
+SEGMENT<br>
+ASSUME<br>
+LABEL<br>
+DB<br>
+DB<br>
+DB<br>
+DW<br>
+DW<br>
+DW<br>
+DW<br>
+DB<br>
+DB<br>
+DW<br>
+DB<br>
+ENDS
+</td>
+<td colspan=5>
+<br>
+<br>
+DS:DATA<br>
+BYTE<br>
+0<br>
+'CONFIG  '<br>
+'SYS'<br>
+?<br>
+?<br>
+2 DUP(?)<br>
+?<br>
+10 DUP(?)<br>
+?<br>
+2 DUP(?)<br>
+'Error',0DH,0AH,24H<br>
+<br>
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+；驱动器号，0：当前  1：A  2：B  ...<br>
+；文件名<br>
+；扩展名<br>
+；当前记录块号<br>
+；记录长度<br>
+；文件长度，由系统填入<br>
+；建立或最后修改的日期，由系统填入<br>
+；保留空间，由系统填入<br>
+；当前记录号<br>
+；相对记录号<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page172.html">上一页</a> <a href="page174.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page198.html">上一页</a> <a href="page200.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-199-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><img src="figures/F7_4.gif"><br><font face="楷体_GB2312">图7-3 特殊的FCB结构</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　可以看到和标准的FCB相比这个新的FCB主要是对偏移11H后作了改进，很显然，既然要改名，总要给出一个新的文件名才行，这个新文件名就填在FCB偏移11H处。第二我们要讨论一下究竟什么文件可以删除。我们平常使用DOS时都知道只读文件或隐含文件是不能删除的，那么使用13H功能删除文件时也要遵守这个规矩。同样，若不使用扩展FCB，那么卷标、子目录也不能用此功能删除，这个功能唯一能删除的就是那些普通的文件。第三，我们平常使用DOS时都知道DEL命令可以一次删除一批文件，也就是使用"*"或"?"，我们习惯上称这两个符号为通配符。13H功能同样支持通配符，也就是说你在FCB中填入的文件名可以是"*.*"或"FILE.???"这样的字符串。当然，使用通配符是有条件的，并非所有的DOS版本都支持通配符，2.1版仅支持"."，3.0以上版才支持"*"。考虑到现在所使用的DOS版本都在3.3以上，所以大家可以不必判断DOS版本而放心使用通配符。<br>
+　　下面这两个程序演示了这两个功能的使用方法，对于我们平时编制程序来讲，这两个功能其实并不常用，所以大家对它们的用法有些印象也就可以了，不必深究。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CHANAME.<br>
+DATA<br>
+<br>
+FCB1<br>
+DRIVE1<br>
+OLD_NAME<br>
+OLD_EXT<br>
+<br>
+NEW_NAME<br>
+NEW_EXT<br>
+MSG<br>
+DATA<br>
+<br>
+CODE<br>
+<br>
+MAIN<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+ASM<br>
+SEGMENT<br>
+ASSUME<br>
+LABEL<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ENDS<br>
+<br>
+SEGMENT<br>
+ASSUME<br>
+PROC<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT
+</td>
+<td colspan=5>
+<br>
+<br>
+DS:DATA<br>
+BYTE<br>
+DB 0<br>
+DB 'CONFIG  '<br>
+DB 'SYS'<br>
+DB 5 DUP(0)<br>
+DB 'ABCDEFGH'<br>
+DB 'LCS'<br>
+DB 'OK!!!',0DH,0AH,24H<br>
+<br>
+<br>
+<br>
+CS:CODE<br>
+FAR<br>
+AX,DATA<br>
+DS,AX<br>
+<br>
+AH,17H<br>
+DX,OFFSET FCB1<br>
+21H
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+；驱动器号，0：当前  1：A  2：B  ...<br>
+；文件原名<br>
+；原扩展名<br>
+<br>
+；新文件名<br>
+；新扩展名<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；选择DOS的17H功能<br>
+；DX指向特殊的FCB<br>
+；将文件改名
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page198.html">上一页</a> <a href="page200.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

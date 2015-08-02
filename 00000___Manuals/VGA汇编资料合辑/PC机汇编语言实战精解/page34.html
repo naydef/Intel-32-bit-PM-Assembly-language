@@ -1,0 +1,151 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page33.html">上一页</a> <a href="page35.html">下一页</a> <a href="page45.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-34-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=6>
+09FE:0114 mov dl,[bx+102]<br>
+09FE:0118 cmp dl,0<br>
+09FE:011B jz 124<br>
+09FE:011D mov ah,2<br>
+09FE:011F int 21<br>
+09FE:0121 inc bx<br>
+09FE:0122 jmp 114<br>
+09FE:0124 int 20
+</td>
+
+<td colspan=10>
+；DL寄存器置入字符H的ASCII码<br>
+；取到的字符是0码<br>
+；如果是0，说明已到字符串结尾，此时转0124H<br>
+；未到字符串结尾，则选择DOS API的02H功能<br>
+；调用21H中断，将DL中的字符显示出来<br>
+；BX寄存器指向下一个字符<br>
+；返回0114H继续处理下一个字符<br>
+；结束处理，返回DOS
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=6>09FE:0126 [Enter]</td><td colspan=10></td>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　PROG3－A中出现了一些新的"面孔"，下面分别引见给大家：<br>
+（1）伪指令<br>
+　　当使用DEBUG编制汇编程序时，摆在程序员面前的不仅仅是需要由程序控制的计算机硬件，同时还有为我们提供服务的软件--DEBUG。所以我们通过键盘输入的不但有控制硬件动作的"指令"（MOV、JMP），还有要求DEBUG给与帮助的"命令"（A、RBX）。而"伪指令"恰好是"指令"与"命令"的结合体。<br>
+　　从应用形式上看，它是和指令写在一起的，而不象DEBUG的命令那样打在提示符后；然而它的作用却和"命令"一样，要求DEBUG为我们做事情。也就是说CPU并不真正执行它，而执行它的是DEBUG。<br>
+　　现在我们来讨论出现在程序中的第一个伪指令──DB。
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td>
+<td colspan=3 align="center"><img src="icons/attention.gif"></td>
+<td colspan=15><FONT FACE="楷体_GB2312" LANG="ZH-CN" SIZE=3>
+　　DB（Define Byte）的作用是命令DEBUG将给出的数据放入内存中。数据有两种形式──字符和数字，如果我们需要DEBUG把一些字符的ASCII码放入内存，则可以在这些字符两侧加上单引号，置于DB之后，如DB 'ABCD'；如果需要DEBUG把一些16进制数字放入内存，则只需在DB后打出这些数字即可，如DB 'A'，42，43，44。要注意的是字符与数字，数字与数字之间的逗号不可丢掉。<br>
+　　所有数据在内存中都是连续存放的，DB前面的逻辑地址（09FE：0102）就是这一串数据的"首地址"。DB后面指令的逻辑地址由DEBUG自动算出。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+（2）数据比较指令<br>
+　　在PROG3－A中，我们用数字0表示字符串结束，因此在输出字符时，只要判断取到DL中的数据是否为0，即可知道是否已经输出了所有的字符。程序中使用了两条指令完成判断工作，第一条是：
+
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：CMP（Compare）<br>
+用　途：比较两个数据的大小<br>
+格　式：CMP  寄存器，立即数<br>
+　　　　CMP  寄存器，寄存器<br>
+　　　　CMP  寄存器，存储单元<br>
+　　　　CMP  存储单元，寄存器<br>
+　　　　CMP  存储单元，立即数<br>
+执　行：CPU将两个待比较的数据做一次减法，结果不保留，但"后果"由标<br>
+　　　　志寄存器记录。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　使用CMP指令时要注意这样一点，就是相比较的两个数据位宽要一致，即8位寄存器只能
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page33.html">上一页</a> <a href="page35.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>
+

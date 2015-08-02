@@ -1,0 +1,252 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子过程和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page107.html">上一页</a> <a href="page109.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-108-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序首先在给定字符串中寻找子串的第一个字符，找到后将后面的字符与子串进行比较，若后面的字符均相同则输出首字符的偏移量；否则继续在剩余的字符中寻找。找到第一个子串后程序并未结束，而是继续在源字符串中搜索，直至整个字符串全部搜索完毕。不难看出这个程序的结构不很理想，我们用了许多的转移指令，使程序的流程显得比较混乱。那么用串处理指令能否使程序得以简化呢？请看下面的程序：<br>
+SCHSTR1.ASM
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+data<br>
+<br>
+string<br>
+substrg<br>
+ascii<br>
+data<br>
+<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+next_char:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+out_di:<br>
+<br>
+<br>
+<br>
+outloop:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+segment<br>
+assume<br>
+db'The sa<br>
+db'sunshi<br>
+db'012345<br>
+ends<br>
+<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+cmp<br>
+jz<br>
+push<br>
+mov<br>
+mov<br>
+repz<br>
+pop<br>
+jcxz<br>
+inc<br>
+jmp<br>
+mov<br>
+sub<br>
+mov<br>
+mov<br>
+rol<br>
+rol<br>
+rol<br>
+rol<br>
+push<br>
+and<br>
+xlat
+</td>
+<td colspan=5>
+<br>
+ds:data<br>
+me sunshine is presente<br>
+ne'<br>
+6789ABCDEF'<br>
+<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+es,ax<br>
+di,offset string<br>
+<br>
+byte ptr [di],0<br>
+exit<br>
+di<br>
+si,offset substrg<br>
+cx,8<br>
+cmpsb<br>
+di<br>
+out_di<br>
+di<br>
+next_char<br>
+ax,di<br>
+ax,offset string<br>
+bx,offset ascii<br>
+cx,4<br>
+ax,1<br>
+ax,1<br>
+ax,1<br>
+ax,1<br>
+ax<br>
+ax,000fh<br>
+<br>
+</td>
+<td colspan=9>
+<br>
+<br>
+d to all those who love sunshine',0<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化DS、ES寄存器指向数据段<br>
+<br>
+<br>
+；DI寄存器指向源字符串<br>
+<br>
+；DI寄存器指向源字符串末尾了吗？<br>
+；若DI寄存器已指向末尾则结束程序<br>
+；暂存DI寄存器<br>
+；SI寄存器指向待查字符串<br>
+；比较8个字符<br>
+；将待查字符串与DI指向的8个字符相比<br>
+；恢复DI寄存器<br>
+；若8个字符均相同则输出DI寄存器的指针<br>
+；DI寄存器指向下一个字符<br>
+；转NEXT_CHAR继续比较<br>
+；DI寄存器中的指针送入AX寄存器<br>
+；计算待查字符串在源串中的偏移位置<br>
+；BX寄存器指向ASCII表<br>
+；输出4个数位<br>
+；AL寄存器循环左移4位<br>
+；暂存AX寄存器<br>
+<br>
+<br>
+<br>
+；保留AX寄存器的低4位<br>
+；取得对应的ASCII码
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page107.html">上一页</a> <a href="page109.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>

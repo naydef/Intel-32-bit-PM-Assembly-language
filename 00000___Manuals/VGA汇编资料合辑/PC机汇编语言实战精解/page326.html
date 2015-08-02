@@ -1,0 +1,111 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page325.html">上一页</a> <a href="page327.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-326-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+</td>
+<td colspan=2>
+MOV<br>
+......
+</td>
+<td colspan=6>
+DX,WORD PTR ES:TIMER<br>
+<br>
+</td>
+<td colspan=8>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="楷体_GB2312">
+　　STACK： 指定该段运行时作为堆栈段的一部分。<br>
+　　MEMORY：指定该段在所有连接在一起的段的前面（高地址方向为"前"）。如果连接时遇到多个MEMORY段，则第一个作为MEMORY段，后面的都作为COMMON段。<br>
+</font>
+　　至于段的类别指得是连接时用于组成段组的名字。在前面给出的TEST程序例中，两个模块的数据段的组合类型均为"PUBLIC"，段名均为"DATA"，类别都是"DATSEG"，这样的两个段在连接时会被LINK程序组织在一起共同一个段地址，各个数据的偏移地址都会自动处理好。这样只需在主模块TEST1中设置DS寄存器即可，在TEST2中无需再设置DS。<br>
+　　但是如果这两个数据段段名不同或类别不同，那么这两个段虽然也会被组织在一起，但是两个段不能使用同一个段地址，这样一来就不得不在两个模块中各自设置自己的DS段寄存器。<br>
+　　"SEGMENT"伪指令在模块化程序设计技术中的应用重点主要是"组合类型"这部分内容，模块化程序设计的另一个重点就是不同的模块之间如何相互调用以及如何共享数据。这部分内容主要应用的伪指令有两个：EXTRN和PUBLIC。<br>
+　　·EXTRN <br>
+　　当一个模块需要调用其它模块中的子程序或者需要使用其它模块中的数据，那么首先要使用这个伪指令说明调用的子程序或引用的数据是"外部的（External）"。这个伪指令的用法很简单，如果用于说明所调用的子过程，就应该写成：<br>
+<font face="楷体_GB2312">
+　　EXTRN  过程名：属性<br>
+</font>
+　　这里的属性是指"近程"（NEAR）或"远程"（FAR）。<br>
+　　如果用于说明所引用的数据，则应写成：<br>
+<font face="楷体_GB2312">
+　　EXTRN  数据标号：类型<br>
+</font>
+　　类型指得是"BYTE"（字节）或"WORD"（字）。<br>
+　　在给出的示例程序中，TEST1模块要调用TEST2模块中的"HEX2ASC"子过程，因此在TEST1中就有一行"EXTRN HEX2ASC：FAR"，这一行说明了"HEX2ASC"子过程是在其它模块中，这样编译程序就不会因为在TEST1中找不到"HEX2ASC"子过程而显示出错信息了。<br>
+　　·PUBLIC<br>
+　　并非一个模块中所有的数据与子过程都可以由其它模块调用或引用，如果某个模块中的数据或子过程确实允许其它模块使用，那么这样的数据与子过程应该使用"PUBLIC"伪指令进行说明，格式为：<br>
+<font face="楷体_GB2312">
+　　PUBLIC  过程名（或数据标号）<br>
+</font>
+　　这里的"PUBLIC"伪指令与组合类型中的"PUBLIC"不是一回事，大家不可以将其混为一谈。<br>
+　　应用"EXTRN"与"PUBLIC"伪指令就可以方便的使不同的模块共享数据与子过程，不过这还不是唯一的方法。对于"共享数据"这个问题而言还有另一种方法就是使用组合类型为"COMMON"的段。请看下面给出的例子：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page325.html">上一页</a> <a href="page327.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

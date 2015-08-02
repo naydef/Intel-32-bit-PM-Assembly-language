@@ -1,0 +1,233 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page192.html">上一页</a> <a href="page194.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-193-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+MAIN<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+SET_REC:<br>
+<br>
+<br>
+READ_REC:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+WRITE:<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+PROC<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+MOV<br>
+DEC<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JZ<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JZ<br>
+JMP<br>
+<br>
+MOV<br>
+DEC
+</td>
+<td colspan=5>
+FAR<br>
+AX,DATA<br>
+DS,AX<br>
+<br>
+AH,0FH<br>
+DX,OFFSET FCB1<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+BX,DX<br>
+WORD PTR [BX+0EH],1<br>
+AX,WORD PTR [BX+10H]<br>
+AX<br>
+WORD PTR [BX+21H],AX<br>
+<br>
+AH,0FH<br>
+DX,OFFSET FCB2<br>
+21H<br>
+AL,AL<br>
+SET_REC<br>
+<br>
+AH,16H<br>
+DX,OFFSET FCB2<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+BX,DX<br>
+WORD PTR [BX+0EH],1<br>
+<br>
+AH,21H<br>
+DX,OFFSET FCB1<br>
+21H<br>
+AL,AL<br>
+WRITE<br>
+ERR_EXIT<br>
+<br>
+BX,DX<br>
+WORD PTR [BX+21H]
+</td>
+<td colspan=9>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+；打开"源文件"<br>
+<br>
+<br>
+；文件正确打开了吗？<br>
+；文件没有正确打开，转ERR_EXIT<br>
+<br>
+；BX指向FCB1<br>
+；设置记录长度为1字节<br>
+；AX寄存器取得文件长度低字<br>
+；文件长度-1<br>
+；将AX寄存器填入FCB1的"相对记录号"域<br>
+<br>
+；打开"目标文件"<br>
+<br>
+<br>
+；打开操作正确吗？<br>
+；正确打开文件，转SET_REC<br>
+<br>
+；建立"目标文件"<br>
+<br>
+<br>
+；文件正确建立了吗？<br>
+；文件没有正确建立，转ERR_EXIT<br>
+<br>
+；BX指向FCB2<br>
+；设置FCB2的记录长度为1字节<br>
+<br>
+；从"源文件"中随机读一个记录<br>
+<br>
+<br>
+；数据读取正确吗？<br>
+；正确读入数据，转WRITE<br>
+；没有正确读入数据，转ERR_EXIT<br>
+<br>
+；BX寄存器指向FCB1<br>
+；FCB1的"随机记录号"减1
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page192.html">上一页</a> <a href="page194.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

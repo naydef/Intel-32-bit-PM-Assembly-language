@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page117.html">上一页</a> <a href="page119.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-118-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+的分辨率为640x350点，标准VGA卡的最大分辨率为640x480点，一些新型的兼容VGA卡可提供最大为1024x768点的分辨率，还有一些专为CAD系统设计的显示卡最大分辨率可达1600x1200点，甚至更高。当然要想使用这样高的分辨率还需要与显示卡相匹配的显示器才行。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align="center"><img src="figures/F6_1.gif"><br><font face="楷体_GB2312">图6-1 图形与字符的组成</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　构成图形和文字的另一个要素就是颜色，因此衡量显示系统性能时还常用"颜色分辨率"的概念。所谓颜色分辨率指得是显示系统可同时显示出的颜色数量。CGA卡在显示文字时最多同时显示16种颜色，显示图形时最多同时显示4种颜色。而EGA卡显示图形时最多有16种颜色，VGA卡最多有256种，新型的显示卡有64K种或16.7M种颜色。<br>
+　　这里有必要谈一下颜色究竟如何产生的。稍有美术基础的读者都清楚调色的原理，我们用红、黄、蓝三种颜色可以调配出很多种不同的色彩，计算机产生颜色也是应用这个道理。我们在前面谈到过显示器的核心是CRT--阴极射线管，下面这个图反映了CRT的基本结构：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align="center"><img src="figures/F6_2.gif"><br><font face="楷体_GB2312">图6-2 CRT内部基本结构</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　CRT内部有三个电子枪，它们用于产生电子束轰击涂在荧光屏上的荧光粉。屏幕上涂敷的荧光粉有三种，在电子束的轰击下分别产生红、绿、蓝三种色彩，一般把这三种色彩简称为R、G、B。<br>
+　　屏幕上每个点都由三种荧光粉组成。打开蓝色电子枪，被轰击的点的颜色就是蓝色；同时打开蓝色和绿色电子枪，被轰击的点的颜色就是蓝＋绿＝青色；若三个电子枪均打开，那么点的颜色就是白色。<br>
+　　如果改变了加在电子枪上的信号电压，那么电子束的强度就会改变，这使得荧光粉发出的光强度也发生变化，从而使彩色点的亮度随之改变。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page117.html">上一页</a> <a href="page119.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

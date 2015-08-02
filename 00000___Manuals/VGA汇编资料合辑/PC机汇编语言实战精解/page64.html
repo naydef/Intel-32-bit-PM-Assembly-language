@@ -1,0 +1,244 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page63.html">上一页</a> <a href="page65.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-64-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td>
+<td colspan=2>
+0A53:0036<br>
+0A53:0038<br>
+0A53:003A<br>
+0A53:003C<br>
+0A53:003E<br>
+0A53:0040<br>
+0A53:0042<br>
+0A53:0044<br>
+0A53:0046<br>
+0A53:0047<br>
+0A53:004C<br>
+0A53:004E<br>
+0A53:0050
+</td>
+<td colspan=2>
+8BD8<br>
+B400<br>
+CD1A<br>
+3BDA<br>
+75F8<br>
+E461<br>
+24FC<br>
+E661<br>
+5B<br>
+80BF1200FF<br>
+75BE<br>
+B44C<br>
+CD21
+</td>
+<td colspan=2>
+MOV<br>
+MOV<br>
+INT<br>
+CMP<br>
+JNZ<br>
+IN<br>
+AND<br>
+OUT<br>
+POP<br>
+CMP<br>
+JNZ<br>
+MOV<br>
+INT
+</td>
+<td colspan=10>
+BX,AX<br>
+AH,00<br>
+1A<br>
+BX,DX<br>
+0038<br>
+AL,61<br>
+AL,FC<br>
+61,AL<br>
+BX<br>
+BYTE PTR  [BX+0012],FF<br>
+000C<br>
+AH,4C<br>
+21
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td>
+<td colspan=2>
+-da4e:0<br>
+0A4E:0000<br>
+0A4E:0010<br>
+0A4E:0020<br>
+0A4E:0030<br>
+0A4E:0040
+</td>
+<td colspan=10>
+<br>
+00 00 C8 11 BD 0F 21 0E-57 0D E2 0B 96 0A 6F 09<br>
+E7 08 03 02 01 02 03 03-03 02 02 02 03 05 05 03<br>
+02 01 02 03 03 03 03 02-02 03 02 01 FF 04 04 04<br>
+04 04 04 08 04 04 08 04-04 08 04 04 04 04 04 04<br>
+04 04 04 04 04 04 08 00-00 00 00 00 00 00 00 00
+</td>
+<td colspan=4>
+<br>
+......!.W.....o.<br>
+................<br>
+................<br>
+................<br>
+................
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　仔细阅读反汇编出来的程序，可以看到CMP指令的反汇编结果和源程序有很大的不同：其一，源程序中并没有"BYTE PTR"，这样的文字；其二，"-1"居然成了"FF"，难道"-1＝255"吗？<br>
+　　在回答这两个问题之前，我们先将下面给出的程序编译成COM文件：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td>
+<td colspan=2>
+TEMP.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+msg<br>
+crlf<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+dw<br>
+mov<br>
+mov<br>
+int<br>
+mov<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+int<br>
+</td>
+<td colspan=4>
+<br><br>
+cs:code<br>
+100h<br>
+far<br>
+short start<br>
+'Hello,World!',24h<br>
+0d0ah<br>
+ah,9<br>
+dx,offset msg<br>
+21h<br>
+ah,2<br>
+dl,crlf<br>
+21h<br>
+dl,crlf+1<br>
+21h<br>
+20h<br>
+</td>
+<td colspan=8>
+<br><br><br><br><br>
+；跳过数据区<br>
+；定义一个字符串<br>
+；定义回车、换行符<br>
+；选择DOS API的09H功能<br>
+；设置DX寄存器指向字符串首地址<br>
+；显示字符串<br>
+；选择DOS API的02H功能<br>
+；取得ASCII码0AH<br>
+；显示换行符<br>
+；取得ASCII码0DH<br>
+；显示回车符<br>
+；结束程序<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page63.html">上一页</a> <a href="page65.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

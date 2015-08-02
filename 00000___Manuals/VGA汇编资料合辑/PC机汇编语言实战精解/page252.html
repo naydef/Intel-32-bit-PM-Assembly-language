@@ -1,0 +1,174 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page251.html">上一页</a> <a href="page253.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-252-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+点就更麻烦一些，当2ΔY'+ΔY'+2ΔY'-2ΔX'>ΔX'时其ΔY值是大于1/2的。从这样一个判断的过程中我们能近一步发现在计算ΔY时真正需要累加的既不是"K"，也不是"ΔY'"，而是"2ΔY'"。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><img src="figures/F9_5.gif"><br><font face="楷体_GB2312">图9-5 决定最近点的算法</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　对于图中这条直线，线上各点有如表9-2这样的计算结果：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>表9-2 决定最近点的计算实例</td><td colspan=9 align=right>ΔY'=2，ΔX'=5，2ΔY'=4，2ΔX'=10</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>点</td><td colspan=4 align=center>2ΔY'的累加值</td><td colspan=4 align=center>累加值与ΔX'比较</td><td colspan=4 align=center>实际点的坐标值</td><td colspan=4 align=center>累加值调整</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>A</td><td colspan=4 align=center>0</td><td colspan=4 align=center></td><td colspan=4 align=center>(0,0)</td><td colspan=4 align=center></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>B</td><td colspan=4 align=center>0+4=4</td><td colspan=4 align=center>4<5</td><td colspan=4 align=center>(1,0)</td><td colspan=4 align=center></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>C</td><td colspan=4 align=center>4+4=8</td><td colspan=4 align=center>8>5</td><td colspan=4 align=center>(2,1)</td><td colspan=4 align=center>8-10=-2</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>D</td><td colspan=4 align=center>-2+4=2</td><td colspan=4 align=center>2<5</td><td colspan=4 align=center>(3,1)</td><td colspan=4 align=center></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>E</td><td colspan=4 align=center>2+4=6</td><td colspan=4 align=center>6>5</td><td colspan=4 align=center>(4,2)</td><td colspan=4 align=center>6-10=-4</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>F</td><td colspan=4 align=center>-4+4=0</td><td colspan=4 align=center>0<5</td><td colspan=4 align=center>(5,2)</td><td colspan=4 align=center></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　通过以上计算，我们清楚地看到当表中第三栏内出现">"时，实际所画点的Y坐标值都加上了1，同时2 Y 的累加值根据2 X 作了相应调整。而在整个过程之中X坐标值始终都是递增的。<br>
+　　这个画线算法是由一位名为Bresenham的程序员首创，因此这个算法被命名为Bresenham算法。因为" 2"的操作可以由左移位代替，所以在这个算法中实际上是没有乘法、除法运算的，因而这个算法十分快速，这是其最突出的优点，也是它长盛不衰的原因。<br>
+　　程序LOVE.ASM演示了Bresenham直线算法的一种应用，这个程序有些复杂，它将屏幕中央连续画6个封闭的多边形，由这些多边形组成一个图案。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+LOVE.ASM<br>
+start_x<br>
+start_y<br>
+data<br>
+assume<br>
+dotbuff<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+equ<br>
+equ<br>
+segment<br>
+ds:data<br>
+dw<br>
+dw
+</td>
+<td colspan=5>
+<br>
+100<br>
+0<br>
+<br>
+<br>
+26h<br>
+48h,09h,42h,0dh,3ch,11h,
+</td>
+<td colspan=9>
+<br>
+；起点X坐标<br>
+；起点Y坐标<br>
+<br>
+<br>
+；第一部分总的点数<br>
+37h,14h,31h,16h,29h,18h,28h,19h,2eh,1ah
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page251.html">上一页</a> <a href="page253.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

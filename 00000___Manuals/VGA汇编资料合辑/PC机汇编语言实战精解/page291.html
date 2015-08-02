@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page290.html">上一页</a> <a href="page292.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-291-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="隶书" lang="ZH-CN" size=6><p align="CENTER">第11章 更高级的技术</p></font>
+<p>
+　　通过前面九章的学习，我们已经掌握了8086/88全部的汇编语言指令，以及PC电脑的一些基本原理，同时还有很多软件方面的知识。不过单凭这样一些东西还不足以成为高水平的程序设计者，掌握更多的资料，学习更多的技术才是通往成功的道路。更多的资料需要大家自己去收集，而学习更多的技术就是本书这最后一章所要献给读者的。
+</p>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="111">11．1 内存驻留程序设计初步</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　提到内存驻留程序想必大家都不陌生，MS-DOS操作系统里就有一些程序是需要驻留内存的，比如SMARTDRV.EXE，还有MSCDEX.EXE。我们使用的一些设备，比如鼠标器，也要有一个驻留内存的驱动程序。这些程序执行之后就留在内存之中，占据一定的内存空间。我们可以利用DOS提供的MEM程序观察到内存中驻留的程序：<br>
+C:\DOS\>MEM/C[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><img src="figures/F11_1.gif"</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这里只给出部分显示的内容，实际显示的内容比上面列出的要多，其它有关扩展内存的内容与本章所要讨论的问题无关。<br>
+　　如何编制驻留内存的程序？有两个问题是必须要解决的：第一是如何让程序老老实实地留在内存之中；第二就是如何让CPU在我们指定的时候能够执行到这个程序。<br>
+　　第一个问题不难解决，DOS为程序设计者单独提供了一个中断用于将程序驻留在内存之中并将系统控制权转移给操作系统。这个中断就是"INT 27H"。<br>
+　　这个中断与INT 10H、INT 21H之类不同，它只有一个功能就是将程序驻留在内存之中。它的应用也很简单，在执行INT 27H之前将需要驻留于内存中的程序长度送入DX寄存器，然后执行INT 27H，此时系统将回到DOS提示符下。请看下面的程序示例TSR.ASM。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page290.html">上一页</a> <a href="page292.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

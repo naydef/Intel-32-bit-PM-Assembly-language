@@ -1,0 +1,137 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>附录A 21H中断功能调用</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page329.html">上一页</a> <a href="page331.html">下一页</a> <a href="page332.html">附录B</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-330-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=17 align=right><font face="黑体">续表</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<table border=1 width=650 frame="box">
+<tr>
+<td width=5%>AH</td><td width=35%>功能</td><td width=30%>调用参数</td><td width=30%>返回参数</td>
+</tr>
+<tr>
+<td width=5%>36</td><td width=35%>取空闲磁盘空间</td><td width=30%>DL=驱动器号<br>0：缺省；1：A；2：B；...</td><td width=30%>成功：AX=每簇扇区数<br>　　　BX=有效簇数<br>　　　CX=每扇区字节数<br>　　　DX=总簇数<br>失败：AX=FFFF</td>
+</tr>
+<tr>
+<td width=5%>38</td><td width=35%>置/取国家信息</td><td width=30%>DS:DX=信息区首地址</td><td width=30%>BX=国家码；AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>39</td><td width=35%>建立子目录</td><td width=30%>DS:DX=ASCIIZ串首地址</td><td width=30%>AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>3A</td><td width=35%>删除子目录</td><td width=30%>DS:DX=ASCIIZ串首地址</td><td width=30%>AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>3B</td><td width=35%>改变当前目录</td><td width=30%>DS:DX=ASCIIZ串首地址</td><td width=30%>AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>3C</td><td width=35%>建立文件</td><td width=30%>DS:DX=ASCIIZ串首地址<br>CX=文件属性</td><td width=30%>成功：AX=文件句柄<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>3D</td><td width=35%>打开文件</td><td width=30%>DS:DX=ASCIIZ串首地址<br>AL=0：读<br>AL=1：写<br>AL=2：读/写</td><td width=30%>成功：AX=文件句柄<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>3E</td><td width=35%>关闭文件</td><td width=30%>BX=文件句柄</td><td width=30%>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>3F</td><td width=35%>读文件或设备</td><td width=30%>BX=文件句柄<br>DS:DX=缓冲区首<br>CX=读取的字节数</td><td width=30%>成功：AX=实际读入的字节数<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>40</td><td width=35%>写文件或设备</td><td width=30%>BX=文件句柄<br>DS:DX=缓冲区首<br>CX=写出的字节数</td><td width=30%>成功：AX=实际写出的字节数<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>41</td><td width=35%>删除文件</td><td width=30%>DS:DX=ASCIIZ串首地址</td><td width=30%>成功：AX=00<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>42</td><td width=35%>移动文件指针</td><td width=30%>BX=文件句柄<br>CX:DX=位移量<br>AL=移动方式（0、1、2）</td><td width=30%>成功：DX:AX=新指针的位置<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>43</td><td width=35%>置/取文件属性</td><td width=30%>DS:DX=ASCIIZ串首地址<br>AL=0：取文件属性<br>AL=1：置文件属性<br>CX=文件属性</td><td width=30%>成功：CX=文件属性<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>44</td><td width=35%>设备文件I/O控制</td><td width=30%>BX=文件句柄<br>AL=0:取状态 AL=1:置状态<br>AL=2:读数据 AL=3:写数据<br>AL=6:取输入状态<br>AL=7:取输出状态</td><td width=30%>DX=设备信息</td>
+</tr>
+<tr>
+<td width=5%>45</td><td width=35%>复制文件句柄</td><td width=30%>BX=文件句柄1</td><td width=30%>成功：AX=文件句柄2<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>46</td><td width=35%>强制复制文件句柄</td><td width=30%>BX=文件句柄1<br>CX=文件句柄2</td><td width=30%>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>47</td><td width=35%>取当前目录路径名</td><td width=30%>DL=驱动器号<br>DS:SI=ASCIIZ串首地址</td><td width=30%>成功：DS:SI=ASCIIZ串<br>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>48</td><td width=35%>分配内存空间</td><td width=30%>BX=申请的内存数量（节）</td><td width=30%>成功：AX=分到的内存首址<br>失败：BX=最大可用空间</td>
+</tr>
+<tr>
+<td width=5%>49</td><td width=35%>释放内存空间</td><td width=30%>ES=内存起始段地址</td><td width=30%>失败：AX=错误码</td>
+</tr>
+<tr>
+<td width=5%>4A</td><td width=35%>调整已分配的内存块</td><td width=30%>ES=原内存起始段地址<br>BX=调整后的尺寸</td><td width=30%>失败：AX=错误码<br>　　　BX=最大可用空间</td>
+</tr>
+</table>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page329.html">上一页</a> <a href="page331.html">下一页</a> <a href="page332.html">附录B</a></p>
+</body>
+</html>

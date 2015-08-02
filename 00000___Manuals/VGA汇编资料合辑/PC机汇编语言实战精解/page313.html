@@ -1,0 +1,195 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page312.html">上一页</a> <a href="page314.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-313-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　了解了内存的分配技术，我们再回过头来说一说内存驻留技术。前面我们提到过当一个程序调入内存进行时，DOS会把所有可用内存分配给这个程序，而当程序结束时，这些内存就会被DOS收回。注意这种情况只有在用户程序采用"INT 20H"中断及DOS的4CH功能调用结束进行时才会发生。如果采用"INT 27H"中断结束程序，那么DOS在回收内存时就会做一些盘算，它会将内存重新划分一下，用户程序需要多少内存，DOS就会留出多少内存，其余内存它会毫不客气地收回来。<br>
+　　这就有点象我们编写的"GETMEM"程序首先要重新划分内存一样。实际上DOS也是通过4AH功能把可用内存重新分配，为需要驻留的程序保留合适的空间。这就给程序设计者这样一个提示：如果编制一个程序把某个已经驻留在内存中的程序占据的内存空间释放，这样不就可以在需要的时候把已驻留的程序"撤出"内存了吗。<br>
+　　很多鼠标器配用的驱动程序都有这样的能力。下面给出的这个程序例是为前面的"SNAP"程序编制的，运行了SNAP程序之后再运行UNINST就可以收回SNAP占据的内存空间：<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+UNINST.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+msg<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+<br>
+push<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+pop<br>
+mov<br>
+int<br>
+<br>
+lea<br>
+mov<br>
+int<br>
+<br>
+mov
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+start<br>
+'SNAP.COM is already un<br>
+<br>
+ax,3505h<br>
+21h<br>
+<br>
+bx,2ch<br>
+ax,word ptr es:[bx]<br>
+<br>
+es<br>
+es,ax<br>
+ah,49h<br>
+21h<br>
+<br>
+es<br>
+ah,49h<br>
+21h<br>
+<br>
+dx,msg<br>
+ah,9<br>
+21h<br>
+<br>
+ah,4ch
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；跳过字符串<br>
+installed.',07h,0dh,0ah,24h<br>
+<br>
+；取得05H中断向量（等同于取得SNAP<br>
+；的PSP段地址）<br>
+<br>
+；将SNAP程序的环境块段地址<br>
+；送至AX寄存器<br>
+<br>
+；暂存SNAP程序的PSP段地址<br>
+；将SNAP程序的环境块段地址送入ES<br>
+；释放SNAP程序的环境块<br>
+<br>
+<br>
+；取回SNAP程序的PSP段地址<br>
+；释放SNAP程序占用的内存空间<br>
+<br>
+<br>
+；显示提示信息<br>
+<br>
+<br>
+<br>
+；结束进程
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page312.html">上一页</a> <a href="page314.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

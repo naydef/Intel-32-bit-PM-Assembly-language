@@ -1,0 +1,169 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page304.html">上一页</a> <a href="page306.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-305-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在回答这个问题之前请大家先想一想中断调用与返回的过程与一般的子程序调用与返回的过程有没有区别？其实区别很明显：采用CALL指令完成远程调用时CPU会自动将CS:IP压入堆栈，子过程返回指令"RETF"会把CS:IP从堆栈中恢复；而CPU响应中断时不仅要把CS:IP压入堆栈，而且要先把标志寄存器压入堆栈。执行中断返回指令"IRET"时标志寄存器也会自动从堆栈中弹出。所以程序中采用CALL指令调用原中断服务程序时要先把标志寄存器压入堆栈，这实际上提供了一种以CALL指令模拟INT指令的方法。<br>
+　　（4）1CH中断<br>
+　　08H中断并不是PC系统中唯一一个每秒钟执行18.2次的中断，1CH也有这样的性质。不过1CH中断并不是由硬件触发的，它是一个软件中断。1CH中断与05H中断有相似的特点，05H中断是由09H中断服务程序调用而产生的，1CH则恰好是由08H中断服务程序调用产生，所以它具有与08H中断相同的性质--每55Ms调用一次。<br>
+　　这个中断才是真正提供给用户使用的，系统为它编制的服务程序只有一条指令--IRET，也就是说当用户没有为它编制服务程序时，它是什么事都不做的。所以用户编制一些需要定时的内存驻留程序时通常不选择08H中断，而是选择1CH中断，重编1CH中断服务程序时可以不用考虑与其原服务程序配合工作。<br>
+　　下面给出的程序例是一个音乐程序，与第四章中的程序例不同，这个程序可以产生出"背景音乐"，即音乐的播放不会影响到机器进行其它工作。你可以一面听音乐一面格式化磁盘，或者用WPS写文章。总之，音乐的产生与用户的工作是同时的，而且互不干扰。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+BKMUSIC.<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+freq<br>
+<br>
+note<br>
+<br>
+<br>
+<br>
+nxtnote<br>
+delay<br>
+<br>
+new_1ch:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+ASM<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+dw<br>
+dw<br>
+db<br>
+db<br>
+db<br>
+dw<br>
+dw<br>
+db<br>
+<br>
+<br>
+push<br>
+push<br>
+push<br>
+cmp<br>
+jz
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+far<br>
+install<br>
+0,4552,4029,3617,3415<br>
+3223,3042,2871<br>
+3,4,2,4,1,4,2,4,3,4,3,4,<br>
+3,4,6,4,6,8,3,4,2,4,1,4,<br>
+3,4,2,4,2,4,3,4,2,4,1,16<br>
+-1<br>
+?<br>
+?<br>
+<br>
+<br>
+ax<br>
+bx<br>
+si<br>
+byte ptr cs:[delay],0<br>
+play_next
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；跳转至安装部分<br>
+；各音符频率表<br>
+<br>
+3,8,2,4,2,4,2,8	；乐谱<br>
+2,4,3,4,3,4,3,4<br>
+<br>
+<br>
+；将要演奏的音符在乐谱中的位置<br>
+；当前音符应持续的时间<br>
+<br>
+；新的1CH中断服务程序<br>
+；保存寄存器<br>
+<br>
+<br>
+；当前的音符演奏完了吗？<br>
+；若当前的音符已奏完，转PLAY_NEXT
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page304.html">上一页</a> <a href="page306.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

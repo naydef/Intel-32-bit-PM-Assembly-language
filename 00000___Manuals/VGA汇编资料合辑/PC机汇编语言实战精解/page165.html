@@ -1,0 +1,162 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page164.html">上一页</a> <a href="page166.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第6章 文字输出与键盘输入</td> <!章节名>
+<td></td><td>-165-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+数据，这些数据当然不能放在ROM中，因此BIOS程序就在中断向量表的上面开僻了一块空间专用于保存自己的数据，我们一般称其为BIOS数据区，这便是40H段的由来。本书的附录中列出BIOS数据区的详细内容，需要时大家可以查阅。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><img src="figures/F6_13.gif"><br><font face="楷体_GB2312">图6-13 按键处理流程</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><font face="楷体_GB2312">表6-5 16H中断的功能</font><td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2<td><td colspan=2>功能号</td><td colspan=7>用途</td><td colspan=5>说明</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2<td><td colspan=2>00</td><td colspan=7>等待键盘输入字符</td><td colspan=5>AL=ASCII码</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2<td><td colspan=2></td><td colspan=7></td><td colspan=5>AH=按键扫描码</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2<td><td colspan=2>01</td><td colspan=7>从键盘缓冲区内读一个字符</td><td colspan=5>ZF=0：AL=ASCII码</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2<td><td colspan=2></td><td colspan=7></td><td colspan=5>AH=按键扫描码</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2<td><td colspan=2></td><td colspan=7></td><td colspan=5>ZF=1：缓冲区内无字符</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2<td><td colspan=2>02</td><td colspan=7>取键盘状态字低8位</td><td colspan=5>AL=键盘状态字低8位</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　根据表6-5可知1号功能用于判断键盘缓冲区是否有字符可供读出，2号功能用于取得键盘状态字的低8位。这两个功能看上去好象不大常用，实际上1号功能还是十分有用的。请考虑编制这样一个程序：打开定时器发出10秒钟的声音（频率不限），在这十秒钟内若Esc键按下则关闭定时器并结束程序，否则10秒钟后停止发声并结束。<br>
+　　解决这个问题已不能使用16H中断的0号功能了，因为这个功能在没有键按下时会循环等待，所以程序应用这个功能就不能完成10秒定时发声。怎样才能达到要求？我们可以设想如果能够在键盘的确有键按下时才调用16H中断的0号功能，而在无键按下时去完成定时工作，这样就可解决问题。这里就要用到16H中断的1号功能了。请看BEEP.ASM程序。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+BEEP.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+in
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code<br>
+100h<br>
+far<br>
+al,61h
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；打开定时器发声
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page164.html">上一页</a> <a href="page166.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

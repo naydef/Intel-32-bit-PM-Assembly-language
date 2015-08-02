@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page34.html">上一页</a> <a href="page36.html">下一页</a> <a href="page45.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第3章 中断调用与子程序</td> <!章节名>
+<td></td><td>-35-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+和8位立即数或寄存器相比较，也只能和存储器中的一个字节数据相比，下面这样的用法是不对的--"CMP AL,0FFFH"、"CMP AH,BX"<br>
+　　CPU执行CMP指令的实际动作是用左边的数据减右边的数据，但减的结果并不保留在左边的寄存器或存储器中，如果相比较的两个数据相等，那么"相减"后结果必为0，所以相等的两个数比较，将使ZF标志置1。要想判断两个数据是否相等，只需在CMP指令后用JZ/JNZ指令根据ZF的状态进行相应转移即可。<br>
+　　为便于记忆，我们给JZ/JNZ指令赋与了一个新的写法--JE/JNE（Jump if Equal/Not Equal）。因此指令"JZ 124"也可写成"JE 124"。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td><!左边距>
+<td colspan="18">
+（3）间接寻址的第二种形式<br>
+　　前面我们讨论过用BX寄存器作指针的一种间接寻址方式，用那种寻址方式时我们要把字符串的首地址直接放入BX寄存器以建立指针。而在PROG3－A中，我们在BX寄存器中装入的是每一个数据相对首地址的偏移量。在取数据时用这个偏移量加上字符串的首地址作为数据的实际偏移地址。这种寻址方式称为"寄存器相对寻址方式"（Register relative addressing）。<br>
+　　这两个程序都是用BX作指针，能否用其它通用寄存器呢？注意对于8086/88CPU而言，可做间接寻址的通用寄存器只有BX，其它三个通用寄存器无此功能。我们后面说到"串处理"时会介绍更多的可做间接寻址的寄存器，但它们都不是通用寄存器了。
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=8>PROG3-B</td><td colspan=8></td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=8>-a100[Enter]</td><td colspan=8></td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=8>
+09FE:0100 jmp 111<br>
+09FE:0102 db'Hello,World!',0d,0a,'$'<br>
+09FE:0111 mov dx,102<br>
+09FE:0114 mov ah,9<br>
+09FE:0116 int 21<br>
+09FE:0118 int 20
+</td>
+
+<td colspan=8>
+；跳过字符串数据区<br>
+；定义一个字符串，结尾为"$"<br>
+；DX寄存器指向字符串首地址<br>
+；选择DOS API的09H功能<br>
+；调用21H中断显示字符串<br>
+；调用20H中断结束程序，返回DOS
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=6>09FE:011A [Enter]</td><td colspan=10></td>
+</tr>
+
+<tr>
+<td></td><td></td><!左边距>
+<td colspan="18">
+　　PROG3－B编写得非常短小，但却和PROG3－A有相同的效果，原因在于这个程序使用了操作系统提供的一个极常用的功能──09H（显示字符串）。
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：09H<br>
+用　途：显示字符串<br>
+参　数：AH=09H<br>
+　　　　DX=字符串的首地址<br>
+调　用：INT 21H<br>
+返　回：无
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td><!左边距>
+<td colspan="18">
+　　09功能要求字符串必须以'$'结尾。调用此功能前应将字符串的首地址放入DX寄存器，然后执行INT 21H即可。此功能同样解释0DH，0AH等控制码。
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+</font>
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page34.html">上一页</a> <a href="page36.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>
+

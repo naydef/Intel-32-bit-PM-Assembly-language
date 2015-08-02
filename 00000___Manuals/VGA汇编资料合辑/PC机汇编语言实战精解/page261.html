@@ -1,0 +1,233 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page260.html">上一页</a> <a href="page262.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第9章 图形显示</td> <!章节名>
+<td></td><td>-261-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+delay:<br>
+delay1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+neg_x:<br>
+<br>
+<br>
+neg_y:<br>
+<br>
+<br>
+main<br>
+<br>
+line<br>
+<br>
+<br>
+<br>
+<br>
+lineloop:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+int<br>
+<br>
+mov<br>
+mov<br>
+dec<br>
+jnz<br>
+dec<br>
+jnz<br>
+<br>
+pop<br>
+mov<br>
+int<br>
+<br>
+cmp<br>
+jz<br>
+cmp<br>
+jz<br>
+jmp<br>
+<br>
+neg<br>
+jmp<br>
+<br>
+neg<br>
+jmp<br>
+endp<br>
+<br>
+proc<br>
+push<br>
+push<br>
+push<br>
+push<br>
+<br>
+mov<br>
+int<br>
+add<br>
+add<br>
+dec<br>
+jnz<br>
+<br>
+pop
+</td>
+<td colspan=5>
+10h<br>
+<br>
+ah,10<br>
+bx,0<br>
+bx<br>
+delay1<br>
+ah<br>
+delay<br>
+<br>
+ax<br>
+ah,0ch<br>
+10h<br>
+<br>
+al,2<br>
+neg_x<br>
+al,1<br>
+neg_y<br>
+point<br>
+<br>
+si<br>
+point<br>
+<br>
+di<br>
+point<br>
+<br>
+<br>
+near<br>
+ax<br>
+bx<br>
+cx<br>
+dx<br>
+<br>
+ah,0ch<br>
+10h<br>
+cx,si<br>
+dx,di<br>
+bx<br>
+lineloop<br>
+<br>
+dx
+</td>
+<td colspan=9>
+<br>
+<br>
+；延迟一段时间<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；利用原来的颜色画一个点<br>
+<br>
+<br>
+<br>
+；这个位置上有洋红色的线通过吗？<br>
+；若有洋红色的线，转NEG_X继续<br>
+；这个位置上有青色的线通过吗？<br>
+；若有青色的线，转NEG_Y继续<br>
+；若此位置没有线通过，转POINT继续画点<br>
+<br>
+；将X方向的增量改为-1<br>
+；转POINT继续画点<br>
+<br>
+；将Y方向的增量改为-1<br>
+；转POINT继续<br>
+<br>
+<br>
+；画线子程序<br>
+；保存寄存器<br>
+<br>
+<br>
+<br>
+<br>
+；在CX-DX指定的位置画点<br>
+<br>
+；X，Y坐标分别加上增量值<br>
+<br>
+；线上所有点都画完了吗？<br>
+；若未画完全部点，转LINELOOP继续<br>
+<br>
+；恢复寄存器原值
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page260.html">上一页</a> <a href="page262.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

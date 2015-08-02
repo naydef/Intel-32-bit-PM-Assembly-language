@@ -1,0 +1,183 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子程序和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page108.html">上一页</a> <a href="page110.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第5章 子程序和串处理</td> <!章节名>
+<td></td><td>-109-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+mov<br>
+int<br>
+pop<br>
+loop<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+inc<br>
+jmp<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+ah,0eh<br>
+10h<br>
+ax<br>
+outloop<br>
+ax,0e0dh<br>
+10h<br>
+al,0ah<br>
+10h<br>
+di<br>
+next_char<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；利用10H中断的0EH功能<br>
+；输出AL寄存器中的字符<br>
+；取回AX寄存器<br>
+；处理下一个数位<br>
+；输出回车符<br>
+<br>
+；输出换行符<br>
+<br>
+；DI寄存器指向下一个字符<br>
+；转NEXT_CHAR继续搜索待查串的首字符<br>
+；结束程序<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在这个程序我们又新增了两条指令--CMPS和JCXZ:
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：CMPS（Compare string）<br>
+用　途：比较两个数据串<br>
+格　式：CMPSB（按字节比较）<br>
+　　　　CMPSW（按字比较）<br>
+执　行：将位于DS：SI处的数据和位于ES：DI处的数据进行比较操作，并根据比较结果设定标志位，而后SI，DI两寄存器根据DF标志的状态相应增减。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　相信大家对指令末尾的字母"B"和"W"已经有所领悟，不再多说。这条指令的特点是直接对存储器中的数据进行操作，和SCAS指令一样，如果不加REP前缀，那么这个指令也只能对一对数据进行比较，不能比较整串数据。因此在程序中我们使用了REPZ，目的是在两字符相同的情况下继续比较下一个字符。可以想到如果两字符串完全相同，那么这种比较会导致两种后果--ZF＝1且CX＝0。我们完全可以用"JZ/JNZ"指令检测比较的结果，但在上面的程序中我们使用了一条新指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：JCXZ（Jump if cx is zero）<br>
+用　途：根据CX寄存器的情况进行转移<br>
+格　式：JCXZ  目的地址<br>
+执　行：判断CX寄存器情况，若CX＝0则转移到目的地址处执行指令，否则继续执行下面的指令。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　从本质上讲"JCXZ"也是条件转移指令，但它的转移条件有些不寻常，并非受标志寄存器控制，而直接受控于CX寄存器。当然，既然是条件转移指令，它也只能是短程的。和JZ指令不同，它没有转移条件相反的指令，JCXNZ是不存在的。在上面的程序中将JCXZ指令换成JZ指令也是可以的，只不过是取了不同的转移条件罢了。<br>
+　　从思路上看这两个程序并无区别，但使用串处理指令的程序要比采用一般方法的程序简捷一些，主要是少了一些易混乱的转移指令。学到这里我们应该对串处理指令的特性有了明确的认识，"串处理"的核心主要在于这样一些硬件：累加器、计数器、DS：SI寄存器组合、
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page108.html">上一页</a> <a href="page110.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page140.html">上一页</a> <a href="page142.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第6章 文字输出与键盘输入</td> <!章节名>
+<td></td><td>-141-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　光标移动到"数字"的下面，则让这个数字变为"闪烁"显示，光标移动到字母或其它符号下面显示效果无变化。<br>
+　　这个程序要完成这样一些事情：进入程序后首先要取得当前光标位置并保存到数据段中；然后要取得按键并判断是何按键；第三要根据按键情况在新位置设定光标；第四要取得光标所在新位置的字符并判断这个字符是否为数字；第五要重新设置数字的属性字节并将具有新属性的数字在光标位置显示出来。五项重点工作要使用五种BIOS功能调用，其中10H中断的08号功能就是我们重点要掌握的。<br>
+　　另外两个有关字符的功能调用相对来说不太重要，它们是10H中断的04H和0AH功能调用。04H功能用于读取光笔位置，光笔也是一种输入设备，不过在我们的PC电脑中应用得很少；0AH功能用于在屏幕当前光标位置处写字符，但这个功能既不能显示有属性的字符，也不能自动处理光标后移，所以应用得也很少。这两个功能我们也就不再多说了。<br>
+　　这一节的内容还是相当丰富的，我们详细讨论了应用在字符模式下的几个功能调用，这些功能都是由BIOS为我们提供的。而DOS的21H中断也为我们提供了一些用于输出字符的功能，不过这些功能调用一般都不能直接处理属性，所以我也不准备详细讨论它们，如果你需要使用这些功能，可以查阅本书的附录。这一节的研究到此结束，下一节我们将讨论Video RAM与文字显示的关系。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="63">6．3 直接操作Video RAM</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　使用BIOS功能调用显示文字是一种十分简单的方法，这种方法具有两个优点：编程简单并且可移植性好。不同的机型其显示系统的结构可能不一样，但只要它们具有完全相同的BIOS功能调用，那么所有使用BIOS功能的程序在这些机型上都能正确地执行。这可以说是采用BIOS设计程序的最大优点。<br>
+　　不过采用BIOS功能调用编制程序也有一个缺陷，那就是效率低。这是因为BIOS程序执行前需要保存"环境"（要改变的寄存器），同时为了能在图形模式下显示出文字，还要做判断显示模式等工作，这使得程序运行速度不高。可见效率与可移植性是相矛盾的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6 align="center"><img src="figures/F6_4.gif"><br><font face="楷体_GB2312">图6-4 PC系统的简单结构</font></td>
+<td colspan=12>
+　　这里需要稍微说一点关于"可移植性"的问题，这个问题在第一章提过一点，大致是说汇编语言虽然效率高，但可移植性没有高级语言好。其实单就汇编语言自身而言，可移植性也分三个层次，原因很简单，我们的系统本身就分为三个层次。图6-4反映了PC系统的组成：<br>
+　　对于程序设计而言，硬件层包括存储器、寄存器和端口，它们和各种外部设备紧密相联，应用汇编语言控制它们就等于直接控制外部设备。我们在前面讨论过音响程序的设计，相信大家对61H端口的功能还有很深的印象。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在硬件层编程所具有的优势在于程序具有很高的效率和灵活性，这一点大家应该是很清楚的。通过编程控制定时器和61H端口，程序可以操纵PC电脑发出从音乐到枪声等很多不同的声音，甚至能发出语言。不过为了获得需要的声音效果，我们也必须深入地了解PC电脑的详细构造，要掌握端口每一位的作用以及一些电路的结构。而且程序要处理的事情也很多，比如为了发出音乐，则程序必须要精确地定时，且必须具体到几分音符对应几个时钟计数。这使得那些工作在硬件层的程序不易设计和调试。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page140.html">上一页</a> <a href="page142.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

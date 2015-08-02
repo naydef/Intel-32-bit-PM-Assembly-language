@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page147.html">上一页</a> <a href="page149.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-148-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+outchar<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+push<br>
+push<br>
+push<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+mul<br>
+mov<br>
+shl<br>
+mov<br>
+add<br>
+<br>
+pop<br>
+rep<br>
+<br>
+pop<br>
+pop<br>
+pop<br>
+pop<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+cx<br>
+dx<br>
+ax<br>
+<br>
+ax,0b800h<br>
+es,ax<br>
+al,dh<br>
+bh,80<br>
+bh<br>
+di,ax<br>
+dl,1<br>
+dh,0<br>
+di,dx<br>
+<br>
+ax<br>
+stosw<br>
+<br>
+dx<br>
+cx<br>
+bx<br>
+di<br>
+es<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+；设置ES寄存器指向显示缓冲区<br>
+<br>
+；字符所在行号送入AL寄存器<br>
+<br>
+；计算"行号 80"<br>
+；"行号 80"的结果送入DI寄存器<br>
+；计算"列号 2"<br>
+<br>
+；偏移量=行号 80+列号 2<br>
+<br>
+；从堆栈中取出字符及属性<br>
+；送入显示缓冲区<br>
+<br>
+；恢复寄存器<br>
+<br>
+<br>
+<br>
+<br>
+；返回<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：MUL（Multiple）<br>
+用　途：将两个数相乘<br>
+格　式：MUL  寄存器<br>
+　　　　MUL  存储单元<br>
+执　行：指定寄存器或存储单元中的数据与累加器中的数据相乘，16位的结果<br>
+　　　　保存在累加器AX中，32位的结果由DX寄存器与AX共同保存，AX保存结<br>
+　　　　果的低16位，DX保存高16位。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　前面章节中提到过一些有关累加器AX的几个专门的用途，比如CPU与端口交换数据的专门通道；与"串指令"相配合时用作数据传输等等。这里又要学到累加器的一个特殊用途：使用乘法指令时累加器用于保存一个因数，因此"MUL"指令只有一个操作数。如果将这个操作数据看作是乘数，那么在使用"MUL"指令之前必须先将被乘数存入累加器AX中。<br>
+　　乘法指令有一些重要的性质是需要记住的：<br><font face="楷体_GB2312">
+　　① 相乘的两个数位宽应该相等，8位数据只能与8位数据相乘，16位数据只能与16位数据相乘，而且相乘的两个数都被认为是无符号数；<br>
+　　② 如果进行8位数据的乘法，被乘数必须放入累加器的低8位AL中；<br>
+　　③ 两个8位数相乘结果是一个16位的数据，由AX寄存器保存。两个16位的数相乘结果是</font>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page147.html">上一页</a> <a href="page149.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

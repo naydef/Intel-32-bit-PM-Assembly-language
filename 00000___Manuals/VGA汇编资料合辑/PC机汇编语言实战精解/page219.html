@@ -1,0 +1,200 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page218.html">上一页</a> <a href="page220.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-219-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+loop1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+mov<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+jc<br>
+<br>
+mov<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+jc<br>
+cmp<br>
+jb<br>
+<br>
+mov<br>
+int<br>
+jc<br>
+jmp<br>
+<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+ds,ax<br>
+<br>
+dx,offset fname<br>
+ax,3d02h<br>
+21h<br>
+exit<br>
+<br>
+bx,ax<br>
+<br>
+ah,3fh<br>
+dx,offset buffer<br>
+cx,1<br>
+21h<br>
+exit<br>
+ax,cx<br>
+exit<br>
+<br>
+ah,40h<br>
+21h<br>
+exit<br>
+loop1<br>
+<br>
+ah,3eh<br>
+21h<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+<br>
+<br>
+；DX寄存器指向文件名的ASCIIZ串<br>
+；按"读/写"方式打开文件<br>
+<br>
+；若文件打开错误，转EXIT结束<br>
+<br>
+；BX寄存器取得文件指针<br>
+<br>
+；准备读取数据<br>
+；DX寄存器指向文件缓冲区<br>
+；读入一个字节<br>
+<br>
+；若文件读取出错，转EXIT结束<br>
+；确实读入了一个字节吗？<br>
+；没有读入数据，转EXIT结束<br>
+<br>
+；将数据写出到原文件中<br>
+<br>
+；若写文件出错，转EXIT<br>
+；转LOOP1继续处理下一个字节<br>
+<br>
+；关闭文件<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　如果大家打算试试自己的能力，可以在执行这个程序之前仔细读一下这个程序，想一想它会产生一个什么样的结果。<br>
+　　这个程序运行之后大家会发现名为CONFIG.TXT的文本文件被弄得一团糟。笔者的CONFIG文件的第一行原本是"[MENU]"，结果被改成了"[[EEUU"。规律很容易发现，所有在偶数位置的字符都被前面的字符代替了。<br>
+　　我们一起来研究一下上面这个程序中的"循环"部分，可以看到我们在使用了3FH功能读取一个字节之后马上又将这个字节写入了文件。由于DOS在打开了CONFIG.TXT之后首先设置文件读写指针为零，这样我们在第一次使用3FH功能时读入内存的就是文件的第一个字符。请注意DOS在执行完3FH功能后要修改文件读写指针使其加1，因此在执行完第一个3FH功能后文件读写指针将指向文件中的第二个字符。而后我们马上又将刚读入的字符写入文件，写入时DOS同样要查看文件读写指针指向何处，恰好此时文件读写指针已经指向了第二个字节处，所以DOS就将刚读入的字符写入文件的第二个字节处，原来的数据就被覆盖了。<br>
+　　对于笔者的CONFIG文件来说，第一次读入内存的是字符"["，"["读入后文件读写指针指向了"M"，因此当程序将"["写入文件时，DOS就会把"["写入"M"所在的位置，所以"M"变成了"["。DOS完成写入功能后它还要修改文件读写指针，使其再加1，这样文件读写指针就指
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page218.html">上一页</a> <a href="page220.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子过程和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page95.html">上一页</a> <a href="page97.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-96-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+<br>
+disp<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+;#1部分<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+;－－－－<br>
+not_end:<br>
+<br>
+<br>
+<br>
+;#2部分<br>
+retn_addr<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+;－－－－<br>
+disp<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+mov<br>
+mov<br>
+int<br>
+push<br>
+call<br>
+<br>
+mov<br>
+int<br>
+endp<br>
+<br>
+proc<br>
+push<br>
+mov<br>
+mov<br>
+cmp<br>
+jnz<br>
+－－－－<br>
+mov<br>
+mov<br>
+int<br>
+pop<br>
+ret<br>
+－－－－<br>
+<br>
+inc<br>
+push<br>
+call<br>
+－－－－<br>
+<br>
+pop<br>
+dec<br>
+mov<br>
+mov<br>
+int<br>
+pop<br>
+ret<br>
+－－－－<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+dx,offset mess<br>
+ah,9<br>
+21h<br>
+dx<br>
+disp<br>
+<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+near<br>
+bp<br>
+bp,sp<br>
+bx,[bp+4]<br>
+byte ptr [bx+1],'$'<br>
+not_end<br>
+显示最后一个字符－－－<br>
+dl,byte ptr [bx]<br>
+ah,2<br>
+21h<br>
+bp<br>
+<br>
+<br>
+<br>
+bx<br>
+bx<br>
+disp<br>
+显示上一个字符－－－<br>
+<br>
+bx<br>
+bx<br>
+dl,byte ptr [bx]<br>
+ah,2<br>
+21h<br>
+bp<br>
+<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；DX寄存器指向字符串<br>
+；显示这个字符串<br>
+<br>
+；字符串首地址压入堆栈<br>
+；调用DISP子过程进行逆序显示<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+；DISP子过程入口<br>
+；保存BP寄存器<br>
+；堆栈指针送入BP寄存器<br>
+；从堆栈中取得字符串指针<br>
+；判断指针指向的字符是否为最后一个<br>
+；不是最后一个则转NOT_END<br>
+<br>
+；最后一个字符送入DL寄存器<br>
+；显示这个字符<br>
+<br>
+；恢复BP寄存器<br>
+；返回（实际将返回RETN_ADDR处）<br>
+<br>
+<br>
+；字符串指针指向下一个字符<br>
+；字符串指针压入堆栈<br>
+；调用DISP子过程逆序显示剩余字符<br>
+<br>
+<br>
+；取回字符串指针<br>
+；BX指向前一个字符<br>
+；取得前一个字符<br>
+；显示前一个字符<br>
+<br>
+；恢复BP寄存器<br>
+；返回（反复返回至RETN_ADDR处，最后返<br>
+；回至主过程）<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　"DISP"是这个程序的核心。主过程调用"DISP"之前先在堆栈中压入了一个指向字符串首的
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page95.html">上一页</a> <a href="page97.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>
+
+
+

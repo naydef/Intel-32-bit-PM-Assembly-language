@@ -1,0 +1,171 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page11.html">上一页</a> <a href="page13.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-12-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　任何版本的DOS都提供了这个小软件。它的主要用途是用来排除.EXE和.COM类的可执行程序中的逻辑错误。这可以从它的名字看出来。"BUG"，英文原意是"小虫子"，计算机界将其引申为程序中隐藏的逻辑错误。前缀"DE－"有"排除"的意思。<br>
+　　这个小软件还提供了将汇编语言的指令直接翻译成机器码的功能，这是我们现在所需要的。它还有一些其他特殊的本领，后面会逐渐介绍到。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="黑体" lang="ZH-CN"><a name="213"><p>2．1．3 细看PC机</p></a></font>
+<td></td><td></td> <!右边距>
+</tr>
+
+<!正文>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　编制程序前我们应首先调入DEBUG。很简单，在DOS提示符下敲入DEBUG并回车即可。随着磁盘的转动，DEBUG被装入内存执行。一番忙碌后，屏幕上将出现一个"－"，后面是跳动的光标。<br>
+　　屏幕上出现的"－"其实是DEBUG给出的提示符，它的出现说明DEBUG此时已经完全作好了为你服务的准备。和DOS一样，DEBUG也提供了一个"命令行"界面，只有输入它自己定义的一些命令才能调动它好好工作。现在我们就来试着打入一个命令--在"－"后面敲入一个字母"R"并回车，看看屏幕上出现些什么东西？
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-r</td><td colspan=16><font face="楷体_GB2312" size=2>输入的命令</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=8 align="center"><font face="楷体_GB2312" size=2>通用寄存器</font></td><td colspan=8 align="center"><font face="楷体_GB2312" size=2>堆栈指针、基指针、索引寄存器</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0000</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0B01</td><td colspan=2>ES=0B01</td><td colspan=2>SS=0B01</td><td colspan=2>CS=0B01</td><td colspan=2>IP=0100</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0B01:0100</td><td colspan=3>4F</td><td colspan=6>DEC DI</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2><font face="楷体_GB2312" size=2>起始地址</font></td><td colspan=3 align="center"><font face="楷体_GB2312" size=2>段寄存器</font></td><td colspan=3><font face="楷体_GB2312" size=2>指令</font></td>
+<td colspan=2><font face="楷体_GB2312" size=2>指令指针</font></td><td colspan=5 align="center"><font face="楷体_GB2312" size=2>标志寄存器</font></td><td></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align="center"><img src="icons/attention.gif"></td>
+<td colspan=16><FONT FACE="楷体_GB2312" LANG="ZH-CN" SIZE=3>
+"R"命令的作用是"列出寄存器目前所存的数值"，字母"R"取自单词Register。这个命令可以加一个寄存器名做为参数，如RBX、RDI等，其中BX，DI都是寄存器的名字（见下文）。使用这种用法时不仅可以观察某个寄存器的值，还可以任意修改寄存器的内容。有关实例将在后面给出。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们将显示出的内容分成几组，分别介绍各个部分的含义。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　<font face="黑体">（1） 通用寄存器（General register)</font><br>
+　　8086／88内部有14个寄存器。其中有四个寄存器最常用。这四个寄存器称为通用寄存器。名字分别是AX、BX、CX和DX。它们具有一个通用的功能--保存数据，但每个寄存器还有自己专门的用途，下面分别介绍。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><img src="icons/P2_1_AX.gif"></td>
+<td colspan=17>
+A取自单词Accumulator，所以AX也被称为"累加器"。不过请不要望文生意，它的专门用途可不是作加法。今天我们介绍它的一个专门用途，就是CPU与端口交换数据的唯一通路。除此之外，它还有一系列专门的用途，这些用途以后会陆续谈到。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><img src="icons/P2_2_BX.gif"></td>
+<td colspan=17>
+BX也被称为"基地址寄存器"（Base address）。这也是一个十分重要的寄存器，它可用来作为指针使用。这方面的内容将在第三章介绍。本节的程序不涉及BX的专门用途。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><img src="icons/P2_3_CX.gif"></td>
+<td colspan=17>
+CX也称"计数器"（Counter）。这个寄存器主要用于为循环指令（LOOP）计循环次数，也用于计数据移位的位数。在"串处理"指令中也有应用。后面的程序就是用CX为LOOP指令计数的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page11.html">上一页</a> <a href="page13.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

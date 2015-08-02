@@ -1,0 +1,180 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page163.html">上一页</a> <a href="page165.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-164-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这一小段程序重新设定了队列指针并在缓冲区中填入了小写字母"r"和一个回车符，因此当这个程序结束后DEBUG就会取到这个"r"并把它当做命令来执行，于是屏幕上显示出所有寄存器的值。<br>
+　　相对于键盘缓冲区而言，"键盘状态字"要简单得多，这是一个16位的数据，位于逻辑地址0040H:0017H处，各个位为1时的定义如图6-12所示：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><img src="figures/F6_12.gif"><br><font face="楷体_GB2312">图6-12 键盘状态字</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　键盘状态字的变化可以用DEBUG来观察：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>C:\ASM\>DEBUG[Enter]</td><td colspan=5></td><td colspan=7></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>-d40:17 18[Enter]</td><td colspan=5></td><td colspan=7></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0040:0010</td><td colspan=10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00-00</td><td></td><td colspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+（按下Caps Lock）
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>-d40:17 18[Enter]</td><td colspan=5></td><td colspan=7></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0040:0010</td><td colspan=10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;40-00</td><td></td><td colspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@.</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+（再按下Scroll Lock）
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>-d40:17 18[Enter]</td><td colspan=5></td><td colspan=7></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0040:0010</td><td colspan=10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50-00</td><td></td><td colspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P.</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+（再按下Insert）
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>-d40:17 18[Enter]</td><td colspan=5></td><td colspan=7></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0040:0010</td><td colspan=10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D0-00</td><td></td><td colspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>-d40:17 18[Enter]</td><td colspan=12>（按住左Shift不放，再按下Enter键）</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0040:0010</td><td colspan=10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D2-00</td><td></td><td colspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　由实验可知键盘状态字的Bit0－Bit3位反映了开关键的状态，而Bit4－Bit15是动态的，只在各键按下时设置，放开键后便重新发复位了。<br>
+　　至此我们已经把键盘输入的情况大概讨论了一便，可以看到一个键由按下直至被应用程序收到大致经过了如图6-13所示的一个过程：<br>
+　　通过这一节的学习，大家还可能会发现这样一个现象：我们所关心的一些重要的系统数据好象都放在了0040H段中，前面我们讨论定时的时候也提到过系统时钟计数值也位于40H段内，那么40H段究竟有什么不寻常的地方呢？<br>
+　　其实40H段并没有什么不寻常之处，我们知道在启动PC时CPU首先执行ROM内的程序，这段程序用于完成系统的检测以及DOS的启动。这段程序运行时总要保存一些检测结果和一些临时
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page163.html">上一页</a> <a href="page165.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第10章 细节补充</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page284.html">上一页</a> <a href="page286.html">下一页</a> <a href="page291.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第10章 细节补充</td> <!章节名>
+<td></td><td>-285-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+loop1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+;<br>
+;<br>
+loop2:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+loop3:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+<br>
+bin8o<br>
+<br>
+<br>
+<br>
+<br>
+loop4:<br>
+<br>
+<br>
+<br>
+<br>
+out_chr:<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+lodsb<br>
+call<br>
+loop<br>
+<br>
+call<br>
+<br>
+mov<br>
+mov<br>
+clc<br>
+mov<br>
+shl<br>
+<br>
+lodsb<br>
+rcr<br>
+mov<br>
+loop<br>
+<br>
+mov<br>
+mov<br>
+<br>
+lodsb<br>
+call<br>
+loop<br>
+<br>
+ret<br>
+endp<br>
+<br>
+proc<br>
+push<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+shl<br>
+mov<br>
+jc<br>
+mov<br>
+<br>
+int
+</td>
+<td colspan=5>
+<br>
+<br>
+bin8o<br>
+loop1<br>
+<br>
+crlf<br>
+<br>
+cx,8<br>
+si,offset number+7<br>
+<br>
+al,byte ptr [si]<br>
+al,1<br>
+<br>
+<br>
+al,1<br>
+byte ptr [si+1],al<br>
+loop2<br>
+<br>
+cx,8<br>
+si,offset number+7<br>
+<br>
+<br>
+bin8o<br>
+loop3<br>
+<br>
+<br>
+<br>
+<br>
+near<br>
+cx<br>
+cx,8<br>
+bl,al<br>
+ah,0eh<br>
+<br>
+bl,1<br>
+al,31h<br>
+out_chr<br>
+al,30h<br>
+<br>
+10h
+</td>
+<td colspan=9>
+<br>
+；取得一个字节<br>
+；按二进制形式显示<br>
+<br>
+<br>
+；调用CRLF输出回车、换行符<br>
+<br>
+；准备8个字节<br>
+；SI寄存器指向64Bit数据的最高16位<br>
+；预先清CF标志，完成逻辑移位<br>
+；如用这两个指令代替CLC，可完成算术移位<br>
+<br>
+<br>
+；取得一个字节<br>
+；带进位标志的右循环移位，最低位移入CF<br>
+；将移位后的数据送回内存<br>
+；返回LOOP2继续处理下一个字节<br>
+<br>
+；再次显示移位后的64Bit数据<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+；按二进制形式显示输出字程序<br>
+；保存CX寄存器<br>
+；显示8个数位<br>
+；将待显示的数据送入BL寄存器<br>
+；选择10H中断的0EH功能<br>
+<br>
+；将待显示数据向左移1位，最高位移入CF<br>
+；准备显示"1"<br>
+；若移出的位为1，转OUT_CHR显示"1"<br>
+；若移出的位为0，准备显示"0"<br>
+<br>
+；调用10H中断显示AL寄存器中的字符
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page284.html">上一页</a> <a href="page286.html">下一页</a> <a href="page291.html">下一章</a></p>
+</body>
+</html>

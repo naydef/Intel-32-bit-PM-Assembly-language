@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page253.html">上一页</a> <a href="page255.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-254-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+x1<br>
+y1<br>
+x2<br>
+y2<br>
+color<br>
+<br>
+deltax<br>
+deltay<br>
+delta1<br>
+delta2<br>
+data<br>
+<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+drloop:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+drloop1:<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+dw<br>
+dw<br>
+dw<br>
+dw<br>
+db<br>
+<br>
+dw<br>
+dw<br>
+dw<br>
+dw<br>
+ends<br>
+<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+int<br>
+mov<br>
+mov<br>
+<br>
+push<br>
+lodsw<br>
+push<br>
+lodsw<br>
+add<br>
+mov<br>
+mov<br>
+lodsw<br>
+add<br>
+mov<br>
+mov<br>
+pop<br>
+dec<br>
+<br>
+push<br>
+lodsw<br>
+add
+</td>
+<td colspan=4>
+?<br>
+?<br>
+?<br>
+?<br>
+2<br>
+<br>
+?<br>
+?<br>
+?<br>
+?<br>
+<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+<br>
+ax,0004h<br>
+10h<br>
+si,offset dotbuff<br>
+cx,6<br>
+<br>
+cx<br>
+<br>
+ax<br>
+<br>
+ax,start_x<br>
+x0,ax<br>
+x1,ax<br>
+<br>
+ax,start_y<br>
+y0,ax<br>
+y1,ax<br>
+cx<br>
+cx<br>
+<br>
+cx<br>
+<br>
+ax,start_x
+</td>
+<td colspan=10>
+；直线起始点的X坐标<br>
+；直线起始点的Y坐标<br>
+；直线终止点的X坐标<br>
+；直线终止点的Y坐标<br>
+；直线的颜色<br>
+<br>
+；保存ΔX′<br>
+；保存ΔY′<br>
+；保存2ΔX′（也可能是2ΔY′，依递增方向定）<br>
+；保存2ΔY′（也可以是2ΔX′）<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+；设置图形显示模式4<br>
+<br>
+；SI寄存器指向多边形的顶点表<br>
+；显示6个封闭的多边形<br>
+；显示循环开始<br>
+；暂存CX寄存器中的计数值<br>
+；取得一个多边形的顶点总数并保存至堆栈<br>
+<br>
+；取多边形的第一点X坐标<br>
+；起点要显示在合适的位置<br>
+；第一点的X坐标送入X0及X1<br>
+<br>
+；取多边形的第一点Y坐标<br>
+；调整位置<br>
+；第一点的Y坐标送入Y0及Y1<br>
+<br>
+；取每个多边形包含的顶点总数<br>
+；减去起始点<br>
+<br>
+<br>
+；取下一点X坐标<br>
+；调整位置
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page253.html">上一页</a> <a href="page255.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>附录D BIOS数据区</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page335.html">上一页</a> <a href="page337.html">下一页</a> <a href="page341.html">参考文献</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-336-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="BBB">附录D BIOS数据区</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<table border=1 width=650 frame="box">
+<tr>
+<td width=6%>偏移</td><td width=6%>长度</td><td width=13% align=center>位定义<br>7654 3210</td><td width=50%>说明</td><td width=25%>备注</td>
+</tr>
+<tr>
+<td width=6%>00H</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>串行口COM1基地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>02H</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>串行口COM2基地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>04H</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>串行口COM3基地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>06H</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>串行口COM4基地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>08H</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>并行打印适配器LPT1端口地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>0AH</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>并行打印适配器LPT2端口地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>0CH</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>并行打印适配器LPT3端口地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>0EH</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>并行打印适配器LPT4端口地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>10H</td><td width=6%>字节</td><td width=13% align=center>**.. ....<br>..** ....<br><br><br>.... **..<br>.... .*..<br>.... ..*.<br>.... ...*</td><td width=50%>软盘驱动器数<br>显示方式:<br> 00:保留 01:40x25 彩色<br> 10:80x25 彩色 11:80x25 单色<br>PC:内存已安装 AT:保留<br>PC/AT:保留 PS/2:装有定点设备<br>装有8087/287/387协处理器<br>装有软盘驱动器</td><td width=25% rowspan=2>10H与11H两个字节为设备编码，调用BIOS中断11H可返回此信息</td>
+</tr>
+<tr>
+<td width=6%>11H</td><td width=6%>字节</td><td width=13% align=center>**.. ....<br>..*. ....<br>...* ....<br>.... ***.<br>.... ...*</td><td width=50%>打印机适配器号<br>便携机：内部调制解调器<br>装有游戏杆<br>RS232适配器号<br>保留</td>
+</tr>
+<tr>
+<td width=6%>12H</td><td width=6%>字节</td><td width=13% align=center></td><td width=50%>PC/AT：初始化信息；便携机：电源自检状态</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>13H</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>内存容量，以KB为单位</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>15H</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>PC/AT：保留；便携机：电池状态</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>17H</td><td width=6%>字节</td><td width=13% align=center>*... ....<br>.*.. ....<br>..*. ....<br>...* ....<br>.... *...<br>.... .*..<br>.... ..*.<br>.... ...*</td><td width=50%>Insert状态<br>Caps Lock状态<br>Num Lock状态<br>Scroll Lock状态<br>Alt键按下<br>Ctrl键按下<br>Left Shift键按下<br>Right Shift键按下</td><td width=25% rowspan=2>17H与18H合称键盘状态字</td>
+</tr>
+<tr>
+<td width=6%>18H</td><td width=6%>字节</td><td width=13% align=center>*... ....<br>.*.. ....<br>..*. ....<br>...* ....<br>.... *...<br>.... .*..<br>.... ..*.<br>.... ...*</td><td width=50%>Insert键按下<br>Caps Lock键按下<br>Num Lock键按下<br>Scroll Lock键按下<br>Pause状态<br>仅在AT机上：SysRq键按下<br>仅在AT机上：Left Alt键按下<br>仅在AT机上：Left Ctrl键按下</td>
+</tr>
+<tr>
+<td width=6%>19H</td><td width=6%>字节</td><td width=13% align=center></td><td width=50%>用Alt+数字小键盘键入工作区</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>1AH</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>键盘缓冲区首地址</td><td width=25%></td>
+</tr>
+<tr>
+<td width=6%>1CH</td><td width=6%>字</td><td width=13% align=center></td><td width=50%>键盘缓冲区尾地址</td><td width=25%></td>
+</tr>
+</table>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page335.html">上一页</a> <a href="page337.html">下一页</a> <a href="page341.html">参考文献</a></p>
+</body>
+</html>

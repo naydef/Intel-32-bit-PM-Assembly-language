@@ -1,0 +1,240 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page309.html">上一页</a> <a href="page311.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-310-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+；****<br>
+<br>
+<br>
+error:<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+<br>
+main<br>
+<br>
+outseg<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+loop1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+loop<br>
+<br>
+第二个插<br>
+<br>
+ret<br>
+<br>
+mov<br>
+cmp<br>
+jz<br>
+mov<br>
+<br>
+mov<br>
+int<br>
+ret<br>
+endp<br>
+<br>
+proc<br>
+push<br>
+push<br>
+push<br>
+<br>
+mov<br>
+<br>
+push<br>
+<br>
+mov<br>
+rol<br>
+mov<br>
+<br>
+and<br>
+add<br>
+daa<br>
+adc<br>
+daa<br>
+<br>
+mov<br>
+int<br>
+mov<br>
+pop<br>
+loop<br>
+<br>
+pop
+</td>
+<td colspan=5>
+fill<br>
+<br>
+入点******<br>
+<br>
+<br>
+<br>
+dx,offset errmsg1<br>
+ax,07h<br>
+exit<br>
+dx,offset errmsg2<br>
+<br>
+ah,09h<br>
+21h<br>
+<br>
+<br>
+<br>
+near<br>
+ax<br>
+bx<br>
+cx<br>
+<br>
+cx,4<br>
+<br>
+cx<br>
+<br>
+cl,4<br>
+ax,cl<br>
+bx,ax<br>
+<br>
+ax,000fh<br>
+al,90h<br>
+<br>
+al,40h<br>
+<br>
+<br>
+ah,0eh<br>
+10h<br>
+ax,bx<br>
+cx<br>
+loop1<br>
+<br>
+cx
+</td>
+<td colspan=9>
+；填充下一"节"<br>
+<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+；准备输出第一个错误信息<br>
+；是内存控制块出错吗？<br>
+；是MCB有错，转EXIT显示第一个错误信息<br>
+；准备显示第二个错误信息<br>
+<br>
+；显示DX寄存器指向的错误信息<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+；输出段地址子程序<br>
+；保存寄存器<br>
+<br>
+<br>
+<br>
+；显示一个4位十六进制数<br>
+<br>
+；暂存CX寄存器中的计数值<br>
+<br>
+；准备处理4个Bit<br>
+；将高4位移至低4位<br>
+；暂存移位后的结果<br>
+<br>
+；保留低4位<br>
+；将低4位转换成ASCII码<br>
+<br>
+<br>
+<br>
+<br>
+；利用10H中断的0EH功能输出字符<br>
+<br>
+；取回移位后的结果<br>
+；恢复CX寄存器<br>
+；继续处理下4位<br>
+<br>
+；恢复寄存器
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page309.html">上一页</a> <a href="page311.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

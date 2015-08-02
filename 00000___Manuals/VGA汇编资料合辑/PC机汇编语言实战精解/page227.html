@@ -1,0 +1,115 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page226.html">上一页</a> <a href="page228.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-227-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+buffer<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+db<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+?<br>
+<br>
+main
+</td>
+<td colspan=9>
+；缓冲区首<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序的使用方法和TYPE命令一致，它只能处理64K以下的文件，这主要是为了编程简单。<br>
+　　问题讨论至此可以告一段落了，事实上没有涉及到的知识还有很多，其中不乏有一些很重要的内容我们还没有研究。笔者认为"掌握知识不如掌握方法"。通过这一段的学习大家对此已有所体会，我们讨论了半本书，但直到现在也没有把全部的指令都说到，可是凭我们已经掌握的一些指令就能编制出完整的程序。由此可见学习汇编语言的关键不在于背下全部的指令，而在于将指令、算法、DOS/BIOS功能调用和硬件知识有机的结合起来。基于这样一种观点，所以笔者决定不再更深入地讨论有关文件的内容，剩下的东西留给大家以此检验大家的能力。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="82">8．2 细看磁盘</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　讨论了很多有关文件的内容，你可能会产生这样的问题就是这些文件在磁盘上究竟是如何存储的？这个问题所涉及的知识很广，如果让我们从"磁"与"电"的关系与转化谈起那么足可以再写一本书。在这一节里我不准备更多地深入讨论细节问题，而是介绍一些有关磁盘的初步知识，重点在于系统提供的功能调用。<br>
+　　在我们的系统中主要有两种外存储设备--软盘和硬盘。软盘一般被称为移动盘，因为盘片和驱动器可以分离；硬盘一般被称为固定盘，它的盘片和驱动器是密封在一起的。我们通常使用的软盘有四种规格，从体积上分有5.25英寸和3.5英寸两种，每种磁盘又有两种密度--倍密度（360K，720K）和高密度（1.2M，1.44M）。<br>
+　　早期的5寸盘还有低密度（320K），现已淘汰；最新的软盘有3.5英寸2.88M的，还有光磁软盘，但这些设备离普及还有一段距离。<br>
+　　硬盘的容量一般很大，早期的有10M，20M容量的，而后发展至40M，80M......，目前一台奔腾级的电脑配备1.2GB或2.1GB容量的硬盘不算奢侈。从性能上讲不同的软盘，软盘与硬盘之间有很大的差异，然而它们最基本的结构都是相同的。当然，我这里所说的结构指得是它们的"软"结构，也就是磁盘的格式。<br>
+　　一张新的软盘在使用之前首先要进行"格式化"，这是大家都清楚的规定。那么究竟什么是格式化？这可能就不是所有人都知道了。从磁电的相互转换关系来看好象不必进行什么格式化操作也能在磁盘上保存数据，我们通常使用录音磁带时从来没做过格式化，声音照样保存在磁带上，为什么磁盘在使用前要做格式化呢？<br>
+　　我们先来考虑这样一个问题，如果我们现在需要从一盘磁带上找到第三首歌，可能会花多少时间？如果这盘磁带我们从未听过，那么想找到其中某一首歌恐怕要费一些周折。而如果我们从磁盘上寻找某个文件，即使这片磁盘我们也是初次使用，恐怕也只需要几秒钟就能找到所要的文件，甚至可能用更少的时间。<br>
+　　因为每片磁盘上都记录有一个目录表，想找个文件只要用"DIR"命令就可以了。可谁听说过哪盘磁带上录着歌名呢！这话说得一点儿也不假，但说得不够深入。<br>
+　　如果我们把磁带上的声音也看做是信息的话，那么我们应该说信息在磁盘上和磁带上的组织形式是有区别的。信息在磁盘上肯定以某种不同于磁带的形式组织在一起，这种组织形式可以使计算机以及计算机用户能够在很短的时间内找到所需的信息。我想这样说可能有助于大家的理解。实际上在这一节我们主要讨论的内容就是信息（数据）在磁盘上的组织形式。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page226.html">上一页</a> <a href="page228.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

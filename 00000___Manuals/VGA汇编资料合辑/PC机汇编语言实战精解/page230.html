@@ -1,0 +1,155 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page229.html">上一页</a> <a href="page231.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-230-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><font face="楷体_GB2312">表8-4 INT 13H中断部分功能</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align=center>功能号</td><td colspan=5 align=center>功能说明</td><td colspan=5 align=center>调用参数</td><td colspan=5 align=center>返回信息</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align=center>00H</td><td colspan=5>复位软磁盘系统，为下一步操作做准备</td><td colspan=5>AH=00H</td><td colspan=5>无</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align=center>01H</td><td colspan=5>取软磁盘控制器的状态</td><td colspan=5>AH=01H</td><td colspan=5>AH=状态字节<sup>*</sup></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align=center>02H</td><td colspan=5>读取一个或几个扇区的数据到内存缓冲区</td><td colspan=5>AH=02H<br>AL=读取的扇区数<br>ES:BX=内存缓冲区首<br>CH=磁道号，CL=扇区号<br>DH=磁头号，DL=驱动器号</td><td colspan=5>成功：CF=0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AL=实际读取的<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扇区数<br>失败：CF=1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AH=状态字节</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align=center>03H</td><td colspan=5>将内存中的数据写入磁盘上指定的一个或几个连续的扇区中</td><td colspan=5>AH=03H<br>AL，ES:BX，CH，CL，DH，DL的内容与02H功能一样</td><td colspan=5>同02H功能</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align=center>04H</td><td colspan=5>校验磁盘指定的扇区</td><td colspan=5>AH=04H<br>AL=校验的扇区数<br>CH，CL，DH，DL的内容与02H功能一样</td><td colspan=5>同02H功能</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align=center>05H</td><td colspan=5>格式化软盘的指定磁道</td><td colspan=5>AH=05H<br>ES:BX=存放扇区地址信息的缓冲区<br>CH，DH，DL的内容与02H功能一样，CL未用</td><td colspan=5>同02H功能</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312" size=2>
+　　注*：01-04功能返回的状态字节均相同。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　磁盘复位功能的主要作用是使驱动器进入就绪状态，为进一步的存取操作做好准备。它一般用于真正进行数据存取操作之前，有时磁盘读写出错需要重新读写时也先使用此功能令磁盘驱动器复位。扇区读写这两项功能是最为常用的，有一点需要说明的就是DL寄存器中的参数，这个参数指明了程序所要读写的物理驱动器号。软盘驱动器编号为0和1，对应驱动器A和B；硬盘的编号为80H和81H，对应物理硬盘C和D。有一些电脑中可能有符号为E、F或G之类的"硬盘"，请注意那些并非是"物理"驱动器，而是由FDISK程序从一个硬盘上划分出来的"逻辑"驱动器。它们在硬盘上占据一部分空间，DOS虽然给它们分配了驱动器符号，但实际上这些驱动器都是存在于同一个硬盘上的不同的区域。因此我必须提醒你注意这样一点：除非你真正打开过机箱看到机器内确实安装了两个或更多的硬盘，否则不要试图对编号为81H或82H之类的驱动器进行操作。切记物理盘与逻辑盘是有区别的。<br>
+　　下面这个小程序演示了前述三项功能的应用，它可以读取A驱动器软盘上0面0磁道第一个扇区的内容。笔者建议大家预先格式化一些磁盘备用，而且最好使用同一个程序作格式化。通过这个程序，大家不仅可以掌握读取磁盘扇区的方法，同时这里面还有更深一层的问题。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>
+READDISK.COM<br>
+-A100[Enter]<br>
+12A3:0100<br>
+12A3:0102<br>
+12A3:0104<br>
+12A3:0106<br>
+12A3:0108<br>
+12A3:010A<br>
+12A3:010C
+</td>
+<td colspan=6>
+<br>
+<br>
+MOV	AH,00<br>
+INT	13<br>
+MOV	AH,02<br>
+MOV	AL,01<br>
+MOV	CH,00<br>
+MOV	CL,01<br>
+MOV	DH,00
+</td>
+<td colspan=9>
+<br>
+<br>
+；复位软盘驱动器<br>
+<br>
+；准备读取扇区<br>
+；读取一个扇区<br>
+；此扇区是0磁道的<br>
+；第一扇区<br>
+；此扇区在磁盘的0面
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page229.html">上一页</a> <a href="page231.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page131.html">上一页</a> <a href="page133.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-132-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-g 100 106[Enter]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>注意CX寄存器光标的起始、终止线都为0</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0100</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=09DF</td><td colspan=2>ES=09DF</td><td colspan=2>SS=09DF</td><td colspan=2>CS=09DF</td><td colspan=2>IP=0106</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>09DF:0106</td><td colspan=2>CD10</td><td colspan=6>INT 10&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>准备改变光标形状</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　注意下面要用"P"命令跟踪INT指令的执行，不要使用"T"命令，那样DEBUG将跟踪到BIOS中去。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-p</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=000B</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=09DF</td><td colspan=2>ES=09DF</td><td colspan=2>SS=09DF</td><td colspan=2>CS=09DF</td><td colspan=2>IP=0108</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>09DF:0108</td><td colspan=2>B401</td><td colspan=6>MOV AH,01</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　执行过的这一小段程序将光标的起始线与终止线都设为0，跟踪完"INT 10"后我们可以看到光标跑到了字符的上面且变成了一条细线。（我是看到了，你呢？）看来第二个问题有了答案：若光标终止线位置不在字符区的最后一线，那么光标就会出现在字符区的不同位置。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-g=108 10e[Enter]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>起始线在终止线以下</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=010B</td><td colspan=2>BX=0000</td><td colspan=2>CX=0100</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=09DF</td><td colspan=2>ES=09DF</td><td colspan=2>SS=09DF</td><td colspan=2>CS=09DF</td><td colspan=2>IP=010E</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>09DF:010E</td><td colspan=2>CD10</td><td colspan=6>INT 10</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序的后半部分设置了新的光标形状，起始线在终止线以下，不知会出现什么结果。我们来跟踪一下：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-p</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=000B</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=09DF</td><td colspan=2>ES=09DF</td><td colspan=2>SS=09DF</td><td colspan=2>CS=09DF</td><td colspan=2>IP=0110</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>09DF:0110</td><td colspan=2>08847453</td><td colspan=6>OR [SI+5374],AL</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　由跟踪结果我们可以得出这样的结论，即当使用01H功能改变光标形状时光标终止线可以不设在字符行的最底线，但是应保证起始线在终止线上面，否则就无法知道光标会变成什么样子。笔者使用一块具有PCI接口的"S3 868"显示卡，执行后一半程序时光标被关闭，使用其它显示卡会出现什么结果可就不好说了。所以除非必要，最好还是按规矩办事。<br>
+　　关于光标的问题我们暂且讨论到这里，下面我们要来研究一个非常关键的问题，那就是如何清屏幕。我想我们没有任何理由认为这个问题不重要，几乎所有高级语言都提供了清屏的语句或函数，即使是DOS也提供了CLS命令。这些语句、函数以及CLS命令究竟是如何起作用的呢？这就是我们将要研究的问题。<br>
+　　说实在的，如果单就"清屏幕"这个问题而言解决的办法有很多，恐怕大家都能想到这个方法那就是在屏幕上显示25行空格就可清除屏幕上所有的内容。下面这个程序就是据此思路编写的：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>
+C:\ASM\>DEBUG [Enter]<br>
+-a100[Enter]<br>
+</td>
+<td colspan=12>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page131.html">上一页</a> <a href="page133.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

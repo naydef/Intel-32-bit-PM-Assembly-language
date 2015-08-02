@@ -1,0 +1,219 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page230.html">上一页</a> <a href="page232.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-231-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>
+12A3:010E<br>
+12A3:0110<br>
+12A3:0113<br>
+12A3:0115<br>
+12A3:0117
+</td>
+<td colspan=6>
+MOV	DL,00<br>
+MOV	BX,0200<br>
+INT	13<br>
+INT	20<br>
+[Enter]
+</td>
+<td colspan=9>
+；读取A驱<br>
+；缓冲区首定为200H<br>
+；读入数据<br>
+；结束<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　先在A驱动器中放一片软盘，而后运行这个程序，看看驱动器是否有动作。然后我们列出刚刚读入内存的数据：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-G=100[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-d2000[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>12A3:0200</td><td colspan=10>EB 3C 90 4D 53 44 4F 53-35 2E 30 00 02 01 01 00</td><td></td><td colspan=5>.<.MSDOS5.0.....</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>12A3:0210</td><td colspan=10>02 E0 00 40 0B F0 09 00-12 00 02 00 00 00 00 00</td><td></td><td colspan=5>...@............</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>12A3:0220</td><td colspan=10>00 00 00 00 00 00 29 FC-10 13 18 4E 4F 20 4E 41</td><td></td><td colspan=5>......)....NO NA</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>12A3:0230</td><td colspan=10>4D 45 20 20 20 20 46 41-54 31 32 20 20 20 FA 33</td><td></td><td colspan=5>ME&nbsp;&nbsp;&nbsp;&nbsp;FAT12&nbsp;&nbsp;&nbsp;.3</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>12A3:0240</td><td colspan=10>C0 8E D0 BC 00 7C 16 07-BB 78 00 36 C5 37 1E 56</td><td></td><td colspan=5>.....|...x.6.7.V</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>12A3:0250</td><td colspan=10>16 53 BF 3E 7C B9 0B 00-FC F3 A4 06 1F C6 45 FE</td><td></td><td colspan=5>.S.>|.........E.</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>12A3:0260</td><td colspan=10>0F 8B 0E 18 7C 88 4D F9-89 47 02 C7 07 3E 7C FB</td><td></td><td colspan=5>....|.M..G...>|.</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>12A3:0270</td><td colspan=10>CD 13 72 79 33 C0 39 06-13 7C 74 08 8B 0E 13 7C</td><td></td><td colspan=5>..ry3.9..|t....|</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　大家看到的内容可能与笔者给出的不一样，原因在于我们使用了不同的格式化程序。如果是使用MSDOS6.20所带的FORMAT程序格式化磁盘，而且保证系统无病毒入侵的情况下，那么大家应该看到笔者所给出的数据。<br>
+　　将准备好的几片磁盘依次放入驱动器中并运行此程序，如果这些磁盘确实使用同一程序做的格式化，那么就会发现在这些磁盘的0面0磁道的第一个扇区内存储着相同的内容。由此我们可以得出这样一个结论：当一片磁盘格式化完毕后，这片磁盘的0面0磁道第一个扇区内已经存储了数据，且用不同的程序进行格式化所存储的内容也有区别。<br>
+　　这一扇区内究竟存放的是什么东西，有什么作用呢？从D命令显示的结果来看这些数据中包含有DOS系统的两个隐含文件的文件名，还有一段英文信息。不知道这一段英文信息你是否见过，当我们使用一片不带DOS系统的软盘启动机器时，我们会看到这段信息。从这两点我们可以推断这些数据和操作系统有关。我们下面尝试用U命令将其反汇编，看看能得到些什么：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+-U200[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+121D:0200<br>
+121D:0202<br>
+121D:0203<br>
+121D:0204<br>
+121D:0205<br>
+121D:0206<br>
+121D:0207<br>
+121D:0208<br>
+121D:020B<br>
+121D:020D<br>
+121D:020F
+</td>
+<td colspan=3>
+EB3C<br>
+90<br>
+4D<br>
+53<br>
+44<br>
+4F<br>
+53<br>
+352E30<br>
+0002<br>
+0101<br>
+0002
+</td>
+<td colspan=3>
+JMP<br>
+NOP<br>
+DEC<br>
+PUSH<br>
+INC<br>
+DEC<br>
+PUSH<br>
+XOR<br>
+ADD<br>
+ADD<br>
+ADD
+</td>
+<td colspan=10>
+023E<br>
+<br>
+BP<br>
+BX<br>
+SP<br>
+DI<br>
+BX<br>
+AX,302E<br>
+[BP+SI],AL<br>
+[BX+DI],AX<br>
+[BP+SI],AL
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page230.html">上一页</a> <a href="page232.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

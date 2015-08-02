@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<!--[if IE 7]>    <html class="no-js oldie ie7 ie" lang="en-US" prefix="og: http://ogp.me/ns#" > <![endif]-->
+<!--[if IE 8]>    <html class="no-js oldie ie8 ie" lang="en-US" prefix="og: http://ogp.me/ns#" > <![endif]-->
+<!--[if IE 9 ]>   <html class="no-js       ie9 ie" lang="en-US" prefix="og: http://ogp.me/ns#" > <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns#" > <!--<![endif]-->
+<head>
+        <meta charset="UTF-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
+        <title>Developer Guides, Manuals &amp; ISA Documents - AMD</title>
+            
+        <!-- devices setting -->
+        <meta name="viewport"           content="initial-scale=1,user-scalable=no,width=device-width">
+	
+        <!-- Microsoft cleartype rendering -->
+        <meta http-equiv="cleartype"    content="on">
+        <meta name="author"             content="">
+	
+        <!-- feeds, pingback -->
+        <link rel="profile"             href="http://gmpg.org/xfn/11" />
+        <link rel="alternate"           href="http://developer.amd.com/feed/" type="application/rss+xml" title="AMD RSS2 Feed" />  
+        <link rel="pingback"            href="http://developer.amd.com/xmlrpc.php" />
+                <!-- favicon -->
+        <link rel="shortcut icon"       href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/12/favicon.png" >
+                
+        <link rel="stylesheet"          href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' >
+
+        <!-- enables HTML5 elements & feature detects -->
+        <script src="http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/modernizr-2.6.2.min.js"></script>
+
+<!-- outputs by wp_head -->
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v2.2.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Developer guides, reference manuals &amp; ISA documents for the AMD A10, A8, A6 7000 Series APUs, CodeXL, Radeon, AMD64 Architecture, compilers, bios and kernel guides &amp; more."/>
+<link rel="canonical" href="http://developer.amd.com/resources/documentation-articles/developer-guides-manuals/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Developer Guides, Manuals &amp; ISA Documents - AMD" />
+<meta property="og:description" content="Developer guides, reference manuals &amp; ISA documents for the AMD A10, A8, A6 7000 Series APUs, CodeXL, Radeon, AMD64 Architecture, compilers, bios and kernel guides &amp; more." />
+<meta property="og:url" content="http://developer.amd.com/resources/documentation-articles/developer-guides-manuals/" />
+<meta property="og:site_name" content="AMD" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="AMD &raquo; Feed" href="http://developer.amd.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="AMD &raquo; Comments Feed" href="http://developer.amd.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="AMD &raquo; Developer Guides, Manuals &amp; ISA Documents Comments Feed" href="http://developer.amd.com/resources/documentation-articles/developer-guides-manuals/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/developer.amd.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.3"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='contact-form-7-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.2.1' type='text/css' media='all' />
+<link rel='stylesheet' id='google-code-prettify-css-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus_amd/js/google-code-prettify/prettify.css?ver=4.2.3' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-base-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/base.css?ver=2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-main-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/main.css?ver=2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='superfish-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/other/superfish.css?ver=2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-resp-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/responsive.css?ver=2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-fonts-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/fonts.css?ver=2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-stylesheet-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus_amd/style.css?ver=2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='prettyPhoto-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/other/prettyPhoto.css?ver=3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='jplayer-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/other/jplayer/jplayer.css?ver=3.2' type='text/css' media='all' />
+<link rel='stylesheet' id='youtube-channel-gallery-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/plugins/youtube-channel-gallery/styles.css?ver=4.2.3' type='text/css' media='all' />
+<link rel='stylesheet' id='jquery.magnific-popup-css'  href='http://amd-dev.wpengine.netdna-cdn.com/wp-content/plugins/youtube-channel-gallery/magnific-popup.css?ver=4.2.3' type='text/css' media='all' />
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/jquery-1.9.1.min.js?ver=4.2.3'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus_amd/js/google-code-prettify/prettify.js?ver=4.2.3'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus_amd/js/google-code-prettify/prettify-init.js?ver=4.2.3'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/plugins/jquery.easing.min.js?ver=1.3'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://developer.amd.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://developer.amd.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='http://developer.amd.com/?p=865' />
+<!-- end wp_head -->
+
+<!--[if IE 7]>
+    <link rel="stylesheet"      href="http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/ie7.css?ver=3.0" type="text/css" media="screen"/>
+<![endif]-->
+
+<!-- Custom Options Style -->
+<style type="text/css" >
+/*
+===============================================================
+  #CUSTOM CSS
+ - Please do not edit this file. this file is generated from admin area.
+ - Every changes here will be overwritten
+===============================================================*/
+body {
+    background: #ffffff url() repeat fixed left top;
+}
+
+
+/* header styles
+ *------------------------------ */
+header#siteheader #logo .logo_inner {
+    width:  132px;
+    height: 85px;
+}
+header#siteheader #logo img {
+    max-width:  132px;
+}
+/* Custom general styles
+ *================================================================== */
+a  {
+  color: #f26621;
+}
+
+a:hover {
+  color: #000000;
+}
+
+
+.entry-meta .readmore a.linkblock {
+  background-color: #f26621;
+}
+a.cell-comment:hover, 
+.entry-tax a[rel="category"]:hover,
+.entry-meta .readmore a.linkblock:hover {
+  background-color: #000000;
+}
+
+/* body color ------- */
+
+.right-sidebar .one_half.callout a.featured_btn, 
+.left-sidebar .one_half.callout a.featured_btn { border-top-color: #ffffff; }
+
+.callout a.featured_btn { border-left-color: #ffffff;  }
+.widget-pages figure .imgHolder,
+.widget-product figure .imgHolder { border-bottom-color: #ffffff; }
+
+#inner-body,
+.entry-tax ,
+.entry-share ,
+.divider span ,
+#comments h3, .respond-title h3 ,#reply-title span,
+#cancel-comment-reply-link ,
+.widget-title-bar .widget-title ,
+.widget-nav ,
+.widget-tabs .tabs > li.active a ,
+.type-staff.hentry .entry-content .socials li ,
+.widget-product figcaption .item-title a ,
+.widget-staff figcaption .item-title a ,
+.single-portfolio .right-layout .entry-nav-inner ,
+.flexslider .flex-dir-nav.pagination a ,
+.flexslider .flex-dir-nav.pagination a.disabled ,
+.entry-meta .readmore ,
+.widget-pages figcaption .item-title a { background-color: #ffffff; }
+
+.widget-tabs .tabs > li.active a { border-bottom-color: #ffffff; }
+
+
+ blockquote ,
+.widget-staff figure:hover ,
+.widget-staff figure:hover .item-title a ,
+.widget-product figure:hover ,
+.widget-product figure:hover .item-title a ,
+.widget-chart .widget-inner > div  { background-color: #f5f5f5 }
+
+.widget-staff figcaption .socials a { color: #109109109 }
+
+@media only screen and (max-width: 767px) {
+    .callout a.featured_btn { border-top-color: #ffffff; }
+}
+
+
+/* dividers color ------- */
+/*.page-header { border-bottom: 1px solid #dddddd; }*/
+hr, .divider { border-color: #dddddd; }
+
+
+/* feature color ------- */
+
+aside .widget_nav_menu ul li.current-menu-item { border-left: 2px solid #f26621; }
+
+
+.widget-testimonial .testimonial-author a, 
+.subfooter .widget-testimonial .testimonial-author a,
+aside.sidebar .widget-container a:hover ,
+.cell-date span ,
+.socials a:hover ,
+.widget-tabs .tabs > li a:hover,
+.widget-tabs .tabs > li.active a ,
+.widget-staff figcaption p.staff-spes ,
+.widget-staff figcaption .socials a:hover ,
+.widget-column section > span, .widget-column .col > span ,
+.widget-folio.caption-over .imgHolder em h4 ,
+.tweet a:hover ,
+.tweet .avatar .icon-twitter:hover ,
+.single-info ul:first-child a ,
+.type-staff.hentry .entry-header .entry-title2 ,
+.single-axi_product .single-info .meta-product li .current-price ,
+.widget-blog .entry-title a:hover, 
+.list-post .entry-title a:hover, 
+.widget_recent_blog .entry-title a:hover,
+.widget-folio .fig-title a:hover ,
+.widget-staff figcaption .item-title a:hover ,
+.entry-related .fig-title a:hover ,
+#author-description dt a:hover ,
+.widget-product figcaption .item-title a:hover ,
+.list-news #primary .entry-title a:hover, .single-news #primary .entry-title a:hover,
+#axi_breadcrumbs a:hover ,
+.subfooter a:hover, .subfooter .entry-title a:hover { color: #f26621; }
+
+
+aside .widget_testimonial .testimonial-author a,
+.subfooter .widget_testimonial .testimonial-author a,
+.subfooter .tweet .mt_user:hover { color: #f26621 !important; }
+
+a.more, button.more,
+a.linkblock:hover, 
+.dropcap.square, 
+.dropcap.circle,
+.cell-date em ,
+.axi_paginate_nav a.page-numbers:hover ,
+.entry-meta .readmore .cell-comment, .entry-meta .readmore .entry-tax a[rel="category"], .entry-tax .entry-meta .readmore a[rel="category"] ,
+.widget-blog .post-format:hover, .list-post .post-format:hover, 
+.widget_recent_blog .post-format:hover,
+.widget-faq section.active dt i ,
+.widget-chart .widget-inner div div ,
+.axi_paginate_nav .current ,
+.single-axi_product .single-info .buy-btn a,
+.callout a.featured_btn { background-color: #f26621; }
+
+::selection { background-color: #f26621; }
+::-moz-selection { background-color: #f26621; }
+
+#single-product-carousel .slides > li.flex-active-slide,
+.widget-tabs .tabs > li.active a { border-top-color: #f26621; }
+
+.widget-staff figure:hover .imgHolder { border-bottom-color: #f26621; }
+
+
+.single-axi_product .single-info .buy-btn a:hover ,
+a.more:hover , button.more:hover { background-color: #e85c17 }
+
+
+.widget-column section > span , 
+[class^="icon-"], [class*=" icon-"] { color:#f26621; }
+
+
+.callout a.featured_btn, .stunning a.featured_btn { background-color:#f26621; }
+
+.callout a.featured_btn:hover, .stunning a.featured_btn:hover { background-color: #e85c17 }
+
+
+
+/* Custom top header bar styles
+ *------------------------------ */
+#top-header    { background-color: #ffffff; }
+#top-header #searchform #s { background-color: #ebebeb; }
+#top-header #searchform #s, 
+.header-tools .socials + .header_flags_lan_selector { border-color: #e6e6e6; }
+#top-header p , 
+#top-header #searchform #s,
+#top-header #searchform #s:focus { color: #999999; }
+#top-header #searchform ::-webkit-input-placeholder { color: #999999;}
+#top-header #searchform :-moz-placeholder      { color:#999999; } /* Firefox 18- */
+#top-header #searchform ::-moz-placeholder     { color:#999999; } /* Firefox 19+ */
+#top-header #searchform :-ms-input-placeholder { color:#999999;  }
+.sf-menu > li a { line-height:60px }
+.sf-menu li:hover ul, .sf-menu li.sfHover ul { top: 64px; }
+
+
+/* Custom header styles
+ *------------------------------ */
+header#siteheader {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+}
+@media only screen and (max-width: 767px){
+    header#siteheader #sitetitle {
+        background-color: #ffffff;
+    }
+}
+
+@media only screen and (max-width: 959px) and (min-width: 768px){
+    header#siteheader #logo {
+        background-color: #ffffff;
+    }
+}
+
+/* Custom header navigation styles
+ *------------------------------ */
+header#siteheader .sf-menu > li a {
+    color: #000000;
+}
+@media only screen and (min-width: 960px)  {
+    header#siteheader .container { 
+        height: 60px;
+        min-height: 60px; 
+    }
+}
+@media only screen and (max-width: 959px)  {
+    header#siteheader #logo { height: 60px; }
+}
+
+
+.sf-menu > li a:hover,
+.sf-menu > li.sfHover,
+.sf-menu > li.sfHover > a {
+    color: #ffffff !important;
+    background-color: #000000;
+}
+
+header#siteheader .sf-menu li li a {
+    color: #ffffff;
+}
+
+.sfHover li a:hover ,
+header#siteheader .sf-menu li.sfHover li.sfHover > a {     color: #999999 !important; 
+}
+
+
+
+.sf-menu li.current-menu-ancestor, 
+.sf-menu li.current-menu-ancestor > a ,
+.sf-menu li.current-menu-parent, 
+.sf-menu li.current-menu-parent > a ,
+.sf-menu li.current_page_item , 
+.sf-menu li.current_page_item > a ,
+.sf-menu li.current-menu-item  , 
+.sf-menu li.current-menu-item > a {
+    color: #000000 !important;
+    background-color: #ededed !important;
+}
+
+.sf-menu li.current-menu-ancestor > a ,
+.sf-menu li.current-menu-parent > a ,
+.sf-menu li.current_page_item > a ,
+.sf-menu li.current-menu-item > a,
+.sf-menu > li > a:hover,
+.sf-menu > li.sfHover,
+.sf-menu > li.sfHover > a {
+    border-bottom-color: #000000;
+}
+
+/* Custom header vertical navigation styles
+ *------------------------------ */
+@media only screen and (max-width: 767px) {
+    
+    header#siteheader .sf-menu > li > a {
+        border-bottom: 1px solid #ffffff;
+        border-top: 1px solid #ffffff;
+    }
+}
+
+
+
+/* x > 1200 
+ *-------------------------------*/
+@media only screen and (min-width: 1200px) { 
+  .boxed #inner-body { max-width: 1200px; margin: 0 auto; }
+  .no-sidebar > .wrapper, .right-sidebar > .wrapper, .left-sidebar > .wrapper { max-width: 1140px; }
+  .container { max-width: 1140px; } 
+  #axi_breadcrumbs { max-width: 285px; }
+}
+
+
+/* footer custom style
+ *------------------------------ */
+footer#sitefooter { background-color: #000000; }
+
+footer#sitefooter ul.footer-menu li a,
+footer#sitefooter { color: #6d6d6d; }
+
+footer#sitefooter ul.footer-menu li a { border-color: #292929 !important; }
+
+footer#sitefooter ul.footer-menu li a:hover { color: #636363; }
+
+/* User Custom styles
+ *------------------------------ */
+</style>
+ 
+
+<!-- custom styles for plugins -->
+<link rel="stylesheet"  href="http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/css/other/overwrite.css?ver=1.5" type="text/css" media="screen"/>
+
+ 
+    
+<!-- Media query for old IE
+[if lt IE 9]><script src="http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus_amd/js/libs/modules/css3-mediaqueries.js"></script><![endif]-->
+
+
+</head>
+
+
+
+<body class="page page-id-865 page-parent page-child parent-pageid-859 page-template-default" >
+<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+<div id="inner-body">
+    
+        <div id="top-header">
+        <div class="container fold">
+            
+            
+            <div class="logo_inner">
+                <a href="http://developer.amd.com/" title="AMD" rel="home">
+                                            <img src="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/12/logo.png" data-image2x="http://developer.amd.com/wordpress/media/2013/12/logo@2x.png"  alt="AMD" />
+                                    </a>
+                <section>
+                    <h4 class="site-title"><a href="http://developer.amd.com/" title="AMD" rel="home">Developer Central</a></h4>
+                    <!--<p class="site-description"></p>-->
+                </section>
+
+                <div id="logo" >
+
+                    <div class="nav-toggle"><a class="icon-reorder" href="#"></a></div>
+                </div><!-- end logo fold -->
+            </div><!-- end logo inner -->
+
+                        <div class="header-tools">
+
+                                <div id="searchform">
+                    <form action="http://developer.amd.com/" method="get">
+                        <input type="text" id="s" placeholder="SEARCH" name="s" />
+                    </form>
+                </div><!-- end searchform -->
+                
+                <div class="header-links"><a href="http://hc.csdn.net/" target="_blank">China</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a href="http://www.amd.com" target="_blank">AMD.com</a></div>
+
+                
+                
+            </div><!-- end header tools -->
+                        
+        </div><!-- end container -->
+    </div><!-- end top header -->
+        
+    
+    <header id="siteheader" role="banner" class="wrapper">
+        <div class="container">
+
+
+<!-- start navigation -->
+<nav id="access" class="menu-main-container"><ul id="menu-main" class="sf-menu"><li id="menu-item-16" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16"><a href="http://developer.amd.com/">Home</a></li>
+<li id="menu-item-19" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-19"><a href="http://developer.amd.com/tools-and-sdks/">Tools &#038; SDKs</a>
+<ul class="sub-menu">
+	<li id="menu-item--7" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--7"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/">OpenCL™ Zone &#8211; Accelerate Your Applications</a>
+	<ul class="sub-menu">
+		<li id="menu-item--8" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--8"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk/">APP SDK &#8211; A Complete Development Platform</a>
+		<ul class="sub-menu">
+			<li id="menu-item--9" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--9"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk/download-archive/">Download Archive</a></li>
+			<li id="menu-item--11" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--11"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk/opencl-2-0-samples/">OpenCL™ 2.0 Samples</a></li>
+			<li id="menu-item--12" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--12"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk/system-requirements-driver-compatibility/">MD5 Checksums, System Requirements &amp; Driver Compatibility</a></li>
+			<li id="menu-item--13" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--13"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk/documentation/">Documentation</a></li>
+			<li id="menu-item--15" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--15"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk/opencl-optimization-guide/">OpenCL Optimization Guide</a></li>
+		</ul>
+</li>
+		<li id="menu-item--16" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--16"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/codexl/">CodeXL &#8211; Powerful Debugging, Profiling &amp; Analysis</a>
+		<ul class="sub-menu">
+			<li id="menu-item--17" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--17"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/codexl/codexl-benefits-detail/">CodeXL Benefits in Detail</a></li>
+		</ul>
+</li>
+		<li id="menu-item--18" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--18"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/aparapi/">Aparapi</a></li>
+		<li id="menu-item--19" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--19"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/bolt-c-template-library/">Bolt C++ Template Library</a></li>
+		<li id="menu-item--20" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--20"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-math-libraries/">clMath</a></li>
+		<li id="menu-item--21" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--21"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-emulator-debugger/">OpenCL™ Emulator-Debugger</a></li>
+		<li id="menu-item--22" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--22"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/">OpenCL™ Resources</a>
+		<ul class="sub-menu">
+			<li id="menu-item--23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--23"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/getting-started-with-opencl/">Getting Started with OpenCL™</a></li>
+			<li id="menu-item--24" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--24"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/programming-in-opencl/">Programming in OpenCL™</a></li>
+			<li id="menu-item--36" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--36"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/articles-papers/">OpenCL™ Articles &#038; Papers</a></li>
+			<li id="menu-item--37" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--37"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/opencl-on-demand-webinars/">OpenCL™ On-Demand Webinars</a></li>
+			<li id="menu-item--38" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--38"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/introductory-tutorial-to-opencl/">Intro OpenCL™ Tutorial</a></li>
+			<li id="menu-item--39" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--39"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/opencl-programming-webinar-series/">OpenCL™ Programming Webinar Series</a></li>
+			<li id="menu-item--40" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--40"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/opencl-course-introductory-tutorial-to-opencl-for-hpc-at-saahpc10/">OpenCL™ Course: Introductory Tutorial to OpenCL™ for HPC at SAAHPC&#8217;10</a></li>
+			<li id="menu-item--41" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--41"><a href="http://developer.amd.com/tools-and-sdks/opencl-zone/opencl-resources/opencl-course-introduction-to-opencl-programming/">OpenCL™ Course: Introduction to OpenCL™ Programming</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item--42" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--42"><a href="http://developer.amd.com/tools-and-sdks/media-sdk/">Media SDK</a></li>
+	<li id="menu-item--43" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--43"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/">CPU Development</a>
+	<ul class="sub-menu">
+		<li id="menu-item--44" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--44"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/">ACML &#8211; AMD Core Math Library</a>
+		<ul class="sub-menu">
+			<li id="menu-item--45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--45"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-downloads-resources/">ACML Downloads &amp; Resources</a></li>
+			<li id="menu-item--49" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--49"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-archive-downloads/">Archive ACML Downloads</a></li>
+			<li id="menu-item--50" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--50"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-product-features/">AMD Core Math Library Product Features</a></li>
+			<li id="menu-item--51" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--51"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-redistribution-agreements/">Redistribution Agreements</a></li>
+		</ul>
+</li>
+		<li id="menu-item--52" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--52"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/advanced-platform-management-link-apml-tools/">Advanced Platform Management Link (APML)</a></li>
+		<li id="menu-item--53" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--53"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/simnow-simulator/">SimNow™ Simulator</a></li>
+		<li id="menu-item--54" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--54"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/tools-for-dmtf-dash/">Tools for DMTF DASH</a></li>
+		<li id="menu-item--55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--55"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/libm/">LibM</a>
+		<ul class="sub-menu">
+			<li id="menu-item--56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--56"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/libm/acml_mv/">ACML_MV</a></li>
+			<li id="menu-item--57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--57"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/libm/amd-libm-functions/">LibM Functions</a></li>
+		</ul>
+</li>
+		<li id="menu-item--58" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--58"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/x86-open64-compiler-suite/">x86 Open64 Compiler Suite</a>
+		<ul class="sub-menu">
+			<li id="menu-item--59" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--59"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/x86-open64-compiler-suite/open64-compiler-developer-guide/">Developer Guide</a></li>
+			<li id="menu-item--60" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--60"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/x86-open64-compiler-suite/applications-and-libraries-built-by-x86-open64/">Apps &#038; Libraries Built by x86 Open64</a></li>
+			<li id="menu-item--61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--61"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/x86-open64-compiler-suite/inactive-files/">Inactive Files</a></li>
+		</ul>
+</li>
+		<li id="menu-item--62" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--62"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/amd-open64-software-development-kit/">Open64 SDK</a>
+		<ul class="sub-menu">
+			<li id="menu-item--63" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--63"><a href="http://developer.amd.com/tools-and-sdks/cpu-development/amd-open64-software-development-kit/building-with-acml/">Building with ACML</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item--64" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--64"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/">Graphics Development</a>
+	<ul class="sub-menu">
+		<li id="menu-item--65" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--65"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/amd-radeon-sdk/">Radeon™ SDK &#8211; Enhance Your 3D Graphics Development</a>
+		<ul class="sub-menu">
+			<li id="menu-item--66" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--66"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/amd-radeon-sdk/archive/">Archive Radeon™ SDK</a></li>
+		</ul>
+</li>
+		<li id="menu-item--67" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--67"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/display-library-adl-sdk/">AMD Display Library (ADL) SDK</a></li>
+		<li id="menu-item--68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--68"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-shaderanalyzergcn/">GPU ShaderAnalyzer for GCN</a></li>
+		<li id="menu-item--69" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--69"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-perfstudio/">GPU PerfStudio</a>
+		<ul class="sub-menu">
+			<li id="menu-item--70" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--70"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-perfstudio/gpu-perfstudio-api-trace/">API Trace</a></li>
+			<li id="menu-item--71" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--71"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-perfstudio/gpu-perfstudio-frame-debugger/">Frame Debugger</a></li>
+			<li id="menu-item--72" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--72"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-perfstudio/gpu-perfstudio-frame-profiler/">Frame Profiler</a></li>
+			<li id="menu-item--73" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--73"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-perfstudio/gpu-perfstudio-shader-debugger/">Shader Debugger</a></li>
+			<li id="menu-item--74" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--74"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-perfstudio/gpu-perfstudio-shader-editor/">Shader Editor</a></li>
+			<li id="menu-item--75" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--75"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-perfstudio/gpu-perfstudio-previous-versions/">Previous version features and release notes</a></li>
+		</ul>
+</li>
+		<li id="menu-item--76" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--76"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpu-shaderanalyzer/">GPU ShaderAnalyzer</a></li>
+		<li id="menu-item--77" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--77"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/amdcompress/">AMD Compress</a></li>
+		<li id="menu-item--78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--78"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/amd-gpu-services-ags-library/">AMD GPU Services (AGS) Library</a></li>
+		<li id="menu-item--79" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--79"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpuperfapi/">GPUPerfAPI</a>
+		<ul class="sub-menu">
+			<li id="menu-item--80" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--80"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/gpuperfapi/gpuperfapi-historical-release-notes/">GPUPerfAPI Historical Release Notes</a></li>
+		</ul>
+</li>
+		<li id="menu-item--81" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--81"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/amd-quad-buffer-sdk/">Quad-Buffer SDK</a></li>
+		<li id="menu-item--82" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--82"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/amd-edid-utility/">AMD EDID Utility</a></li>
+		<li id="menu-item--83" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--83"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/firepro-sdk/">FirePro™ Developer Technologies</a>
+		<ul class="sub-menu">
+			<li id="menu-item--84" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--84"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/firepro-sdk/firepro_samples/">AMD FirePro™ SDK Code Samples</a></li>
+			<li id="menu-item--85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--85"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/firepro-sdk/firepro-directgma-sdk/">FirePro DirectGMA Technical Overview</a></li>
+			<li id="menu-item--86" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--86"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/firepro-sdk/dopp/">DOPP — An Extension for Desktop Processing</a></li>
+			<li id="menu-item--87" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--87"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/firepro-sdk/firepro-app-sdk-3-0-alpha/">FirePro™ APP SDK 3.0 Alpha</a></li>
+		</ul>
+</li>
+		<li id="menu-item--88" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--88"><a href="http://developer.amd.com/tools-and-sdks/graphics-development/amd-opengl-es-sdk/">OpenGL ES SDK</a></li>
+	</ul>
+</li>
+	<li id="menu-item--89" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--89"><a href="http://developer.amd.com/tools-and-sdks/heterogeneous-computing/">Heterogeneous Computing</a></li>
+	<li id="menu-item--90" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--90"><a href="http://developer.amd.com/tools-and-sdks/open-source/">Open Source Zone</a></li>
+	<li id="menu-item--91" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--91"><a href="http://developer.amd.com/tools-and-sdks/archive/">Archive Tools</a>
+	<ul class="sub-menu">
+		<li id="menu-item--92" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--92"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-gdebugger/">gDEBugger</a>
+		<ul class="sub-menu">
+			<li id="menu-item--93" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--93"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-gdebugger/gdebugger-user-guide/">gDEBugger User Guide</a></li>
+		</ul>
+</li>
+		<li id="menu-item--104" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--104"><a href="http://developer.amd.com/tools-and-sdks/archive/app-kernel-analyzer/">APP Kernel Analyzer</a></li>
+		<li id="menu-item--105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--105"><a href="http://developer.amd.com/tools-and-sdks/archive/gcc-and-gnu-toolchains-for-amd-platforms/">GCC &#038; GNU Toolchains</a></li>
+		<li id="menu-item--106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--106"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-app-profiler/">APP Profiler</a>
+		<ul class="sub-menu">
+			<li id="menu-item--107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--107"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-app-profiler/getting-started/">Getting Started</a></li>
+			<li id="menu-item--115" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--115"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-app-profiler/user-guide/">User Guide</a></li>
+		</ul>
+</li>
+		<li id="menu-item--127" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--127"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-codeanalyst-performance-analyzer/">CodeAnalyst Performance Analyzer</a>
+		<ul class="sub-menu">
+			<li id="menu-item--128" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--128"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-codeanalyst-performance-analyzer/amd-codeanalyst-performance-analyzer-for-linux/">CodeAnalyst for Linux®</a></li>
+			<li id="menu-item--129" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--129"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-codeanalyst-performance-analyzer/codeanalyst-performance-analyzer-for-windows/">CodeAnalyst for Windows®</a></li>
+			<li id="menu-item--130" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--130"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-codeanalyst-performance-analyzer/amd-pmu-extension-driver/">PMU Extension Driver</a></li>
+			<li id="menu-item--131" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--131"><a href="http://developer.amd.com/tools-and-sdks/archive/amd-codeanalyst-performance-analyzer/codeanalyst-archive/">CodeAnalyst Archive</a></li>
+		</ul>
+</li>
+		<li id="menu-item--132" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--132"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/">Legacy CPU and GPU Tools</a>
+		<ul class="sub-menu">
+			<li id="menu-item--133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--133"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/128-bit-sse5-instruction-set/">128-Bit SSE5 Instruction Set</a></li>
+			<li id="menu-item--134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--134"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/amd-string-library/">AMD String Library</a></li>
+			<li id="menu-item--135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--135"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/amd-tootle/">AMD Tootle</a></li>
+			<li id="menu-item--136" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--136"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/ashli-advanced-shading-language-interface/">ASHLI &#8211; Advanced Shading Language Interface</a></li>
+			<li id="menu-item--137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--137"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/framewave-project/">Framewave Project</a></li>
+			<li id="menu-item--138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--138"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/sseplus-project/">SSEPlus Project</a></li>
+			<li id="menu-item--139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--139"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/ati_compress/">ATI_Compress</a></li>
+			<li id="menu-item--140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--140"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/ati-radeon-sdk/">ATI Radeon™ SDK</a></li>
+			<li id="menu-item--141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--141"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/cubemapgen/">CubeMapGen</a></li>
+			<li id="menu-item--142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--142"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/amd-gpu-meshmapper/">AMD GPU MeshMapper</a></li>
+			<li id="menu-item--143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--143"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/normal-mapper/">Normal Mapper</a></li>
+			<li id="menu-item--144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--144"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/rendermonkey-toolsuite/">RenderMonkey™ Toolsuite</a></li>
+			<li id="menu-item--148" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--148"><a href="http://developer.amd.com/tools-and-sdks/archive/legacy-cpu-gpu-tools/the-compressonator/">The Compressonator</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item--149" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--149"><a href="http://developer.amd.com/tools-and-sdks/tools-libraries-sdks-index/">Index of Developer Tools, Libraries &#038; SDKs</a></li>
+</ul>
+</li>
+<li id="menu-item-84" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-has-children menu-item-84"><a href="http://developer.amd.com/resources/">Resources</a>
+<ul class="sub-menu">
+	<li id="menu-item--150" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--150"><a href="http://developer.amd.com/resources/heterogeneous-computing/">Heterogeneous Computing</a>
+	<ul class="sub-menu">
+		<li id="menu-item--151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--151"><a href="http://developer.amd.com/resources/heterogeneous-computing/what-is-heterogeneous-computing/">What is Heterogeneous Computing?</a></li>
+		<li id="menu-item--152" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--152"><a href="http://developer.amd.com/resources/heterogeneous-computing/what-is-heterogeneous-system-architecture-hsa/">What is Heterogeneous System Architecture (HSA)?</a>
+		<ul class="sub-menu">
+			<li id="menu-item--153" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--153"><a href="http://developer.amd.com/resources/heterogeneous-computing/what-is-heterogeneous-system-architecture-hsa/heterogenius-architecture/">A Hetero<em>genius</em> Architecture</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item--154" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--154"><a href="http://developer.amd.com/resources/server-zone/">Server Zone</a>
+	<ul class="sub-menu">
+		<li id="menu-item--155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--155"><a href="http://developer.amd.com/resources/server-zone/server-archive/">Server Archive</a>
+		<ul class="sub-menu">
+			<li id="menu-item--156" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--156"><a href="http://developer.amd.com/resources/server-zone/server-archive/power-processing-with-the-microsoft-windows-compute-cluster-server-2003/">Power Processing with the Microsoft Windows Compute Cluster Server 2003</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item--157" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--157"><a href="http://developer.amd.com/resources/embedded-developer-zone/">Embedded Developer Zone</a></li>
+	<li id="menu-item--158" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--158"><a href="http://developer.amd.com/resources/java-zone/">Java™ Zone</a>
+	<ul class="sub-menu">
+		<li id="menu-item--159" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--159"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/">Java Zone Archive</a>
+		<ul class="sub-menu">
+			<li id="menu-item--160" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--160"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/how-jvms-use-escape-analysis-to-improve-application-performance/">How JVMs use Escape Analysis to Improve Application Performance</a></li>
+			<li id="menu-item--161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--161"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/optimizing-java-performance-in-a-virtual-machine-environment/">Optimizing Java Performance in a Virtual Machine Environment</a></li>
+			<li id="menu-item--162" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--162"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/supersizing-java-large-pages-on-the-opteron-processor-part-1/">Supersizing Java: Large Pages on the Opteron Processor, Part 1</a></li>
+			<li id="menu-item--163" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--163"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/supersizing-java-large-pages-on-the-opteron-processor-part-2/">Supersizing Java: Large Pages on the Opteron Processor, Part 2</a></li>
+			<li id="menu-item--164" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--164"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/the-secret-of-java-thread-pools/">The Secret of Java Thread Pools</a></li>
+			<li id="menu-item--165" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--165"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/using-amd-codeanalyst-with-java/">Using AMD CodeAnalyst with Java</a></li>
+			<li id="menu-item--166" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--166"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/jvmti-event-piggybacking-for-precise-source-mapping/">JVMTI Event Piggybacking For Precise Source Mapping</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item--167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--167"><a href="http://developer.amd.com/resources/opengl-zone/">OpenGL® Zone</a>
+	<ul class="sub-menu">
+		<li id="menu-item--168" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--168"><a href="http://developer.amd.com/resources/opengl-zone/opengl-specifications/">OpenGL® Specifications</a></li>
+	</ul>
+</li>
+	<li id="menu-item--169" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--169"><a href="http://developer.amd.com/resources/webinars/">Webinars &#038; Tutorials</a></li>
+	<li id="menu-item--170" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--170"><a href="http://developer.amd.com/resources/documentation-library/">Research Library</a></li>
+	<li id="menu-item--171" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor current-menu-parent current-page-parent current_page_parent menu-item-has-children menu-item--171"><a href="http://developer.amd.com/resources/documentation-articles/">Developer Guides, Articles &#038; Presentations</a>
+	<ul class="sub-menu">
+		<li id="menu-item--172" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--172"><a href="http://developer.amd.com/resources/documentation-articles/conference-presentations/">Conference Presentations</a>
+		<ul class="sub-menu">
+			<li id="menu-item--173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--173"><a href="http://developer.amd.com/resources/documentation-articles/conference-presentations/archived_conf_presentations/">Archived Conference Presentations</a></li>
+			<li id="menu-item--174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--174"><a href="http://developer.amd.com/resources/documentation-articles/conference-presentations/gpu-technical-publications/">GPU Technical Publications</a></li>
+			<li id="menu-item--175" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--175"><a href="http://developer.amd.com/resources/documentation-articles/conference-presentations/gpu-technology-papers/">GPU Technology Papers</a></li>
+		</ul>
+</li>
+		<li id="menu-item--176" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--176"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/">Articles, Whitepapers &#038; Case Studies</a>
+		<ul class="sub-menu">
+			<li id="menu-item--177" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--177"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-diagonal-sparse-matrix-vector-multiplication-test/">OpenCL™ Optimization Case Study: Diagonal Sparse Matrix Vector Multiplication  Test</a></li>
+			<li id="menu-item--178" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--178"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/barcelonas-innovative-architecture-is-driven-by-a-new-shared-cache/">Barcelona&#8217;s Innovative Architecture Is Driven by a New Shared Cache</a></li>
+			<li id="menu-item--179" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--179"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/bulk-encryption-on-gpus/">Bulk Encryption on GPUs</a></li>
+			<li id="menu-item--180" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--180"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/develop-blazing-fast-code-with-microsoft-visual-studio-2008-and-amd-tools-2/">Develop Blazing Fast Code with Microsoft Visual Studio® 2008 and AMD Tools</a></li>
+			<li id="menu-item--181" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--181"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/exploiting-multi-core-processors-in-windows-vista/">Exploiting Multi-Core Processors in Windows Vista</a></li>
+			<li id="menu-item--182" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--182"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/introduction-to-magny-cours/">Introduction to “Magny-Cours”</a></li>
+			<li id="menu-item--183" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--183"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/java-performance-when-debugging-is-enabled/">Java Performance when Debugging is Enabled</a></li>
+			<li id="menu-item--184" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--184"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/jpeg-decoding-with-run-length-encoding-a-cpu-and-gpu-approach/">JPEG Decoding with Run-Length Encoding: A CPU and GPU Approach</a></li>
+			<li id="menu-item--185" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--185"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/new-round-to-even-technique-for-large-scale-data-and-its-application-in-integer-scaling/">New Round-to-Even Technique for Large-scale Data and Its Application in Integer Scaling</a></li>
+			<li id="menu-item--186" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--186"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-and-the-amd-app-sdk/">OpenCL™ and the AMD APP SDK</a></li>
+			<li id="menu-item--187" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--187"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-and-the-amd-app-sdk-v2-4/">OpenCL™ and the AMD APP SDK v2.4</a></li>
+			<li id="menu-item--188" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--188"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-fast-fourier-transform-part-1/">OpenCL™ Optimization Case Study Fast Fourier Transform &#8211; Part 1</a></li>
+			<li id="menu-item--189" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--189"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-fast-fourier-transform-part-ii/">OpenCL™ Optimization Case Study Fast Fourier Transform &#8211; Part II</a></li>
+			<li id="menu-item--190" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--190"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-simple-reductions/">OpenCL™ Optimization Case Study: Simple Reductions</a></li>
+			<li id="menu-item--191" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--191"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-support-vector-machine-training/">OpenCL™ Optimization Case Study: Support Vector Machine Training</a></li>
+			<li id="menu-item--192" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--192"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/performance-optimization-of-windows-applications-on-amd-processors-part-i/">Performance Optimization of Windows Applications on AMD Processors, Part I</a></li>
+			<li id="menu-item--193" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--193"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/performance-optimization-of-windows-applications-on-amd-processors-part-ii/">Performance Optimization of Windows Applications on AMD Processors, Part II</a></li>
+			<li id="menu-item--194" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--194"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/ten-things-developers-should-know-about-windows-7/">Ten Things Developers Should Know About Windows 7</a></li>
+			<li id="menu-item--195" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--195"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/tiled-convolution-fast-image-filtering/">Tiled Convolution: Fast Image Filtering</a></li>
+			<li id="menu-item--196" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--196"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/introduction-apuid/">Introduction to APUID</a></li>
+			<li id="menu-item--197" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--197"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/processor-and-core-enumeration-using-cpuid/">Processor and Core Enumeration Using CPUID</a></li>
+		</ul>
+</li>
+		<li id="menu-item--198" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--198"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/">GPU Demos</a>
+		<ul class="sub-menu">
+			<li id="menu-item--199" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--199"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/amd-radeon-hd-7900-series-graphics-real-time-demos/">Radeon™ HD 7900 Series Graphics Real-Time Demos</a></li>
+			<li id="menu-item--200" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--200"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/radeon-hd-6900-series-graphics-real-time-demo/">Radeon™ HD 6900 Series Graphics Real-Time Demo</a></li>
+			<li id="menu-item--201" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--201"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-radeon-hd-5000-series-graphics-real-time-demos/">Radeon™ HD 5000 Series Graphics Real-Time Demos</a></li>
+			<li id="menu-item--202" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--202"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-radeon-hd-4800-series-real-time-demos/">Radeon™ HD 4800 Series Real-Time Demos</a></li>
+			<li id="menu-item--203" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--203"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-firegl-v8600-pci-express-real-time-demos/">FireGL™ V8600 PCI-Express Real-Time Demos</a></li>
+			<li id="menu-item--204" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--204"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-radeon-hd-3000-series-real-time-demo/">Radeon™ HD 3000 Series Real-Time Demo</a></li>
+			<li id="menu-item--205" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--205"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-radeon-hd-2000-series-real-time-demos/">Radeon™ HD 2000 Series Real-Time Demos</a></li>
+		</ul>
+</li>
+		<li id="menu-item--206" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--206"><a href="http://developer.amd.com/resources/documentation-articles/videos/">Videos</a>
+		<ul class="sub-menu">
+			<li id="menu-item--207" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--207"><a href="http://developer.amd.com/resources/documentation-articles/videos/amd-developer-inside-track/">AMD Developer Inside Track</a></li>
+			<li id="menu-item--208" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--208"><a href="http://developer.amd.com/resources/documentation-articles/videos/introduction-to-amd-codeanalyst-performance-analyzer/">Intro to CodeAnalyst</a></li>
+			<li id="menu-item--209" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--209"><a href="http://developer.amd.com/resources/documentation-articles/videos/ati-stream-opencl-technical-overview-video-series/">OpenCL™ Technical Overview</a></li>
+			<li id="menu-item--210" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--210"><a href="http://developer.amd.com/resources/documentation-articles/videos/gpu-demo-videos/">GPU Demo Videos</a></li>
+			<li id="menu-item--211" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--211"><a href="http://developer.amd.com/resources/documentation-articles/videos/amd-and-sun-technology-collaborations/">AMD &#038; Sun Technology</a></li>
+			<li id="menu-item--212" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--212"><a href="http://developer.amd.com/resources/documentation-articles/videos/amd-opteron-6100-series-a-developers-perspective/">AMD Opteron 6100 Series: A Developer&#8217;s Perspective</a></li>
+			<li id="menu-item--213" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--213"><a href="http://developer.amd.com/resources/documentation-articles/videos/software-optimization-video-series/">Software Optimization Video Series</a></li>
+			<li id="menu-item--214" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--214"><a href="http://developer.amd.com/resources/documentation-articles/videos/xen-summit-north-america-2010/">Xen Summit North America 2010</a></li>
+		</ul>
+</li>
+		<li id="menu-item--215" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--215"><a href="http://developer.amd.com/resources/documentation-articles/specifications-technical-bulletins/">Technical Bulletins &#038; Product Specifications</a></li>
+		<li id="menu-item--216" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-865 current_page_item menu-item-has-children menu-item--216"><a href="http://developer.amd.com/resources/documentation-articles/developer-guides-manuals/">Developer Guides, Manuals &#038; ISA Documents</a>
+		<ul class="sub-menu">
+			<li id="menu-item--217" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--217"><a href="http://developer.amd.com/resources/documentation-articles/developer-guides-manuals/archived-guides-documentation/">Archived Guides &#038; Documentation</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item--218" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--218"><a href="http://developer.amd.com/resources/hardware-drivers/">Hardware &#038; Drivers</a>
+	<ul class="sub-menu">
+		<li id="menu-item--219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--219"><a href="http://developer.amd.com/resources/hardware-drivers/ccc-driver-details/">CCC Driver Details</a></li>
+		<li id="menu-item--220" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--220"><a href="http://developer.amd.com/resources/hardware-drivers/ati-catalyst-pc-vendor-id-1002-li/">Catalyst Omega Supported Products</a></li>
+	</ul>
+</li>
+	<li id="menu-item--221" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--221"><a href="http://developer.amd.com/resources/developer-summit/">AMD Developer Summit</a>
+	<ul class="sub-menu">
+		<li id="menu-item--222" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--222"><a href="http://developer.amd.com/resources/developer-summit/2013-developer-conference-highlights/">2013 Conference Highlights</a></li>
+		<li id="menu-item--223" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--223"><a href="http://developer.amd.com/resources/developer-summit/amd-fds-videos/">2012 Developer Summit Videos</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-28" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-28"><a href="http://developer.amd.com/community/">Community</a>
+<ul class="sub-menu">
+	<li id="menu-item--224" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--224"><a href="http://developer.amd.com/community/blog/">Blog</a></li>
+	<li id="menu-item--225" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--225"><a href="http://developer.amd.com/community/forums/">Forums</a></li>
+	<li id="menu-item--226" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--226"><a href="http://developer.amd.com/community/hsa-foundation/">HSA Foundation</a></li>
+	<li id="menu-item--227" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--227"><a href="http://developer.amd.com/community/newsletter/">Newsletter: AMD Developer News</a>
+	<ul class="sub-menu">
+		<li id="menu-item--228" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--228"><a href="http://developer.amd.com/community/newsletter/subscribe/">Subscribe!</a></li>
+	</ul>
+</li>
+	<li id="menu-item--229" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--229"><a href="http://developer.amd.com/community/events/">Events</a>
+	<ul class="sub-menu">
+		<li id="menu-item--230" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--230"><a href="http://developer.amd.com/community/events/amd-at-gdc-europe-2015/">AMD at GDC Europe 2015</a></li>
+		<li id="menu-item--231" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--231"><a href="http://developer.amd.com/community/events/amd-at-embedded-vision-summit/">AMD at Embedded Vision Summit</a></li>
+		<li id="menu-item--232" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--232"><a href="http://developer.amd.com/community/events/amd-embedded-world-conference/">AMD at Embedded World Conference</a></li>
+		<li id="menu-item--233" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--233"><a href="http://developer.amd.com/community/events/siggraph2015-next-gen-graphics-apis/">SIGGRAPH2015 &#8211; An Overview of Next-Generation Graphics APIs</a></li>
+		<li id="menu-item--234" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--234"><a href="http://developer.amd.com/community/events/amd-gdc-2015/">AMD at GDC 2015</a></li>
+	</ul>
+</li>
+	<li id="menu-item--235" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--235"><a href="http://developer.amd.com/community/opencl-jobs/">OpenCL™ Jobs</a></li>
+</ul>
+</li>
+<li id="menu-item-79" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-79"><a href="http://developer.amd.com/partners/">Partners</a>
+<ul class="sub-menu">
+	<li id="menu-item--236" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--236"><a href="http://developer.amd.com/partners/microsoft/">Microsoft</a></li>
+	<li id="menu-item--237" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--237"><a href="http://developer.amd.com/partners/tools-partners/">Tool Partners</a>
+	<ul class="sub-menu">
+		<li id="menu-item--238" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--238"><a href="http://developer.amd.com/partners/tools-partners/compilers/">Compilers</a></li>
+		<li id="menu-item--239" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--239"><a href="http://developer.amd.com/partners/tools-partners/debuggers/">Debuggers</a></li>
+		<li id="menu-item--240" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--240"><a href="http://developer.amd.com/partners/tools-partners/java-technology/">Java Technology</a></li>
+		<li id="menu-item--241" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--241"><a href="http://developer.amd.com/partners/tools-partners/libraries/">AMD Partner Libraries for Developers</a>
+		<ul class="sub-menu">
+			<li id="menu-item--242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--242"><a href="http://developer.amd.com/partners/tools-partners/libraries/nag-numerical-software-compilers/">NAG &#8211; Numerical Software and Compilers</a></li>
+			<li id="menu-item--243" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--243"><a href="http://developer.amd.com/partners/tools-partners/libraries/paralution-libraries/">PARALUTION Libraries</a></li>
+			<li id="menu-item--244" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--244"><a href="http://developer.amd.com/partners/tools-partners/libraries/gnu-c-library/">GNU C Library (glibc) &#8211; Portable, High Performance</a></li>
+			<li id="menu-item--245" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--245"><a href="http://developer.amd.com/partners/tools-partners/libraries/arrayfire-library/">ArrayFire &#8211; A Library for GPU Computing</a></li>
+		</ul>
+</li>
+		<li id="menu-item--246" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--246"><a href="http://developer.amd.com/partners/tools-partners/profilers/">Profilers</a>
+		<ul class="sub-menu">
+			<li id="menu-item--247" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--247"><a href="http://developer.amd.com/partners/tools-partners/profilers/multicoreware/">MulticoreWare</a></li>
+			<li id="menu-item--248" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--248"><a href="http://developer.amd.com/partners/tools-partners/profilers/multi2sim-heterogeneous-system-simulator/">Multi2Sim &#8211; A Heterogeneous System Simulator</a></li>
+		</ul>
+</li>
+		<li id="menu-item--249" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--249"><a href="http://developer.amd.com/partners/tools-partners/other/">Other Tools Partners</a>
+		<ul class="sub-menu">
+			<li id="menu-item--250" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--250"><a href="http://developer.amd.com/partners/tools-partners/other/absoft/">Absoft</a></li>
+			<li id="menu-item--251" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--251"><a href="http://developer.amd.com/partners/tools-partners/other/amdahl/">Amdahl Software</a></li>
+			<li id="menu-item--252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--252"><a href="http://developer.amd.com/partners/tools-partners/other/enfuzion-by-axceleon/">EnFuzion by Axceleon</a></li>
+			<li id="menu-item--253" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--253"><a href="http://developer.amd.com/partners/tools-partners/other/cloudfuzion-axceleon/">CloudFuzion by Axceleon</a></li>
+		</ul>
+</li>
+		<li id="menu-item--254" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--254"><a href="http://developer.amd.com/partners/tools-partners/apps-running-on-boinc/">Apps Running on BOINC</a></li>
+	</ul>
+</li>
+	<li id="menu-item--255" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--255"><a href="http://developer.amd.com/partners/training-partners/">Training Partners</a>
+	<ul class="sub-menu">
+		<li id="menu-item--256" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--256"><a href="http://developer.amd.com/partners/training-partners/accelereyes/">ArrayFire</a></li>
+		<li id="menu-item--257" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--257"><a href="http://developer.amd.com/partners/training-partners/acceleware-opencl-course-schedule/">Acceleware</a></li>
+		<li id="menu-item--258" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--258"><a href="http://developer.amd.com/partners/training-partners/paralution/">PARALUTION</a></li>
+		<li id="menu-item--259" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--259"><a href="http://developer.amd.com/partners/training-partners/applied-parallel-computing-llc/">Applied Parallel Computing LLC</a></li>
+		<li id="menu-item--260" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--260"><a href="http://developer.amd.com/partners/training-partners/develop-intelligence/">Develop Intelligence</a></li>
+		<li id="menu-item--261" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--261"><a href="http://developer.amd.com/partners/training-partners/mindshare/">MindShare</a></li>
+		<li id="menu-item--262" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--262"><a href="http://developer.amd.com/partners/training-partners/streamcomputing/">StreamComputing</a></li>
+	</ul>
+</li>
+	<li id="menu-item--263" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--263"><a href="http://developer.amd.com/partners/university-programs/">University Programs</a>
+	<ul class="sub-menu">
+		<li id="menu-item--264" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--264"><a href="http://developer.amd.com/partners/university-programs/heterogeneous-computing-with-opencl/">Heterogeneous Computing with OpenCL™</a></li>
+		<li id="menu-item--265" class="menu-item menu-item-type-post_type menu-item-object-page menu-item--265"><a href="http://developer.amd.com/partners/university-programs/opencl-university-course-listings/">OpenCL™ University Course Listings</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-82" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-82"><a href="http://developer.amd.com/support/">Support</a></li>
+</ul></nav><!-- end navigation -->
+
+
+        </div><!-- end of container -->
+    </header><!-- end header -->
+
+                <header id="page-title-section">
+
+                <div class="breadcrumbs">
+                    <div>
+                        <div class="container fold">
+
+                            
+                                                            <div class="left-nav">
+                                    <div class="toggle"></div>
+                                    <div class="menu_wrapper"><section id="gksm-custom-menu-widget-2" class="widget-container gksm-custom-menu-widget widget_nav_menu"><h3 class="widget-title">Resources</h3><div class="submenu-widget submenu-widget-developer-guides-manuals"><ul id="menu-tools" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--149"><a href="http://developer.amd.com/resources/heterogeneous-computing/">Heterogeneous Computing</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--150"><a href="http://developer.amd.com/resources/heterogeneous-computing/what-is-heterogeneous-computing/">What is Heterogeneous Computing?</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--151"><a href="http://developer.amd.com/resources/heterogeneous-computing/what-is-heterogeneous-system-architecture-hsa/">What is Heterogeneous System Architecture (HSA)?</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--152"><a href="http://developer.amd.com/resources/heterogeneous-computing/what-is-heterogeneous-system-architecture-hsa/heterogenius-architecture/">A Hetero<em>genius</em> Architecture</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--153"><a href="http://developer.amd.com/resources/server-zone/">Server Zone</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--154"><a href="http://developer.amd.com/resources/server-zone/server-archive/">Server Archive</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--155"><a href="http://developer.amd.com/resources/server-zone/server-archive/power-processing-with-the-microsoft-windows-compute-cluster-server-2003/">Power Processing with the Microsoft Windows Compute Cluster Server 2003</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--156"><a href="http://developer.amd.com/resources/embedded-developer-zone/">Embedded Developer Zone</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--157"><a href="http://developer.amd.com/resources/java-zone/">Java™ Zone</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--158"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/">Java Zone Archive</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--159"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/how-jvms-use-escape-analysis-to-improve-application-performance/">How JVMs use Escape Analysis to Improve Application Performance</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--160"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/optimizing-java-performance-in-a-virtual-machine-environment/">Optimizing Java Performance in a Virtual Machine Environment</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--161"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/supersizing-java-large-pages-on-the-opteron-processor-part-1/">Supersizing Java: Large Pages on the Opteron Processor, Part 1</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--162"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/supersizing-java-large-pages-on-the-opteron-processor-part-2/">Supersizing Java: Large Pages on the Opteron Processor, Part 2</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--163"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/the-secret-of-java-thread-pools/">The Secret of Java Thread Pools</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--164"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/using-amd-codeanalyst-with-java/">Using AMD CodeAnalyst with Java</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--165"><a href="http://developer.amd.com/resources/java-zone/java-zone-archive/jvmti-event-piggybacking-for-precise-source-mapping/">JVMTI Event Piggybacking For Precise Source Mapping</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--166"><a href="http://developer.amd.com/resources/opengl-zone/">OpenGL® Zone</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--167"><a href="http://developer.amd.com/resources/opengl-zone/opengl-specifications/">OpenGL® Specifications</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--168"><a href="http://developer.amd.com/resources/webinars/">Webinars &#038; Tutorials</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--169"><a href="http://developer.amd.com/resources/documentation-library/">Research Library</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor current-menu-parent current-page-parent current_page_parent menu-item-has-children menu-item--170"><a href="http://developer.amd.com/resources/documentation-articles/">Developer Guides, Articles &#038; Presentations</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--171"><a href="http://developer.amd.com/resources/documentation-articles/conference-presentations/">Conference Presentations</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--172"><a href="http://developer.amd.com/resources/documentation-articles/conference-presentations/archived_conf_presentations/">Archived Conference Presentations</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--173"><a href="http://developer.amd.com/resources/documentation-articles/conference-presentations/gpu-technical-publications/">GPU Technical Publications</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--174"><a href="http://developer.amd.com/resources/documentation-articles/conference-presentations/gpu-technology-papers/">GPU Technology Papers</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--175"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/">Articles, Whitepapers &#038; Case Studies</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--176"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-diagonal-sparse-matrix-vector-multiplication-test/">OpenCL™ Optimization Case Study: Diagonal Sparse Matrix Vector Multiplication  Test</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--177"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/barcelonas-innovative-architecture-is-driven-by-a-new-shared-cache/">Barcelona&#8217;s Innovative Architecture Is Driven by a New Shared Cache</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--178"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/bulk-encryption-on-gpus/">Bulk Encryption on GPUs</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--179"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/develop-blazing-fast-code-with-microsoft-visual-studio-2008-and-amd-tools-2/">Develop Blazing Fast Code with Microsoft Visual Studio® 2008 and AMD Tools</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--180"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/exploiting-multi-core-processors-in-windows-vista/">Exploiting Multi-Core Processors in Windows Vista</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--181"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/introduction-to-magny-cours/">Introduction to “Magny-Cours”</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--182"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/java-performance-when-debugging-is-enabled/">Java Performance when Debugging is Enabled</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--183"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/jpeg-decoding-with-run-length-encoding-a-cpu-and-gpu-approach/">JPEG Decoding with Run-Length Encoding: A CPU and GPU Approach</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--184"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/new-round-to-even-technique-for-large-scale-data-and-its-application-in-integer-scaling/">New Round-to-Even Technique for Large-scale Data and Its Application in Integer Scaling</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--185"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-and-the-amd-app-sdk/">OpenCL™ and the AMD APP SDK</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--186"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-and-the-amd-app-sdk-v2-4/">OpenCL™ and the AMD APP SDK v2.4</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--187"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-fast-fourier-transform-part-1/">OpenCL™ Optimization Case Study Fast Fourier Transform &#8211; Part 1</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--188"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-fast-fourier-transform-part-ii/">OpenCL™ Optimization Case Study Fast Fourier Transform &#8211; Part II</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--189"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-simple-reductions/">OpenCL™ Optimization Case Study: Simple Reductions</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--190"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/opencl-optimization-case-study-support-vector-machine-training/">OpenCL™ Optimization Case Study: Support Vector Machine Training</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--191"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/performance-optimization-of-windows-applications-on-amd-processors-part-i/">Performance Optimization of Windows Applications on AMD Processors, Part I</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--192"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/performance-optimization-of-windows-applications-on-amd-processors-part-ii/">Performance Optimization of Windows Applications on AMD Processors, Part II</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--193"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/ten-things-developers-should-know-about-windows-7/">Ten Things Developers Should Know About Windows 7</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--194"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/tiled-convolution-fast-image-filtering/">Tiled Convolution: Fast Image Filtering</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--195"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/introduction-apuid/">Introduction to APUID</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--196"><a href="http://developer.amd.com/resources/documentation-articles/articles-whitepapers/processor-and-core-enumeration-using-cpuid/">Processor and Core Enumeration Using CPUID</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--197"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/">GPU Demos</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--198"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/amd-radeon-hd-7900-series-graphics-real-time-demos/">Radeon™ HD 7900 Series Graphics Real-Time Demos</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--199"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/radeon-hd-6900-series-graphics-real-time-demo/">Radeon™ HD 6900 Series Graphics Real-Time Demo</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--200"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-radeon-hd-5000-series-graphics-real-time-demos/">Radeon™ HD 5000 Series Graphics Real-Time Demos</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--201"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-radeon-hd-4800-series-real-time-demos/">Radeon™ HD 4800 Series Real-Time Demos</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--202"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-firegl-v8600-pci-express-real-time-demos/">FireGL™ V8600 PCI-Express Real-Time Demos</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--203"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-radeon-hd-3000-series-real-time-demo/">Radeon™ HD 3000 Series Real-Time Demo</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--204"><a href="http://developer.amd.com/resources/documentation-articles/gpu-demos/ati-radeon-hd-2000-series-real-time-demos/">Radeon™ HD 2000 Series Real-Time Demos</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--205"><a href="http://developer.amd.com/resources/documentation-articles/videos/">Videos</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--206"><a href="http://developer.amd.com/resources/documentation-articles/videos/amd-developer-inside-track/">AMD Developer Inside Track</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--207"><a href="http://developer.amd.com/resources/documentation-articles/videos/introduction-to-amd-codeanalyst-performance-analyzer/">Intro to CodeAnalyst</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--208"><a href="http://developer.amd.com/resources/documentation-articles/videos/ati-stream-opencl-technical-overview-video-series/">OpenCL™ Technical Overview</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--209"><a href="http://developer.amd.com/resources/documentation-articles/videos/gpu-demo-videos/">GPU Demo Videos</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--210"><a href="http://developer.amd.com/resources/documentation-articles/videos/amd-and-sun-technology-collaborations/">AMD &#038; Sun Technology</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--211"><a href="http://developer.amd.com/resources/documentation-articles/videos/amd-opteron-6100-series-a-developers-perspective/">AMD Opteron 6100 Series: A Developer&#8217;s Perspective</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--212"><a href="http://developer.amd.com/resources/documentation-articles/videos/software-optimization-video-series/">Software Optimization Video Series</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--213"><a href="http://developer.amd.com/resources/documentation-articles/videos/xen-summit-north-america-2010/">Xen Summit North America 2010</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--214"><a href="http://developer.amd.com/resources/documentation-articles/specifications-technical-bulletins/">Technical Bulletins &#038; Product Specifications</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-865 current_page_item menu-item-has-children menu-item--215"><a href="http://developer.amd.com/resources/documentation-articles/developer-guides-manuals/">Developer Guides, Manuals &#038; ISA Documents</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--216"><a href="http://developer.amd.com/resources/documentation-articles/developer-guides-manuals/archived-guides-documentation/">Archived Guides &#038; Documentation</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--217"><a href="http://developer.amd.com/resources/hardware-drivers/">Hardware &#038; Drivers</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--218"><a href="http://developer.amd.com/resources/hardware-drivers/ccc-driver-details/">CCC Driver Details</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--219"><a href="http://developer.amd.com/resources/hardware-drivers/ati-catalyst-pc-vendor-id-1002-li/">Catalyst Omega Supported Products</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item--220"><a href="http://developer.amd.com/resources/developer-summit/">AMD Developer Summit</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--221"><a href="http://developer.amd.com/resources/developer-summit/2013-developer-conference-highlights/">2013 Conference Highlights</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item--222"><a href="http://developer.amd.com/resources/developer-summit/amd-fds-videos/">2012 Developer Summit Videos</a></li>
+</ul>
+</li>
+</ul></div></section></div>
+                                    <div class="overlay"></div>
+                                </div>
+                            
+                            <p id="axi_breadcrumbs"><a rel="nofollow" href="http://developer.amd.com/">Home</a> &gt; <a href="http://developer.amd.com/resources/">Resources</a> &gt; <a href="http://developer.amd.com/resources/documentation-articles/">Developer Guides, Articles &#038; Presentations</a> &gt; <strong>Developer Guides, Manuals &#038; ISA Documents</strong></p>                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="page-header container ">
+
+                    <div class="container fold">
+
+                        <section>
+                            <h1 class="page-title" itemprop="headline">Developer Guides, Manuals &#038; ISA Documents</h1>
+                                                    </section>
+                    </div>
+
+                </div>
+                <!-- end page header -->
+
+            </header> <!-- end page header -->
+        
+    <div id="top-slider">
+        </div>
+
+    
+
+    <div id="main" class="no-sidebar">
+        <div class="wrapper fold clearfix">
+            
+            <section id="primary" >
+                <div class="content" role="main"  >
+                    
+                            
+                                    
+                
+                    <div class="container block">
+                        
+                                                
+                                                
+                        <article id="post-865" class="clearfix post-865 page type-page status-publish hentry" role="article" >
+                            
+                            <section class="post_content clearfix" itemprop="articleBody">
+                                
+                                <p>Find developer guides, instruction set architecture documents and reference manuals about a variety of topics, such as CodeXL, software optimization, compilers, bios and kernel guides, AMD Opteron™ and much more, to help with your programming needs. If you don&#8217;t see what you&#8217;re looking for here, be sure to check the <a href="/tools-and-sdks/tools-libraries-sdks-index/">specific tool or library page</a> for more details and documentation.</p>
+<h3><a name="developer_guides"></a><a name="top"></a>Developer Guides</h3>
+<ul>
+<li><a href="http://www.amd.com/en-us/innovations/software-technologies/technologies-gaming/mantle#downloads" target="_blank">Mantle API Programming Guide Copy</a>: This 450-page programming guide and API reference provides developers with a detailed look at the capabilities and architecture of the Mantle graphics API.​</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/52740_16h_Models_30h-3Fh_BKDG.pdf">BIOS and Kernel Developer&#8217;s Guide (BKDG) for AMD Family 16h Models 30h-3Fh Processors</a> &#8211; PDF &#8211; 02/23/2015</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/48751_16h_bkdg.pdf">BIOS and Kernel Developer’s Guide (BKDG) for AMD Family 16h Models 00h-0Fh Processors</a> &#8211; PDF &#8211; 02/23/2015</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/49125_15h_Models_30h-3Fh_BKDG.pdf">BIOS and Kernel Developer’s Guide (BKDG) for AMD Family 15h Models 30h-3Fh Processors</a> &#8211; PDF &#8211; 02/12/2015</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/BerlinQuickRef_final1.pdf">Compiler Options Quick Reference Guide for AMD A10, A8, A6 7000 Series APUs</a> – PDF – 11/04/2014</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/AGESA_Interface_specification_for_Arch2008.pdf">AMD Generic Encapsulated Software Architecture (AGESA™) Interface Specification for Arch2008</a> – PDF – 07/30/2014</li>
+<li><a href="/media/2013/12/CodeXL_Quick_Start_Guide.pdf">CodeXL Quick Start Guide v1.4</a> &#8211; PDF &#8211; 2014</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/09/KabiniCompilerQuickRefGuide.pdf" target="_blank">Compiler Options Quick Reference Guide for AMD Opteron™ X1100 series and AMD Opteron™ X2100 series APU</a> &#8211; PDF- 09/19/2013</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/SOG_16h_52128_PUB_Rev1_1.pdf">Software Optimization Guide for AMD Family 16h Processors</a> &#8211; PDF &#8211; Publication #52128, Revision 1.1, Issue Date 03/2013</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/AMD64_16h_InstrLatency_1.1.xlsx">Software Overview and Latencies Spreadsheet for AMD Family 16h Processors</a>  &#8211;  Excel &#8211; 03/2013</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/48751_BKDG_Fam_16h_Mod_00h-0Fh.pdf" target="_blank">Preliminary BIOS and Kernel Developer’s Guide (BKDG) for AMD Family 16h Models 00h-0Fh (Kabini) Processors</a> PDF &#8211; 05/30/2013</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/New-Bulldozer-and-Piledriver-Instructions.pdf" target="_blank">&#8220;Bulldozer&#8221; and &#8220;Piledriver&#8221; Instructions Guide</a> PDF &#8211; 11/07/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/Hadoop_Tuning_Guide-Version5.pdf" target="_blank"> Hadoop Tuning Guide</a> PDF &#8211; 11/06/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/CompilerOptQuickRef-63004300.pdf" target="_blank"> Compiler Options Quick Reference Guide for AMD Opteron™ 6300 Series Processors (“Abu Dhabi”) &amp; Opteron™ 4300 Series Processors (“Seoul”)</a> PDF &#8211; 11/06/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/51803A_OpteronLinuxTuningGuide_SCREEN.pdf" target="_blank">AMD Opteron™ 6200 Series processors &#8220;Linux Tuning Guide&#8221; </a> PDF -04/23/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/42301_15h_Mod_00h-0Fh_BKDG1.pdf" target="_blank">BIOS and Kernel Developer Guide (BKDG) for AMD Family 15h Models 00h-0Fh Processors </a> PDF &#8211; 02/03/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/03/47414_15h_sw_opt_guide.pdf" target="_blank">Software Optimization Guide for AMD Family 15h Processors </a> PDF &#8211; 01/18/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/CompilerOptQuickRef-62004200.pdf" target="_blank">Compiler Options Quick Reference Guide for AMD Opteron™ Processors codenamed “Interlagos” &amp; Opteron™ Processors codenamed “Valencia” </a> PDF &#8211; 11/14/2011</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/CompilerOptQuickRef-61004100.pdf" target="_blank">Compiler Options Quick Reference Guide for AMD Opteron™ 6100 Series Processors (“Magny-Cours”) and AMD Opteron™ 4100 Series Processors (“Lisbon”)</a> PDF &#8211; 11/14/2011</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/41131.pdf" target="_blank">BIOS and Kernel Developer’s Guide (BKDG) For AMD Family 12h Processors </a> PDF &#8211; 06/14/2011</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/43170_14h_Mod_00h-0Fh_BKDG.pdf" target="_blank">BIOS and Kernel Developer Guide (BKDG) for AMD Family 14h Models 00h-0Fh Processors </a> PDF &#8211; 01/04/2011</li>
+</ul>
+<h3><a name="isa"></a>Instruction Set Architecture (ISA) Documents</h3>
+<ul>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/07/AMD_GCN3_Instruction_Set_Architecture.pdf">AMD GCN3 Instruction Set Architecture (2015)</a> | PDF</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/r600isa.pdf">R6xx Family Instruction Set Architecture</a> &#8211; Instruction set architecture (ISA) native to the R600 processor. It defines the instructions and formats as they are accessible to programmers and compilers. PDF</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/07/AMD_Southern_Islands_Instruction_Set_Architecture1.pdf">AMD_Southern_Islands_Instruction_Set_Architecture</a> | PDF</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/07/AMD_Sea_Islands_Instruction_Set_Architecture1.pdf">AMD_Sea_Islands_Instruction_Set_Architecture</a> | PDF</li>
+<li><a title="Link opens in new window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/AMD_Evergreen-Family_Instruction_Set_Architecture.pdf" target="_blank">Evergreen Family Instruction Set Architecture v1.0d</a> | PDF</li>
+<li><a title="Link opens in new window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/AMD_HD_6900_Series_Instruction_Set_Architecture.pdf" target="_blank">HD 6900 Series Instruction Set Architecture</a> | PDF</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/R600_Instruction_Set_Architecture.pdf">R600 Instruction Set Architecture</a>  | PDF</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/R700-Family_Instruction_Set_Architecture.pdf">R700 Instruction Set Architecture</a> | PDF</li>
+<li><a title="Link opens in new browser window" href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/ATI%20Stream%20Computing%20-%20ATI%20Radeon%20HD%202900%20Series%20Instruction%20Set%20Architecture.ppt" target="_blank">ATI Stream Computing: ATI Radeon™ HD 2900 Series Instruction Set Architecture (2008)</a> | PPT</li>
+</ul>
+<h3><a name="manuals"></a>Manuals</h3>
+<ul>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/26568_APM_v41.pdf" target="_blank">AMD64 Architecture Programmer&#8217;s Manual Volume 4: 128-bit and 256 bit media instructions</a> PDF &#8211; 12/13/2011</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/24593_APM_v21.pdf" target="_blank">AMD64 Architecture Programmer&#8217;s Manual Volume 2: System Programming</a> PDF &#8211; 12/13/2011</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/26569_APM_v51.pdf" target="_blank">AMD64 Architecture Programmer&#8217;s Manual Volume 5: 64-Bit Media and x87 Floating-Point Instructions</a> PDF &#8211; 12/13/2011</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2008/10/24594_APM_v3.pdf" target="_blank">AMD64 Architecture Programmer&#8217;s Manual Volume 3: General Purpose and System Instructions</a> PDF &#8211; 12/13/2011</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/24592_APM_v11.pdf" target="_blank">AMD64 Architecture Programmer&#8217;s Manual Volume 1: Application Programming</a> PDF &#8211; 12/13/2011</li>
+</ul>
+<h3>Revision Guides</h3>
+<ul>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/48063_15h_Mod_00h-0Fh_Rev_Guide1.pdf">Revision Guide for AMD Family 15h Models 00h-0Fh Processors</a> &#8211; PDF &#8211; 09/30/2014</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/51810_Rev_Guide_Fam_16h_00h-0Fh.pdf">Revision Guide for AMD Family 16h Models 00h-0Fh Processors</a> PDF 06/2013</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/48931_15h_Mod_10h-1Fh_Rev_Guide.pdf" target="_blank">Revision Guide for AMD Family 15h Models 10h-1Fh Processors</a> PDF &#8211; 08/01/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/48063_15h_Mod_00h-0Fh_Rev_Guide.pdf" target="_blank">Revision Guide for AMD Family 15h Models 00h-0Fh Processors</a> PDF &#8211; 08/01/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/47534_14h_Mod_00h-0Fh_Rev_Guide.pdf" target="_blank">Revision Guide for AMD Family 14h Models 00h-0Fh Processors</a> PDF &#8211; 08/01/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/44739_12h_Rev_Gd.pdf" target="_blank">Revision Guide for AMD Family 12h Processors </a> PDF &#8211; 03/01/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/41322_10h_Rev_Gd.pdf" target="_blank">Revision Guide for AMD Family 10h Processors</a> PDF &#8211; 03/01/2012</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/41788.pdf" target="_blank">Revision Guide for AMD Family 11h Processors</a> PDF &#8211; 12/01/2011</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/33610_0Fh_Rev_Gd.pdf" target="_blank">Revision Guide for AMD NPT Family 0Fh Processors</a> PDF &#8211; 12/01/2011</li>
+</ul>
+<h3><a name="open_gpu"></a>Open GPU Documentation</h3>
+<p>This section contains register level documentation on AMD graphics processors for chip initialization, displays, and overlays. Documents for mobile chips are a superset of the desktop chip documentation; they contain all the desktop chip information as well as any relevant mobile additions. For development questions please contact: <a title="Link opens in new window." href="mailto:gpudriverdevsupport@amd.com?Subject=Open GPU Documentation" target="_blank">gpudriverdevsupport@amd.com</a></p>
+<ul>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/AMD_HDA_verbs_v2.pdf">AMD Vendor Specific HDA Verbs</a> PDF &#8211; 09/22/2013</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/CIK_3D_registers_v2.pdf">Sea Islands Family 3D/Compute Register Reference Guide</a> PDF &#8211; 09/19/2012</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/si_programming_guide_v2.pdf">Southern Islands/Sea Islands Family 3D/Compute Programming Guide</a> PDF &#8211; 04/18/2012</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/SI_3D_registers.pdf">Southern Islands Family 3D/Compute Register Reference Guide</a> PDF &#8211; 11/11/2011</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/evergreen_cayman_programming_guide.pdf">Evergreen/Northern Islands Family 3D/Compute Programming Guide</a> PDF &#8211; 05/24/2011</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/evergreen_3D_registers_v2.pdf">Evergreen Family 3D/Compute Register Reference Guide</a> PDF &#8211; 04/26/2011</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/cayman_3D_registers_v2.pdf">Northern Islands Family 3D/Compute Register Reference Guide</a> PDF &#8211; 04/26/2011</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/R6xx_R7xx_3D.pdf">R6xx/R7xx Family 3D Programming Guide</a> PDF &#8211; 04/29/2009</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/R6xx_3D_Registers.pdf">Radeon R6xx/R7xx Family 3D Register Reference Guide</a> PDF &#8211; 01/26/2009</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/R3xx_3D_Registers.pdf" target="_blank">R3xx 3D Registers</a> &#8211; Register information for AMD R3xx series processors (9800,9700, 9600, 9500 series chips). PDF &#8211; 03/14/2008</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2013/10/R5xx_Acceleration_v1.5.pdf" target="_blank">R5xx Family 3D Programming Guide</a> &#8211; The R5xx family provides the fastest and most advanced 2D, 3D, and multimedia graphics performance for desktop PCs in the performance mainstream markets. PDF &#8211; 06/08/2010</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/42589_rv630_rrg_1.01o.pdf" target="_blank">RV630</a> &#8211; Register information for AMD R6xx series processors (HD2400, HD2600, HD2900 series chips). This document is generally a subset of the M76 document and has been published for continuity. PDF &#8211; 01/11/2008</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/RRG-216M56-03oOEM.pdf" target="_blank">M56</a> &#8211; Register information for AMD R5xx series processors (x1300, x1400, x1600, x1900 series chips). PDF &#8211; 01/11/2008</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/42590_m76_rrg_1.01o.pdf" target="_blank">M76 </a>&#8211; Register information for AMD R6xx series processors (HD2400, HD2600, HD2900 series chips). PDF &#8211; 01/04/2008</li>
+<li><a title="Link opens in new browser window." href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/43372_rs690_rrg_3.00o.pdf" target="_blank">RS690</a> &#8211; Register information for AMD RS6xx series processors (x1200, x1250, x1270 series chips). PDF &#8211; 01/04/2008</li>
+</ul>
+<h3>Guides and Datasheets</h3>
+<ul>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/52169_A_Series_Mobile_Product_Data_Sheet.pdf">AMD Family 16h Models 00h &#8211; 0Fh AMD A-Series Mobile Accelerated Processor Product Data Sheet</a> PDF &#8211; 06/2013</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/53102_Opteron_Product_Data_Sheet.pdf">AMD Family 16h Models 00h &#8211; 0Fh AMD  Opteron Processor Product Data Sheet</a> PDF &#8211; 06/2013</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/53509_E-Series_Product_Data_Sheet.pdf">AMD Family 16h Models 00h-oFh AMD E-Series Mobile Processor Product Data Sheet</a> PDF &#8211; 06/2013</li>
+<li><a href="http://amd-dev.wpengine.netdna-cdn.com/wordpress/media/2012/10/52259_G-Series_Product_Data_Sheet.pdf">AMD Embedded G-Series SOC (Family 16h Models 00h-oFh) Product Data Sheet</a> PDF &#8211; 06/2013</li>
+</ul>
+<h3><a name="sdk"></a>AMD APP SDK Documentation</h3>
+<p>See the <a href="/appsdk">AMD APP SDK page</a> for documentation and resources for the AMD APP SDK.</p>
+                                
+                            </section> <!-- end article section -->
+                            
+                            <div class="clear"></div>
+                            
+                            <footer>
+                                                            </footer> <!-- end article footer -->
+                        
+                        </article> <!-- end article -->
+                        
+                        
+                              
+                        
+                        <div class="clear"></div>
+                        
+                                                
+                        
+                        <div class="entry-builder-wrapper">
+                            <div class="entry-builder container">
+                                <div class="entry-builder-frame">
+                                    
+                                                                        
+                                </div>
+                            </div><!-- axiom-builder container -->
+                        </div><!-- axiom-builder wrapper -->
+                        
+                        <div class="clear"></div>
+                        
+                        
+                    </div>
+
+                                            
+                    
+                </div><!-- end content -->
+            </section><!-- end primary -->
+            
+            
+            
+
+
+            
+        </div>
+    </div><!-- end main -->
+
+
+
+    <!--<div class="container fold subfooter-bar"> </div>-->
+
+    <aside class="wrapper subfooter">
+        
+        <div class="container fold">
+            
+            <div class="grid_wrapper">
+                
+                <section class="widget-area one_third">       
+                    <section id="text-4" class="widget-container widget_text">			<div class="textwidget">                       <i class='icon-book icon-4x pull-left' style="color:#a6ce39" data-name='icon-book' title='Newsletter'></i>
+
+                        <h3>Subscribe to our newsletter.</h3>
+
+                        <p>Your email address:</p>
+
+                         <form method="post" id="emailWidget" name="emailWidget" class="emailSubscribe">
+                <label for="txtEmail"><?php echo $subscribePanelInputLabel ?></label>
+                <input type="hidden" value="Newsletter" name="LeadSource_MostRecent" id="LeadSource_MostRecent" />
+                <input type="hidden" value="Developer Web Registration" name="LeadSourceDetail_MostRecent" id="LeadSourceDetail_MostRecent" />
+                <input type="hidden" value="Developer" name="ContactType" id="ContactType" />
+
+                <input type="text" name="txtEmail" id="txtEmail" class="subscribe-textbox subscribe-input" placeholder="Email" />
+                <input name="optInhcNewsFlash" type="checkbox" value="Yes"><label for="optInhcNewsFlash" class="checkbox">Yes, I would like to receive the AMD Developer News newsletter and related AMD Developer Central communications.
+                     </label><br>
+                <input type="submit" class="subscribe-button action" value="Submit">
+            </form></div>
+		</section>                </section>
+                <section class="widget-area one_third">       
+                    <section id="text-5" class="widget-container widget_text">			<div class="textwidget">                        <i class='icon-info-sign icon-4x pull-left' style="color:#812990" data-name='icon-info-sign' title='More Information'></i>
+
+                        <h3>HSA is going to rock your world.</h3>
+
+                        <p>Learn more about  <a href="/resources/heterogeneous-computing/what-is-heterogeneous-system-architecture-hsa/">Heterogeneous System  Architecture.</a></p></div>
+		</section>                </section>
+                <section class="widget-area one_third">       
+                    <section id="text-6" class="widget-container widget_text">			<div class="textwidget"><i class='icon-question-sign icon-4x pull-left'  data-name='icon-question-sign' title='Questions?'></i>
+
+                        <h3>Got Questions?</h3>
+
+                        <p>Ask the <a href="https://community.amd.com/community/devgurus">Developer Forums Community</a>. They’ve got answers.</p></div>
+		</section>                </section>
+
+                <ul id="footer-links">
+                    <li><a href="http://www.amd.com/us/aboutamd/careers/Pages/careers.aspx" target="_blank">Careers</a></li>
+                    <li>/</li>
+                    <li><a href="/site-map/">Site Map</a></li>
+                    <li>/</li>
+                    <li><a href="http://www.amd.com/us/aboutamd/Pages/copyright.aspx" target="_blank">Terms and Conditions</a></li>
+                    <li>/</li>
+                    <li><a href="http://www.amd.com/us/aboutamd/Pages/privacy.aspx" target="_blank">Privacy</a></li>
+                    <li>/</li>
+                    <li><a href="http://www.amd.com/us/aboutamd/Pages/cookiepolicy.aspx" target="_blank">Cookie Policy</a></li>
+                    <li>/</li>
+                    <li class="last"><a href="http://www.amd.com/us/aboutamd/Pages/trademarks.aspx" target="_blank">Trademarks</a></li>
+                </ul>
+            </div>
+            
+        </div><!-- end of container -->
+    </aside><!-- end footer widget -->
+
+		
+    <footer id="sitefooter" class="wrapper" role="contentinfo" >
+        <div class="container fold">
+            
+            <ul class="socials"><li ><a class="facebook" href="http://www.facebook.com/amd" target="_blank" ></a></li><li ><a class="twitter" href="https://twitter.com/AMDDevCentral" target="_blank" ></a></li><li ><a class="gplus" href="https://plus.google.com/+AMD/posts" target="_blank" ></a></li><li ><a class="youtube" href="http://www.youtube.com/user/AMDDevCentral" target="_blank" ></a></li><li ><a class="linkedin" href="http://www.linkedin.com/company/amd" target="_blank" ></a></li><li ><a class="pinterest" href="http://www.pinterest.com/amd/" target="_blank" ></a></li><li ><a class="rss" href="http://developer.amd.com/feed/" target="_blank" ></a></li></ul><!-- end socials -->            
+            <div id="copyright">
+                                <small>©2014 Advanced Micro Devices, Inc. OpenCL™ and the OpenCL™ logo are trademarks of Apple, Inc., used with permission by Khronos.</small>
+                            </div>
+            
+                        <!-- end navigation -->
+            
+            
+        </div><!-- end of container -->
+    </footer><!-- end sitefooter -->
+    
+    <div class="scroll2top"></div>
+
+    <script>
+            </script><!-- user custom js -->
+    
+    <!--[if (lte IE 8)]>
+    <script src="http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus_amd/js/libs/polyfills/selectivizr-min.js"></script>
+    <![endif]-->
+     
+    <!-- outputs by wp_footer -->
+    <script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-includes/js/comment-reply.min.js?ver=4.2.3'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js?ver=3.51.0-2014.06.20'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/developer.amd.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ...","cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.2.1'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/plugins.js?ver=1.6'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/hoverIntent.js?ver=r7'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/superfish.js?ver=1.7.2'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/plugins/jquery.prettyPhoto.js?ver=3.1.5'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/plugins/jquery.fitvids.js?ver=1.0'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/plugins/jquery.isotope.min.js?ver=1.5.25'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/plugins/jquery.touchSwipe.min.js?ver=1.3.3'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/plugins/jquery.mousewheel.min.js?ver=3.0.6'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/libs/plugins/jquery.carouFredSel-6.1.0-packed.js?ver=6.1.0'></script>
+<script type='text/javascript' src='http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus/js/script.js?ver=1.8'></script>
+    <!-- end wp_footer -->
+
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35904567-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+<!-- SiteCatalyst BOF -->
+<script language="JavaScript" type="text/javascript" src="http://www.amd.com/us/as/sp2013/custom.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://www.amd.com/us/as/sp2013/scode_global.js"></script>
+<script language="JavaScript" type="text/javascript"><!--
+    var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+<!-- SiteCatalyst EOF -->
+
+    <script src="http://amd-dev.wpengine.netdna-cdn.com/wp-content/themes/lotus_amd/js/scripts.js"></script>
+    
+</div><!--! end of #inner-body -->
+</body>
+</html>

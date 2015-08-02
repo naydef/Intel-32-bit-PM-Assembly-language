@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第1章 汇编语言基础知识</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page5.html">上一页</a> <a href="page7.html">下一页</a> <a href="page11.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-6-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="黑体" lang="ZH-CN"><a name="14"><p>1．4 汇编语言中的文字和符号</p></a></font>
+　　习惯上通常把文字和符号统称为"字符"，字符在机器中是如何表示和存储的呢？我们知道计算机可以方便地处理数字，因此如果把字符用数字来表示，就可以很方便的在计算机中储存和处理。所以在计算机中一般采用ASCII（美国信息交换代码American Standard Code for Information Interchange）码来表示字符。<br>
+　　计算机中所用的字符包括：<br>
+　　　　字母：A、B、．．．Z，a、b、．．．z；<br>
+　　　　数字：0、1、．．．9；<br>
+　　　　专用符号：＋、－、*、／、= ．．．<br>
+　　　　控制符号：CR（Carriage Return 回车）、LF（Line Feed 换行）．．．<br>
+　　这些字符的ASCII码都列在下面表1-4和表1-5中。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align="center"><font face="楷体_GB2312">表1-4  ASCII基本字符对照表</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=2 align="center">
+ASCII值
+</td>
+<td colspan=2 align="center">
+字符<sup>*</sup>
+</td>
+<td colspan=2 align="center">
+ASCII值
+</td>
+<td colspan=2 align="center">
+字符
+</td>
+<td colspan=2 align="center">
+ASCII值
+</td>
+<td colspan=2 align="center">
+字符
+</td>
+<td colspan=2 align="center">
+ASCII值
+</td>
+<td colspan=2 align="center">
+字符
+</td>
+<td></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=2 align="center">
+000<br>001<br>002<br>003<br>004<br>005<br>006<br>007<br>008<br>009<br>00A<br>00B<br>00C<br>00D<br>00E<br>
+00F<br>010<br>011<br>012<br>013<br>014<br>015<br>016<br>017<br>018<br>019<br>01A<br>01B<br>01C<br>
+</td>
+<td colspan=2 align="center">
+NULL<br>SOH<br>STX<br>ETX<br>EOT<br>END<br>ACK<br>BEL<br>BS<br>HT<br>LF<br>VT<br>FF<br>CR<br>SO<br>SI<br>DLE<br>DC1<br>
+DC2<br>DC3<br>DC4<br>NAK<br>SYN<br>ETB<br>CAN<br>EM<br>SUB<br>ESC<br>FS
+</td>
+<td colspan=2 align="center">
+020<br>021<br>022<br>023<br>024<br>025<br>026<br>027<br>028<br>029<br>02A<br>02B<br>02C<br>02D<br>02E<br>
+02F<br>030<br>031<br>032<br>033<br>034<br>035<br>036<br>037<br>038<br>039<br>03A<br>03B<br>03C
+</td>
+<td colspan=2 align="center">
+SPACE<br>!<br>"<br>#<br>$<br>%<br>&<br>'<br>(<br>)<br>*<br>+<br>,<br>-<br>.<br>/<br>0<br>1<br>2<br>3<br>4<br>5<br>
+6<br>7<br>8<br>9<br>:<br>;<br>&LT
+</td>
+<td colspan=2 align="center">
+040<br>041<br>042<br>043<br>044<br>045<br>046<br>047<br>048<br>049<br>04A<br>04B<br>04C<br>04D<br>04E<br>
+04F<br>050<br>051<br>052<br>053<br>054<br>055<br>056<br>057<br>058<br>059<br>05A<br>05B<br>05C
+</td>
+<td colspan=2 align="center">
+@<br>A<br>B<br>C<br>D<br>E<br>F<br>G<br>H<br>I<br>J<br>K<br>L<br>M<br>N<br>O<br>P<br>Q<br>R<br>S<br>T<br>U<br>V<br>
+W<br>X<br>Y<br>Z<br>[<br>\
+</td>
+<td colspan=2 align="center">
+060<br>061<br>062<br>063<br>064<br>065<br>066<br>067<br>068<br>069<br>06A<br>06B<br>06C<br>06D<br>06E<br>
+06F<br>070<br>071<br>072<br>073<br>074<br>075<br>076<br>077<br>078<br>079<br>07A<br>07B<br>07C
+</td>
+<td colspan=2 align="center">
+`<br>a<br>b<br>c<br>d<br>e<br>f<br>g<br>h<br>i<br>j<br>k<br>l<br>m<br>n<br>o<br>p<br>q<br>r<br>s<br>t<br>u<br>v<br>
+w<br>x<br>y<br>z<br>{<br>|
+</td>
+<td></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page5.html">上一页</a> <a href="page7.html">下一页</a> <a href="page11.html">下一章</a></p>
+</body>
+</html>
+

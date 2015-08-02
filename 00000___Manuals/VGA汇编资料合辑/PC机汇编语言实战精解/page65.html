@@ -1,0 +1,178 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page64.html">上一页</a> <a href="page66.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第4章 奇妙的声音</td> <!章节名>
+<td></td><td>-65-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td>
+<td colspan=2>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=4>
+<br><br>
+main
+</td>
+<td colspan=8>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序并不复杂，先显示一个字符串，再分别显示"回车"和"换行"，注意"回车"和"换行"是以"字"的形式定义在内存中的。那么程序又是如何应用这一个字的数据呢？<br>
+　　指令"MOV DL，CRLF"和"MOV DL，CRLF＋1"清楚地反映了程序的意图：为适应DOS的要求，我们只能将这个"字"拆成"字节"，每次取出八位数据。从表面上看程序并没有错误，但实际上这样的程序无法编译，下面是我用TASM编译这个程序时出现的错误：<br>
+　　C:\ASM\>TASM TEMP[Enter]<br>
+　　Turbo Assembler  Version 3.2  Copyright (c) 1988, 1992 Borland International<br>
+<br>
+　　Assembling file:   temp.ASM<br>
+　　**Error** temp.ASM(13) Operand types do not match<br>
+　　**Error** temp.ASM(15) Operand types do not match<br>
+　　Error messages:    2<br>
+　　Warning messages:  None<br>
+　　Passes:            1<br>
+　　Remaining memory:  459k<br>
+　　给出的错误信息告诉我们"运算类型不等"。看来实际情况并非如想象中那样，编译程序比我们人类要"呆"得多。如何使程序正确编译呢？<br>
+　　一种方法，改用DB伪指令定义数据。将第七行改写成"CRLF  DB  0DH，0AH"；另一种方法就是用"PTR"操作符。<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td><hr></td><td colspan=2 align="center"><font size=5>PTR</font></td><td colspan=13><hr></td><td></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=16><font face="楷体_GB2312">
+这个操作符用于显式地指示操作数的类型，它的使用很简单："type  PTR  目的地址"
+</td>
+<td></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=16><hr></td>
+<td></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td>
+<td colspan=2>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+msg<br>
+crlf<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+dw<br>
+mov<br>
+mov<br>
+int<br>
+mov<br>
+mov<br>
+int
+</td>
+<td colspan=4>
+<br>
+cs:code<br>
+100h<br>
+far<br>
+short start<br>
+'Hello,World!',24h<br>
+0d0ah<br>
+ah,9<br>
+dx,offset msg<br>
+21h<br>
+ah,2<br>
+dl,byte ptr crlf<br>
+21h
+</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page64.html">上一页</a> <a href="page66.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

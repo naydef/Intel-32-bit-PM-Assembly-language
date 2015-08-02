@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page42.html">上一页</a> <a href="page44.html">下一页</a> <a href="page45.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第3章 中断调用与子程序</td> <!章节名>
+<td></td><td>-43-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　为什么会有这样的区别，在本书的后面会有更详细的介绍。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　PROG5是由PROG3－B演变而来，去掉了INT 20指令，而用JMP指令转移至CS：0处去执行那里的"INT 20"。<br>
+　　这里采用了JMP指令的新用法，程序先将"0"放入AX，用"JMP AX"转移到CS：0。如果我们把"JMP 00"看作"立即数寻址"方式，那么可以说"JMP AX"应用的就是"寄存器寻址"方式。可见转移指令JMP和MOV、INC一样有不同的寻址方式。现在来跟踪一下JMP指令的执行：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>-g=100 11b</td><td colspan=15></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>Hello,World!</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0000</td><td colspan=2>BX=0000</td><td colspan=2>CX=001D</td><td colspan=2>DX=0102</td><td colspan=2>SP=FFFE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0A3E</td><td colspan=2>ES=0A3E</td><td colspan=2>SS=0A3E</td><td colspan=2>CS=0A3E</td><td colspan=2>IP=011B</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:011B</td><td colspan=3>FFE0</td><td colspan=6>JMP AX</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>-t</td><td colspan=15></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0000</td><td colspan=2>BX=0000</td><td colspan=2>CX=001D</td><td colspan=2>DX=0102</td><td colspan=2>SP=FFFE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0A3E</td><td colspan=2>ES=0A3E</td><td colspan=2>SS=0A3E</td><td colspan=2>CS=0A3E</td><td colspan=2>IP=0000</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:0000</td><td colspan=3>CD20</td><td colspan=6>INT 20</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　PROG5-A中应用"直接寻址"方式，PROG5-B中则是应用了"寄存器间接寻址"方式。请大家注意"FFFE"这个数据，它实际应与SP寄存器的初值相同。如果进入DEBUG之后发现SP的值是FFEE或其它的，则应将方括号中的数据修改成与SP寄存器相同的值。<br>
+　　所有这些寻址方式同样适于CALL指令。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=16>
+PROG5-A<br>
+-A100[Enter]<br>
+0A3E:0100 JMP 111<br>
+0A3E:0102 DB'Hello,World!',0D,0A,24<br>
+0A3E:0111 MOV DX,0102<br>
+0A3E:0114 MOV AH,09<br>
+0A3E:0116 INT 21<br>
+0A3E:0118 JMP [FFFE]<br>
+0A3E:011C<br>
+<br>
+PROG5-B<br>
+-A100[Enter]<br>
+；偏移0100-0116与PROG5-A相同
+0A3E:0118 MOV BX,FFFE<br>
+0A3E:011B JMP BX
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　最后来谈一谈编制子程序时一个至关重要的问题。子程序运行时必然也要用到寄存器或内存中的数据，在使用寄存器中的数据时务必要注意一点，那就是主程序在调用这个子程序后还要使用的数据不能被子程序修改。<br>
+　　仔细分析PROG4-A，可以发觉若要保证执行主程序中的CMP指令时AL寄存器中确实是我们所
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page42.html">上一页</a> <a href="page44.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>
+

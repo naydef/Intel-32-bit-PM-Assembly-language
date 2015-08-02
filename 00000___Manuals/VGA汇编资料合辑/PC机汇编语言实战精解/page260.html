@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page259.html">上一页</a> <a href="page261.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-260-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+point:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+int<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+call<br>
+mov<br>
+call<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+xchg<br>
+call<br>
+mov<br>
+call<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+add<br>
+add<br>
+mov<br>
+int<br>
+push<br>
+<br>
+mov<br>
+mov
+</td>
+<td colspan=5>
+10h<br>
+<br>
+cx,10<br>
+dx,10<br>
+bx,300<br>
+al,1<br>
+si,1<br>
+di,0<br>
+line<br>
+dx,190<br>
+line<br>
+<br>
+dx,10<br>
+al,2<br>
+bx,180<br>
+si,di<br>
+line<br>
+cx,310<br>
+line<br>
+<br>
+ah,9<br>
+dx,offset mess<br>
+21h<br>
+<br>
+ah,0<br>
+16h<br>
+<br>
+si,1<br>
+di,1<br>
+cx,56<br>
+dx,47<br>
+<br>
+cx,si<br>
+dx,di<br>
+ah,0dh<br>
+10h<br>
+ax<br>
+<br>
+al,3<br>
+ah,0ch
+</td>
+<td colspan=9>
+<br>
+；画方框上下两条水平线<br>
+；上一条水平线位于屏幕第10线<br>
+<br>
+；水平线的长度为300点<br>
+；水平线颜色为青色<br>
+；定X方向增量为1<br>
+；定Y方向增量为0<br>
+；调用LINE子过程<br>
+；下一条水平线位于屏幕第190线<br>
+；调用LINE子过程<br>
+；画方框左右两条垂直线<br>
+；左侧垂直线起点Y坐标<br>
+；垂直线的颜色为洋红<br>
+；垂直线长度为180点<br>
+；交换X，Y方向的增量值<br>
+；调用LINE子过程<br>
+；右侧垂直线位于X坐标310处<br>
+；调用LINE子过程<br>
+<br>
+；显示字符串<br>
+<br>
+<br>
+<br>
+；等待键盘输入<br>
+<br>
+<br>
+；X，Y方向的增量值均设为1<br>
+<br>
+；起始位置的（X，Y）坐标<br>
+<br>
+<br>
+；计算新位置的（X，Y）坐标<br>
+<br>
+；取得新位置处点的颜色<br>
+<br>
+；暂存取得的颜色值<br>
+<br>
+；在新位置画一个白色的点<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page259.html">上一页</a> <a href="page261.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

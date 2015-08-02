@@ -1,0 +1,161 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page134.html">上一页</a> <a href="page136.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第6章 文字输出与键盘输入</td> <!章节名>
+<td></td><td>-135-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+dec<br>
+jns<br>
+<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+bl<br>
+loop1<br>
+<br>
+20h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+；循环计数减1<br>
+；循环至LOOP1继续<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在这个程序中“等待键盘输入”的位置做了些调整，运行这个程序时可以清楚的看到屏幕自上而下滚动4、3、2、1行的情况，以及AL寄存器清零后整屏被清除。如果要验证清窗口的功能，只需稍稍修改一下窗口的左上与右下角坐标即可。其实原来提出的在屏幕上显示空格的方法也能完成诸如清"窗口"，改变新行属性等功能，只是编程不如新讨论的两个功能简便而已。<br>
+　　实际上刚刚讨论过的这些清屏方法都有些繁琐，下面介绍的这个方法就可以说十分简单快捷了。在前面讨论显示模式的时候曾经提到过一般的显示卡能支持多种显示模式，程序需要使用何种显示模式是可以选择的。这里需要再补充一点，那就是当程序设定一种新的显示模式后，BIOS中断服务程序会自动的清除整个屏幕，这样看来重置显示模式也是一种清屏方法。设置显示模式可以使用10H中断的0号功能：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：00H<br>
+用　途：设置显示模式<br>
+参　数：AL = 显示模式号<br>
+调　用：INT 10H<br>
+返　回：无
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　当系统启动之后，DOS默认的显示模式是模式3，也就是80列25行的字符模式。所以如果编程重新选择显示模式3，那么就会有"清屏"的效果而且DOS的显示模式没有改变。下面给出了一个试验程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>
+C:\ASM\>DEBUG [Enter]<br>
+-a100[Enter]<br>
+09DF:0100 mov ax,0003<br>
+09DF:0103 int 10<br>
+09DF:0105 ret<br>
+09DF:0106[Enter]
+</td>
+<td colspan=12>
+<br>
+<br>
+；利用10H中断的0号功能<br>
+；将屏幕设置为03模式<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　键入"G=100"马上就会看到屏幕被清除的干干静静，短短两条指令就有立竿见影的效果。不过可不要高兴的太早，有一个很重要的问题被忽略了，这个问题并不隐蔽，那就是给出的试验程序对"当前"的显示模式作了假定。<br>
+　　的确，DOS确实工作在模式3下，但这并不意味着其他的程序都使用显示模式3，很明显如果我们编制一个图形程序那么使用上面这一小段程序清屏就会乱套。这提醒我们在设置显示模式之前应该查出当前的显示模式，而后将当前显示模式作为新的显示模式进行设置，这样才可以保证清屏后显示模式不变。好在10H中断提供了一个功能调用专用于查出当前显示模式：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page134.html">上一页</a> <a href="page136.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

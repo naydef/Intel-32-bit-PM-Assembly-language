@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page13.html">上一页</a> <a href="page15.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-14-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><img src="icons/P2_5_DS.gif"></td>
+<td colspan=17>
+DS称为数据段地址寄存器（Data segment），它保存数据段的段地址。如果在程序中有数据的存取操作时，若不"显式"地指定段寄存器，则将在DS指定的段寻找相应的存储单元。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><img src="icons/P2_6_ES.gif"></td>
+<td colspan=17>
+ES称为附加段地址寄存器（Exterial segment），也可以称为扩展段地址寄存器，它用于指向内存中的任一段。一般情况下我们常使用这个段寄存器取得内存中某个单元的数据而不需修改DS寄存器。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><img src="icons/P2_7_CS.gif"></td>
+<td colspan=17>
+CS是代码段地址寄存器（Code segment），它和IP（指令指针）寄存器一起指向目前正在执行的指令。也就是说，CPU永远在CS：IP指向的内存单元中取得指令机器码并执行。CS寄存器的数值有变化，CPU所取的指令就有变化。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><img src="icons/P2_8_SS.gif"></td>
+<td colspan=17>
+SS是堆栈段地址寄存器（Stack segment），它保存了堆栈存储区的段地址。堆栈是开辟在内存中的一段特殊空间，数据在堆栈中存取不同于在其它内存空间。有关堆栈的概念将在后面做更详细地介绍。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　以上所讲的所有段寄存器都是16位的，无法拆分成8位使用，同时，段寄存器不能参与任何数学运算和逻辑操作。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　<font face="黑体">（5） 指令指针寄存器(Instruction Pointer)</font><br>
+　　IP是CPU内部一个16位的寄存器，它用于记录CPU将要执行的指令的偏移地址。指令的段地址由CS保存。IP不同于其它寄存器，它不能随意的修改，不能参与任何运算或逻辑操作。它的唯一用途就是为CPU取得指令提供偏移地址（CS提供段地址）。也就是说，CPU永远从CS:IP指定的内存地址处取得所要执行的指令。<br>
+　　如果CS:IP指向的位置没有合乎逻辑的指令，而是一些杂乱无章的数据，那么CPU就会傻乎乎地把这些乱七八糟的数据当成指令来胡乱执行，其结果将是未知的。通常情况下会导致"死机"。<br>
+　　在进入DEBUG环境后IP究竟指向什么位置？屏幕上显示IP指向偏移100H的位置。也就是说，我们后面要编制的程序也必须从偏移100H处开始。为什么要空出前面256字节内存呢？这是因为在这256字节的内存中保存有DOS系统提供的重要数据。关于这些数据的说明会在后面陆续介绍。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　<font face="黑体">（6）变址、基指针、堆栈指针和标志寄存器(Index，Base Pointer，Stack Point & Flag)</font><br>
+　　这部分内容现在暂时不用，后面用到时会详细加以说明。<br>
+　　一个看似简单的R命令引出了这么多枯燥的东西，实在让人头痛。不过这可是些极其重要的基本知识，不了解这些细节内容就无法继续学习下去。<br>
+　　实际上与学习高级语言相比，这些知识更应使人感到新奇有趣。毕竟，我们只能看到高级语言执行的结果，而看不到它执行的过程。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="黑体" lang="ZH-CN"><a name="22"><p>2．2 编制第一个程序</p></a></font>
+<font face="黑体" lang="ZH-CN"><a name="221"><p>2．2．1 程序的输入和保存</p></a></font>
+<td></td><td></td> <!右边距>
+</tr>
+
+<!正文>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　了解了上面这些知识，我们就可以开始编写第一个程序了。编程之前先要命令DEBUG 作好翻译汇编指令的准备--在"－"后面打入一个字母"A"并回车。看到了什么有趣的东西吗？
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page13.html">上一页</a> <a href="page15.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

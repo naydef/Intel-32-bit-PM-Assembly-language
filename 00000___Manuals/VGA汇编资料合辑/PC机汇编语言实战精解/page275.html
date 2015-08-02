@@ -1,0 +1,146 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第10章 细节补充</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page274.html">上一页</a> <a href="page276.html">下一页</a> <a href="page291.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第10章 细节补充</td> <!章节名>
+<td></td><td>-275-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+hex16o<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+dec<br>
+jnz<br>
+<br>
+pop<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+ch<br>
+loop1<br>
+<br>
+cx<br>
+bx<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；处理完AX寄存器中的数据了吗？<br>
+；未处理完数据，转LOOP1继续<br>
+<br>
+；恢复寄存器<br>
+<br>
+；返回主过程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　压缩的BCD码不能进行乘、除运算，因为没有相应的调整指令处理运算结果。而采用非压缩BCD码不仅可以进行加、减运算，而且可以作乘、除运算，计算结果都有相应指令进行调整。其调整指令共有4条：<br>
+　　·AAA（ASCII Adjust for Addition）加法的ASCII调整指令<br>
+　　·AAS（ASCII Adjust for Subtraction）减法的ASCII调整指令<br>
+　　·AAM（ASCII Adjust for Multiplication）乘法的ASCII调整指令<br>
+　　·AAD（ASCII Adjust for Division）除法的ASCII调整指令<br>
+　　这四条指令之所以被称为"ASCII调整指令"，可能是由于字符0-9的ASCII码与非压缩BCD码之间的密切关系而来的。指令记忆起来也比较容易，前两个字母都是AA，第三个字母表示了这条指令对何种运算结果进行调整。<br>
+　　有些朋友总觉得汇编指令繁杂难记，其实并非如此，关键在于掌握合理的记忆方法。按字母死背是最笨的。实际上指令的助记符都来源于一些实际的英文单词，就连标志寄存器中各个位的符号其实也是英文缩写。如果能确实搞懂这些单词的含义自然就能把这些指令、符号之类的东西记住，所以说死记指令不如活学英语。这样学习就可以做到一举多得，至少可以两得，既学了编程又学了英语。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="102">10．2 标志寄存器</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　标志寄存器在前面几章里已有所讨论，不过有几个稍微特殊的位还要作些更详细的研究。<br>
+　　（1）PF（Parity Flag）位<br>
+　　这是奇偶标志位，当运算结果之中"1"的个数为偶数时此位将置位，当运算结果中"1"的个数是奇数时此位复位。请看下面的实验：<br>
+　　C:\ASM\>debug[Enter]<br>
+　　-a[Enter]<br>
+　　0F6A:0100 mov al,36<br>
+　　0F6A:0102 or al,81<br>
+　　0F6A:0104 and al,7f<br>
+　　0F6A:0106 add al,80<br>
+　　0F6A:0108 shl al,1
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page274.html">上一页</a> <a href="page276.html">下一页</a> <a href="page291.html">下一章</a></p>
+</body>
+</html>

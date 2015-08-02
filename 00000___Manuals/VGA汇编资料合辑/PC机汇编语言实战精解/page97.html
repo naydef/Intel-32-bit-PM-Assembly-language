@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子程序和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page96.html">上一页</a> <a href="page98.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第5章 子程序和串处理</td> <!章节名>
+<td></td><td>-97-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+指针，"DISP"过程取得指针后首先判断此指针是否指向字符串的最后一个字符，若不是则将指针加一后压入堆栈并调用其自身。反复几次后堆栈中将形成如图5-3所示的一系列数据组。<br>
+　　我们把一次调用在堆栈中保存的数据称为一帧。当指针最终指向最后一个字符时，DISP将按第一种情况处理--执行"#1部分"程序显示最后这个字符。这部分程序结束时的RET指令使CPU返回至"#2部分"继续执行程序。这部分程序负责由堆栈中取回指针并将其减1，使其指向前一个字符，然后将这个字符显示出来。这一段程序结束时的RET指令仍然使CPU返回至"RETN＿ADDR"处，直至堆栈中所有数据帧处理完毕后DISP才真正返回到主过程。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align="center"><img src="figures/F5_3.gif"><br><font face="楷体_GB2312">图5-3 递归调用的堆栈结构</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="53">5．3 数据串处理</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　什么是"串"？一般来说在内存中连续存放的一系列位宽一致的数据就可以称为一个串。最为常见的就是以"＄"结尾的一个字符串。8086/88和与其完全兼容的CPU有几个专门的寄存器和一些指令用于处理数据串，这些专门的指令就是所谓的"串指令"。这些寄存器和指令就是这一节主要讨论的内容。这一节将结束对8086/88内部寄存器的讨论（标志寄存器除外），在后面的学习中这些知识有助于设计出更灵活的程序。<br>
+　　由于字符串比较常用，而且也较为直观，所以后面所举实例基本都以字符串为代表。下面我们就来讨论第一个简单的问题：字符串的输入。<br>
+　　我们在第三章中介绍了单字符的输入方法：调用INT 21H的1号功能。用此功能配合一点
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page96.html">上一页</a> <a href="page98.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>
+

@@ -1,0 +1,233 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page186.html">上一页</a> <a href="page188.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-187-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+READ_REC:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+L_TO_U:<br>
+<br>
+<br>
+NEXT_CHAR:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+NOT_UPPER:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JZ<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JZ<br>
+CMP<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+CMP<br>
+JB<br>
+CMP<br>
+JA<br>
+ADD<br>
+<br>
+STOSB<br>
+LOOP<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+<br>
+JMP
+</td>
+<td colspan=5>
+AH,0FH<br>
+DX,OFFSET FCB2<br>
+21H<br>
+AL,AL<br>
+READ_REC<br>
+<br>
+AH,16H<br>
+DX,OFFSET FCB2<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+AH,14H<br>
+DX,OFFSET FCB1<br>
+21H<br>
+AL,AL<br>
+L_TO_U<br>
+AL,3<br>
+ERR_EXIT<br>
+<br>
+CX,128<br>
+DI,80H<br>
+<br>
+AL,ES:[DI]<br>
+AL,'A'<br>
+NOT_UPPER<br>
+AL,'Z'<br>
+NOT_UPPER<br>
+AL,20H<br>
+<br>
+<br>
+NEXT_CHAR<br>
+<br>
+AH,15H<br>
+DX,OFFSET FCB2<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+READ_REC
+</td>
+<td colspan=9>
+；打开FCB2指示的文件<br>
+<br>
+<br>
+；打开操作正确吗？<br>
+；打开正确，转READ_REC<br>
+<br>
+；建立FCB2指示的文件<br>
+<br>
+<br>
+；文件正确建立了吗？<br>
+；文件未正确建立，转ERR_EXIT<br>
+<br>
+；从FCB1指示的文件中读入一个记录<br>
+<br>
+<br>
+；数据正确读入了吗？<br>
+；数据正确读入，转L_TO_U<br>
+；读入了一部分数据吗？<br>
+；其它错误，转ERR_EXIT<br>
+<br>
+；将128个字符转换成小写<br>
+；DI指向DTA首<br>
+<br>
+；取得一个字符<br>
+；这个字符是"A"吗？<br>
+；比"A"小则转NOT_UPPER<br>
+；这个字符是"Z"吗？<br>
+；比"Z"大则转NOT_UPPER<br>
+；将字符转换成小写<br>
+<br>
+；将字符送回DTA<br>
+；处理下一个字符<br>
+<br>
+；选择DOS的15H功能<br>
+；DX指向打开的FCB2<br>
+；将处理过的字符写入FCB2指示的文件<br>
+；数据正确写入了吗？<br>
+；数据写入不正确，转ERR_EXIT<br>
+<br>
+；转READ_REC继续处理下一个记录
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page186.html">上一页</a> <a href="page188.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

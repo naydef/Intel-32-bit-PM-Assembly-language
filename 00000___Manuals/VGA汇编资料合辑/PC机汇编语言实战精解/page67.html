@@ -1,0 +1,172 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page66.html">上一页</a> <a href="page68.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第4章 奇妙的声音</td> <!章节名>
+<td></td><td>-67-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　由此我们可以发现正负数之间具有这样一种转换关系：将＋1的所有位取反得到"11111110"，再在最低位上加1就得到"11111111"，也就是－1。同时我们也能看出补码表示法中关于符号位的规定和原码是一样的。<br>
+　　那么"10000001"在补码表示法中是哪个数呢？按照刚才发现的规律，将它的各个位取反，得"01111110"，再加上1，得"01111111"，即十进制的＋127，也就是说"10000001"表示－127。<br>
+　　为什么要用这样的表示法，这主要是因为补码便于计算。我们可以用补码重新计算－1＋1＝？<br>
+　　由于－1的补码是"11111111"，将其加1，会得到"100000000"，这是一个九位二进制数，如果舍掉最高位，就得到正确的结果--00000000。<br>
+　　这似乎有点不讲理，凭什么舍去最高位呢？道理其实很简单，我们先来看看是否真有这样的现象，启动DEBUG输入下面两条指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+C:\ASM\>DEBUG[Enter]<br>
+-a100[Enter]<br>
+0F6A:0100 mov al,ff<br>
+0F6A:0102 add al,1<br>
+0F6A:0104 [Enter]<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-r</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0000</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0F6A</td><td colspan=2>ES=0F6A</td><td colspan=2>SS=0F6A</td><td colspan=2>CS=0F6A</td><td colspan=2>IP=0100</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6A:0100</td><td colspan=2>B0FF</td><td colspan=6>MOV AL,FF</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-t</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=00FF</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0F6A</td><td colspan=2>ES=0F6A</td><td colspan=2>SS=0F6A</td><td colspan=2>CS=0F6A</td><td colspan=2>IP=0102</td>
+<td colspan=5>NV UP EI PL NZ <u>NA</u> PO <u>NC</u></td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6A:0102</td><td colspan=2>0401</td><td colspan=6>ADD AL,01</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-t</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0000</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0F6A</td><td colspan=2>ES=0F6A</td><td colspan=2>SS=0F6A</td><td colspan=2>CS=0F6A</td><td colspan=2>IP=0104</td>
+<td colspan=5>NV UP EI PL NZ <u>AC</u> PO <u>CY</u></td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6A:0104</td><td colspan=2>56</td><td colspan=6>PUSH SI</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　可以看到将FF（-1）加1之后AL确实成了0。AL是八位寄存器，它不可以记录第九位，因而在AL寄存器中只保留了低八位。<br>
+　　那么是不是多出的一位就无影无踪了呢？并非如此，如果仔细观察DEBUG显示出的内容，就会发现标志寄存器中有一些位发生了变化：AF（辅助进位标志）和CF（借位/进位标志）被置成1了。<br>
+　　由于我们采用了八位寄存器，运算结果产生了第九位，这一位作为进位送入了CF标志位。至于AF，它记录了AL寄存器低"四"位的进位情况。请看下面的实例：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+C:\ASM\>DEBUG[Enter]<br>
+-a100[Enter]<br>
+0B0B:0100 mov al,f<br>
+0B0B:0102 inc al
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page66.html">上一页</a> <a href="page68.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

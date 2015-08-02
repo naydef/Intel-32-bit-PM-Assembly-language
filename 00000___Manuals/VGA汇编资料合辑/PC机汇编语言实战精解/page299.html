@@ -1,0 +1,233 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page298.html">上一页</a> <a href="page300.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-299-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+f11:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+f12:<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+install:<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+in<br>
+or<br>
+out<br>
+and<br>
+out<br>
+<br>
+mov<br>
+out<br>
+<br>
+pop<br>
+test<br>
+jnz<br>
+<br>
+mov<br>
+cmp<br>
+jz<br>
+cmp<br>
+jz<br>
+jmp<br>
+<br>
+inc<br>
+mov<br>
+stosb<br>
+loop<br>
+jmp<br>
+<br>
+inc<br>
+mov<br>
+stosb<br>
+loop<br>
+<br>
+pop<br>
+pop<br>
+pop<br>
+pop<br>
+pop<br>
+jmp<br>
+<br>
+mov<br>
+int
+</td>
+<td colspan=5>
+al,61h<br>
+al,80h<br>
+61h,al<br>
+al,7fh<br>
+61h,al<br>
+<br>
+al,20h<br>
+20h,al<br>
+<br>
+ax<br>
+al,10000000b<br>
+exit<br>
+<br>
+cx,2000<br>
+al,57h<br>
+f11<br>
+al,58h<br>
+f12<br>
+exit<br>
+<br>
+di<br>
+al,2<br>
+<br>
+f11<br>
+exit<br>
+<br>
+di<br>
+al,4<br>
+<br>
+f12<br>
+<br>
+es<br>
+di<br>
+cx<br>
+bx<br>
+ax<br>
+dword ptr cs:[old09]<br>
+<br>
+ax,3509h<br>
+21h
+</td>
+<td colspan=9>
+；向键盘发出应答信号<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；发中断结束命令EOI<br>
+<br>
+<br>
+；取回扫描码<br>
+；是通码吗？<br>
+；不是通码，转EXIT<br>
+<br>
+；准备修改屏幕字符属性<br>
+；是F11键吗？<br>
+；是F11键，转相应的处理程序<br>
+；是F12键吗？<br>
+；是F12键，转相应的处理程序<br>
+；结束本中断服务程序<br>
+<br>
+；将屏幕字符颜色改为绿色<br>
+<br>
+<br>
+<br>
+；结束本中断服务程序<br>
+<br>
+；将屏幕字符颜色改为红色<br>
+<br>
+<br>
+<br>
+<br>
+；恢复寄存器<br>
+<br>
+<br>
+<br>
+<br>
+；转原09H中断服务程序<br>
+<br>
+；利用DOS的35H功能取得09H中断向量<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page298.html">上一页</a> <a href="page300.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

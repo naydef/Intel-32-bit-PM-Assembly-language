@@ -1,0 +1,208 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page207.html">上一页</a> <a href="page209.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-208-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这里还有几点我要提醒大家，凡是"[ ]"中的项都是可以省略的，DOS会按"当前情况"处理。另外，DOS不要求我们定义象"文件控制块"那样的数据结构，因此，ASCIIZ串可以放在内存中任意地方。同时，在存取文件时DOS也不需要我们定义DTA，不过DOS要求我们给出指向数据缓冲区的指针。简而言之，有关FCB功能的那一套并未"传染"给文件句柄功能。关于这些问题我们将在稍后做更深入的讨论。<br>
+　　有了这些初步的认识，我们下面所做的工作就是研究文件句柄功能的具体应用方法。表7-1给出了DOS提供的最常用的文件句柄功能调用，仿照前半章的内容，我们仍按照"打开关闭--读出写入--其它功能"的顺序来分别讨论。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><font face="楷体_GB2312">表7-1 文件句柄功能调用</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align=center>功能</td><td colspan=2 align=center>用途</td><td colspan=4 align=center>参数</td><td colspan=10 align=center>返回<td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align=center>3CH</td><td colspan=2 align=center>建立文件</td><td colspan=4>CX=文件属性<br>DS:DX指向ASCIIZ串</td><td colspan=10>成功:CF标志清0,AX=文件句柄<br>失败:CF标志置1,AX=错误代码<sup>*</sup></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align=center>3DH</td><td colspan=2 align=center>打开文件</td><td colspan=4>AL=访问方式<br>DS:DX指向ASCIIZ串</td><td colspan=10>成功:CF标志清0,AX=文件句柄<br>失败:CF标志置1,AX=错误代码</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align=center>3EH</td><td colspan=2 align=center>关闭文件</td><td colspan=4>BX=文件句柄</td><td colspan=10>成功:CF标志清0,AX=文件句柄<br>失败:CF标志置1,AX=错误代码</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align=center>3FH</td><td colspan=2 align=center>读文件</td><td colspan=4>BX=文件句柄<br>CX=要读入的字节数<br>DS:DX指向缓冲区</td><td colspan=10>成功:CF标志清0,AX=实际读入的字节数<br>失败:CF标志置1,AX=错误代码</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align=center>40H</td><td colspan=2 align=center>写文件</td><td colspan=4>BX=文件句柄<br>CX=要写的字节数<br>DS:DX指向缓冲区</td><td colspan=10>成功:CF标志清0,AX=实际写出的字节数<br>失败:CF标志置1,AX=错误代码</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align=center>41H</td><td colspan=2 align=center>删除文件</td><td colspan=4>BX=文件句柄</td><td colspan=10>成功:CF标志清0 失败:CF标志置1</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align=center>42H</td><td colspan=2 align=center>移动文件读写指针</td><td colspan=4>AL=方式代码<br>BX=文件句柄<br>CX:DX=偏移值</td><td colspan=10>成功:CF标志清0,DX:AX=新的文件指针<br>失败:CF标志置1,AX=错误代码</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312">
+　　* 注：错误代码在后面讨论。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在这一节我们主要讨论文件的打开与关闭功能，借此以加深对文件句柄功能的理解。请大家把我们的老朋友--DEBUG搬入内存，并用"A"命令输入下面这段小程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+C:\ASM\>DEBUG[Enter]<br>
+-a100[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>
+123D:0100<br>
+123D:0102<br>
+123D:0111<br>
+123D:0119<br>
+123D:0124<br>
+123D:0127<br>
+123D:012A<br>
+123D:012C<br>
+123D:012E<br>
+123D:0130<br>
+123D:0133<br>
+123D:0135<br>
+123D:0137<br>
+123D:0139
+</td>
+<td colspan=2>
+JMP<br>
+DB<br>
+DB<br>
+DB<br>
+MOV<br>
+MOV<br>
+INT<br>
+JB<br>
+MOV<br>
+MOV<br>
+MOV<br>
+INT<br>
+JMP<br>
+MOV
+</td>
+<td colspan=5>
+0124<br>
+'C:\COMMAND.COM',0<br>
+'OK...',0D,0A,24<br>
+'ERROR...',0D,0A,24<br>
+AX,3D00<br>
+DX,0102<br>
+21<br>
+0139<br>
+BX,AX<br>
+DX,0111<br>
+AH,09<br>
+21<br>
+0140<br>
+DX,0119
+</td>
+<td colspan=8>
+；跳过数据区<br>
+；定义一个ASCIIZ串<br>
+；程序执行正确的信息<br>
+；程序出错信息<br>
+；按读方式打开文件<br>
+；DX指向ASCIIZ串<br>
+；打开文件<br>
+；出错，转0139<br>
+；文件句柄送入BX寄存器<br>
+；显示程序正确执行的信息<br>
+<br>
+<br>
+；转0140结束进程<br>
+；显示程序出错信息
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page207.html">上一页</a> <a href="page209.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

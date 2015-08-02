@@ -1,0 +1,161 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page208.html">上一页</a> <a href="page210.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-209-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>
+123D:013C<br>
+123D:013E<br>
+123D:0140<br>
+123D:0142<br>
+123D:0140<br>
+123D:0142
+</td>
+<td colspan=2>
+MOV<br>
+INT<br>
+MOV<br>
+INT<br>
+MOV<br>
+INT
+</td>
+<td colspan=5>
+AH,09<br>
+21<br>
+AH,3E<br>
+21<br>
+AH,4C<br>
+21
+</td>
+<td colspan=8>
+<br>
+<br>
+；用3EH功能<br>
+；关闭文件<br>
+；结束进程<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　通过这个实验程序大家应该掌握两点：其一，ASCIIZ串的定义方法；其二，3DH功能的应用。第一个问题可以对照我们前面讨论过的内容，而第二个问题可以参考后面对3DH功能的说明。我们现在来实际跟踪一下这个程序，看看还能发现什么新鲜的东西。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>-g=100 12c[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0005</td><td colspan=2>BX=0000</td><td colspan=2>CX=0042</td><td colspan=2>DX=0102</td><td colspan=2>SP=FFFE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=123D</td><td colspan=2>ES=123D</td><td colspan=2>SS=123D</td><td colspan=2>CS=123D</td><td colspan=2>IP=012C</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>123D:012C</td><td colspan=2>7209</td><td colspan=6>JB 0139</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　用"G"命令在012CH处打一个断点，则DEBUG会在执行INT 21指令后为我们列出各寄存器的情况。可以看到AX寄存器返回一个16位的数字05H，这就是我们所需要的那个所谓的"句柄"。这一个数字所代表的就是我们刚刚打开的那个文件，从此以后我们对这个文件进行其它操作时必须要给DOS提供这个数字。<br>
+　　前面几节使用FCB功能打开文件后，DOS会在文件控制块中填入好多的信息供程序使用。而使用句柄功能却只能得到一个简单的数字。这不能不说是句柄功能与FCB功能的最大差别了。当然，事实上DOS仍然要取得有关文件的特征信息的，只不过这些信息都存于DOS内部，由DOS私用而已。<br>
+　　标志寄存器中的CF位为0，表明DOS成功的打开了要处理的文件，如果CF标志为1则说明功能调用执行出错。因此应用指令依据CF标志的状态转移即可区分文件操作是否正确。指令"JNC"恰好能达到此目的：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：JNC（Jump if Not Carry）<br>
+用　途：依据CF标志状态转移<br>
+格　式：JNC  目的地址<br>
+执　行：若CF标志等于0，此指令将使CPU转移至目的地址处继续执行程序，<br>
+　　　　否则CPU执行JNC指令下面的程序
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这是一个条件转移指令，注意它只能进行短程转移。与此指令相对的指令是JC，第六章里已经介绍过。句柄功能返回错误状态的方法与FCB功能不同，应加以注意。<br>
+　　先别忙着"GO"这个程序，我想问诸位一句大家是否对AX寄存器中的"句柄"有什么疑问？问题并不难发现，为什么这个句柄不是"00H"呢？我们只打开了一个文件呀？这里面有个不大不小的秘密，我打算在下一节中将其"曝光"。<br>
+　　程序中使用的3EH功能用于关闭文件，所谓关闭，其含义和我们在前面所讲的一样，也是将BUFFER中的数据存入磁盘同时更新目录项，这里我们就不多讨论了，要注意的是使用这个功能前别忘记在BX寄存器中放入要关闭的文件对应的"句柄"。<br>
+　　附带说明一下，关于打开文件时在AL寄存器中填入的"存取方式"一项，这是一个取值为
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page208.html">上一页</a> <a href="page210.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

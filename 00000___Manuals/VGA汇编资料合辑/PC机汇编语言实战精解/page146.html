@@ -1,0 +1,208 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page145.html">上一页</a> <a href="page147.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-146-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+dispmsg:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+lodsb<br>
+or<br>
+jz<br>
+mov<br>
+stosw<br>
+add<br>
+inc<br>
+jmp<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+<br><br>
+al,al<br>
+exit<br>
+ah,attr<br>
+<br>
+di,80<br>
+attr<br>
+dispmsg<br>
+<br>
+ah,0<br>
+16h<br>
+<br>
+ah,0<br>
+al,mode<br>
+10h<br>
+<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+<br>
+；取得一个字符<br>
+；已经到了字符串结尾了吗？<br>
+；已到结尾，转EXIT退出<br>
+；属性字节送入AH寄存器<br>
+；将ASCII码与属性一同写入显示缓存中<br>
+；DI寄存器后移80个字节<br>
+；属性字节加1<br>
+；转DISPMSG继续显示下一个字符<br>
+<br>
+；等待键盘输入<br>
+<br>
+<br>
+；恢复原来的显示模式<br>
+<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我尽量使每个程序都有富于趣味性的输出，不知大家对这个程序的输出结果是否有兴趣。这个程序给我们提出了两个问题：第一，为什么这一串文字是倾斜的？第二，为什么paradise一词中第二个字母a 是一个蓝方块？<br>
+　　答案十分简单：首先指令stosw可以让DI寄存器自动加2，因此当我们给DI加上80的时候，DI寄存器的实际增量是82，所以DI指向了下一行的下一列。大家可以修改程序给DI加上78，想想输出结果会是什么样子，然后运行程序看看实际输出和想象中是否一致。至于那个字母"a"的去向就更不用多说，我们每显示一个字符就将属性值加1，显示字符"a"时属性值恰好是11H，所以字符"a"和背影融为一体了。<br>
+　　这个程序十分简单，不过它很形象地说明了每个字符行与显示缓存中的80个字节的对应关系。下面这个程序稍微复杂一些，其中的子过程outchar可以接收字符的行号与列号，由它自行算出偏移量。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+PARADISE<br>
+data<br>
+<br>
+msg<br>
+mode<br>
+data
+</td>
+<td colspan=2>
+.ASM<br>
+segment<br>
+assume<br>
+db'Enter<br>
+db<br>
+ends
+</td>
+<td colspan=5>
+<br>
+<br>
+ds:data<br>
+ into the paradise.',0<br>
+?<br>
+<br>
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；定义一个字符串<br>
+；保存当前的显示模式<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page145.html">上一页</a> <a href="page147.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

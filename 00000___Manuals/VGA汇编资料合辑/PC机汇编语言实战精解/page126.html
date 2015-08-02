@@ -1,0 +1,220 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page125.html">上一页</a> <a href="page127.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-126-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序的运行结果倒是很有意思的，不过明眼人一眼就能看出这个程序有一个小"埋伏"：它并没有在"当前光标所在位置"处显示字符串。09H功能确实能在当前光标位置处显示字符，但由于程序并不知道当前光标位置究竟在哪儿，所以在程序中无法设定DH和DL寄存器的值。要想解决这个问题，只能想办法找到"当前光标位置"，这就要用到10H中断的03H功能。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：03H<br>
+用　途：取得当前光标位置<br>
+参　数：BH=显示页号<br>
+调　用：INT 10H<br>
+返　回：DH=当前光标所在行号<br>
+　　　　DL=当前光标所在列号<br>
+　　　　CX=光标类型
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序DISPSTR1.ASM才是真正达到"在当前光标位置处显示有属性的字符串"这个目标的程序：<br>
+DISPSTR2.ASM
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+data<br>
+<br>
+msg<br>
+data<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+outloop:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+segment<br>
+assume<br>
+db<br>
+ends<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+lodsb<br>
+or<br>
+jz<br>
+mov<br>
+int
+</td>
+<td colspan=7>
+<br>
+ds:data<br>
+'Take care,I want to sleep.',0<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+<br>
+bh,0<br>
+ah,03h<br>
+10h<br>
+<br>
+bl,00010100b<br>
+cx,1<br>
+si,offset msg<br>
+<br>
+<br>
+al,al<br>
+end_out<br>
+ah,09h<br>
+10h
+</td>
+<td colspan=7>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+；显示页号送入BH寄存器<br>
+；利用10H中断的03H功能<br>
+；取得当前光标所在位置<br>
+<br>
+；字符属性字节送入BL寄存器<br>
+；每次显示一个字符<br>
+；SI寄存器指向字符串<br>
+<br>
+；从字符串中取得一个字符<br>
+；已到字符串结尾了吗？<br>
+；已到结尾，转END_OUT<br>
+；利用10H中断的09功能<br>
+；输出AL寄存器中的字符
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page125.html">上一页</a> <a href="page127.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

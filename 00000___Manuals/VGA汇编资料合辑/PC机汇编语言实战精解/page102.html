@@ -1,0 +1,146 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子过程和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page101.html">上一页</a> <a href="page103.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-102-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　<font face="黑体">（2）"从串取"指令</font><br>
+　　指令LODS就是一个用于取数据的串处理指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：LODS（Load from string）<br>
+用　途：从DS：SI指示的内存单元中取出数据并放入累加器<br>
+格　式：LODSB（取一字节）<br>
+　　　　LODSW（取一个字）<br>
+执　行：LODSB--ALDS：[SI]，同时SI +/- 1<br>
+　　　　LODSW--AXDS：[SI]，同时SI +/- 2
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　指令最后的字母"B"和"W"表示所要取的数据类型是"BYTE"或"WORD"。所以"LODSB"的动作和"MOV AL，BYTE PTR DS：[SI]"相当，而"LODSW"则与"MOV AX，WORD PTR DS：[SI]"一样。但是LODS指令和MOV指令有两点区别：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td>
+<td colspan=3 align="center"><img src="icons/attention.gif"></td>
+<td colspan=15><FONT FACE="楷体_GB2312" LANG="ZH-CN" SIZE=3>
+① LODS指令只能将数据取入累加器中，不能取入别的寄存器；<br>
+② LODS指令不仅能取得数据，同时对提供地址的SI寄存器有操作--自动的加上或减去和取得数据等量的字节数。若取了1B数据，则SI变化1；而取得1W数据，则SI变化2。那么究竟什么情况下SI增量，什么情况下SI减量呢？这个问题将在下面回答。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　<font face="黑体">（3）方向标志--DF（Direction Flag）</font><br>
+　　DF是标志寄存器中的bit10位，它的置、复位情况将影响到执行串处理指令时SI（还有DI）寄存器的增与减。当DF置位（为1）时，每次执行指令后SI（DI）减量，这样就使得串处理从高地址向低地址方向进行；而DF复位（为0）时，每次执行指令后SI（DI）增量，串处理自然会从低地址向高地址方向进行。现在的问题就是如何设定DF的状态？
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　<font face="黑体">（4）"D"标志控制指令</font><br>
+　　指令CLD就是一条用于控制DF状态的指令，和这条指令相对应的是STD指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：CLD（Clear direction）/STD（Set direction）<br>
+用　途：使DF标志复位/置位<br>
+格　式：CLD/STD<br>
+执　行：DF&lt;-0，DF清零/DF&lt;-1，DF置1
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这两条指令功能很简单，不再多说。<br>
+　　我们前面曾经提到过标志寄存器中某些位可以对CPU内部的工作状态进行控制，DF标志就是很典型的一例。<br>
+　　当我们将要显示的字符取入AL寄存器后，剩下的工作就是将这个字符显示在屏幕上。这一步可用DOS提供的2号功能实现，只要将AL中的ASCII码送入DL寄存器再调用DOS功能即可，不过在前面的程序中我们采用了一个更简捷的方法--调用BIOS 10H中断。<br>
+　　<font face="黑体">（5）INT  10H的0EH功能。</font><br>
+　　10H号中断调用也是由BIOS提供，它负责管理PC机的显示系统，我们在屏幕上看到的文字和图形一般都是经过10H号中断显示出来的。这个中断包括很多功能，现在要讨论的0EH功能是十分常用的一个，它被称为"TTY方式的字符显示功能"。<br>
+　　TTY是电传打字机，一种古老的设备，它可能比我本人出现的还要早。究竟什么是TTY方式？我也不能很确切的说出定义，不过这个功能同10H中断提供的其它一些显示文字的功能相比确有很大的不同：<br>
+　　① 使用这个功能显示一个字符后，光标会自动移到下一个位置；
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page101.html">上一页</a> <a href="page103.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page300.html">上一页</a> <a href="page302.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-301-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+SNAP.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+fname<br>
+buff<br>
+crlf<br>
+new05:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+loop1:<br>
+<br>
+<br>
+<br>
+loop2:
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+db<br>
+db<br>
+<br>
+push<br>
+push<br>
+push<br>
+push<br>
+push<br>
+push<br>
+push<br>
+push<br>
+<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+jc<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+<br>
+push<br>
+mov<br>
+mov<br>
+<br>
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+install<br>
+'TEXT.SCR',0<br>
+80 dup (?)<br>
+0dh,0ah<br>
+<br>
+ax<br>
+bx<br>
+cx<br>
+dx<br>
+ds<br>
+si<br>
+es<br>
+di<br>
+<br>
+ax,cs<br>
+ds,ax<br>
+<br>
+ah,3ch<br>
+cx,0<br>
+dx,offset fname<br>
+21h<br>
+exit<br>
+<br>
+bx,ax<br>
+ax,0b800h<br>
+es,ax<br>
+si,0<br>
+<br>
+cx,25<br>
+<br>
+cx<br>
+di,offset buff<br>
+cx,80<br>
+<br>
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；转INSTALL安装驻留内存部分<br>
+；屏幕内容将保存到这个文件中<br>
+；定义一个缓冲区保存屏幕上一行字符<br>
+；一行之后加上回车、换行符<br>
+；新的05H中断服务程序<br>
+；保存寄存器<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；DS寄存器指向代码段<br>
+<br>
+<br>
+；建立一个文件用于保存屏幕信息<br>
+<br>
+<br>
+<br>
+；若文件操作有错，转EXIT<br>
+<br>
+；文件句柄送入BX寄存器<br>
+；ES寄存器指向显示缓冲区段<br>
+<br>
+；SI寄存器指向显示缓存首<br>
+<br>
+；屏幕上其共有25行字符<br>
+<br>
+；暂存行计数值<br>
+；DI寄存器指向字符缓冲区<br>
+；每行有80个字符<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page300.html">上一页</a> <a href="page302.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

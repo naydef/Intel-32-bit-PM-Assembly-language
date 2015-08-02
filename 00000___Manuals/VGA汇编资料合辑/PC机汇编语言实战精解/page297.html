@@ -1,0 +1,151 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page296.html">上一页</a> <a href="page298.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-297-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+install:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+pop<br>
+pop<br>
+pop<br>
+iret<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+cx<br>
+bx<br>
+ax<br>
+<br>
+<br>
+ax,2509h<br>
+dx,offset new09<br>
+21h<br>
+<br>
+dx,offset install<br>
+27h<br>
+<br>
+start
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；中断返回<br>
+<br>
+；设置09H中断服务程序入口<br>
+；DS:DX寄存器指向新的09H中断服务程序首<br>
+<br>
+<br>
+；驻留内存部分的长度<br>
+；结束并驻留<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序看似简单，但它引出了不少有关PC原理方面的知识。第一是主机与键盘之间如何交换信息；第二是编写硬件中断服务程序应注意的一个关键问题；其三就是DOS系统为方便用户编制中断服务程序所提供的一些功能调用。<br>
+　　键盘与主机之间通过几个端口互相通信，其中对于编写键盘中断服务程序来说比较重要的是端口60H和61H。61H端口在前文讨论发声时已经介绍过它Bit0与Bit1两位，主机通过这个端口的最高位Bit7给键盘发送"应答（ECHO）"信号。<br>
+　　当键盘有一个键按下时，键盘会首先将按键的扫描码送进60H端口，然后发出中断信号并等待主机回答。CPU在收到中断信号并取得扫描码之后必须要告诉键盘这个键的扫描码已经取到，如果CPU不给出回应，那么键盘就不会处理其它按下的键，因为键盘认为前一个键的扫描码主机还没有收到，此时发出新的扫描码会冲掉上一个按键的扫描码。<br>
+　　产生应答信号的方法也很简单，只要让61H端口Bit7位从1到0产生一个变化就行了。这实际是使这一位的电压从高到低产生一个跳跃，键盘会检测到这个变化并开始处理下一个按键。<br>
+　　由于PC电脑连接的各种硬件设备其工作速度有很大差异，所以CPU对各设备发出的硬件中断的处理是排有一定顺序，这种顺序一般称为中断优先级。所以当几个硬件中断同时发生时，优先级别高的中断会被CPU首先处理。<br>
+　　不过由于系统原理上的一些原因，PC电脑要求当一个硬件中断得到CPU响应后，其服务程序必须要向"中断控制电路"发出一个"中断结束命令（EOI）"，否则"中断控制电路"就会屏蔽与正在处理的中断同优先级或低优先级的其它硬件中断。这样一来其它外设即使发出中断信号也得不到CPU的服务，因为这个信号根本送不到CPU那里。发出EOI命令的方法并不难，只要向20H端口送出数据20H即可。<br>
+　　设置新的中断服务程序入口并不是只有一种方法，可以直接将新的服务程序入口地址填入中断向量表的正确位置，也可以采用DOS提供的系统功能调用。这个功能的功能号是25H：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：25H<br>
+用　途：设置中断服务程序入口地址<br>
+参　数：AH=25H<br>
+　　　　AL=中断号
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page296.html">上一页</a> <a href="page298.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

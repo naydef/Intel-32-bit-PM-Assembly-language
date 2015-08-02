@@ -1,0 +1,166 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page143.html">上一页</a> <a href="page145.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-144-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><img src="figures/F6_6.gif"><br><font face="楷体_GB2312">图6-6 屏幕字符与显示缓存的对应关系</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　利用DEBUG可以验证以上的结论：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+C:\ASM\>DEBUG[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>-eb800:0[Enter]</td>
+<td colspan=14 align="center"><font face="楷体_GB2312" size=2>属性</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>B800:0000</td>
+<td colspan=2>53.41</td><td colspan=2>07.01</td><td colspan=2>45.42</td><td colspan=2>07.41</td>
+<td colspan=2>54.43</td><td colspan=2>07.81</td><td colspan=2>55.44</td><td colspan=2>07.94</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>B800:0008</td>
+<td colspan=2>50.</td><td colspan=14 align="center"><font face="楷体_GB2312" size=2>字符的ASCII码</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　输入数据时请注意屏幕左上角是否出现了相应的字符和色彩。最后一个字母D的属性我们没有看到，被滚上去的内容盖掉了。不过这足以说明屏幕上每个文字和显示内存中各个字节的对应关系了。我们现在再来看看每个字符行在显示内存中的起始位置：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+C:\ASM\>DEBUG[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>-eb800:00a0[Enter]</td>
+<td colspan=14 align="center"><font face="楷体_GB2312" size=2>属性</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>B800:00A0</td>
+<td colspan=2>57.41</td><td colspan=2>07.01</td><td colspan=2>50.42</td><td colspan=2>07.41</td>
+<td colspan=2>53.43</td><td colspan=2>07.94</td><td colspan=2>20.44</td><td colspan=2>07.82</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>B800:00A8</td>
+<td colspan=2>20.</td><td colspan=14 align="center"><font face="楷体_GB2312" size=2>字符的ASCII码</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　可以看到第二个字符行起始于0B800:00A0处，第一行恰好占据了0A0H个字节。由此我们可以推导出屏幕上一个特定位置所对应的显示缓冲区内的偏移量为：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><hr></td><td colspan=10 align=center><font face="楷体_GB2312" size=4>偏移量＝行号×160＋列号×2（模式2、3）</font></td><td colspan=7><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=7><hr></td><td colspan=10 align=center><font face="楷体_GB2312" size=4>偏移量＝行号×80＋列号×2（模式0、1）</font></td><td><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　如果程序使用了40列25行的模式（模式号0、1），那么每个字符行将占据40×2＝80字节显示缓存，每个显示页将占据80×25＝2000字节内存。因此，对于模式0、1而言，显示页起始地址与每个字符对应的内存单元如图6-7（a）所示，注意每个显示页起始于2KB内存边界：<br>
+　　如果选择了80列25行的模式（模式号2、3），那么每行将占用160字节内存，每个显示页将占用4KB内存。这时显示页起始地址与每个字符对应的内存单元如图6-7（b）所示：<br>
+　　注意这个偏移量指得是在一个显示页之内，并非是在整个显示缓存中的偏移地址。如果将这个偏移量换算成显示缓存中的偏移量，则还要加上"显示页号×每页占据的字节数"。程序MODE1.ASM演示了如何操纵显示缓存，为了让大家对40列25行的模式有所认识，这个程序特地使用了CGA模式1：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page143.html">上一页</a> <a href="page145.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

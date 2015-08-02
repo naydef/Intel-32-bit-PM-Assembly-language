@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page261.html">上一页</a> <a href="page263.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-262-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+line<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+pop<br>
+pop<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+cx<br>
+bx<br>
+ax<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；返回主过程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　有关这个程序还有几点需要说明的：<br>
+<font face="楷体_GB2312">
+　　（1）这个程序中LINE子过程并没有使用Bresenham画线算法，原因是程序所需要画的线都是水平或垂直的，采用Bresenham算法画这样的线反而没有效率。<br>
+　　（2）这个程序使用两种颜色绘制边框水平线是青色，垂直线是品红色。这样做的原因是由于当运动的点遇到水平线反弹时应该变化Y坐标的增量，遇到垂直线反弹时要变化X坐标的增量，所以程序必须有方法区分水平边框和垂直边框。<br>
+　　（3）这个程序演示了一种生成"动画"的方法，即先在起始位置画出一幅图，延迟一段时间后将其擦除，随后在相邻的位置画出另一幅图，如此循环就能产生动画效果。<br>
+</font>
+　　以上我们给出的绘图程序都是使用CGA提供的彩色组1中的四种色彩，如果大家想看看CGA的另一组彩色，可以使用BIOS提供的一个控制色彩的功能，这就是10H中断的0BH功能：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：0BH<br>
+用　途：设置当前的彩色组<br>
+参　数：BH=0时，设置背景颜色，其颜色值在BL中定义（用于字符模式）<br>
+　　　　BH=1时，BL中的值为调色板号（用于图形模式）<br>
+调　用：INT 10H<br>
+返　回：无
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　利用这个功能将PINGPONG程序修改成"PINGPONG2.ASM"的样子就可以看到彩色组0中的四种
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+PINGPONG<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+mess<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；以下同
+</td>
+<td colspan=1>
+2.ASM<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+mov<br>
+int<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+PINGPON
+</td>
+<td colspan=7>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+start<br>
+'Press Any Key...',0dh,0ah,'$'<br>
+ax,0004<br>
+10h<br>
+ah,0bh<br>
+bh,1<br>
+bl,0<br>
+10h<br>
+G.ASM
+</td>
+<td colspan=8>
+色彩了。从直观上看彩色组0中的四种色彩比彩色组1要漂亮些，而且对比修改前后程序的输出我们还可以看到字符串"Press Any Key…"的颜色总是四种颜色中的最后一种，这也可以算是个小规律吧。至于字符的颜色是否可以改变就需要大家自己去研究了。<br>
+　　以上所讨论的内容就是BIOS为我们提供的几个有关图形的功能调用，熟练掌握这些功能有助于我们更深入的学习8086/88汇编语言图形程序的设计方法。不过如我们在第六章中所讲的那样，BIOS功能虽然应用方便，但是它的一个很大的缺点就是调用速度
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page261.html">上一页</a> <a href="page263.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

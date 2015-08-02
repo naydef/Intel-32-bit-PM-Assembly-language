@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page35.html">上一页</a> <a href="page37.html">下一页</a> <a href="page45.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-36-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体" lang="ZH-CN"><a name="33">3．3 子程序</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　操作系统提供了大量的功能为我们编程时调用，但是仅仅靠这些功能还不能解决所有的问题，比如说我们想把AL寄存器中的数据以二进制的形式显示在屏幕上，这样的功能操作系统可没有提供，解决这样的问题就只能"自力更生"了。<br>
+　　同时也可以发现，有一些问题并非仅出现在一个程序中，可能在编制不同程序时都要遇到同样的问题。解决这些具有普遍性的问题的最好方法末过于单独编制解决特定问题的小段程序并保留起来，在需要时随时将这些小程序加入我们的程序中。所谓的子程序，也就是这样一些供别的程序调用且能解决一些较普遍问题的小程序。<br>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=8>PROG4</td><td colspan=8></td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=8>-a100[Enter]</td><td colspan=8></td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=5>
+0F92:0100 mov ah,1<br>
+0F92:0102 int 21<br>
+0F92:0104 mov cx,8<br>
+0F92:0107 mov bh,80<br>
+0F92:0109 mov dh,al<br>
+0F92:010B mov dl,30<br>
+0F92:010D and al,bh<br>
+0F92:010F jz  113<br>
+0F92:0111 mov dl,31<br>
+0F92:0113 mov ah,2<br>
+0F92:0115 int 21<br>
+0F92:0117 mov al,dh<br>
+0F92:0119 shr bh,1<br>
+0F92:011B loop 10b<br>
+0F92:011D int 20
+</td>
+
+<td colspan=11>
+；选择DOS API的01H功能<br>
+；调用21H中断等待键盘输入<br>
+；需要处理8个数位<br>
+；BH寄存器置入10000000B<br>
+；DH寄存器保存输入字符的ASCII码副本<br>
+；DL寄存置入字符0的ASCII码30H<br>
+；将输入字符的ASCII码与10000000B相与，保留最左一位<br>
+；如最左位是0，则转去0113H继续执行<br>
+；若最左位是1，则DL寄存器置入字符1的ASCII码31H<br>
+；选择DOS API的02H功能<br>
+；调用21H中断显示DL寄存器中的字符<br>
+；AL寄存器取回输入字符的副本<br>
+；将BH最左位的1右移一位<br>
+；返回010BH，处理ASCII码的Bit6位<br>
+；处理所有的8个位后结束程序<br>
+</td>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=6>09FE:0126 [Enter]</td><td colspan=10></td>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　上面给出的PROG4程序可以将键盘输入字符的ASCII码以二进制形式显示出来。将此程序存盘后，用"G＝100[Enter]"执行这个程序，从键盘输入小写"a"，屏幕上就会显示出01100001，这就是十六进制数61H，也就是"a"的ASCII码，PROG4的核心就是将AL寄存器的值以二进制的形式显示在屏幕上。<br>
+　　在讨论有关子程序的问题之前，我们先来学习程序中出现两条新指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：SHR（Shift Right）<br>
+用　途：将寄存器或存储器中的数向右移位。<br>
+格　式：SHR  寄存器，1<br>
+　　　　SHR  寄存器，CL<br>
+　　　　SHR  存储单元，1<br>
+　　　　SHR  存储单元，CL<br>
+执　行：寄存器或存储器中的数据向右移动1位或CL中指定的位数，最高位填入<br>
+　　　　0，最低一位移入CF标志
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page35.html">上一页</a> <a href="page37.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>
+

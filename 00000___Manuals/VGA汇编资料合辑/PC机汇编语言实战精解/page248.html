@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page247.html">上一页</a> <a href="page249.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-248-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+loop1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+push<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+lodsw<br>
+sub<br>
+mov<br>
+mov<br>
+mul<br>
+mov<br>
+mov<br>
+add<br>
+mov<br>
+mul<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+jc<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+jc<br>
+<br>
+call<br>
+<br>
+mov<br>
+int<br>
+<br>
+pop<br>
+loop
+</td>
+<td colspan=5>
+<br>
+cx<br>
+ax,0004h<br>
+10h<br>
+<br>
+ah,09h<br>
+dx,offset msg<br>
+21h<br>
+<br>
+<br>
+ax,0a1a1h<br>
+dx,ax<br>
+cl,94<br>
+cl<br>
+dl,dh<br>
+dh,0<br>
+ax,dx<br>
+cx,32<br>
+cx<br>
+cx,dx<br>
+dx,ax<br>
+<br>
+ah,42h<br>
+al,00h<br>
+21h<br>
+exit<br>
+<br>
+ah,3fh<br>
+dx,offset buffer<br>
+cx,32<br>
+21h<br>
+exit<br>
+<br>
+disp<br>
+<br>
+ah,0<br>
+16h<br>
+<br>
+cx<br>
+loop1
+</td>
+<td colspan=9>
+<br>
+；暂存CX寄存器中的计数值<br>
+；设置图形显示模式4<br>
+<br>
+<br>
+；显示字符串<br>
+<br>
+<br>
+<br>
+；取得一个汉字的内码<br>
+；高低字节都减去0A1H<br>
+；暂存汉字位码<br>
+；计算(区码-0A1H)x94<br>
+<br>
+；将DH寄存器中的位码扩至16位<br>
+<br>
+；计算(区码-0A1H)x94+位码<br>
+；计算汉字字模在字模库中的偏移量<br>
+<br>
+；将这个偏移量送入CX-DX寄存器中<br>
+<br>
+<br>
+；移动文件读写指针<br>
+<br>
+<br>
+；若文件操作出错，转EXIT结束<br>
+<br>
+；读入32字节字模数据<br>
+<br>
+<br>
+<br>
+；若文件操作出错，转EXIT结束<br>
+<br>
+；调用DISP子过程显示汉字<br>
+<br>
+；等待键盘输入<br>
+<br>
+<br>
+；恢复CX寄存器中的计数值<br>
+；转至LOOP1继续
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page247.html">上一页</a> <a href="page249.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

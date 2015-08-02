@@ -1,0 +1,170 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page239.html">上一页</a> <a href="page241.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-240-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=12>
+　　由许多字模数据所组成的文件就是"字模库"。比如UCDOS汉字系统中的文件"HZK16"就是包含了6768个国标汉字字模的一个"库"。当然，描述字形的技术还有其它的，并不是仅此一种，但上述方法在处理时比较简单，十分适合描述较简单的字形。<br>
+　　有了上述这些基础知识，我们现在就可以来具体地研究BIOS提供的图形功能了。如前所述，"点"是构成复杂图形的基本单元，我们现在就来学习如何在屏幕指定位置画上一个点。10H中断提供的0CH功能可用于在图形模式下画点，这个功能的用法如下：
+</td>
+<td colspan=6 rowspan=2 align=center><img src="figures/F9_2.gif"><br><font face="楷体_GB2312">图9-2 "A"的构成</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3><img src="icons/note.gif"></td>
+<td colspan=9>
+功能号：0CH<br>
+用　途：在图形屏幕上的指定位置画一个<br>
+　　　　"点"（像素）<br>
+参　数：CX=指定位置的X坐标<br>
+　　　　DX=指定位置的Y坐标<br>
+　　　　AL=颜色值<br>
+调用：INT 10H<br>
+返回：无
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在应用这个功能之前大家先要清楚屏幕坐标是如何规定的。在第六章我们说到过在字符模式下屏幕坐标原点在左上角，X轴方向向右与习惯相同。而Y轴方向向下，正好与习惯相反。在图形模式下屏幕依旧如此，只不过坐标的划分更细了。下面这个程序可在屏幕上画出一个彩色的方块来：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+BLOCK.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+l_u<br>
+r_d<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+b_loop1:
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+dw<br>
+dw<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+sub<br>
+mov<br>
+<br>
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+short start<br>
+20,20<br>
+100,150<br>
+<br>
+ax,0004h<br>
+10h<br>
+<br>
+si,word ptr r_d<br>
+si,word ptr l_u<br>
+cx,word ptr l_u<br>
+<br>
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；跳过数据区<br>
+；方块左上角的（X，Y）坐标<br>
+；方块右下角的（X，Y）坐标<br>
+<br>
+；设置图形显示模式4<br>
+<br>
+<br>
+；右下角的X坐标送入SI寄存器<br>
+；减去左上角的X坐标，计算X方向上的点数<br>
+；左上角X坐标送入CX寄存器<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page239.html">上一页</a> <a href="page241.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>附录D BIOS数据区</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page339.html">上一页</a> <a href="page341.html">下一页</a> <a href="page341.html">参考文献</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-340-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=17 align=right><font face="黑体">续表</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<table border=1 width=650 frame="box">
+<tr>
+<td width=6%>偏移</td><td width=11%>长度</td><td width=13% align=center>位定义<br>7654 3210</td><td width=50%>说明</td><td width=20%>备注</td>
+</tr>
+<tr>
+<td width=6%>96H</td><td width=11%>字节</td><td width=13% align=center><br>*... ....<br>.*.. ....<br>..*. ....<br>...* ....<br>.... *...<br>.... .*..<br>.... ..*.<br>.... ...*</td><td width=50%>键盘状态议类型标志<br>读ID<br>最后一个字符是第一个ID字符<br>如果读ID和键盘，则强置Num Lock<br>装有101/102键键盘<br>右Alt键按下<br>右Ctrl键按下<br>最后一个代码是0E0H隐藏码<br>最后一个代码是0E1H隐藏码</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>97H</td><td width=11%>字节</td><td width=13% align=center><br>*... ....<br>.*.. ....<br>..*. ....<br>...* ....<br>.... *...<br>.... .*..<br>.... ..*.<br>.... ...*</td><td width=50%>键盘LED状态<br>键盘传输错误<br>方式指示器更新<br>重复接收标志<br>收到响应<br>保留（必须为0）<br>LED状态位：Caps Lock状态<br>LED状态：Num Lock状态<br>LED状态：Scroll Lock状态</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>98H</td><td width=11%>双字</td><td width=13% align=center></td><td width=50%>用户等待完成标志指针</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>9CH</td><td width=11%>双字</td><td width=13% align=center></td><td width=50%>用户等待计数，以微秒为单位</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0A0H</td><td width=11%>字节</td><td width=13% align=center><br>*... ....<br>.*** *...<br>.... .*..<br>.... ..*.<br>.... ...*</td><td width=50%>等待激活标志，报告实时钟等待状态<br>等待时间已过<br>保留<br>报警挂起（用于便携机）<br>使用INT 4AH报警挂起服务（用于便携机）<br>等待激活</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0A1H</td><td width=11%>7字节</td><td width=13% align=center></td><td width=50%>网卡数据区</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0A8H</td><td width=11%>双字</td><td width=13% align=center></td><td width=50%>EGA显示参数表指针</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0ACH</td><td width=11%>双字</td><td width=13% align=center></td><td width=50%>EGA动态存储区指针</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0B0H</td><td width=11%>双字</td><td width=13% align=center></td><td width=50%>EGA字符方式辅助字符发生器指针</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0B4H</td><td width=11%>双字</td><td width=13% align=center></td><td width=50%>EGA图形方式辅助字符发生器指针</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0B8H</td><td width=11%>双字</td><td width=13% align=center></td><td width=50%>EGA二级存储区指针</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0BCH</td><td width=11%>7字节</td><td width=13% align=center></td><td width=50%>保留，只能设置为0</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0C0H</td><td width=11%>64字节</td><td width=13% align=center></td><td width=50%>保留</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0F0H</td><td width=11%>16字节</td><td width=13% align=center></td><td width=50%>ICA数据区</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0:500H</td><td width=11%>字节</td><td width=13% align=center></td><td width=50%>打印屏幕操作状态：<br> 0：屏幕拷贝打印操作成功或无法进行<br> 1：屏幕拷贝打印操作正在进行<br> 0FFH：屏幕拷贝打印操作错</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0:501H</td><td width=11%>3字节</td><td width=13% align=center></td><td width=50%>保留</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0:504H</td><td width=11%>字节</td><td width=13% align=center></td><td width=50%>单软驱逻辑驱动器号<br> 0：逻辑驱动器A<br> 1：逻辑驱动器B<br> 0FFH：逻辑驱动器A</td><td width=20%></td>
+</tr>
+<tr>
+<td width=6%>0:505H</td><td width=11%>250字节</td><td width=13% align=center></td><td width=50%>保留</td><td width=20%></td>
+</tr>
+</table>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page339.html">上一页</a> <a href="page341.html">下一页</a> <a href="page341.html">参考文献</a></p>
+</body>
+</html>

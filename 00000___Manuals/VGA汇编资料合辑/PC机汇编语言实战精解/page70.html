@@ -1,0 +1,230 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page69.html">上一页</a> <a href="page71.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-70-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+RISE<br>
+<br>
+FALL<br>
+<br>
+<br>
+<br>
+LOOP2:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+FALL<br>
+<br>
+SOUND<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+SOUND<br>
+<br>
+OPEN_T<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+OPEN_T
+</td>
+<td colspan=2>
+CALL<br>
+DEC<br>
+JNZ<br>
+<br>
+CALL<br>
+RET<br>
+ENDP<br>
+<br>
+PROC<br>
+CALL<br>
+MOV<br>
+<br>
+CALL<br>
+CALL<br>
+INC<br>
+CMP<br>
+JNE<br>
+<br>
+CALL<br>
+RET<br>
+ENDP<br>
+<br>
+PROC<br>
+PUSH<br>
+OUT<br>
+MOV<br>
+OUT<br>
+POP<br>
+RET<br>
+ENDP<br>
+<br>
+PROC<br>
+MOV<br>
+OUT<br>
+IN<br>
+OR<br>
+OUT<br>
+RET<br>
+ENDP
+</td>
+<td colspan=6>
+DELAY<br>
+AX<br>
+LOOP1<br>
+<br>
+CLOSE_T<br>
+<br>
+<br>
+<br>
+NEAR<br>
+OPEN_T<br>
+AX,0<br>
+<br>
+SOUND<br>
+DELAY<br>
+AX<br>
+AX,3000H<br>
+LOOP2<br>
+<br>
+CLOSE_T<br>
+<br>
+<br>
+<br>
+NEAR<br>
+AX<br>
+42H,AL<br>
+AL,AH<br>
+42H,AL<br>
+AX<br>
+<br>
+<br>
+<br>
+NEAR<br>
+AL,M_WORD<br>
+43H,AL<br>
+AL,PORTB<br>
+AL,03H<br>
+61H,AL<br>
+<br><br>
+</td>
+<td colspan=8>
+；调用延时子程序<br>
+；频率升高<br>
+；循环输出<br>
+<br>
+；调用CLOSE_T子程序关闭定时器<br>
+；子程序返回<br>
+<br>
+<br>
+<br>
+；打开定时器<br>
+；设定频率初值<br>
+<br>
+；输出频率<br>
+；延时<br>
+；频率降低<br>
+；是否到预定值?<br>
+；若未到,循环输出<br>
+<br>
+；关闭定时器<br>
+；子程序返回<br>
+<br>
+<br>
+<br>
+；保存AX寄存器至堆栈<br>
+；输出低字节<br>
+<br>
+；输出高字节<br>
+；恢复AX寄存器<br>
+；子程序返回<br>
+<br>
+<br>
+<br>
+；MAGIC WORD送入AL寄存器<br>
+；初始化8253定时器通道<br>
+；读61H端口的原值<br>
+；bit0,bit1置1<br>
+；开启定时器<br>
+；子程序返回<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page69.html">上一页</a> <a href="page71.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

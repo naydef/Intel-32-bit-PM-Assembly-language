@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page16.html">上一页</a> <a href="page18.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第2章 开始设计程序</td> <!章节名>
+<td></td><td>-17-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="楷体_GB2312">对应于端口的bit0，而AL中的bit7也对应于端口的bit7。</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　取得此端口的状态后，我们要改变bit1位的0、1状态，而端口的原状态是不确定的，况且我们还想使第一位的状态能够连续"翻转"，所以我们选择了异或操作（见前一章）。这就是程序中的第二条指令--XOR。<br>
+　　采用异或操作改变某个位时要注意必须用"1"作为操作数，只有用"1"才能达到让某个位连续"翻转"的目的。在给出的程序中由于要让AL的bit1位改变，所以操作数的bit1位是"1"。<br>
+　　寄存器同IN指令相比，XOR的用法要丰富得多。首先我们可以把一个寄存器和一个二进制数作XOR操作，也可以把一个放在内存中的数据和一个二进制数作异或，还可以把这个操作码放入一个寄存器或内存中。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：XOR<br>
+用　途：对寄存器或内存中的数据作"异或"操作<br>
+格　式：XOR  寄存器，操作码<br>
+　　　　XOR  存储器，操作码<br>
+　　　　XOR  寄存器，寄存器<br>
+　　　　XOR  存储器，寄存器<br>
+　　　　XOR  寄存器，存储器<br>
+执　行：两个操作数进行"XOR"操作后,结果存入左边的寄存器或存储单元中。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　使用这条指令有两个要点要注意：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/attention.gif"></td>
+<td colspan=15><FONT FACE="楷体_GB2312" LANG="ZH-CN" SIZE=3>
+① 操作结果都保存在左边的寄存器或内存单元中，右边的数据不变。这也就是说，左边必须是寄存器或内存单元；<br>
+② 两边数据的位宽要一致。像这样的用法--XOR  AX，BL是不对的。至于如何应用此指令"异或"内存单元中的数据将在后面介绍。当务之急是掌握第一种用法。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　执行过此指令后，AL寄存器的bit1位状态发生了翻转。但此时端口中的各个位状态并没有改变。因此，程序需要把AL中的数据返回到61H端口中。这就要用下面介绍的OUT指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：OUT<br>
+用　途：将累加器中的数据返回到端口中<br>
+格　式：OUT  端口，累加器<br>
+执　行：端口内各个位原状态被新值代替（AL或AX）
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　应用这条指令的注意事项和IN指令相同，不再多讲。<br>
+　　CPU连续执行这样三条指令就可以使61H端口第一位发生状态变化，如果这三条指令反复的被执行，那么XOR指令就会使61H端口的bit1位"连续"翻转。所以程序中最后一条指令的作用就是返回到100H继续执行这三条指令。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：JMP（Jump）<br>
+用　途：从本指令开始的地址转移到内存其它位置继续执行程序<br>
+格　式：JMP  目的地址<br>
+执　行：CPU从CS:IP指向的新地址继续取指令执行
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这条指令的实际功能是改变"CS:IP"的指向，前面我们已经讨论过CPU执行的指令都来自
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page16.html">上一页</a> <a href="page18.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

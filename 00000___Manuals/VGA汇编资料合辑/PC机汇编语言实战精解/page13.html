@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page12.html">上一页</a> <a href="page14.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第2章 开始设计程序</td> <!章节名>
+<td></td><td>-13-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td><img src="icons/P2_4_DX.gif"></td>
+<td colspan=17>
+DX是一个一般用途的数据寄存器，通常用于临时保存数据。有时它也和AX一起应用，用于记录32bit数据的高16bit。同时DX在端口输入/输出时也有特殊用途，此用途将在后交介绍。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　前面所讲的四个寄存器都是16位的，有时程序也需要使用8位的数据，因此，这四个16位通用寄存器都可以拆分成两个8位寄存器。即它们的高8位和低8位可单独使用。这两个部分都有专门的名字，我们用字母"H（High）"表示高8位，用"L（Low）"表示低8位。因此，对于AX来讲，它的高8位被称为AH，低8位称为AL。同理，BX、CX、DX均可分成"*H"、"*L"分别使用。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　<font face="黑体">（2） 逻辑地址</font><br>
+　　出现在左下角的16进制数字就是目前即将存放程序代码的内存起始地址。在前面一章里讨论数据存储时曾说到过，每个内存单元都有一个地址。对于8086/88来说，它的内存地址范围是00000--0FFFFFH。即它产生20位的地址。这20位的地址我们一般称其为"物理地址"。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4 align="center"><img src="figures/F2_3.gif"><br><font face="楷体_GB2312" size=3>图2-1 内存的组织</font></td>
+<td colspan=14>
+　　但实际上CPU内部并没有20位的寄存器来保存它所需的地址，这是因为在一个硅片上制造20位的寄存器是很不方便的。因此在设计8086/88时，技术人员对这1MB的内存做了如下所述的重新编排。<br>
+　　首先，我们把1MB内存分成了一些相互重叠的存储块，从地址00000开始，每隔16个字节做为一个块的开始，整个内存分为64K个块，这些存储块被称为"存储段"。<br>
+　　每个块的长度是64KB。对于相邻的两段而言，前一段的后64K－16个字节和后一段的前64K－16字节是重叠的。<br>
+　　每一个段都有一个编号，这个编号就是"段地址"。因此如果想找到内存中的某一单元，首先应给出这个单元所在的任一个段的段地址，然后再给出这个单元在所选段内的"偏移量"（距段首的距离），就可找到这个内存单元。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　习惯上一般把这种用"段地址：偏移量"表示内存单元所在位置的形式称为"逻辑地址"。因为各个段间有部分重叠，所以同样的一个内存单元有多种不同的"段：偏移"表示。例如对于物理地址为00010H的内存单元，若在内存第0段中表示，应该是0000:0010H；而在内存第1段中表示，则成了0001:0000H。<br>
+　　逻辑地址和物理地址之间的转换转换关系也很简单，由于段地址起始于16字节的整数倍，因此若要找到某个段的起始地址，只须将该段的段地址乘以16即可；不同的单元有不同的段内偏移量，将偏移量和段起始物理地址相加，就得到任一内存单元的物理地址。<br>
+　　例如逻辑地址0000:0010H对应的物理地址是0′10H+10H＝00010H；而逻辑地址0001:0000对应的物理地址是1′10H+0＝00010H，这两个逻辑地址表示内存中同一个单元。注意这种转换是由CPU内部电路自动完成的，对于汇编程序而言则只需使用逻辑地址即可。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　<font face="黑体">（3） 段寄存器（Segment register）</font><br>
+　　段寄存器就是用来存储内存单元的段地址的。CPU中共有四个段寄存器DS、ES、CS和SS，分别介绍如下：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page12.html">上一页</a> <a href="page14.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

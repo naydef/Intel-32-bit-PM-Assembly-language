@@ -1,0 +1,231 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page203.html">上一页</a> <a href="page205.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-204-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们给出的命令行参数均被DOS作为文件名放在这两个FCB中，由于只有两个FCB，所以DOS只能处理两个参数，而且如果参数中出现了"/"之类的字符，那么DOS就会认为给出的参数是不合法的文件名而不予处理。请做下面的实验：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>C:\ASM\>debug tasm.exe aaa /b ccc[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-d0[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1027:0000</td><td colspan=10>CD 20 FF 9F 00 9A F0 FE-1D F0 4F 03 92 09 8A 03</td><td></td><td colspan=5>. ........O.....</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1027:0010</td><td colspan=10>92 09 17 03 92 09 81 09-01 04 01 00 02 FF FF FF</td><td></td><td colspan=5>................</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1027:0020</td><td colspan=10>FF FF FF FF FF FF FF FF-FF FF FF FF 18 10 4C 01</td><td></td><td colspan=5>..............L.</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1027:0030</td><td colspan=10>97 0D 14 00 18 00 27 10-FF FF FF FF 00 00 00 00</td><td></td><td colspan=5>......'.........</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1027:0040</td><td colspan=10>07 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>................</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1027:0050</td><td colspan=10>CD 21 CB 00 00 00 00 00-00 00 00 00 00 <u>41 41 41</u></td><td></td><td colspan=5>.!...........<u>AAA</u></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1027:0060</td><td colspan=10>20 20 20 20 20 20 20 20-00 00 00 00 00 20 20 20</td><td></td><td colspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.....&nbsp;&nbsp;&nbsp;</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1027:0070</td><td colspan=10>20 20 20 20 20 20 20 20-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;........</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　很明显，"/b"和"ccc"均未出现。由此我们可以看出，使用这两个FCB处理命令行参数是有很多限制的。事实上很多程序根本不使用这样的方法处理命令行参数，而是采用了另一种方法。我们将在本章的后面详细讨论，这里我们给出一个示例程序，以说明这两个FCB的应用方法：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+LIST.ASM<br>
+DATA<br>
+<br>
+LINE<br>
+MSG<br>
+DATA<br>
+<br>
+CODE<br>
+<br>
+MAIN<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+SEGMENT<br>
+ASSUME<br>
+DB<br>
+DB<br>
+ENDS<br>
+<br>
+SEGMENT<br>
+ASSUME<br>
+PROC<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+<br>
+MOV
+</td>
+<td colspan=5>
+<br>
+<br>
+DS:DATA<br>
+?<br>
+'Press any key to conti<br>
+<br>
+<br>
+<br>
+CS:CODE<br>
+FAR<br>
+AX,DATA<br>
+ES,AX<br>
+<br>
+DX,5CH<br>
+AH,0FH<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+BX,DX<br>
+WORD PTR [BX+0EH],1<br>
+<br>
+SI,80H
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+nue...',24H<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化ES寄存器指向数据段<br>
+<br>
+<br>
+；DX指向第一个未打开的FCB<br>
+；打开这个FCB<br>
+<br>
+；文件正确打开了吗？<br>
+；若没有打开文件，转ERR_EXIT<br>
+<br>
+；BX指向已经打开的FCB<br>
+；设置记录长度为1字节<br>
+<br>
+；SI寄存器指向缺省的DTA
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page203.html">上一页</a> <a href="page205.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子过程和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page83.html">上一页</a> <a href="page85.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-84-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+continue:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+change<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+sub<br>
+mov<br>
+<br>
+inc<br>
+loop<br>
+<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+al,20h<br>
+[bx],al<br>
+<br>
+bx<br>
+chloop<br>
+<br>
+bp<br>
+2<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+；将小写字母转换成大写<br>
+；将大写字母重新存入字符串<br>
+<br>
+；字符串指针加1<br>
+；处理下一个字符<br>
+<br>
+；恢复BP寄存器的原值<br>
+；返回主过程，并清空堆栈<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序演示了如何将小写字母转换为大写字母。在主过程中使用了"PUSH DX"指令将DX寄存器中存储的字符串首地址压入堆栈，然后调用CHANGE子过程。那么CHANGE子过程又是如何得到字符串地址的呢？<br>
+　　首先可以肯定地说直接用"POP"指令不可能从堆栈中取得正确的字符串首地址，这是因为执行"CALL"指令时堆栈中存入了主过程的返回地址。习惯上我们常用"基指针寄存器" --BP来取得数据。<br>
+　　BP（BASS  POINT）寄存器是一个十六位寄存器，它和BX寄存器一样可用于完成间接寻址，不过BP寄存器无法分成两个八位寄存器来使，而且它和BX寄存器也不完全一样。当我们使用BX做间接寻址时，如果不指定段寄存器，则CPU将默认DS寄存器的值为段地址，而使用BP做此工作时，CPU会默认SS的值为段地址，即BP寄存器常用于在堆栈中取得数据时应用。不难想象BP寄存器为我们灵活处理堆栈中的数据提供了便利，这使我们可以不必顾及堆栈数据"后入先出"的规矩，也不必冒险修改SP寄存器。<br>
+　　需要说明的是BP也可以做其它的工作，比如暂存数据，或在其它段中完成间接寻址，只需注意明确给出段寄存器即可。一般来讲BP寄存器更多地用于取得参数，特别是当我们用汇编语言为一些高级语言编制子模块的时候，这几乎是唯一的方法。因为高级语言在调用子过程时几乎都用堆栈传递数据。<br>
+　　子过程中的"RET"指令有些不同寻常，它带了一个立即数。由于我们在调用子过程之前将一个数据压入了堆栈，显然子过程返回后这个数已经没有用了，所以我们要调整堆栈指针寄存器SP的值，以恢复堆栈的原始状态。<br>
+　　采用带常数的RET指令是个比较简单的方法，CPU在执行这样的RET指令时会在返回主过程后自动地将SP寄存器减掉这个常数值，堆栈中的参数也就算自动出栈了。不难想到这个常数在数值上应该等于"参数个数×2"。<br>
+　　下面是用DEBUG根踪这个程序的过程，请注意观察BP寄存器的应用和堆栈的变化：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-g=0 c</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>welcome to pc world</td><td colspan=9><font face="楷体_GB2312" size=2>程序显示出的字符串</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0924</td><td colspan=2>BX=0000</td><td colspan=2>CX=004E</td><td colspan=2>DX=0000</td><td colspan=2>SP=0000</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=1031</td><td colspan=2>ES=1021</td><td colspan=2>SS=1031</td><td colspan=2>CS=1033</td><td colspan=2>IP=000C</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1033:000C</td><td colspan=2>52</td><td colspan=6>PUSH DX</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page83.html">上一页</a> <a href="page85.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>
+

@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page232.html">上一页</a> <a href="page234.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-233-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+0BFB:0117<br>
+0BFB:0119<br>
+0BFB:011B<br>
+0BFB:012E
+</td>
+<td colspan=2>
+JMP<br>
+JMP<br>
+DB<br>
+[Enter]
+</td>
+<td colspan=14>
+010E<br>
+0119<br>
+'Hello,cowboy!!!',0d,0a,07,0<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　而后将这一小段程序写入A盘的0面0磁道第一扇区中，将磁盘中原有内容覆盖。这里介绍一个简单的方法，使用DEBUG提供的"W"命令。"W"命令我们前面讲过，它用于将编制的程序保存到文件中之中。这里我们要介绍它的另一个功能，即将内存中的一段内容保存到磁盘的某一扇区中。这个命令的用法如下：<br>
+　　-W〈起始地址〉  〈驱动器号〉  〈起始逻辑扇区号〉  〈写入扇区数量〉<br>
+　　关于逻辑扇区号我需要做一简单的说明，我们前面说过描述磁盘扇区的方法，即给出"磁头号"、"磁道号"、"扇区号"三个数据描述一个磁盘扇区；注意这是BIOS的规定，也就是说我们在使用BIOS关于磁盘的功能调用时才按照这种方式描述磁盘扇区。而DOS对此规定做了简化，DOS将所有磁盘扇区看作连续的，从0开始进行统一编号，因此对于一片1.44MB的磁盘来说，其0面0磁道第一扇区的"逻辑扇区号"就是0，最后一个扇区的"逻辑扇区号"为17；而其1面0磁道第一扇区的"逻辑扇区号"为18，接在0面0磁道的后头，按照这个规律依次向下排。<br>
+　　将这小段程序正确写入磁盘后即可热启动机器，注意不要从硬盘启动。如果没有什么意外你应该从屏幕上看到这样的一种结果：将机器完成自检之后A驱动器亮了一下，这时屏幕突然被清除，而后在屏幕左上角出现了一段英文信息同时喇叭发出一声鸣叫。注意到了吗，那句英文信息就是程序在偏移地址011B处所给出的。<br>
+　　这确是一个不寻常的现象，它所说明的唯一结论就是我们所编写的那一小段程序在机器启动的时候被执行了一次。事实也确是如此，当BIOS完成机器自检之后它会试图从A驱动器或物理硬盘C上读一个扇区的内容到内存0000:7C00处，这个扇区就是0面0磁道第一个扇区。如果这个扇区正确地读入内存，那么BIOS会通过一条远程转移指令让CPU转移到0000:7C00处继续执行指令，至此BIOS的启动工作便全部完成了，剩下的事就要由磁盘上读入的那些"东西"接替。<br>
+　　对于一片"正常"的软盘而言，其0面0磁道第一扇区内存放着一小段程序，这个程序在运行时会检查它所在的磁盘上是否有DOS系统的两个重要文件"IO.SYS"、"MSDOS.SYS"，如果没有，则这段程序就会显示出"Non-system disk or disk error......"这样一段信息；如果这是一片"系统盘"，则这段程序就会将"IO.SYS"调入内存，并通过转移指令将系统控制权交给"IO.SYS"，由此之后整个系统就由DOS进行控制，这就是DOS的启动过程。<br>
+　　这个过程只是相对软盘而言，硬盘的启动过程要更复杂一些。但是无论从软盘启动或是从硬盘启动，磁盘的0面0磁道第一扇区在系统启动过程中占有重要的地位，它在BIOS自检与DOS开始工作之间起一个承前启后的作用，在技术上我们把这个扇区称为"引导扇区"，英文为"BOOT SECTOR"。在短短512个字节的空间内存储了一个精心编制的小程序，称"引导程序"，整个操作系统就要由这个程序负责调入，即使是WINDOWS95、WINDOWS-NT这样的操作系统同样离不开引导程序。因此我们说，引导扇区在整个PC系统中占据着十分重要的一环。<br>
+　　引导扇区不仅十分重要，而且十分有趣，甚至可以说是妙趣横生。这是因为无论是ROM BIOS还是DOS等操作系统，对BOOT程序的"合法性"并不作任何检查。也就是说无论什么样的程
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page232.html">上一页</a> <a href="page234.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

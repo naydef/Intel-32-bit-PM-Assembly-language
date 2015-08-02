@@ -1,0 +1,186 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page249.html">上一页</a> <a href="page251.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-250-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+end_line:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+inc<br>
+mov<br>
+cmp<br>
+ja<br>
+mul<br>
+div<br>
+mov<br>
+jmp<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+ch,0<br>
+dh,0<br>
+al,1<br>
+ah,0ch<br>
+10h<br>
+<br>
+x0<br>
+al,x0<br>
+al,x1<br>
+end_line<br>
+byte ptr k<br>
+byte ptr k+1<br>
+y0,al<br>
+pixel<br>
+<br>
+ah,0<br>
+16h<br>
+<br>
+ax,0003h<br>
+10h<br>
+<br>
+ah,4ch<br>
+21h<br>
+<br>
+start
+</td>
+<td colspan=9>
+<br>
+<br>
+；选择青色<br>
+；在CX-DX指定的位置画一个点<br>
+<br>
+<br>
+；X坐标加1，得下一个点的X坐标<br>
+；将新的X坐标送入AL寄存器<br>
+；已经画到最后一个点了吗？<br>
+；已经画到最后一个点，转END_LINE<br>
+；计算(K x X)<br>
+<br>
+；将算出的Y坐标存入Y0<br>
+；转PIXEL继续画点<br>
+<br>
+；等待键盘输入<br>
+<br>
+<br>
+；设置字符显示模式3<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　此程序并未直接给出直线的斜率K，而是给出直线起始点与终止点的坐标，通过两个点的坐标计算出K。这好象有些繁琐，程序的指令增多，计算量也大了，这样设计程序不是自找麻烦吗？<br>
+　　大家平时一想起直线首先想到公式"y=Kx+b"，然而真正在纸上画直线时几乎没有人考虑什么斜率、截距之类的东西。谁都愿意在知道起止点的情况下画线，直尺一连即可，这是最省事的。<br>
+　　任何一个成功的图形制作软件在画直线时都不会要求用户输入斜率、截距这样的参数，都是要求用户输入起止点坐标，或者让用户用鼠标器直接定起止点，而对于用户来说这种画线方式也是最直观，最方便的。这也就是说，把程序设计成这样一种形式其实是为程序的用户着想，虽然这个程序不可能有什么用户。<br>
+　　上面这个程序可以画出从点（0，0）至（199，199）这样一条对角线来，看上去效果还能让人接受。然而如果将程序中Y1的值改成1的话那么这个程序可就有问题了。<br>
+　　当然这个程序仍然可以运行并能画出线来，但是这条线的效果可就不能让人接受了。仔细观察这条线可以看到，组成线条的前199个点都位于屏幕第一行，只有最后一个点位于下面一行。这又是为什么呢？<br>
+　　问题的关键在于电脑显示器的分辨率是有限的，计算机只能在"整数"坐标位置显示点，不可能在两个扫描行之间显示出点来。所以当程序计算出某个点的Y坐标为199/200时，计算机也只能将此点画在第一行或下一行，具体要画在哪一行和程序取整的方法有关。<br>
+　　如果程序对所有计算出来的Y坐标都直接取整的话，那么理论上位于（199，199/200）处
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page249.html">上一页</a> <a href="page251.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

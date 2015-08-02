@@ -1,0 +1,215 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page319.html">上一页</a> <a href="page321.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-320-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+msg<br>
+<br>
+ELSE<br>
+<br>
+msg<br>
+<br>
+ENDIF<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+db 'Hello<br>
+<br>
+<br>
+<br>
+db 'Hello<br>
+<br>
+<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+,cowgirl!',0dh,0ah,07h,24h<br>
+<br>
+<br>
+<br>
+,cowboy!',0dh,0ah,07h,24h<br>
+<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+<br>
+<br>
+；否则使用以下的字符串<br>
+<br>
+<br>
+<br>
+；条件判断部分结束<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序中新增的"IF"、"ELSE"和"ENDIF"就是用于完成条件汇编的伪指令，这三条伪指令之间有两部分源程序，"IF"下面的源程序把字符串MSG定义成"Hello,cowgirl","ELSE"下面的程序段将MSG定义成"Hello,cowboy"。这样一来编译程序就会有两种选择，到底编译哪块程序就要依条件来定。<br>
+　　具体来说，当"IF"伪指令之后的表达式值为"1"时，则"IF"下面的程序段被编译，"ELSE"下面的程序段舍去。若"IF"之后的表达式为"0"，则"ELSE"下面的程序段将被编译，而"IF"下面的程序段被舍去。<br>
+　　在这个程序之中我们一开始就定义了"GIRL EQU 1"，很明显这个程序只能输出"Hello,cowgirl！"了，因为"Hello,cowboy！"根本没有被编译。如果需要把这个程序给男孩子，只要把源程序开始修改为"GIRL EQU 0"就可以了。<br>
+　　采用条件汇编技术的一个优点就是能加强程序的可移植性，比如有两台同一型号的PC电脑，结构几乎完全相同，只是一台使用VGA显示卡而另一台使用EGA卡。为这样的两台电脑编写程序就可以采用条件汇编技术，把涉及显示功能的程序段搞成下面这样：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+IF<br>
+<br>
+<br>
+<br>
+ELSE<br>
+<br>
+<br>
+<br>
+ENDIF
+</td>
+<td colspan=2>
+VGA<br>
+.<br>
+.<br>
+.<br>
+<br>
+.<br>
+.<br>
+.<br>
+<br>
+</td>
+<td colspan=6>
+<br>
+<br>
+（用于VGA卡的程序段）<br>
+<br>
+<br>
+<br>
+（用于EGA卡的程序段）<br>
+<br>
+<br>
+</td>
+<td colspan=8>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　当使用EGA显示卡的用户拿到这样的源程序之后就无需自己对程序进行修改了。<br>
+　　类似的情况还有一些，比如TASM编译程序支持的伪指令与MASM早期版本略有不同，为使源程序能适应不同的编译程序，采用条件汇编技术也是很有必要的。<br>
+　　条件汇编还有其它一些用于判断条件的伪指令，我们讨论的"IF"是最简单的一个，其它的伪指令都列在表10-1中，以供大家研究参考，限于篇幅，本节不再详细讨论。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><font face="楷体_GB2312">表11-1 条件汇编伪指令</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>伪指令</td><td colspan=14>说明</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>IF 表达式</td><td colspan=14>求出表达式的值，如果此值不是0则编译其后的程序段</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>IFE 表达式</td><td colspan=14>与"IF"相反，如果表达式的值为0则编译其后的程序段</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>IFDEF 符号</td><td colspan=14>如果符号在源程序中有定义，则编译其后的程序段</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>IFNDEF 符号</td><td colspan=14>与"IFDEF"相反，如果符号在源程序中没定义则条件成立</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>IFB 自变量</td><td colspan=14>如果自变量为空则条件成立</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>IFNB 自变量</td><td colspan=14>与"IFB"相反，如果自变量不空则条件成立</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page319.html">上一页</a> <a href="page321.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

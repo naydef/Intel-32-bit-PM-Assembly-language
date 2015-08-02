@@ -1,0 +1,228 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page255.html">上一页</a> <a href="page257.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-256-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+cont1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+cont2:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+directx:<br>
+<br>
+<br>
+<br>
+<br>
+cont3:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+lineloop:<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+mov<br>
+sub<br>
+jge<br>
+neg<br>
+neg<br>
+<br>
+mov<br>
+mov<br>
+sub<br>
+jge<br>
+neg<br>
+neg<br>
+<br>
+mov<br>
+<br>
+cmp<br>
+jl<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+jmp<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+shl<br>
+mov<br>
+shl<br>
+mov<br>
+mov<br>
+<br>
+call<br>
+add<br>
+add
+</td>
+<td colspan=5>
+ax,x2<br>
+ax,x1<br>
+cont1<br>
+si<br>
+ax<br>
+<br>
+deltax,ax<br>
+ax,y2<br>
+ax,y1<br>
+cont2<br>
+di<br>
+ax<br>
+<br>
+deltay,ax<br>
+<br>
+ax,deltax<br>
+directx<br>
+bp,0<br>
+dx,si<br>
+si,0<br>
+ax,deltax<br>
+bx,deltay<br>
+cont3<br>
+<br>
+bp,2<br>
+dx,di<br>
+di,0<br>
+bx,deltax<br>
+<br>
+cx,bx<br>
+ax,1<br>
+delta1,ax<br>
+bx,1<br>
+delta2,bx<br>
+bx,cx<br>
+<br>
+point<br>
+x1,si<br>
+y1,di
+</td>
+<td colspan=9>
+；取得终止点的X坐标<br>
+；减去起始点的X坐标<br>
+；若终止点在起始点右边，转CONT1<br>
+；否则X方向上步进增量改为-1<br>
+；获得X方向上的总点数（ΔX′）<br>
+<br>
+；保存ΔX′<br>
+；取得终止点的Y坐标<br>
+；减去起始点的Y坐标<br>
+；若终止点在起始点下方，转CONT2<br>
+；否则Y方向上的步进增量改为-1<br>
+；获得Y方向上的总点数（ΔY′）<br>
+<br>
+；保存ΔY′<br>
+<br>
+；将ΔY′与ΔX′进行比较<br>
+；若ΔY′< ΔX′，则将X方向作为递增方向<br>
+；若Y方向为递增方向，则准备调整X坐标<br>
+；X方向上的增量值送入DX寄存器备份<br>
+；X方向的增量值清0<br>
+；ΔX′送入AX寄存器<br>
+；ΔY′送入BX寄存器<br>
+；转CONT3继续<br>
+<br>
+；若X方向为递增方向，则准备调整Y坐标<br>
+；Y方向的增量值送入DX寄存器备份<br>
+；Y方向的增量值清0<br>
+；ΔX′送入BX寄存器<br>
+；注：以下的说明将假定X方向为递增方向<br>
+；暂存BX寄存器中的ΔX′值<br>
+；计算2ΔY′<br>
+；将2ΔY′保存至DELTA1<br>
+；计算2ΔX′<br>
+；将2ΔX′保存至DELTA2<br>
+；将ΔX′送回BX寄存器<br>
+<br>
+；在（X1，Y1）处画一个点<br>
+；X坐标加一个增量值<br>
+；Y坐标加0
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page255.html">上一页</a> <a href="page257.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

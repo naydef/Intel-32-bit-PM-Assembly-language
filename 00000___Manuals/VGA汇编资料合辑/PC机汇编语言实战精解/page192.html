@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page191.html">上一页</a> <a href="page193.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-192-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="73">7．3 FCB记录的随机存取</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　所谓随机存取是相对于我们前面讨论的顺序存取而言的，顺序存取要求我们给出当前记录块号和当前记录号，而使用随机存取功能时DOS要求我们换一种眼光看待文件，即将一个文件从头至尾全部看作是由记录组成，而不需先将文件分成记录块后。再分记录。这样做的目的是使我们可以更方便地读写文件中任意位置的数据，无需做更多的附加工作。我们先来看看使用随机存取功能时要使用FCB中哪些数据。<br>
+　　回顾一下前面给出的FCB数据结构图，可以看到在FCB的末尾有一个双字的数据，这个数据称为"相对记录号"。在使用随机存取功能前我们必须设置这个值使得操作系统知道我们要读取哪个记录。<br>
+　　值得注意的是一般情况下这个双字的数据只有前3个字节有效，最后一个字节总为0。这是因为文件的长度是有限制的，DOS要求文件长度要小于1073741824个字节。这里所说的"一般情况"，其实指得是当一个记录的长度大于64字节的时候。我们可以验算一下：如果一个文件长度恰好是最大长度，即1073741824字节，而一个记录长度是64字节，那么这个文件包含的记录数应是16777216个，这个数恰好是2的24次方。也就是说如果用二进制表示这个数，就需要24个Bit，正好是三个字节。<br>
+　　这里就有了这样一个问题，如果记录长度小于64字节，那么DOS是否会使用整个双字呢？很遗憾，没有哪一本教科书上谈到了这个问题，笔者也不想讨论它。实话说吧，我没有做过实验研究这个问题，因为我的硬盘根本装不下2的30次方个字节。<br>
+　　DOS究竟如何处理这个数据？其实很简单，DOS会根据这个数据自己算出当前记录块号和当前记录号然后使用顺序存取功能取得相应的数据。换句话说，DOS要求我们改变对文件的认识，而它自己并未改变。下面是DOS提供的随机存取功能的应用方法。
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="731">7．3．1 随机读写</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3><img src="icons/note.gif"></td>
+<td colspan=2>
+功能号：<br>
+用　途：<br>
+参　数：<br>
+返　回：<br>
+<br><br><br>
+</td>
+<td colspan=5>
+21H<br>
+随机读取文件中的某个记录<br>
+DS:DX--打开的FCB首地址<br>
+AL = 0--读取成功<br>
+AL = 1--已读到文件尾<br>
+AL = 2--记录溢出段<br>
+AL = 3--读出部分记录
+</td>
+<td></td>
+<td colspan=2>
+功能号：<br>
+用　途：<br>
+参　数：<br>
+返　回：<br>
+<br><br><br>
+</td>
+<td colspan=6>
+22H<br>
+随机将某个记录写入文件<br>
+DS:DX--打开的FCB首地址<br>
+AL = 0--成功写入<br>
+AL = 1--磁盘满<br>
+AL = 2--记录溢出段<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　看来这两个功能的调用方法和我们前面讨论过的一些功能有相同之处，如果大家掌握了前面的顺序存取功能，那么随机存取功能应该不难学会，无非是变变观念而已。下面这个程序演示了这两个功能的应用，这个程序名叫MIRROR，它可以将源文件反过来写入目的文件中。
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+MIRROR.ASM<br>
+<br>
+；数据段定义与程序FCB7.ASM相同，此处省略<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+SEGMENT<br>
+ASSUME<br>
+</td>
+<td colspan=5>
+<br>
+CS:CODE<br>
+</td>
+<td colspan=9>
+</td>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page191.html">上一页</a> <a href="page193.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

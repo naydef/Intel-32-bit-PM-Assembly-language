@@ -1,0 +1,203 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page165.html">上一页</a> <a href="page167.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-166-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+delay:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+next:<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+or<br>
+out<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+add<br>
+<br>
+mov<br>
+int<br>
+jz<br>
+cmp<br>
+jz<br>
+<br>
+mov<br>
+int<br>
+cmp<br>
+jnz<br>
+<br>
+in<br>
+and<br>
+out<br>
+<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+al,3<br>
+61h,al<br>
+<br>
+ah,0<br>
+1ah<br>
+<br>
+bx,dx<br>
+bx,182<br>
+<br>
+ah,1<br>
+16h<br>
+next<br>
+ah,1<br>
+exit<br>
+<br>
+ah,0<br>
+1ah<br>
+bx,dx<br>
+delay<br>
+<br>
+al,61h<br>
+al,0fch<br>
+61h,al<br>
+<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；取得当前时钟计数<br>
+<br>
+<br>
+；当前时钟计数存入BX寄存器<br>
+；当前时钟计数加182<br>
+<br>
+；从键盘缓冲区内取字符<br>
+<br>
+；如键盘缓冲区空则转NEXT<br>
+；如取到字符，判断是Esc键吗？<br>
+；是Esc键转EXIT<br>
+<br>
+；取得时钟计数<br>
+<br>
+；到时间了吗？<br>
+；未到时间，转DELAY继续等待<br>
+<br>
+；停止发声<br>
+<br>
+<br>
+<br>
+；结束程序<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序没什么难点，无非是在前面讨论的定时算法基础上加入了键盘输入判断，以此来决定何时中断定时而处理键盘输入。到这里我们这一节的内容也就结束了，要注意的是还有一些有关键盘的功能调用是由DOS为我们提供的，这些内容我没有讲解，大家可以自己找资料研究。<br>
+<font face="黑体">
+本章结束语<br>
+</font>
+　　在这一章里我们详细地研究了有关显示输出与键盘输入的内容，和其它书籍不同的是我们把BIOS和硬件作为主要研究的对象而忽略了DOS。我这样做是有原因的：<br>
+　　（1）汇编语言本身就是面向硬件的语言，这就要求我们必须要对系统硬件有十分深入的了解，这样才可能编制出高效快速且色彩丰富的程序来；<br>
+　　（2）DOS的寿命还有多长现在还是未知数，WINDOWS95已经推出，更新的操作系统还会出
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page165.html">上一页</a> <a href="page167.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

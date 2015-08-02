@@ -1,0 +1,184 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page130.html">上一页</a> <a href="page132.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第6章 文字输出与键盘输入</td> <!章节名>
+<td></td><td>-131-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+移位指令是可以影响SF标志的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>逻辑右移的结果</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=7FFF</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=0107</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:0107</td><td colspan=2>B80040</td><td colspan=6>MOV AX,4000</td><td colspan=4><font face="楷体_GB2312" size=2>SF标志清0</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　循环右移指令"ROR"并不影响SF标志，看来"ROL"指令也不会影响SF，请看下面的跟踪结果：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>累加器送入4000H</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=4000</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=010A</td>
+<td colspan=5>NV UP EI NG NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:010A</td><td colspan=2>D1C0</td><td colspan=6>ROL AX,1&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>循环左移指令</font></td><td colspan=4><font face="楷体_GB2312" size=2>SF标志清0</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>移位后的结果</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=8000</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=010C</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:010C</td><td colspan=2>745B</td><td colspan=6>JZ 0169</td><td colspan=4><font face="楷体_GB2312" size=2>SF标志未改变</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　结果还真有些戏剧色彩，可以看到"ROL/ROR"指令对SF标志确实无影响，而"SHL/SHR"则能影响SF标志。看来不做调查研究就下结论是很不可取的。<br>
+　　讨论了有关SF标志的一些问题，现在我们还是回到演示程序上来。由于这个程序令终止线位置不变，而光标起始线由0FH向00H不断减小，所以当CH寄存器减至-1时程序就应该结束，所以我们使用指令JNS来判断CH寄存器减量的情况，这可以使我们不必设计单独的循环。当然使用JNZ指令也可以，只是看不到光标起始线为0时的情况。<br>
+　　现在我们来考虑这样两个问题：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312">
+　　（1）如果终止线的位置恰好在00H处会有什么现象？<br>
+　　（2）如果终止线不在第15线会有什么现象？
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>
+C:\ASM\>DEBUG[Enter]<br>
+-a100[Enter]<br>
+09DF:0100 mov ah,1<br>
+09DF:0102 mov ch,0<br>
+09DF:0104 mov cl,0<br>
+09DF:0106 int 10<br>
+09DF:0108 mov ah,1<br>
+09DF:010A mov ch,1<br>
+09DF:010C mov cl,0<br>
+09DF:010E int 10<br>
+09DF:0110[Enter]
+</td>
+<td colspan=12>
+<br>
+<br>
+；选择10H中断的1号功能<br>
+；设置光标起始线为0<br>
+；设置光标终止线也为0<br>
+；改变光标类型<br>
+；选择10H中断的1号功能<br>
+；设置光标起始线为1<br>
+；设置光标终止线为0<br>
+；改变光标类型<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+</font>
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page130.html">上一页</a> <a href="page132.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page159.html">上一页</a> <a href="page161.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-160-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+out_ax<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+int<br>
+mov<br>
+dec<br>
+jnz<br>
+<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+10h<br>
+ax,dx<br>
+ch<br>
+outloop<br>
+<br>
+ax,0e0dh<br>
+10h<br>
+al,0ah<br>
+10h<br>
+ax<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+；输出一个数字<br>
+；取回DX寄存器中的移位结果<br>
+；循环计数减1<br>
+；循环至OUTLOOP继续输出下一个数位<br>
+<br>
+；输出回车符<br>
+<br>
+；输出换行符<br>
+<br>
+；恢复AX寄存器<br>
+；返回<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序不仅可以显示出按键的ASCII码，还可以显示出16H中断的0号功能在AH寄存器中返回的数据。运行这个程序，会发现AH寄存器中的数据与所按键的ASCII码好象并无关系，比如按下打字键盘上的数字"1"键，可以看到AX寄存器返回的数据是0231H，其中31H是按键的ASCII码；如果按住Shift键再按下数字"1"键，此时AX寄存器返回0221H，21H是"!"的ASCII码，而AH寄存器中的数据竟然没变；如果按下右边数字小键盘上的"1"，就会看到AX寄存器中返回4F31H，31H仍是"1"的ASCII码，而AH寄存器中的数据却变成了4FH。<br>
+　　如果我们暂时给AH寄存器中的数据命名为"幻码"的话那么我们现在就可以总结出这样两条规律：<br>
+<font face="楷体_GB2312">
+　　（1）Shift键可以改变同一按键的ASCII码，但同一键的"幻码"固定不变；<br>
+　　（2）分在不同键区的同名键具有相同的ASCII码，但具有不同的"幻码"。这个规律是否绝对，我们可以按下其它的键来检验，最后我们可以发现这个规律对于大多数键来讲是正确的，个别的一些键无此规律。<br>
+</font>
+　　那么就"幻码"本身而言，各个键所对应的"幻码"有没有什么规律呢？我们再次运行这个程序，然后由"1"至"0"顺次按下打字键区中的数字键，再由左至右顺次按下第一行字母键，看看是否得到了下面的结果：<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><img src="figures/F6_10.gif"></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个试验揭示出"幻码"的这样一个规律：每个键对应的"幻码"与这个键在键盘上的位置有一定的关系。这个规律从何而来？<br>
+　　PC机的祖先--IBM PC/XT配备了一个83键的标准键盘，现在这种键盘己然绝迹。我们通常使用的键盘都是101键的。这种键盘上每个键对应的"幻码"可在表6-3查出：<br>
+　　键盘的结构可分为两大部分：按键开关和逻辑控制电路。每个键都是一个开关，都具有"通"和"断"两种状态。当键盘通电后，控制电路就会按预定顺序轮流查询每个键的状态，
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page159.html">上一页</a> <a href="page161.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

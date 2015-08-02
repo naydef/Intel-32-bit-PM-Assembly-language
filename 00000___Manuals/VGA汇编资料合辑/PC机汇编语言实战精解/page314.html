@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page313.html">上一页</a> <a href="page315.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-314-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　执行SNAP程序之后可以使用MEM程序观察一下内存中是否驻留了SNAP，而后再运行UNINST程序，之后使用MEM程序观察一下SNAP程序是否还在内存中。<br>
+　　把某个驻留程序从内存中撤出，从技术上来说并不很难，但是要注意一些小问题：<br>
+<font face="楷体_GB2312">
+　　① 不仅要释放程序代码与PSP占用的内存，还要释放这个程序对应的环境信息占用的内存，否则就会在内存中产生一些"碎片"。<br>
+　　② 驻留在内存中的程序一般都修改了中断向量表，使某个中断向量指向自己的服务程序。将程序撤出之后要注意把中断向量表复原，否则一旦中断产生CPU就会找不到正确的服务程序，这可以导致"死机"。UNINST程序就没有恢复05H中断向量，所以当运行了UNINST.COM以及MEM程序之后05H中断的服务程序就不复存在了，这时如果按下[PrtSc]就可能有令人不愉快的情况发生。<br>
+</font>
+　　当然了，UNINST程序已经没有办法改进了，因为SNAP程序并没有保留原05H中断服务程序的入口。看来有些时候即使不再使用某个中断原来的服务程序也应该保存其入口地址，以利于撤出用户程序后不会给系统造成隐患。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="113">11．3 高级汇编技术</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　与高级语言相比，汇编语言有一个显著的特点就是源程序比较冗长。举一个简单的例子，如果需要将字符串"Best wish to you"显示在屏幕上，应该如何编写程序呢？
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+BESTWISH<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+msg<br>
+main<br>
+code<br>
+end
+</td>
+<td colspan=2>
+.ASM<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+mov<br>
+mov<br>
+int<br>
+ret<br>
+db 'Best<br>
+endp<br>
+ends<br>
+main
+</td>
+<td colspan=6>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+dx,offset msg<br>
+ah,09<br>
+21h<br>
+<br>
+ wish to you',0dh,0ah,24h<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=8>
+　　没有比这再简单的了，请看下面这个"BESTWISH"程序：<br>
+　　问题的确不难，但这个程序确不是很简单，整整四条指令还有不少伪指令，要知道如果用BASIC语言编写同样功能的程序只要一条语句：<br>
+　　PRINT "Best wish to you"。<br>
+　　单单显示一个字符串还说明不了这里面有什么复杂性，但是请注意，编写一些比较大的程序时往往要显示很多个字符串，如果每显示一次字符串都这样编写程序可就有些繁人了。有没有什么比较简单的处理方法呢？比如说把这一
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+组指令用一个单词代替可不可以呢？<br>
+　　这完全可以。我们所使用的汇编语言编译系统，无论是MASM还是TASM，都支持"宏汇编"功
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page313.html">上一页</a> <a href="page315.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

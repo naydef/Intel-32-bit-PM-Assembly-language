@@ -1,0 +1,173 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page70.html">上一页</a> <a href="page72.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第4章 奇妙的声音</td> <!章节名>
+<td></td><td>-71-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CLOSE_T<br>
+<br>
+<br>
+<br>
+<br>
+CLOSE_T<br>
+<br>
+DELAY<br>
+<br>
+<br>
+DELAY1:<br>
+<br>
+<br>
+DELAY<br>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+PROC<br>
+IN<br>
+AND<br>
+OUT<br>
+RET<br>
+ENDP<br>
+<br>
+PROC<br>
+PUSH<br>
+MOV<br>
+LOOP<br>
+POP<br>
+RET<br>
+ENDP<br>
+ENDS<br>
+END
+</td>
+<td colspan=6>
+NEAR<br>
+AL,61H<br>
+AL,11111100B<br>
+61H,AL<br>
+<br>
+<br>
+<br>
+NEAR<br>
+CX<br>
+CX,500H<br>
+DELAY1<br>
+CX<br>
+<br>
+<br>
+<br>
+MAIN
+</td>
+<td colspan=8>
+<br>
+；恢复61H端口的原值<br>
+<br>
+<br>
+；子程序返回<br>
+<br>
+<br>
+<br>
+；将CX寄存器保存至堆栈<br>
+；CX寄存器置入500H<br>
+；循环等待<br>
+；恢复CX寄存器<br>
+；返回主程序<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序中多了两条新的条件跳转指令--JA和JB：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：JA（Jump if above）<br>
+用　途：判断比较（减法运算）的结果是不是"前高于后"（为正）<br>
+格　式：JA  目的地址<br>
+执　行：若两个数比较（相减），前一个数比后一个数大（相减结果为正）则执行转移<br>
+<br>
+助记符：JB（Jump if below）<br>
+用　途：判断比较（减法运算）的结果是不是"低于"（为负）<br>
+格　式：JB  目的地址<br>
+执　行：若两个数比较（相减），前一个数比后一个数小（相减结果为负）则执行转移<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这两条指令是功能相对的，它常用于"CMP"指令或"SUB"等算术运算指令后面。应用这两个指令时要注意这样一点那就是只有在两个"符号相同"的数相比较后才可用此指令根据结果转移，它不适用于判断"异符号数"运算结果。<br>
+　　我们知道条件转移指令一般都是根据标志寄存器中某些位的状态来决定转移与否的，例如指令"JZ/JNZ"就是根据"ZF"标志判断条件的。JB指令也是符合这个规律的，它的转移条件是"借位/进位"标志CF＝1。CMP指令实际是将相比较的两个数进行一次减法，很明显如果前一个数小于后一个数，相减时必然有一次"借位"，所以指令JB实际应写成"JC（Jump if Carry）"指令JA的转移条件就有些特殊了，它要根据标志寄存器中两个位的状态判断条件，这两个位是"借位/进位"标志CF和"零"标志ZF，具体的条件是CF AND ZF＝0，也就是CF和ZF这两位都是0的情况下指令JA才会执行转移。这相当于排除了两个数相等的情况。下面我们就来看看两个符号相同的数做减法运算后标志寄存器的变化：<br>
+　　C:\ASM\>DEBUG[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page70.html">上一页</a> <a href="page72.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

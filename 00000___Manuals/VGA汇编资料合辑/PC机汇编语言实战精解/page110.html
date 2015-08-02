@@ -1,0 +1,233 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子过程和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page109.html">上一页</a> <a href="page111.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-110-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+ES：DI寄存器组合、DF标志。同时还有一个指令前缀--REP。<br>
+　　我们来讨论最后一个问题：如何在一个字符串中间插入一个新字符串？<br>
+　　不知道大家能否独立地编制出一般方法的程序，笔者在下面给出了一个：<br>
+INSSTR.ASM
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+data<br>
+<br>
+string<br>
+buffer<br>
+substrg<br>
+data<br>
+<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+<br>
+move_str<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+not_end:
+</td>
+<td colspan=2>
+segment<br>
+assume<br>
+db'The sa<br>
+db 9 dup<br>
+db'sunshi<br>
+ends<br>
+<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+mov<br>
+call<br>
+int<br>
+mov<br>
+mov<br>
+call<br>
+int<br>
+mov<br>
+int<br>
+endp<br>
+<br>
+proc<br>
+push<br>
+push<br>
+mov<br>
+add<br>
+cmp<br>
+jnz<br>
+mov<br>
+mov<br>
+jmp<br>
+<br>
+</td>
+<td colspan=5>
+<br>
+ds:data<br>
+me is presented to all<br>
+(?)<br>
+ne',0<br>
+<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+dx,offset string<br>
+ah,9<br>
+21h<br>
+bx,9<br>
+move_str<br>
+21h<br>
+bx,offset substrg<br>
+di,9<br>
+insert_str<br>
+21h<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+near<br>
+si<br>
+ax<br>
+si,offset string<br>
+si,bx<br>
+byte ptr [si],'$'<br>
+not_end<br>
+al,byte ptr [si]<br>
+byte ptr [si+8],al<br>
+return<br>
+<br>
+</td>
+<td colspan=9>
+<br>
+<br>
+those who love sunshine',0dh,0ah,24h<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化DS寄存器指向数据段<br>
+<br>
+；显示源字符串<br>
+<br>
+<br>
+；在源字符串的第九个字符位置插入新串<br>
+；调用MOVE_STR子过程空出新串的位置<br>
+；显示源字符串<br>
+；BX寄存器指向将插入的子串<br>
+；DI寄存器指向插入点<br>
+；调用INSERT_STR将子串插入源串<br>
+；显示处理后的字符串<br>
+；结束程序<br>
+<br>
+<br>
+<br>
+；MOVE_STR子过程<br>
+；保存SI寄存器<br>
+；保存AX寄存器<br>
+；SI寄存器指向源字符串<br>
+；计算字符串的分离点<br>
+；分离点是字符串结尾吗？<br>
+；若不是结尾转NOT_END<br>
+；取得最后的'$'字符<br>
+；将此字符后移8个字节<br>
+；返回主过程<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page109.html">上一页</a> <a href="page111.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page188.html">上一页</a> <a href="page190.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-189-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在系统启动的过程中DOS会根据CONFIG文件中设置的缓冲区数在内存中保留一部分空间做为缓冲区，每个缓冲区有528个字节长，其中16个字节用于保存一些控制信息，DOS用另外512个字节保存从磁盘中读入或写出的数据。<br>
+　　当我们使用文件"读"的功能时，DOS会从磁盘上一次读入512个字节的数据到它的缓冲区中（假设只有一个缓冲区），然后根据一个记录的长度将其中相应数量的数据传到DTA中。比如当前一个记录的长度是128字节，执行一次读功能时DOS会从磁盘读入当前记录处的连续512个字节，然后从缓冲区中拨出128字节传到DTA中供程序处理。<br>
+　　如果我们要读入下一个记录，这时DOS就会直接从缓冲区中取出下面128个字节送至DTA，而不是再从磁盘读取。可见在这种情况下我们读取4个记录时磁盘只需转动一次。由于磁盘机是个机械电子结合的设备，工作速度很慢，所以减少磁盘机启动次数就可以提高系统的效率，这就是DOS的文件缓冲区所起的作用。<br>
+　　写盘的时候也是这样，当程序写出一个记录时DOS会将这个记录保存在缓冲区中，而不是直接送到磁盘。只有数据攒到一定数量后DOS才会将这些数据一次写入磁盘。这样做也是为了减少磁盘机启动次数，提高效率。<br>
+　　但是这样做就有一个不好的结果，当我们的程序将数据写出后如果未做其它操作就直接结束了，那么写出的数据究竟是在缓冲区中还是在磁盘中呢？结果是不确定的。如果数据仍然在DOS缓冲区中而未存入磁盘，那么程序结束后这些数据便遗失在内存之中。所以在数据写出后程序结束前我们必须做些额外的工作，这就是"关闭文件"。DOS执行"关闭文件"功能的实质工作之一就是将缓冲区中未凑够数的数据写入磁盘以免丢失。<br>
+　　有一点需要注意，文件的内容固然重要，有关这个文件的特征信息同样是重要的。比如说文件的长度，日期和时间等。如果我们给一个文件追加了数据，那么这个文件的长度就要变长，同时这个文件的建立日期和时间也要改成当前的日期和时间。这些信息和文件名一起组成了文件的目录项，这个目录项要在文件处理完后存入磁盘的目录表中。而这个工作同样由"关闭文件"功能完成。<br>
+　　大家可以做这样一个试验：将一个文件拷贝到两个软盘上，编程打开其中一片软盘上的文件，将一些数据写入这个文件，然后让程序暂停等待按键。这时将第一片软盘取出而将第二片软盘放入驱动器，按一键让程序启动执行关闭文件功能并结束。这时候就会发现第二片软盘上的那个文件发生了一些变化，文件很可能无法使用了。造成这个现象的原因就是DOS在执行"关闭文件"功能时并不知道盘片更换了，由于这片盘上有一个同名文件，所以DOS会把特征信息存入这个同名的目录项中，从而导致了错误。由此可见"关闭文件"操作十分重要，是文件处理中不可忽视的一个环节。<br>
+　　新的程序固然有了正确的输出，但目的文件的长度和源文件不一致。这个原因就很简单了，我们读入的数据都会有"零头"，除非被读取的文件恰好有整数个记录。而写出数据时不会有"零头"，总是要将一个记录的数据完整写出。因此目的文件的长度总要长一些，而且目的文件的长度恰好是记录长度的整数倍。比如我的CONFIG文件复制后长度由667个字节变为768个字节，恰好是6个记录长。<br>
+　　解决这个问题的方法是在数据数据全部写出后人为修改目的文件的FCB，将其中的文件长度设为667字节，然后再关闭文件。这样DOS在更新目录项时就会将正确的文件长度写入磁盘目录表中。FCB8.ASM是彻底修改后的程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page188.html">上一页</a> <a href="page190.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

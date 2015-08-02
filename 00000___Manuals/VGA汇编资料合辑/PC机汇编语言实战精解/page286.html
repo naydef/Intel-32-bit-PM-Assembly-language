@@ -1,0 +1,171 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第10章 细节补充</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page285.html">上一页</a> <a href="page287.html">下一页</a> <a href="page291.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-286-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+bin8o<br>
+<br>
+crlf<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+crlf<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+loop<br>
+pop<br>
+ret<br>
+endp<br>
+<br>
+proc<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+loop4<br>
+cx<br>
+<br>
+<br>
+<br>
+near<br>
+ax,0e0dh<br>
+10h<br>
+al,0ah<br>
+10h<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；转LOOP4继续处理下一数位<br>
+；恢复CX寄存器<br>
+；返回主过程<br>
+<br>
+<br>
+；输出回车、换行符的子程序<br>
+；利用10H中断的0EH功能输出回车符<br>
+<br>
+；输出换行符<br>
+<br>
+；返回主过程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这段程序所完成的是64位逻辑右移，所用的一点技巧就是在处理第一个字节之前先用CLC指令将CF标志清零，这使得移位后最左端的数位是0，而不是什么未知的结果。如果想完成64位算术移位也很简单，可以考虑在处理第一个字节之前先把它的符号位送进CF标志就可以了。程序的修改很简单，只要去掉CLC指令改用它下面两条加有"；"的指令即可。<br>
+　　（5）中断指令<br>
+　　除了条件转移指令之外，还有几个指令在执行时也要判断条件，比如刚刚讨论过的LOOPZ/LOOPNZ，以及前面学习过的指令前缀REPZ/REPNZ等。其实，中断指令也有一条是需要判断条件的，当然，我们前面学习过的指令INT并没有这样的要求，这是一条新的指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：INTO（Interrupt if Overflow）<br>
+用　途：如果发生溢出则执行中断<br>
+格　式：INTO<br>
+执　行：执行INTO指令时，CPU首先判断OF标志位，如果OF=1，则CPU自动<br>
+　　　　执行4号中断服务程序；如果OF=0，则CPU继续执行下面的程序
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　如果不考虑此指令判断的条件，则可以用"INT  04"代替这条指令。这条指令很不常用，不过在一些加密软件中有时会常见它的身影。需要提到的是这条指令产生的中断也是处理机中断。实际上处理机中断有些也是需要指令才能产生的，这一点与前面我们讨论过的除法错中断、单步中断不同。除法错、单步中断是在CPU执行指令时自动产生，而溢出中断则不同，如果CPU没有执行INTO指令，即使运算发生溢出它也不会自动转去执行4号中断服务程序。<br>
+　　还有一条中断指令也很特殊，这条指令就是"INT  3"。从形式上看这条指令与"INT  10H"、"INT  21H"没有什么区别，但是它编译之后的机器码却与一般的INT指令有很大的不同。那么不同之处在哪里？这个问题咱们可以请教DEBUG：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　C:\ASM\>DEBUG[Enter]<br>
+　　-a[Enter]<br>
+　　0F6A:0100 mov ax,0e07<br>
+　　0F6A:0103 int 10
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page285.html">上一页</a> <a href="page287.html">下一页</a> <a href="page291.html">下一章</a></p>
+</body>
+</html>

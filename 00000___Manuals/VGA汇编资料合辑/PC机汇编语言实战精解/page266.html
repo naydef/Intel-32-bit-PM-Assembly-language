@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page265.html">上一页</a> <a href="page267.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-266-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+even_line:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+push<br>
+push<br>
+push<br>
+push<br>
+push<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+shr<br>
+jnc<br>
+mov<br>
+<br>
+mov<br>
+mul<br>
+add<br>
+<br>
+mov<br>
+mov<br>
+div<br>
+<br>
+push<br>
+mov<br>
+add<br>
+<br>
+pop<br>
+xchg<br>
+shl<br>
+mov<br>
+shr<br>
+<br>
+or<br>
+<br>
+pop<br>
+pop<br>
+pop<br>
+pop<br>
+pop
+</td>
+<td colspan=5>
+bx<br>
+cx<br>
+dx<br>
+di<br>
+es<br>
+<br>
+ax,0b800h<br>
+es,ax<br>
+di,0<br>
+<br>
+ax,dx<br>
+ax,1<br>
+even_line<br>
+di,2000h<br>
+<br>
+bx,80<br>
+bx<br>
+di,ax<br>
+<br>
+ax,cx<br>
+bl,4<br>
+bl<br>
+<br>
+ax<br>
+ah,0<br>
+di,ax<br>
+<br>
+cx<br>
+ch,cl<br>
+cl,1<br>
+al,01000000b<br>
+al,cl<br>
+<br>
+byte ptr es:[di],al<br>
+<br>
+es<br>
+di<br>
+dx<br>
+cx<br>
+bx
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；ES:DI指向图形显示缓冲区首<br>
+<br>
+<br>
+<br>
+；Y坐标送入AX寄存器<br>
+；判断Y坐标是否为奇数<br>
+；若移出的位是0，说明所画线位于偶数行<br>
+；所画线位于奇数行，DI指向偏移2000H处<br>
+<br>
+；计算"行数 x 80"<br>
+<br>
+；"行数 x 80"累加入DI寄存器<br>
+<br>
+；计算一行内的偏移量<br>
+<br>
+<br>
+<br>
+；暂存余数<br>
+；将商转换成16位累加入DI寄存器<br>
+<br>
+<br>
+；将余数送入CH寄存器<br>
+；交换CH，CL寄存器<br>
+；余数 x 2作为移位计数<br>
+；最高两位为颜色值<br>
+；将颜色值移到指定位置<br>
+<br>
+；将含有颜色值的字节送入显示缓冲区<br>
+<br>
+；恢复寄存器<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page265.html">上一页</a> <a href="page267.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

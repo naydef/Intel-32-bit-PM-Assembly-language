@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page305.html">上一页</a> <a href="page307.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-306-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+play_next:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+return:<br>
+<br>
+<br>
+<br>
+<br>
+play_end:<br>
+<br>
+<br>
+install:<br>
+<br>
+</td>
+<td colspan=2>
+dec<br>
+jmp<br>
+<br>
+in<br>
+and<br>
+out<br>
+<br>
+mov<br>
+shl<br>
+mov<br>
+<br>
+cmp<br>
+jz<br>
+<br>
+mov<br>
+inc<br>
+<br>
+xor<br>
+shl<br>
+mov<br>
+add<br>
+<br>
+mov<br>
+out<br>
+mov<br>
+out<br>
+<br>
+in<br>
+or<br>
+out<br>
+<br>
+pop<br>
+pop<br>
+pop<br>
+iret<br>
+<br>
+mov<br>
+jmp<br>
+<br>
+mov
+</td>
+<td colspan=5>
+byte ptr cs:[delay]<br>
+return<br>
+<br>
+al,61h<br>
+al,0fch<br>
+61h,al<br>
+<br>
+bx,cs:[nxtnote]<br>
+bx,1<br>
+ax,word ptr cs:note[bx]<br>
+<br>
+ax,-1<br>
+play_end<br>
+<br>
+cs:[delay],ah<br>
+word ptr cs:[nxtnote]<br>
+<br>
+ah,ah<br>
+ax,1<br>
+si,offset freq<br>
+si,ax<br>
+<br>
+ax,word ptr cs:[si]<br>
+42h,al<br>
+al,ah<br>
+42h,al<br>
+<br>
+al,61h<br>
+al,03h<br>
+61h,al<br>
+<br>
+si<br>
+bx<br>
+ax<br>
+<br>
+<br>
+cs:[curnote],0<br>
+return<br>
+<br>
+dx,offset new_1ch
+</td>
+<td colspan=9>
+；将当前音符的持续时间减1<br>
+；退出中断服务程序<br>
+<br>
+；关闭时间<br>
+<br>
+<br>
+<br>
+；取得将要演奏的音符在乐谱中的位置<br>
+<br>
+；从乐谱中取出音符及时间<br>
+<br>
+；乐谱已经演奏完了吗？<br>
+；若乐谱已结束，转PLAY_END<br>
+<br>
+；将这个音符的时间送入DELAY<br>
+；NXTNOTE指向下一个音符<br>
+<br>
+；将AL中的音符转成16位数据<br>
+；将音符乘2，准备在频率表中取N值<br>
+；SI寄存器指向频率表首<br>
+；加上AX中的偏移量<br>
+<br>
+；取出N值并输出至定时器<br>
+<br>
+<br>
+<br>
+<br>
+；启动定时器发声<br>
+<br>
+<br>
+<br>
+；恢复寄存器<br>
+<br>
+<br>
+；退出中断服务程序<br>
+<br>
+；若乐谱已奏完，从头开始演奏<br>
+；退出中断服务程序<br>
+<br>
+；设置新的1CH中断向量
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page305.html">上一页</a> <a href="page307.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

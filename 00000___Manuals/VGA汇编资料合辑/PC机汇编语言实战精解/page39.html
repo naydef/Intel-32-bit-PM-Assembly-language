@@ -1,0 +1,163 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page38.html">上一页</a> <a href="page40.html">下一页</a> <a href="page45.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第3章 中断调用与子程序</td> <!章节名>
+<td></td><td>-39-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-t</td><td colspan=16><font face="楷体_GB2312" size="2">不要敲入"P"</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0161</td><td colspan=2>BX=0000</td><td colspan=2>CX=0029</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFFC</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0A3E</td><td colspan=2>ES=0A3E</td><td colspan=2>SS=0A3E</td><td colspan=2>CS=0A3E</td><td colspan=2>IP=010D</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:010D</td><td colspan=2>50</td><td colspan=6 align="center">PUSH AX</td><td colspan=4></td>
+<td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　并非是所有的CALL、INT指令都需要使用"P"命令跳过，如果确实需要仔细分析一个子程序或检查操作系统中是否有"异形"（病毒）程序侵入，那么"T"命令的缺点也就成了优势了。这就是为什么我们在跟踪CALL  010D指令时用了T命令，因为我们想看到CALL指令的实际动作。<br>
+　　不难看出，CALL指令执行完后，CPU确实转移到10D处执行指令，同时我们也看到，SP寄存器被减了2，从FFFEH变成FFFCH，也就是说，有一个16位数据进入了堆栈。这个数据是什么呢？
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="3">-dfffc</td><td colspan="10" align="center"><font face="楷体_GB2312" size=2>返回地址</td><td colspan="5"></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="2">0A3E:FFF0</td><td></td><td colspan="10">　　　　　　　　　　　　　　　　　　07 01 00 00</td><td></td><td colspan="4">.&gt;~...p.......p.</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　用D命令显示出堆栈的内容，可以看到这个数据是0107<a href="page39.html#note1"><sup>①</sup></a>，它恰恰是指令"CMP AL，1B"的偏移地址。<br>
+　　通过这一点我们不仅可以比较出CALL与JMP的区别，而且也会发现CALL和INT具有一些相似之处，它也会在堆栈中保存返回地址。在这种情况下，最后一条RET指令的作用也就很清楚了：它会将保存在堆栈中的返回地址弹到IP寄存器中，使得CPU能从子程序正常返回到主程序。是不是这样呢？我们先把这个子程序执行完：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>-g=10d 128</td><td colspan=15><font face="楷体_GB2312" size="2">"128"是断点位置</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>01100001</td><td colspan=15><font face="楷体_GB2312" size="2">此数字是程序所显示出来的</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0161</td><td colspan=2>BX=0001</td><td colspan=2>CX=0000</td><td colspan=2>DX=6131</td><td colspan=2>SP=FFFC</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0A3E</td><td colspan=2>ES=0A3E</td><td colspan=2>SS=0A3E</td><td colspan=2>CS=0A3E</td><td colspan=2>IP=0128</td>
+<td colspan=5>NV UP EI PL ZR NA PE CY</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:0128</td><td colspan=2>C3</td><td colspan=6 align="center">RET</td><td colspan=4></td>
+<td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这里用了G命令一个十分重要的功能──设置断点。如果大家在键入程序时保证没有错误，那么就不必再"单步"执行这个子程序，我们现在急于看到"RET"指令执行的过程，所以我们想使CPU连续执行这一段程序，并且在0128处停下来，因此我们使用"G"命令在0128处设了断点。<br>
+　　注意在"＝"后面的第一个地址是CPU开始执行指令的起始地址，空格后的地址才是设断点的位置。我们之所以强调用"G"命令执行程序时要使用等号明确指定起始地址就是为了和断点相区分。有关断点的更多说明将留在后面介绍。现在只需记住断点设在哪里，CPU执行到那个位置时就会停下来并显示出所有寄存器的情况，并等待用户输入新的命令。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<tr>
+<td></td><td></td>
+<td colspan="9"><hr></td><td colspan="9"></td>
+<td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td>
+<td colspan="18"><font face="楷体_GB2312" size="2"><a name="note1">① 注意内存地址的编排是，低地址在先，高地址在后。因此数据存储于内存中也是高字节在后。</a> 
+</font></td>
+<td></td><td></td>
+</tr>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page38.html">上一页</a> <a href="page40.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>
+

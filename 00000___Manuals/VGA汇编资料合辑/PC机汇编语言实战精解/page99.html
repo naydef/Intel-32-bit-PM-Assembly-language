@@ -1,0 +1,246 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子程序和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page98.html">上一页</a> <a href="page100.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第5章 子程序和串处理</td> <!章节名>
+<td></td><td>-99-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+调　用：INT 21H<br>
+返　回：无
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　此功能的用法并不难，关键在于缓冲区的格式有些特别：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/attention.gif"></td>
+<td colspan=15><font face="楷体_GB2312">
+字节0：缓冲区能容纳的字符数（编程时给出）<br>
+字节1：缓冲区中已输入的字符数（DOS返回值）<br>
+字节2-缓冲区末尾：存放输入的字符
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序GETSTR1.ASM是这个功能的应用实例:
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+
+<td></td><td></td> <!左边距>
+<td colspan=18>
+GETSTR1.ASM
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+data<br>
+<br>
+buffer<br>
+<br>
+data<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+segment<br>
+assume<br>
+db<br>
+db<br>
+ends<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+<br>
+ds:data<br>
+10,?<br>
+10 dup(20h)<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+dx,offset buffer<br>
+ah,0ah<br>
+21h<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+<br>
+<br>
+；定义字符串缓冲区<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化DS寄存器指向数据段<br>
+<br>
+；DX寄存器指向字符串缓冲区<br>
+；选择DOS API的0AH功能<br>
+；等待键盘输入字符串<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序不会在屏幕上显示什么结果，我们的目的是用DEBUG跟踪这个程序来分析DOS的这个功能：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-g=0 8[Enter]</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0E8E</td><td colspan=2>BX=0000</td><td colspan=2>CX=0020</td><td colspan=2>DX=0000</td><td colspan=2>SP=0000</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0E8E</td><td colspan=2>ES=0E7E</td><td colspan=2>SS=0E8E</td><td colspan=2>CS=0E8F</td><td colspan=2>IP=0008</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0E8F:0008</td><td colspan=2>B40A</td><td colspan=6>MOV AH,0A</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　先在CS:0008处打一个断点，执行DOS的0AH功能前我们先来观察一下程序定义的缓冲区的情况。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>d0:f</td><td colspan=15><font face="楷体_GB2312" size=2>缓冲区中最多可存的字符数</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0E8E:0000</td><td colspan=11>0A 00 20 20 20 20 20 20-20 20 20 20 00 00 00 00</td><td colspan=5>..&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;....</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2><font face="楷体_GB2312" size=2>字符计数值</font></td><td colspan=2></td><td colspan=9><font face="楷体_GB2312" size=2>预存于缓冲区中的10个空格</font></td><td colspan=5></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page98.html">上一页</a> <a href="page100.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>
+

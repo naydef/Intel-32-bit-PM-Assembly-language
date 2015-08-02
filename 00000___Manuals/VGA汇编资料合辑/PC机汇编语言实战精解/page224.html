@@ -1,0 +1,236 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page223.html">上一页</a> <a href="page225.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-224-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+outdec:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+jc<br>
+<br>
+mov<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+jc<br>
+<br>
+mov<br>
+mov<br>
+<br>
+div<br>
+xchg<br>
+add<br>
+mov<br>
+dec<br>
+mov<br>
+xor<br>
+cmp<br>
+jnz<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+<br>
+dx,offset fname<br>
+ax,3d00h<br>
+21h<br>
+exit<br>
+<br>
+bx,ax<br>
+<br>
+cx,0<br>
+dx,0<br>
+ah,42h<br>
+al,02h<br>
+21h<br>
+exit<br>
+<br>
+cx,10<br>
+si,offset tbuff+4<br>
+<br>
+cx<br>
+ax,dx<br>
+al,30h<br>
+byte ptr [si],al<br>
+si<br>
+ax,dx<br>
+dx,dx<br>
+ax,0<br>
+outdec<br>
+<br>
+ah,9<br>
+dx,offset msg<br>
+21h<br>
+<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+；按"读取"方式打开文件<br>
+<br>
+<br>
+；若文件未能正确打开，转EXIT<br>
+<br>
+；BX寄存器获得文件句柄<br>
+<br>
+；设置新的文件指针偏移量为0<br>
+<br>
+；选42H功能<br>
+；从文件尾部计数偏移量<br>
+；移动文件读写指针<br>
+；若没有正确移动文件指针，转EXIT结束<br>
+；准备输出DX:AX中的文件长度<br>
+；CX寄存器送入10<br>
+；SI寄存器指向数字的缓冲区尾部<br>
+<br>
+；DX:AX中的长度值除以10<br>
+；将余数送入AX寄存器，商送入DX寄存器<br>
+；将余数加上30H转换成数字的ASCII码<br>
+；将个位数字送入缓冲区<br>
+；SI寄存器指向十位数字的位置<br>
+；将商转换成32位数并存入DX:AX<br>
+<br>
+；商是0吗？<br>
+；若商不是0，则转OUTDEC继续计算数位<br>
+<br>
+；输出带有长度数的字符串MSG<br>
+<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page223.html">上一页</a> <a href="page225.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

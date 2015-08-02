@@ -1,0 +1,207 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page57.html">上一页</a> <a href="page59.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-58-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=2>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+delay:<br>
+<br><br><br><br><br><br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+mov<br>
+out<br>
+mov<br>
+out<br>
+mov<br>
+out<br>
+in<br>
+or<br>
+out<br>
+mov<br>
+int<br>
+add<br>
+mov<br>
+int<br>
+cmp<br>
+jne<br>
+in<br>
+and<br>
+out<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=4>
+al,10110110b<br>
+43h,al<br>
+ax,4a9h<br>
+42h,al<br>
+al,ah<br>
+42h,al<br>
+al,PORT_B<br>
+al,3<br>
+PORT_B,al<br>
+ah,0<br>
+1ah<br>
+dx,91<br>
+bx,dx<br>
+1ah<br>
+dx,bx<br>
+delay<br>
+al,PORT_B<br>
+al,0fch<br>
+PORT_B,al<br>
+20h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；初始化定时器<br>
+<br>
+；设置N值为04A9H<br>
+<br><br><br>
+；打开定时器及与门<br>
+<br>
+；以下为定时部分<br>
+；选择1AH中断的0号功能<br>
+；调用1AH中断取得当前时钟计数<br>
+；在当前时钟计数上加91<br>
+；保存定时终了时的计数值<br>
+；两次调用1AH中断取得时钟计数值<br>
+；到达定时终了时的计数值了吗？<br>
+；没有到达，则返回DELAY处继续<br>
+；定时终止，关闭定时器及与门<br>
+<br><br>
+；结束程序<br>
+<br><br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　ADD指令和我们前面讨论的SUB指令是相对的，这两条指令在应用时要注意这样一点－－相加的两个数据位宽要一致。象这样的用法都是不对的：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=8><hr></td>
+<td colspan=2><font size=5>ERROR!!!</font></td>
+<td colspan=8><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=8 align="center"><font size=5>ADD AH,0FC00H</font></td>
+<td colspan=2></td>
+<td colspan=8 align="center"><font size=5>ADD AH,BX</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序使用了一个新的中断--INT 1AH的0号功能取得时钟计数值。1AH中断的用法如下所示：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：0<br>
+用　途：读取时钟计数值<br>
+参　数：AH=0<br>
+调　用：INT 1AH<br>
+返　回：CX = 计数值高16位<br>
+　　　　DX = 计数值低16位<br>
+　　　　AL = 0  表示未过24小时<br>
+　　　　AL &lt;&gt; 0  表示已过24小时
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个中断还有一个设定计时值的功能，这里不再给出。<br>
+　　由于5秒钟对应计数值是91，因此这个程序先用1AH中断取得当前计数值，并在低16位上加
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page57.html">上一页</a> <a href="page59.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

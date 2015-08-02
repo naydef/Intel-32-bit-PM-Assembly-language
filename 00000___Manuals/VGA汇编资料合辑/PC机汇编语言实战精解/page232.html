@@ -1,0 +1,245 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page231.html">上一页</a> <a href="page233.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-232-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+121D:0211<br>
+121D:0213<br>
+121D:0214<br>
+121D:0216<br>
+121D:0217<br>
+121D:0219<br>
+121D:021B<br>
+121D:021D<br>
+121D:021F
+</td>
+<td colspan=3>
+E000<br>
+60<br>
+09F9<br>
+07<br>
+000F<br>
+0002<br>
+0000<br>
+0000<br>
+0000
+</td>
+<td colspan=3>
+LOOPNZ<br>
+DB<br>
+OR<br>
+POP<br>
+ADD<br>
+ADD<br>
+ADD<br>
+ADD<br>
+ADD
+</td>
+<td colspan=10>
+0213<br>
+60<br>
+CX,DI<br>
+ES<br>
+[BX],CL<br>
+[BP+SI],AL<br>
+[BX+SI],AL<br>
+[BX+SI],AL<br>
+[BX+SI],AL
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+-U23E 252[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+121D:023E<br>
+121D:023F<br>
+121D:0241<br>
+121D:0243<br>
+121D:0246<br>
+121D:0247<br>
+121D:0248<br>
+121D:024B<br>
+121D:024C<br>
+121D:024E<br>
+121D:024F<br>
+121D:0250<br>
+121D:0251<br>
+121D:0252
+</td>
+<td colspan=3>
+FA<br>
+33C0<br>
+8ED0<br>
+BC007C<br>
+16<br>
+07<br>
+BB7800<br>
+36<br>
+C537<br>
+1E<br>
+56<br>
+16<br>
+53<br>
+BF3E7C
+</td>
+<td colspan=3>
+CLI<br>
+XOR<br>
+MOV<br>
+MOV<br>
+PUSH<br>
+POP<br>
+MOV<br>
+SS:<br>
+LDS<br>
+PUSH<br>
+PUSH<br>
+PUSH<br>
+PUSH<br>
+MOV
+</td>
+<td colspan=10>
+<br>
+AX,AX<br>
+SS,AX<br>
+SP,7C00<br>
+SS<br>
+ES<br>
+BX,0078<br>
+<br>
+SI,[BX]<br>
+DS<br>
+SI<br>
+SS<br>
+BX<br>
+DI,7C3E
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　反汇编的结果看上去有些乱，不过仔细观察第一条指令和偏移023E处起始的指令可以看出，这是一段具有逻辑性的程序，并非是杂乱无章的指令。事实上这确是一段程序，而且是一段具有重要意义的程序。请大家做这样一个实验：<br>
+　　首先利用DEBUG编制这样一小段程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+C:\ASM\>DEBUG[Enter]<br>
+-A100[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+0BFB:0100<br>
+0BFB:0103<br>
+0BFB:0105<br>
+0BFB:0108<br>
+0BFB:010A<br>
+0BFB:010D<br>
+0BFB:010E<br>
+0BFB:010F<br>
+0BFB:0111<br>
+0BFB:0113<br>
+0BFB:0115
+</td>
+<td colspan=2>
+MOV<br>
+INT<br>
+MOV<br>
+MOV<br>
+MOV<br>
+CLD<br>
+LODSB<br>
+OR<br>
+JZ<br>
+MOV<br>
+INT
+</td>
+<td colspan=14>
+AX,0003<br>
+10<br>
+AX,0000<br>
+DS,AX<br>
+SI,7C1B<br>
+<br>
+<br>
+AL,AL<br>
+0119<br>
+AH,0E<br>
+10
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page231.html">上一页</a> <a href="page233.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page10.html">上一页</a> <a href="page12.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第2章 开始设计程序</td> <!章节名>
+<td></td><td>-11-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="隶书" lang="ZH-CN" size=6><p align="CENTER">第2章 开始设计程序</p></font>
+<p>
+　　前一章提到汇编语言的一个用途是通过端口控制外部设备，本章我们就要用汇编语言编制一些小程序来控制机器中最富于趣味性的一个小设备--喇叭。我们的程序将使这个小部件发出各种各样的声音，从简单的嘀嘀声直至叮叮咚咚的音乐，还有乒乒乓乓的枪声。同时我们也会学到许多指令和程序设计技术。这对于我们今后的学习有很大的帮助。好，下面就让我们带着好奇的心情开始这艰难的开端吧。
+</p>
+<font face="黑体" lang="ZH-CN"><a name="21"><p>2．1 如何发出声音</p></a></font>
+<font face="黑体" lang="ZH-CN"><a name="211"><p>2．1．1 喇叭的构造</p></a></font>
+<p>
+　　喇叭的构造大概如图2－1所示，主要由纸盆、线圈、永久磁铁等组成。当有电流流过线圈时，线圈产生的磁场将和永磁铁的磁场相互作用，从而使线圈产生移动。和线圈相联的纸盆也会随之移动。若通过线圈的电流是连续变化的，则线圈移动的幅度也会变化，从而牵动纸盆振动，产生声音。
+</p>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9 align="center"><img src="figures/F2_1.gif"></td>
+<td colspan=9 align="center"><img src="figures/F2_2.gif"></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9 align="center"><font face="楷体_GB2312" lang="ZH-CN">图2-1  喇叭的构造</font></td>
+<td colspan=9 align="center"><font face="楷体_GB2312" lang="ZH-CN">图2-2  喇叭与机器的连接</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　那么PC机中的小喇叭是怎么与机器相联的呢？我们能否改变流过喇叭线圈的电流呢？图2－2表示了喇叭与机器间简单的联接情况（实际情况要复杂些）。喇叭的一端接在电源正极上，另一端与机器中的61H端口的bit1位相联。可以想象，若能连续改变61H端口的bit1位的0，1状态，就可以使喇叭线圈内的电流时有时无，从而使喇叭发出声音。我们编制的汇编程序的工作，就是连续改变61H端口的bit1位状态。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="黑体" lang="ZH-CN"><a name="212">2．1．2 汇编伴侣--DEBUG．EXE</a></font>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　如何将汇编程序输入计算机？各种高级语言都有自己的一套解释或编译程序，汇编语言也同样有自己的编译器。然而我们现在还没有良好的基础，因此现在就开始介绍汇编语言的编译系统还有些为时过早。好在DOS给我们提供的一个"迷你"汇编器--DEBUG。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page10.html">上一页</a> <a href="page12.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

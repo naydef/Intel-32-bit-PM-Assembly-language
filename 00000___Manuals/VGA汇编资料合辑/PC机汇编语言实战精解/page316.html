@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page315.html">上一页</a> <a href="page317.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-316-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　C:\ASM\>DEBUG BESTWISH.COM[Enter]<br>
+　　-U100 107[Enter]<br>
+　　0F8C:0100 BA0801　　　　MOV	DX,0108<br>
+　　<u>0F8C:0103 B409　　　　　MOV	AH,09</u><br>
+　　<u>0F8C:0105 CD21　　　　　INT	21</u><br>
+　　0F8C:0107 C3　　　　　　RET
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　通过这个示例程序，我们可以对"宏"汇编有个初步的认识：<br>
+<font face="楷体_GB2312">
+　　① "宏"的定义与段、过程定义一样，具有特定的伪指令"MACRO"与"ENDM"，格式上也类似于段定义与过程定义，只是"ENDM"的用法有些例外，它前面不能加上宏名；<br>
+　　② 宏的调用比较简单，只需要在源程序中直接引用宏名即可，不象子程序调用那样需要"CALL"指令；<br>
+　　③ 每个被调用的宏在编译的时候都要展开，如果源程序中多次调用了一个宏，那么编译生成的可执行文件里就会出现很多块结构相同的代码；<br>
+</font>
+　　宏汇编的第三个特点可以说是宏与子程序最根本的区别，利用宏汇编虽然可以使源程序简化，但是却使编译之后的可执行文件变得冗长了。看来事物总是有利有弊的，宏虽然有优点，但是也不能滥用。<br>
+　　宏调用也可以象子过程调用那样传递参数，但是参数传递的方法与调用子过程完全不同。既不用寄存器，也不用存储器和堆栈。事实上宏调用更象高级语言中的函数调用。请看下面这个示例程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+BESTWISH<br>
+print<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+<br>
+msg<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+.ASM<br>
+MACRO<br>
+mov<br>
+mov<br>
+int<br>
+ENDM<br>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+print<br>
+ret<br>
+db 'Best<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+<br>
+p1<br>
+dx,offset p1<br>
+ah,09<br>
+21h<br>
+<br>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+msg<br>
+<br>
+wish to you',0dh,0ah,24h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+<br>
+；定义一个带参数P1的宏<br>
+；将参数P1的偏移地址送入DX寄存器<br>
+；利用DOS的09H功能输出一个字符串<br>
+<br>
+；宏结束<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；输出字符串MSG<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　宏定义伪指令的完整用法是：<br>
+　　宏名　　MACRO　　[参数1，参数2，......]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page315.html">上一页</a> <a href="page317.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

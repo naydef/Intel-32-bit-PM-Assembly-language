@@ -1,0 +1,198 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子程序和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page110.html">上一页</a> <a href="page112.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第5章 子程序和串处理</td> <!章节名>
+<td></td><td>-111-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+return:<br>
+<br>
+<br>
+<br>
+move_str<br>
+<br>
+insert_str<br>
+<br>
+insert_loop:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+quit:<br>
+<br>
+<br>
+insert_s<br>
+code
+<br>
+</td>
+<td colspan=2>
+push<br>
+inc<br>
+call<br>
+pop<br>
+mov<br>
+mov<br>
+<br>
+pop<br>
+pop<br>
+ret<br>
+endp<br>
+<br>
+proc<br>
+push<br>
+<br>
+cmp<br>
+jz<br>
+mov<br>
+mov<br>
+inc<br>
+inc<br>
+jmp<br>
+<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+bx<br>
+bx<br>
+move_str<br>
+bx<br>
+al,byte ptr [bx]<br>
+byte ptr [bx+8],al<br>
+<br>
+ax<br>
+si<br>
+<br>
+<br>
+<br>
+near<br>
+ax<br>
+<br>
+byte ptr [bx],0<br>
+quit<br>
+al,byte ptr [bx]<br>
+byte ptr [di],al<br>
+bx<br>
+di<br>
+insert_loop<br>
+<br>
+ax<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；BX寄存器压入堆栈<br>
+；BX寄存器加1<br>
+；递归调用自身<br>
+；取回BX寄存器<br>
+；取得BX寄存器指向的字符<br>
+；将此字符后移8个字节<br>
+<br>
+；恢复AX寄存器<br>
+；恢复SI寄存器<br>
+；返回主过程<br>
+<br>
+<br>
+；INSERT_STR子过程<br>
+；保存AX寄存器<br>
+<br>
+；BX寄存器指向子串末尾了吗？<br>
+；若BX指向子串末尾则返回主程序<br>
+；取得BX寄存器指向的字符<br>
+；存入DI寄存器指向的位置<br>
+；BX寄存器指向子串中下一个字符<br>
+；DI寄存器指向源串中下一个位置<br>
+；插入下一个字符<br>
+<br>
+；恢复AX寄存器<br>
+；返回主过程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　解决这个问题的一般思路是这样的：首先将插入点后面的字符串向后移动8字节距离，为"SUNSHINE"空出位置，然后将"SUNSHINE"分8个字节移入插入点。程序中的"MOVE_STR"子过程就是用于移动插入点后面的字符串的，在这个子过程中我们特别采用了"递归"算法，图5－4给出的部分堆栈的情况。INSERT＿STR子过程用于将子串移动到插入点位置，从而完成了最终的插入工作。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align="center"><img src="figures/F5_4.gif"><br><font face="楷体_GB2312">图5-4 部分堆栈的情况</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page110.html">上一页</a> <a href="page112.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>

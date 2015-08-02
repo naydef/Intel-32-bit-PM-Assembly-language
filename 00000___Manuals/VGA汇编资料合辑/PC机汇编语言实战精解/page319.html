@@ -1,0 +1,238 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page318.html">上一页</a> <a href="page320.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-319-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+msg<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+print<br>
+ret<br>
+db 'Best<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+msg<br>
+<br>
+Wish To YOU',0dh,0ah,24h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+；输出转换后的字符串<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　除了宏汇编技术之外，条件汇编也是一种高级的汇编技术。所谓条件汇编，指得是把源程序分成几个部分，编译时如果具备了某个条件则编译其中一个部分，如果相应条件不具备则编译其它部分。所以说，条件实际上是提供给编译程序处理的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=8>
+　　在具体讨论条件汇编技术之前我们先来看一看示例程序CHILD.ASM：<br>
+　　这个程序的功能很简单，它只是在屏幕上显示一行文字--"Hello,cowboy！"。现在如果假设有一位很任性的小姑娘看到了这个程序显示的文字，她十分希望这个程序能显示出"Hello,cowgirl！"，那么这个程序就要做些修改了。<br>
+　　说句老实话，修改程序比编写程序还要烦人，象这样的小程序当然看不出什么，对于一些比较大的程序来说修改工作可不比编写工作轻松。我们之所以
+</td>
+<td colspan=2>
+CHILD.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+msg<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+mov<br>
+mov<br>
+int<br>
+int<br>
+db 'Hello<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+<br>
+<br>
+cs:code<br>
+100h<br>
+near<br>
+ah,09<br>
+dx,offset msg<br>
+21h<br>
+20h<br>
+,cowboy!',0dh,0ah,07h,24h<br>
+<br>
+<br>
+main
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+强调要把程序中频繁使用的数据用"EQU"伪指令定义成常量，为的就是修改起来方便一些。<br>
+　　那么对于给出的这个小程序而言，有没有什么方法能使它的适应性强一些呢？最好能让它"识相"一些，只要告诉它是"boy"还是"girl"，再把它重新编译一次它就能显示出相应的问候语，这是最好不过了。做到这一点并不困难，只要把程序修改成下面这个样子就可以了：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CHILD.ASM<br>
+girl<br>
+<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+IF<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+equ<br>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+mov<br>
+mov<br>
+int<br>
+int<br>
+<br>
+girl<br>
+<br>
+</td>
+<td colspan=4>
+<br>
+1<br>
+<br>
+<br>
+cs:code<br>
+100h<br>
+near<br>
+ah,09<br>
+dx,offset msg<br>
+21h<br>
+20h<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=10>
+<br>
+；告之编译程序现在要把程序送给一位"Girl"<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；显示问候语<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+；如果将程序送给"Girl"，则问候语使用下述<br>
+；字符串
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page318.html">上一页</a> <a href="page320.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

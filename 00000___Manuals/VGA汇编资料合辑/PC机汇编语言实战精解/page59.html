@@ -1,0 +1,142 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page58.html">上一页</a> <a href="page60.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第4章 奇妙的声音</td> <!章节名>
+<td></td><td>-59-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+了91，算出循环终止时的计数值并保存到BX寄存器中。而后在一个循环中反复取计数值，并将低16位同BX中的计数终值相比较，当两者相等时说明已经到了5秒，此时退出循环关闭定时器通道3。这样就完成了5秒钟的发声。<br>
+　　和用LOOP指令定时相比，这种新的定时方法有很大的优越性：首先这种方法编程方便；其次这种方法在不同的机型上延迟时间都相等，因为PC系列机的08H中断都是每秒18.2次。此方法唯一的不足是最短延迟时间是55Ms，如果想获得更短的延迟时间只能提高08H中断的产生频率，这样的问题比较复杂，本书将不再讨论。<br>
+　　掌握了控制频率和时间的方法，就可以编制出演奏音乐的程序了。请看下面的乐谱：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align="center"><img src="figures/F4_3.gif"></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　识谱的朋友马上就能唱出这段旋律，将程序MUSIC.ASM编译并运行，计算机也会为你奏出这首动听的歌。
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=2>
+MUSIC.ASM<br>
+DATA<br>
+<br>
+FREQ<br>
+<br>
+NOTE<br>
+<br><br>
+DL_TIME<br>
+<br><br>
+DATA<br>
+<br>
+CODE<br>
+<br>
+MAIN<br>
+<br><br><br><br><br>
+<td colspan=6>
+<br>
+SEGMENT<br>
+ASSUME DS:DATA<br>
+DW 0,4552,4029,3617,3415<br>
+DW 3042,2710,2415,2279<br>
+DB 3,2,1,2,3,3,3,2,2,2<br>
+DB 3,5,5,3,2,1,2,3,3,3<br>
+DB 3,2,2,3,2,1,-1<br>
+DB 4,4,4,4,4,4,8,4,4,8<br>
+DB 4,4,8,4,4,4,4,4,4,4<br>
+DB 4,4,4,4,4,8<br>
+ENDS<br>
+<br>
+SEGMENT<br>
+ASSUME CS:CODE<br>
+PROC FAR<br>
+MOV AX,DATA<br>
+MOV DS,AX<br>
+<br>
+MOV AL,10110110B<br>
+OUT 43H,AL
+</td>
+<td colspan=8>
+<br><br><br><br>
+；定义各频率对应的N值<br>
+<br><br>
+；定义乐谱,-1表示结束<br>
+<br><br>
+；定义各音符的节拍<br>
+<br><br><br><br><br>
+；取数据段地址<br>
+；设定DS<br>
+<br><br>
+；初始化8253 TIMER 2
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page58.html">上一页</a> <a href="page60.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

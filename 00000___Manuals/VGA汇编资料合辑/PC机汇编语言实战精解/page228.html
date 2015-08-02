@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page227.html">上一页</a> <a href="page229.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-228-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　为了搞清这个问题，我们需先来看看磁盘与驱动器的结构。其实驱动器和我们目前使用的电唱机有些相似，它最主要的部分就是驱动主轴和磁头。主轴带动盘片旋转，磁头由一个电机驱动可以沿盘片径向运动。至于盘片，样子和唱片差不多，只不过是由软材料制成。这样的一种机械结构使得磁头可以很快速的定位于盘片的某一位置，比磁带的快进、快退要方便得多。<br>
+　　见过电唱机唱片的朋友都知道，电唱片上刻有一些记录着声音的很密的沟纹，这些沟纹称为声轨。磁盘上虽没有看得见的沟纹，但实际上磁盘上的数据也是记录在一个个"轨道"之中，这些记录着信息的"轨道"被称为"磁道"。与唱片不同的是这些磁道是相互独立的，是一组以磁盘中心为圆心的同心圆，而唱片上的声轨是一整条螺旋线。<br>
+　　由于磁道的相互独立，所以磁头相对盘片的运动也是"跳跃"的，即磁头只能从某个磁道直接"推进"到其它磁道，而不能定位在两个磁道之间。当然，我这里说的仅限于PC系列电脑，其它的计算机可能有例外情况，实际上磁头究竟如何运动取决于系统硬件设计。<br>
+　　我们知道唱片上的声轨记录的都是声音而无其它信息，是不是磁道上记录的也都是我们需要的数据呢？如果你说每条磁道上记录的都是数据，这倒没什么错误，但是这些数据的用途并不一样。有些数据是我们"写入"到磁盘中的，而有些数据完全是供计算机硬件使用的。这是因为计算机把每一条磁道又进行了更细致地划分，它把每条磁道分成若干小的区域来储存用户数据，这些小区域并非首尾相联，它们之间有一些间隙，计算机为了能够方便地找到任意一个小数据区，它特意在这些间隙中保存了一些磁信号，利用这些磁信号给这些小区域定位。这些所谓磁信号对我们来说就是一些数据，然而这些数据和我们存到磁盘上的数据有不同的用途。<br>
+　　由于这些小数据区分布在圆周上，它们的形状象一个个扇形，所以我们习惯上称这些数据区为"扇区"，因此，一片磁盘的实际情况应该是由图7-4所示，划分为一系列的扇区和磁道，同时还包含了供硬件使用的信息。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=10 align=center><img src="figures/F8_1.gif"><br><font face="楷体_GB2312">图8-1 磁盘的结构</font></td>
+<td colspan=8>
+　　在一片新买的磁盘中是不包含这些结构的，我们之所以要给新盘片进行格式化其实就是为了对磁盘做一些划分，把那些供硬件使用的信号先存入磁盘，这样计算机才能正确地找到保存用户数据的区域。试想如果不进行这样细致地划分，而把各种数据一疙瘩一块地塞进磁盘，我想即使是计算机这种高技术的产物也难以从乱糟糟的信号中找到真正有用的。<br>
+　　这里有一个较为微妙的问题就是每一个扇区究竟可以容纳多少用户数据？对于一片"正常"的磁盘而言，用户可以在一个扇区内存入512个字节的数据；而在一些不大"正常"的磁盘上却包含了一些容量为128字节、256字节或1024字节的异常扇区。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page227.html">上一页</a> <a href="page229.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

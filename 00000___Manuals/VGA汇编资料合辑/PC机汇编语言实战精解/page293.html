@@ -1,0 +1,206 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page292.html">上一页</a> <a href="page294.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-293-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　关于环境信息的问题有必要在此解释一下。所谓环境信息，其实就是我们通过CONFIG.SYS和AUTOEXEC.BAT设置的"PROMPT=???"、"PATH=???"以及其它使用"SET"命令设置的内容。这些内容由DOS组织在一起形式DOS的环境信息。为了能够上用户编制的程序也能使用这些信息，DOS每次在调入一个可执行程序时都要额外分配一块内存空间将组织好的环境信息复制一份。这一块内存的段地址存放在程序段前缀（PSP）偏移002CH处，占两个字节。<br>
+　　环境信息都是由ASCII码组成的字符串，从环境内存段偏移0处开始，每个字符串都以00H结尾。环境信息总的结尾处还有一个00H。程序ENVIR.ASM可以在屏幕上显示DOS的环境信息：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+ENVIR.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+msg<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+disploop:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+xor<br>
+<br>
+call<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+<br>
+cmp<br>
+jnz<br>
+<br>
+mov<br>
+int
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+start<br>
+'Environment:',0dh,0ah,0<br>
+<br>
+ah,9<br>
+dx,offset msg<br>
+21h<br>
+<br>
+bx,002ch<br>
+ax,word ptr [bx]<br>
+ds,ax<br>
+<br>
+si,si<br>
+<br>
+dispchr<br>
+<br>
+ah,02h<br>
+dl,0dh<br>
+21h<br>
+dl,0ah<br>
+21h<br>
+<br>
+byte ptr [si],0<br>
+disploop<br>
+<br>
+ah,4ch<br>
+21h
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；跳过数据区<br>
+ah,24h<br>
+<br>
+；显示字符串MSG<br>
+<br>
+<br>
+<br>
+；BX寄存器指向PSP偏移2CH处<br>
+；从[BX]地址处取得一个字数据<br>
+；这个数据就是环境块的段地址<br>
+<br>
+；SI寄存器指向环境块首<br>
+<br>
+；输出一个以0结尾字符串<br>
+<br>
+；输出回车、换行符<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；已经显示了所有的环境信息吗？<br>
+；未显示完所有信息，转DISPLOOP<br>
+<br>
+；结束进程<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page292.html">上一页</a> <a href="page294.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

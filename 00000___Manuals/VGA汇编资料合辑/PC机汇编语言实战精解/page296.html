@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page295.html">上一页</a> <a href="page297.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-296-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+f11:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+f12:<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+mov<br>
+mov<br>
+mov<br>
+<br>
+in<br>
+push<br>
+<br>
+in<br>
+or<br>
+out<br>
+and<br>
+out<br>
+<br>
+mov<br>
+out<br>
+<br>
+pop<br>
+test<br>
+jnz<br>
+<br>
+mov<br>
+cmp<br>
+jz<br>
+cmp<br>
+jz<br>
+jmp<br>
+<br>
+inc<br>
+mov<br>
+stosb<br>
+loop<br>
+jmp<br>
+<br>
+inc<br>
+mov<br>
+stosb<br>
+loop<br>
+<br>
+pop<br>
+pop
+</td>
+<td colspan=5>
+ax,0b800h<br>
+es,ax<br>
+di,0<br>
+<br>
+al,60h<br>
+ax<br>
+<br>
+al,61h<br>
+al,80h<br>
+61h,al<br>
+al,7fh<br>
+61h,al<br>
+<br>
+al,20h<br>
+20h,al<br>
+<br>
+ax<br>
+al,10000000b<br>
+exit<br>
+<br>
+cx,2000<br>
+al,57h<br>
+f11<br>
+al,58h<br>
+f12<br>
+exit<br>
+<br>
+di<br>
+al,2<br>
+<br>
+f11<br>
+exit<br>
+<br>
+di<br>
+al,4<br>
+<br>
+f12<br>
+<br>
+es<br>
+di
+</td>
+<td colspan=9>
+；令ES寄存器指向显示缓冲区<br>
+<br>
+；DI寄存器指向显示缓冲区首<br>
+<br>
+；从端口60H取得键盘发来的扫描码<br>
+；暂存扫描码<br>
+<br>
+；通过61H端口给键盘发一个应答脉冲<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；向中断控制器发EOI命令<br>
+<br>
+<br>
+；取回扫描码<br>
+；是通码吗？<br>
+；若不是通码，转EXIT退出中断服务程序<br>
+<br>
+；准备改变显示缓存中字符的颜色<br>
+；是F11键的扫描码吗？<br>
+；是，转F11键的处理程序<br>
+；是F12键吗？<br>
+；是，转F12键的处理程序<br>
+；不是这两个键，转EXIT退出中断服务程序<br>
+<br>
+；DI寄存器指向属性字节（奇数地址）<br>
+；选择黑底绿色字属性<br>
+；改变屏幕字符颜色<br>
+；转F11继续<br>
+；整屏字符颜色改变后，退出中断服务程序<br>
+<br>
+；将整屏字符颜色改变为红色<br>
+<br>
+<br>
+<br>
+<br>
+；恢复寄存器<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page295.html">上一页</a> <a href="page297.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

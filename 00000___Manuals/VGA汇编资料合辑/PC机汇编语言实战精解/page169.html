@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page168.html">上一页</a> <a href="page170.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-169-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+后面的学习你会发现，其实这两种方法各有优势，它们都不能取代对方。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="715">7．1．5 文本与二进制</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　文件之间是有区别的，有些文件中包含的都是具有实际意义的ASCII字符，如文字、标点、制表符以及回车换行等等，这种文件称为"文本文件"。我们前面编写的所有"源程序文件"其实都是文本文件。<br>
+　　还有一些文件中包含的都是些无规律的数据，这些数据可能是指令的机器码或者具有其它什么含义，这样的一些文件就称为"二进制文件"。最常见的就是那些EXE和COM类的文件。这两种文件很好区分，文本文件可以用"TYPE"命令显示在屏幕上，而二进制文件则只能列出一些杂乱的字符。<br>
+　　值得注意的是一些高级语言将这两种文件分别处理，比如C语言，甚至DOS的COPY命令也要区分文本与二进制。不过对于汇编语言来说这两种文件没有区别，"文本"不过是"二进制"的一个"子集"而已。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="716">7．1．6 文件的处理步骤</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们在处理现实中的文件是采用什么步骤呢？举个例子，假如现在有一份文件摆在我们面前，我们要处理这个文件，那么第一步我们要打开这个文件，这是我们能够处理文件（至少是能够看到文件内容）的先决条件。第二步我们就要读出文件的内容，或者是修改其中的内容，也可能要加入新内容，这才是真正的处理过程。最后我们要合上这个文件表示我们的处理工作结束而且新的文件内容被确定。现实中的工作无非如此。<br>
+　　程序处理文件时也是这样做的，无论采用什么方法处理文件，程序的第一步也是"打开"文件，注意这里"打开"的含义是通知操作系统找到这个文件并取得这个文件的特征信息，比如文件的长度，建立或最后修改的日期以及文件在磁盘中的位置等等。经过这一步之后操作系统就和这个文件建立的联系，以后我们就可以利用系统功能对这个文件进行操作。第二步我们就可以正式处理这个文件了，我们可以"读出"文件内容，也可以"写入"新的内容。这些工作和我们现实中的处理是一样的。最后我们还要"关闭"这个文件，这是为了通知操作系统将处理后的内容存入文件并取消和这个文件的关联。<br>
+　　注意有些时候我们还要做建立新文件的工作，现实中的处理方法是"给文件起个名字，并且要注明文件的性质--一般或者保密"，文件建立后也随之被打开了，我们即可马上写入新内容。<br>
+　　程序也是这样建立磁盘文件的，一般的步骤是"给出文件名和属性，调用系统功能建立文件，写入新内容，关闭文件"。看来计算机处理文件和我们人类的工作方式没什么区别，无非我们人类用双手和大脑工作而计算机使用"系统功能"完成工作而已。<br>
+　　有了以上这些基础知识，我们对文件处理也就有了一些大概的了解，下面我们就可以详细地讨论如何编制程序处理磁盘文件了。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page168.html">上一页</a> <a href="page170.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

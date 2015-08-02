@@ -1,0 +1,142 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page119.html">上一页</a> <a href="page121.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-120-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　有关显示系统还有一些更多的内容，但是这些知识离程序设计比较远，所以不再深入讨论。有了这些基本知识，我们就可以开始研究有关显示系统的程序设计了，在本章的后面我们将按照Video BIOS，Video RAM和Port Program的顺序来详细讨论PC电脑的显示系统。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="62">6．2 Video BIOS的应用</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　所谓Video BIOS，其核心就是前面曾经提到过的INT 10H中断服务程序。在上一章中我们曾使用过10H中断的0EH功能在屏幕上显示字符，这个功能的能力还是很强的，但有一点令人不太满意的地方，那就是这个功能不能使字符具有颜色。那么有什么方法可以使字符有颜色呢？在讨论这个问题前我们先要讨论一个术语--字符属性。<br>
+　　直觉告诉我们显示在屏幕上的那些字符是具有"个性"的。最明显的，不同的字符可以有不同的颜色，有时候我们会在屏幕上看到一闪一闪的字符，如果使用一块老式的MDA卡，还能看到具有下划线的字符。<br>
+　　这里所说的"个性"指得就是每个字符可以具有的各种不同显示形式，这些不同的形式就是一般所说的"字符属性"。对于一个具体的字符是如何表示它的属性呢？在PC机的显示系统中，属性是由一个字节的数据表示的（图6-3）：<a href="#note1"><sup>①</sup></a><br>
+　　上一节提到过各种颜色都是由RGB三种基本颜色合成的，所以属性字节中的低3位指出了组成字符颜色的RGB值。如果这三位是001，那么表示字符的颜色是蓝色；若这三位是011，那么字符的颜色就是蓝＋绿，即青色。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6><img src="figures/F6_3.gif"><br><font face="楷体_GB2312">图6-3 属性字节的位定义</font></td>
+<td colspan=12>
+　　"I"位是字符加亮位，这一位置1时则字符的颜色会变亮。如果认为"RGB"位控制了CRT电子枪的开关，那么"I"位相当于控制了加在电子枪上的信号电压，"I"位置1时信号电压加强了一倍，所以屏幕上的字符颜色会更亮。<br>
+　　Bit4-Bit6位控制了背影颜色的RGB值，"F"位的定义和"I"位不同，它表示字符是否闪烁，若F位为1，则屏幕上的字
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+符将一闪一闪的。下面不妨来看两个实际属性字节：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align="center">（1）00100110　　　　　　　　（2）11011010</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　第一个字节反映了字符的颜色是红+绿=棕色，不加亮；背影颜色是绿色，字符正常显示。第二个字节反映了字符的颜色是加亮的绿色；背影颜色是红+蓝=洋红，字符闪烁显示。这些只是理论上的分析，如果想验证这些分析带还要学习一个新的BIOS INT 10H功能调用--09H功能。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：09H<br>
+用　途：在当前光标位置写有属性的字符<br>
+参　数：AL=将要显示字符的ASCII码<br>
+　　　　BH=显示页号<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<tr>
+<td></td><td></td>
+<td colspan="9"><hr></td><td colspan="9"></td>
+<td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td>
+<td colspan="18"><font face="楷体_GB2312" size="2"><a name="note1">① 由于MDA与HGC卡不支持彩色显示，因此以下讨论不适用于这两种显示系统。</a>
+</font></td>
+<td></td><td></td>
+</tr>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page119.html">上一页</a> <a href="page121.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

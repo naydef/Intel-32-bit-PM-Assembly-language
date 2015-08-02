@@ -1,0 +1,222 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page308.html">上一页</a> <a href="page310.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-309-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　一"节"内存包含16个连续的BYTE，但这16个BYTE的起始地址必须是16的整数倍。比如从0B800H:0000H处开始的16个BYTE可以看作是一节，而从0B800H:0001H处开始的16个字节就不是一节。<br>
+　　如果这个功能正确地执行了，则DOS将通过AX寄存器返回这块内存的段地址，偏移地址就是0。下面这个程序演示了这个功能的应用，它可以向DOS申请10KB连续内存块，然后在这10KB空间内填写一些信息并将其段地址显示在屏幕上：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+GETMEM.ASM<br>
+data<br>
+<br>
+errmsg1<br>
+errmsg2<br>
+init<br>
+data<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；******第<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+fill:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+db<br>
+db<br>
+db<br>
+ends<br>
+segment<br>
+assume<br>
+proc<br>
+push<br>
+mov<br>
+push<br>
+mov<br>
+mov<br>
+<br>
+一个插入<br>
+<br>
+mov<br>
+mov<br>
+int<br>
+jc<br>
+<br>
+call<br>
+<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+<br>
+push<br>
+mov<br>
+mov<br>
+rep<br>
+pop
+</td>
+<td colspan=5>
+<br>
+<br>
+ds:data<br>
+'MCB is error!!!',07h,0<br>
+'Not enought memory!!!'<br>
+'ABCDEFG--HIJKLMN'<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ds<br>
+ax,0<br>
+ax<br>
+ax,data<br>
+ds,ax<br>
+<br>
+点******<br>
+<br>
+ah,48h<br>
+bx,640<br>
+21h<br>
+error<br>
+<br>
+outseg<br>
+<br>
+es,ax<br>
+di,0<br>
+<br>
+cx,640<br>
+<br>
+cx<br>
+cx,16<br>
+si,offset init<br>
+movsb<br>
+cx
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+dh,0ah,24h<br>
+,07h,0dh,0ah,24h<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化堆栈<br>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+<br>
+<br>
+；申请640节的内存<br>
+<br>
+<br>
+；若内存申请出错，转ERROR显示错误信息<br>
+<br>
+；输出申请到的内存段地址<br>
+<br>
+；ES:DI寄存器指向申请到的内存段<br>
+<br>
+<br>
+；准备向申请到的内存中填入数据<br>
+<br>
+；暂存CX寄存器<br>
+；在内存中传送16个字节<br>
+；SI指向数据串<br>
+；传送数据串<br>
+；恢复CX寄存器
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page308.html">上一页</a> <a href="page310.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

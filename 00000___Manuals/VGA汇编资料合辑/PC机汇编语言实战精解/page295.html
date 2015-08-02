@@ -1,0 +1,137 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page294.html">上一页</a> <a href="page296.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-295-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　采用"中断"技术是一个最常用的途径。因为PC电脑可处理的中断较多，达256个，而且最吸引人的是每个中断的服务程序可以在内存中的任意位置。只要将服务程序的入口地址正确填入中断向量表内，那么无论服务程序在何处CPU都能准确无误地执行。由此我们想到可以把驻留在内存中的程序编写成某个中断的服务程序，需要这个程序执行时调用相应的中断即可。<br>
+　　许多流行的软件都是这样做的，比如SideKick，以及专门抓取屏幕图形的PZP软件等。就连我们常用的DEBUG也要重编01H和03H中断服务程序，以实现它的"P"、"T"和"G"命令。所以说重编中断服务程序是驻留内存技术中一个十分重要的环节。<br>
+　　在真正开始编写中断服务程序之前我们必须对PC系统的各个中断有一个总体的了解才行，附录A给出了所有256个中断的用途，这其中有一些中断系统没有使用。<br>
+　　对于编制驻留内存程序而言，并非所有的中断都常用，也并非只能使用系统保留的中断。本章只对应用最广的几个中断做较详细的解释，并给出一些程序示例说明编制中断服务程序的要点。<br>
+　　（1）09H中断<br>
+　　这是一个由键盘产生的硬件中断，每次当我们把一个键按下时，键盘就会发出一个中断信号，这个信号称为IRQ1。CPU收到信号后就会执行09H中断服务程序，系统提供的服务程序用于从键盘取得按键的扫描码，每个扫描码都是一个字节的数据。<br>
+　　当一个按下的键被放开时键盘同样产生IRQ1信号，CPU也会执行09H中断服务程序从键盘接收扫描码。一般我们把按下键产生的扫描码称为"通码"，把放开键产生的扫描码称为"断码"。通码的最高位（Bit7）都是0，而断码的最高位都是1。09H中断服务程序也是根据这一特点来区分通码与断码的，它只处理通码。<br>
+　　如果我们重编09H中断服务程序，那么我们就能对键盘上的各个键重新定义。比如一般情况下按下[Enter]是回车，按下[Space]是空格，而我们重新编写的中断服务程序完全可以在接收到[Enter]键的扫描码时将其解释为空格，接收到[Space]时把它解释为回车。这样就等于键盘完全被我们的程序接管了。<br>
+　　下面这个程序就是一个新编的09H中断服务程序，运行这个程序后它会驻留内存，当按下[F11]功能键时屏幕上所有字符的颜色都被改成绿色，按下[F12]功能键后所有字符都是红色：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+NEW09.ASM<br>
+code<br>
+<br>
+<br>
+start:<br>
+<br>
+new09:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+<br>
+jmp<br>
+<br>
+push<br>
+push<br>
+push<br>
+push<br>
+push
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+<br>
+install<br>
+<br>
+ax<br>
+bx<br>
+cx<br>
+di<br>
+es
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；转程序驻留部分<br>
+；新编的09H中断服务程序<br>
+；进入中断服务程序时首先保存寄存器<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page294.html">上一页</a> <a href="page296.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

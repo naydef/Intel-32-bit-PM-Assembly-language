@@ -1,0 +1,287 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page133.html">上一页</a> <a href="page135.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-134-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+main<br>
+<br>
+msg<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+loop1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+proc<br>
+jmp<br>
+db<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+<br>
+push<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+<br>
+pop<br>
+loop<br>
+<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+far<br>
+short start<br>
+'Press any key...',0dh,24h<br>
+ah,09h<br>
+dx,offset msg<br>
+21h<br>
+<br>
+cx,25<br>
+<br>
+cx<br>
+cx,0<br>
+dx,194fh<br>
+bh,2<br>
+ah,6<br>
+al,1<br>
+10h<br>
+<br>
+ah,0<br>
+16h<br>
+<br>
+cx<br>
+loop1<br>
+<br>
+20h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+<br>
+<br>
+<br>
+；显示字符串MSG<br>
+<br>
+<br>
+<br>
+；设置循环计数<br>
+<br>
+；暂存CX寄存器中的循环计数<br>
+；设置滚动窗口的左上角为（0，0）<br>
+；设置滚动窗口的右下角为（79，25）<br>
+；设置新行的属性<br>
+；选择10H中断的06功能<br>
+；准备将窗口中的内容向上滚动1行<br>
+；滚动窗口内容<br>
+<br>
+；等待键盘输入<br>
+<br>
+<br>
+；恢复CX寄存器中的循环计数<br>
+；继续滚动窗口<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　运行这个程序，刚刚设想的第（1）、（3）点都可得到验证。下面这个程序使用了07H功能，而且可以验证我们设想的第（2）点：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+msg<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+loop1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+int
+</td>
+<td colspan=6>
+<br>
+cs:code,ds:code<br>
+100h<br>
+far<br>
+short start<br>
+'Press any key...',0dh,24h<br>
+ah,09h<br>
+dx,offset msg<br>
+21h<br>
+<br>
+bl,4<br>
+<br>
+ah,0<br>
+16h<br>
+<br>
+cx,0<br>
+dx,194fh<br>
+bh,2<br>
+al,bl<br>
+ah,7<br>
+10h
+</td>
+<td colspan=8>
+<br>
+<br>
+<br>
+<br>
+；跳过数据区<br>
+<br>
+；显示字符串MSG<br>
+<br>
+<br>
+<br>
+；设置循环计数<br>
+<br>
+；等待键盘输入<br>
+<br>
+<br>
+；设置窗口的左上角为（0，0）<br>
+；设置窗口的右下角为（79，25）<br>
+；设置插入行的属性<br>
+；以循环计数作为滚动的行数<br>
+；选择10H中断的07功能<br>
+；向下滚动窗口
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page133.html">上一页</a> <a href="page135.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

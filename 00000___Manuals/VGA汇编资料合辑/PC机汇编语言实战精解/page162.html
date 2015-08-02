@@ -1,0 +1,105 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page161.html">上一页</a> <a href="page163.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-162-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　由此我们就可以解释"TESTKEY2"所反应出的一些问题，如"1"与"!"在同一个键上，所以具有相同的扫描码；而数字小键盘是在83键标准键盘上扩展的，所以小键盘上的"1"具有不同的扫描码。我们现在所用的101键增强型键盘的布局和83键标准键盘有区别，而且增加了一些键，但是从标准键盘继承下来的键尽管其位置不同了，但扫描码没有变化。<br>
+　　实际的信息传递情况比我所上面所说的复杂一些，键盘在查到有键按下时会将所按键的扫描码送到主机的60H端口，同时发出一个中断信号，我们称这个中断为IRQ1，相应的中断号为09H。CPU收到中断信号后就会执行09H中断服务程序，这个中断服务程序会将扫描码转换为ASCII码并将它们保存到"键盘缓冲区"中。实际上16H中断就是从"键盘缓冲区"中取到所需数据的。<br>
+　　有一点需要注意的是如果我们按下了"Ctrl"或"Shift"之类控制键，那么09H中断服务程序会根据扫描码设置"键盘状态字"，而不将其转换为ASCII码。有了键盘状态字，则键盘中断服务程序就能确定究竟将扫描码"02H"转换为"1"，还是转换为"!"。<br>
+　　键盘不仅在每个键"按下"时会产生中断，在每个键"松开"时也会产生中断信号并发送扫描码，这时的扫描码最高位为被键盘设为1，以此和按下时的扫描码区别开。我们一般将"按下"时的扫描码称为"通码"，将"松开"时的扫描码称"断码"。对于一般字符键的断码键盘中断服务程序都将其忽略，而如果收到Ctrl或Shift之类控制键的断码，键盘中断服务程序会重新设定"键盘状态字"。<br>
+　　上面的介绍引出的两个新的概念："键盘缓冲区"和"键盘状态字"。键盘缓冲区是设在内存特定位置处的一小段连续的存储空间，起始地址位于0040H:001AH，长度为36字节，其中32字节用于保存按键信息。缓冲区的结构很简单，我们可以用DEBUG观察一下：<br>
+C:\ASM\>DEBUG[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>-d40:1a 3d[Enter]</td><td colspan=5><font face="楷体_GB2312" size=2>队列首指针</font></td><td colspan=7><font face="楷体_GB2312" size=2>队列尾指针</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0040:0010</td><td colspan=10>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3C 00 3C 00 0D 1C</td><td></td><td colspan=5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;.&lt...</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0040:0020</td><td colspan=10>00 3D 3E 34 6C 26 0D 1C-64 20 34 05 30 0B 3A 27</td><td></td><td colspan=5>.=&gt;41&..d 4.0.;'</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0040:0030</td><td colspan=10>31 02 61 1E 20 39 33 04-65 12 0D 1C 71 10</td><td></td><td colspan=5>1.a. 93.e...q.</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　前两个字是两个指针，扫描码与ASCII码实际保存在偏移地址001EH处。这两个指针都有名字，我们把第一个指针叫队列首指针，把第二个叫队列尾指针，两个指针的作用是使键盘缓冲区具有"循环队列"的功能。<br>
+　　当系统启动后，首尾两指针都指向缓冲区首，见图6-11（a），我们按下一个键后，比如按下"d"键，键盘中断服务程序取得扫描码20H并将其转换为ASCII码64H，然后服务程序取得队列尾指针，将扫描码和ASCII码都存入尾指针指向的内存单元并将尾指针加2后送回01CH处保存。<br>
+　　如果连续地按键，那么键盘中断服务程序就会连续地将扫描码和ASCII码存入队列尾指针指向的内存单元并使尾指针增量，直到缓冲区充满，如图6-11（b）。这时再次按键，键盘中断服务程序就会让尾指针重新指向缓冲区首，并试图将数据存入缓冲区首部。但是这时由于缓冲区中的数据还没有被应用程序取走，所以键盘中断服务程序不可能将数据存入缓冲区，在这种情况下键盘中断服务程序就会控制喇叭发出鸣叫并丢弃新的按键数据。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page161.html">上一页</a> <a href="page163.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>附录D BIOS数据区</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page336.html">上一页</a> <a href="page338.html">下一页</a> <a href="page341.html">参考文献</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">附录D BIOS数据区</td> <!章节名>
+<td></td><td>-337-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=17 align=right><font face="黑体">续表</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<table border=1 width=650 frame="box">
+<tr>
+<td width=6%>偏移</td><td width=10%>长度</td><td width=13% align=center>位定义<br>7654 3210</td><td width=56%>说明</td><td width=15%>备注</td>
+</tr>
+<tr>
+<td width=6%>1EH</td><td width=10%>32字节</td><td width=13% align=center></td><td width=56%>键盘缓冲区</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>3EH</td><td width=10%>字节</td><td width=13% align=center>*... ....<br>.*** ....<br>.... *...<br>.... .*..<br>.... ..*.<br>.... ...*</td><td width=56%>中断标志<br>保留<br>重新调整软盘驱动器3<br>重新调整软盘驱动器2<br>重新调整软盘驱动器1<br>重新调整软盘驱动器0</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>3FH</td><td width=10%>字节</td><td width=13% align=center>*... ....<br>.*.. ....<br>..** ....<br>.... *...<br>.... .*..<br>.... ..*.<br>.... ...*</td><td width=56%>读/写操作<br>保留<br>选择操作的驱动器<br>软盘驱动器3马达开<br>软盘驱动器2马达开<br>软盘驱动器1马达开<br>软盘驱动器0马达开</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>40H</td><td width=10%>字节</td><td width=13% align=center></td><td width=56%>磁盘驱动器马达按通时间计数</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>41H</td><td width=10%>字节</td><td width=13% align=center></td><td width=56%>最近一次软驱操作状态</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>42H</td><td width=10%>7字节</td><td width=13% align=center></td><td width=56%>磁盘驱动器控制状态</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>49H</td><td width=10%>字节</td><td width=13% align=center></td><td width=56%>当前显示模式</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>4AH</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>显示屏幕宽度</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>4CH</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>当前显示页的长度（字节数）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>4EH</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>当前显示页的起始地址</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>50H</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>第1显示页的光标位置（行、列）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>52H</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>第2显示页的光标位置（行、列）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>54H</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>第3显示页的光标位置（行、列）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>56H</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>第4显示页的光标位置（行、列）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>58H</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>第5显示页的光标位置（行、列）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>5AH</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>第6显示页的光标位置（行、列）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>5CH</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>第7显示页的光标位置（行、列）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>5EH</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>第8显示页的光标位置（行、列）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>60H</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>光标类型</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>62H</td><td width=10%>字节</td><td width=13% align=center></td><td width=56%>当前显示页</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>63H</td><td width=10%>字</td><td width=13% align=center></td><td width=56%>显示控制器基地址</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>65H</td><td width=10%>字节</td><td width=13% align=center></td><td width=56%>显示方式寄存器口地址（3x8H）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>66H</td><td width=10%>字节</td><td width=13% align=center></td><td width=56%>颜色设置寄存器口地址（3x9H）</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>67H</td><td width=10%>5字节</td><td width=13% align=center></td><td width=56%>PC：磁带控制器的定时计数器（字）；CRC寄存器（字）和最后输入数值字节<br>AT：双字指针，指向BIOS开关使80286由保护虚地址方式转换到实地址方式时控制返回的位置<br>PS/2：复位码指针</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>6CH</td><td width=10%>双字</td><td width=13% align=center></td><td width=56%>时钟计数器的双字单元</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>70H</td><td width=10%>字节</td><td width=13% align=center></td><td width=56%>时钟翻转字节</td><td width=15%></td>
+</tr>
+<tr>
+<td width=6%>71H</td><td width=10%>字节</td><td width=13% align=center></td><td width=56%>BREAK键标志，如果键入CTRL+BREAK序列，则该字节第7位为1</td><td width=15%></td>
+</tr>
+</table>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page336.html">上一页</a> <a href="page338.html">下一页</a> <a href="page341.html">参考文献</a></p>
+</body>
+</html>

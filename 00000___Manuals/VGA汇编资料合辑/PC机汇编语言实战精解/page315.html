@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page314.html">上一页</a> <a href="page316.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-315-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+能。"宏"的概念比较抽象，在汇编语言中所谓"宏"指得就是由一组指令构成的具有某种功能的程序块。<br>
+　　如果从定义上理解，"宏"好象就是子程序，实际并非如此，"宏"与子程序有着很大的不同之处。在具体讨论这个问题之前，我们先来研究下面给出的这个程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+BESTWISH<br>
+print<br>
+<br>
+<br>
+<br>
+<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+msg<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+.ASM<br>
+MACRO<br>
+mov<br>
+int<br>
+ENDM<br>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+mov<br>
+print<br>
+ret<br>
+db 'Best<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+<br>
+<br>
+ah,09<br>
+21h<br>
+<br>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+dx,offset msg<br>
+<br>
+<br>
+wish to you',0dh,0ah,24h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+<br>
+；定义一个"宏"<br>
+；选择DOS的09H功能<br>
+；输出DX寄存器指向的字符串<br>
+；"宏"定义结束<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；DX寄存器指向字符串MSG<br>
+；利用"宏"输出字符串<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　注意在指令"MOV"与"RET"之间多出了一个"PRINT"，这个"PRINT"是什么含义呢？本来将字符串的首地址送入DX寄存器之后应该调用21H中断的09H功能，中断调用的指令又跑到哪儿去了呢？<br>
+　　实际上"PRINT"的作用就是调用21H中断的09功能，这个"PRINT"并非是什么伪指令之类的东西，它就包含在源程序之中。请看源程序最前面的四行：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+print<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<i><u>MACRO</u></i><br>
+mov<br>
+int<br>
+<i><u>ENDM</u></i>
+</td>
+<td colspan=6>
+ah,09<br>
+21h<br>
+<br>
+</td>
+<td colspan=8>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　"PRINT"实际上是"MOV AH，09"与"INT 21H"这两条指令的"替身"，这五个字母就相当于两条指令。这种代替关系就是通过"宏"产生的。源程序中有两个大写的伪指令--"MACRO"与"ENDM"，这两个伪指令之间包含着一些代码，这组代码就是所谓的"具有一定功能的程序块"。比如我们给出的这个例子所具有的功能就是调用21H中断的09功能。象这样由伪指令"MACRO"与"ENDM"包含的程序段就是一个"宏"。<br>
+　　每个"宏"都要有一个名字，名字要写在"MACRO"伪指令前面。示例程序中定义的宏名字就是"PRINT"。如果需要在程序中使用某个宏之中的程序段，只要在程序需要的地方直接引用宏名即可。这就是为什么示例程序的MAIN过程里会有一个"PRINT"的原因了。<br>
+　　每个被调用的"宏"再编译的时候都要"展开"，即用"宏"里面包含的程序段代替源程序中使用的宏名。比如给出的示例程序编译成COM文件之后与没有使用宏的程序完全一样：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page314.html">上一页</a> <a href="page316.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

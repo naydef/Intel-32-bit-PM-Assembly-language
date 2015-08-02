@@ -1,0 +1,191 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子过程和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page79.html">上一页</a> <a href="page81.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-80-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="隶书" lang="ZH-CN" size=6><p align="CENTER">第5章  子过程和串处理</p></font>
+<p>
+　　本想开始讨论有关视频的内容，但后来又觉得还缺少一些必要的知识，因此插入了这样一章，目的是为了将有关8086/88处理机的知识补充完整，同时多学一些指令，为后面的内容作些准备工作。我们先来讨论关于子过程设计的一些问题。
+</p>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="51">5．1 子过程参数的传送</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　主过程往往要给子过程传送过去一些数据，这些数据可能要由子过程处理，也可能是一些命令码控制子过程完成对应的工作；而子过程有时也要将处理结果返回给主过程。在这一节里我们将主要讨论这些信息是通过何种途径在过程间传递的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="511">5．1．1 通过寄存器传送数据</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这是最常用的参数传递方式，当程序通过INT 21H指令调用DOS API时，传送的参数均在寄存器中，而DOS也会将一些返回值通过寄存器送回。这种技术在编制子过程时也可应用。请看下面的程序，这个程序用于查询键盘上各个键的代码：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr valign="top">
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=2>
+TESTKEY.ASM<br>
+ESCKEY<br>
+CR<br>
+LF<br>
+<br>
+data<br>
+<br>
+ascii<br>
+data<br>
+<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+getkey:<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+equ<br>
+equ<br>
+equ<br>
+<br>
+segment<br>
+assume<br>
+db<br>
+ends<br>
+<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+int
+</td>
+<td colspan=4>
+<br>
+1bh<br>
+0dh<br>
+0ah<br>
+<br>
+<br>
+ds:data<br>
+'0123456789ABCDEF'<br>
+<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+bx,offset ascii<br>
+<br>
+ah,0<br>
+16h
+</td>
+<td colspan=8>
+<br>
+；ESC键对应的ASCII码<br>
+；回车键对应的ASCII码<br>
+；换行键对应的ASCII码<br>
+<br>
+<br>
+<br>
+；十六进制数所需的字符<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；设置DS寄存器<br>
+<br>
+；BX寄存器指向ASCII表<br>
+<br>
+；等待键盘输入<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page79.html">上一页</a> <a href="page81.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>
+

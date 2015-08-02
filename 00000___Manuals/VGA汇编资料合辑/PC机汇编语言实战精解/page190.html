@@ -1,0 +1,227 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page189.html">上一页</a> <a href="page191.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-190-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+FCB8.ASM<br>
+<br>
+；数据段定义与程序FCB7.ASM相同，此处省略<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CODE<br>
+<br>
+MAIN<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+READ_REC:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+L_TO_U:<br>
+<br>
+<br>
+NEXT_CHAR:<br>
+<br>
+</td>
+<td colspan=2>
+SEGMENT<br>
+ASSUME<br>
+PROC<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JZ<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JZ<br>
+CMP<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+<br>
+MOV
+</td>
+<td colspan=5>
+<br>
+CS:CODE<br>
+FAR<br>
+AX,DATA<br>
+DS,AX<br>
+<br>
+AH,0FH<br>
+DX,OFFSET FCB1<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+AH,0FH<br>
+DX,OFFSET FCB2<br>
+21H<br>
+AL,AL<br>
+READ_REC<br>
+<br>
+AH,16H<br>
+DX,OFFSET FCB2<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+AH,14H<br>
+DX,OFFSET FCB1<br>
+21H<br>
+AL,AL<br>
+L_TO_U<br>
+AL,3<br>
+ERR_EXIT<br>
+<br>
+DI,80H<br>
+CX,128<br>
+<br>
+AL,ES:[DI]
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+；打开FCB1指示的文件<br>
+<br>
+<br>
+；文件打开正确吗？<br>
+；打开不正确，转ERR_EXIT结束<br>
+<br>
+；打开FCB2指示的文件<br>
+<br>
+<br>
+；文件打开正确吗？<br>
+；文件正确打开，转READ_REC<br>
+<br>
+；新建由FCB2指示的文件<br>
+<br>
+<br>
+；文件正确地建立了吗？<br>
+；文件没有正确建立，转ERR_EXIT<br>
+<br>
+；从FCB1指示的文件中读入一个记录<br>
+<br>
+<br>
+；数据正确地读入了吗？<br>
+；数据已经读入，转L_TO_U<br>
+；读入部分数据吗？<br>
+；是其它错误，转ERR_EXIT<br>
+<br>
+；DI寄存器指向DTA<br>
+；转换128个字符<br>
+<br>
+；取得一个字符
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page189.html">上一页</a> <a href="page191.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

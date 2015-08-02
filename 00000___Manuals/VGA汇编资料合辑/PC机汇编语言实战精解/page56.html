@@ -1,0 +1,212 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page55.html">上一页</a> <a href="page57.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-56-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=2>
+<br><br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+int<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=4>
+21h<br>
+20h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；显示字符串<br>
+；结束程序，返回操作系统<br>
+；主过程结束<br>
+；代码段结束<br>
+；进程结束
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序是前面给出的<a href="page35.html#prog3-b" target="blank">PROG3-B</a>的源程序形式，程序中的"START"是一个标号，它表示了指令"MOV DX，OFFSET MESS"的地址，值得注意的是它后面多了一个"："，这个冒号是必须的。将这个程序编译成COM文件后我们可以用DEBUG将代码反汇编出来，和<a href="page35.html#prog3-b" target="blank">PROG3-B</a>作个对比：
+C:\ASM\>DEBUG PROG9.COM [Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=2>
+-u100[Enter]<br>
+0A3E:0100<br>
+0A3E:0102<br>
+0A3E:0103<br>
+0A3E:0104<br>
+0A3E:0105<br>
+0A3E:0106<br>
+0A3E:0107<br>
+0A3E:0108
+</td>
+<td colspan=2>
+<br>
+EB10<br>
+90<br>
+48<br>
+65<br>
+6C<br>
+6C<br>
+6F<br>
+2C57
+<td>
+<br>
+JMP<br>
+NOP<br>
+DEC<br>
+DB<br>
+DB<br>
+DB<br>
+DB<br>
+SUB
+</td>
+<td colspan=2>
+<br>
+0112<br>
+<br>
+AX<br>
+65<br>
+6C<br>
+6C<br>
+6F<br>
+AL,57
+<td colspan=2 align="center">|<br>|<br>|<br>|<br>|<br>|<br>|<br>|<br>|</td>
+<td colspan=2>
+0A3E:010A<br>
+0A3E:010B<br>
+0A3E:010D<br>
+0A3E:010E<br>
+0A3E:0110<br>
+0A3E:0112<br>
+0A3E:0115<br>
+0A3E:0117<br>
+0A3E:0119
+<td colspan=2>
+6F<br>
+726C<br>
+64<br>
+210D<br>
+0A24<br>
+BA0301<br>
+B409<br>
+CD21<br>
+CD20<br>
+</td>
+<td>
+DB<br>
+JB<br>
+DB<br>
+AND<br>
+OR<br>
+MOV<br>
+MOV<br>
+INT<br>
+INT
+</td>
+<td colspan=2>
+6F<br>
+0179<br>
+64<br>
+[DI],CX<br>
+AH,[SI]<br>
+DX,0103<br>
+AH,09<br>
+21<br>
+20
+</td>
+<td></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　区别是很明显的：字符串本是数据，但DEBUG将它们当成了指令机器码，这是DEBUG不够聪明的地方；最奇怪的是"JMP 0112"下面多了个"NOP"，这又是什么呢？<br>
+　　"NOP"是一条真正的指令，它不执行任何实际的动作，是一条"空操作"（No Operation）指令。这就让人有些犯迷糊了，源程序中并没有这个指令，为什么编译后却多了这样一个东西？想搞清这个问题，我们就必须先详细讨论和转移指令有关的"短程、近程与远程"的问题。<br>
+　　JMP指令究竟被编译成什么样子？观察PROG9的反汇编形式，可以看到JMP 0112的机器码是"EB 10"两个十六进制数。如果"EB"是"JMP"指令对应的机器码，那么"10"又是什么呢？目的地址"0112"又在何处呢？<br>
+　　如果把目的地址"0112"同指令"NOP"的地址做一次减法，问题就清楚了：<br>
+　　0112H - 0102H＝10H<br>
+　　"10"是目的地址相对"JMP"后面指令所在位置的偏移量，具体的目的地址并不出现在机器码中，而要由CPU自己算出来。这种情况仅限于"短程"和"近程"转移，远程转移时目的地址将以"段：偏移"的形式出现在机器码中。<br>
+　　对于"短"转移来讲，由于偏移量在－128--＋127之间，使用一个字节即可记录偏移量，所以短转移指令仅占两个字节。而近转移的偏移量要用两个字节记录，整个指令要占三个字节。<br>
+　　当使用MASM或TASM编译源程序时，编译程序要对源程序作两遍扫描。由于在源程序中未明确给出"JMP"指令是短程还是近程，所以编译程序在第一遍扫描时就默认"JMP"指令是近程的，并在目标程序中为其保留了三个字节空间。然而在第二遍扫描时编译程序算出其偏移量
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page55.html">上一页</a> <a href="page57.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

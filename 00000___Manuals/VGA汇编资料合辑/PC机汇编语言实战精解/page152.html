@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page151.html">上一页</a> <a href="page153.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-152-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　13C6:0105 div bl<br>
+　　13C6:0107 <br>
+　　上面这个程序是一个根本不能正确运行的程序，原因在于除得的商太大，AL寄存器根本装不下计算结果。这样的现象称为除法溢出，执行这个程序会产生意想不道的结果，可能是死机，也可能是其它什么结果。<br>
+　　花这么多笔墨讲解一条指令似乎有些不值当，但我的最终目的并非只为了讲解这条指令，而是想告诉大家学习汇编指令的一种方法。从某种角度来说试图通过读书甚至背书来掌握这些指令并没有多大效果，要想尽快学会汇编语言最佳的途径就是多多实验。我们有DEBUG这样的好老师，它可以让每条指令都活动起来，并且能告诉我们每条指令执行的结果。通过DEBUG我们可以动态地学习汇编指令，这比死记硬背的效果要好得多。这种研究问题的方法我们在前面已有所表现，希望大家能掌握这种方法并将其应用到自己的学习中去。<br>
+　　上一章的最后曾经留下一个程序未做说明，学过这一节后我想那个程序已经没有详细分析的必要了。不知道大家是否对"直接写屏"这个名词有所耳闻，其实所谓"直接写屏"指得就是程序将要显示的数据直接送入显示缓冲区中。<br>
+　　到此为止我们已经学完了有关"Video RAM"的知识，其最重要内容无非是如何计算偏移量而已。至于如何让程序的输出效果更有吸引力，那就要看你的想象力有多丰富了。我可以帮你掌握已知，但开创未知恐怕就要看你自己的了。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="64">6．4 端口编程</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　可移植性历来是汇编语言所面临的最为严重的问题之一，特别是编程控制显示卡上的端口，这个问题更为突出。原因在于我们现在大量使用的VGA/Super VGA卡没能做到在端口一级兼容早期的CGA卡。这不能不说是一种遗憾，要知道这些卡几乎都做到了在显示缓冲存储器一级兼容CGA卡，只差一小步。因此，这一节将只准备讨论那些适用于各种显示卡的端口寄存器，给出的程序可以在大多数显示卡上运行。首先我们要解决的第一个问题是DX寄存器在端口操作中的应用。<br>
+　　我在前面曾经提到过DX寄存器在端口输入与输出中有特殊的用途，而且在讨论发声程序时也说到过指令"IN AL，??H"的形式只能在端口号小于0FFH时应用，但是显示卡上的端口号都大于0FFH，如何才能访问到这些端口呢？<br>
+　　在给出具体的方法之前，我们还需复习一下有关寻址方式的知识。当我们从内存中取得数据时，我们可以采用直接寻址方式和寄存器间接寻址方式，以MOV指令为例，如果我们从DS:1234处读取一字节数据到累加器，我们可以使用两种方法编制程序：MOV AL，DS:[1234H]或MOV BX，1234H；MOV AL，[BX]。第一种方法就是直接寻址方式，第二种方法就是寄存器间接寻址方式。事实上，端口的访问和内存访问有很多相似的地方，象"IN AL，61H"这样的用法其实就是对端口的直接寻址，那么端口的间接寻址又是什么情形呢？形式与访问内存差不多：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page151.html">上一页</a> <a href="page153.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

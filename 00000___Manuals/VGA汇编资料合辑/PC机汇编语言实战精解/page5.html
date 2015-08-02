@@ -1,0 +1,235 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第1章 汇编语言基础知识</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page4.html">上一页</a> <a href="page6.html">下一页</a> <a href="page11.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第1章 汇编语言基础知识</td> <!章节名>
+<td></td><td>-5-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　③ 对给定的数作什么操作可得到二进制数01001011。<br>
+　　④ 若把给定的数同00100010作XOR操作，将得到什么结果。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体">解：</font>
+① 将OR操作的结果同给定的数相比，不难发现只要把给定数字的bit0，bit3位置成1，其它位状态保持不变，即可得出结果。因此可很容易求出八位二进制数00001001，并可验证：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">10110100</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right"><u>OR)&nbsp;00001001</u></td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">10111101</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　可见，OR操作可以方便的将某个二进制数的特定位置成"1"而保存其它位不变。只要取另一个二进制数，让这个数中的相应数位--即和给定的数中要改变的数位相对应的位--为"1"，而其它位为"0"，即可达到目的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　② 将AND操作的结果同给定的数相比，可以看出只要把给定数字的bit2，bit7位置成0，其它位保持不变，即得出结果。因此可很容易求出八位二进制数01111011，并且可以验证：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">10110100</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right"><u>AND)&nbsp;01111011</u></td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">00110000</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　可见，和OR操作相对应，AND操作可以把某个二进制数的特定位置"0"而保持其它位不变。只要取另一个二进制数，让这个数的相应位为"0"，而其它位为"1"，即可达到目的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　③ 比较结果和给定数，可看出将已知数所有位取相反状态，可得到结果。因此可用NOT操作，即
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right"><u>NOT)&nbsp;10110100</u></td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">01001011</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　④ 将两个数作XOR操作
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">10110100</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right"><u>XOR)&nbsp;00100010</u></td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">10010110</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　把得到的结果10010110同已知数相比较，可以看出只要将已知数的bit1，bit5两位取反，就能得出结果。将（3）和（4）进行比较，可以发现这样一个规律：NOT操作可以将给定数的所有位取反，而XOR操作可以将给定数的特定位取反；进一步分析（4），不难看出若把所得到的结果10010110和00100010再作一次XOR操作：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">10010110</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right"><u>XOR)&nbsp;00100010</u></td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4></td>
+<td colspan=4 align="right">10110100</td>
+<td colspan=10></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+又能得到了已知的数。即取反后的数位又重新恢复原状态。因此我们说，XOR操作可以反复改变给定数中的特定位状态。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page4.html">上一页</a> <a href="page6.html">下一页</a> <a href="page11.html">下一章</a></p>
+</body>
+</html>
+

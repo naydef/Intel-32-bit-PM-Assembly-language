@@ -1,0 +1,154 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page235.html">上一页</a> <a href="page237.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-236-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+errmsg<br>
+buffer<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+loop<br>
+<br>
+mov<br>
+int<br>
+pop<br>
+loop<br>
+<br>
+mov<br>
+int<br>
+db<br>
+db<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+loop3<br>
+<br>
+ah,0<br>
+16h<br>
+cx<br>
+loop2<br>
+<br>
+ah,4ch<br>
+21h<br>
+'ERROR!!!',0dh,0ah,24h<br>
+?<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+；处理24个32字节数据组<br>
+<br>
+；等待键盘输入<br>
+<br>
+；继续处理读入的数据<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+；读盘出错信息<br>
+；缓冲区首<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　此程序的使用稍有复杂，有些象DIR命令，它要求用户给出一个参数A:或B:来指明要对哪个驱动器进行操作。请注意，被操作的驱动器中应该放入一片1.44MB的磁盘。<br>
+　　程序所做的工作倒很简单，它会把软盘上1面0磁道第二扇区至第四扇区的内容读人内存，将读取到的数据按每32个字节为一组进行划分，并将每组前11个字节对应的ASCII字符显示出来。建议大家在驱动器中放入一片确实保存有文件的磁盘，这样就会看到有趣的运行结果。是不是觉得这个程序真有些象DIR命令呢？<br>
+　　看来对于一片1.44MB的磁盘来讲，其1面0磁道第二扇区开始保存了这片磁盘的目录表。不同容量的磁盘其目录表的起始位置以及所占的扇区数也不相同，但是目录表都具有相同的组织形式。请注意上面这个程序，它将磁盘的目录表按每32个字节为一组进行划分，为什么要这样做呢？我们知道每个文件都有一组表明自身特征的数据，比如文件长度、属性、建立的日期等等。这些数据和文件名、扩展名一起组成了完整的目录项，DOS为每个目录项分配了32个字节，关于这些字节的具体分配在此不作说明，大家可以参考其它书籍。<br>
+　　保留扇区内除了引导程序和目录表之外还有几个扇区，在这些扇区中DOS存储了一张"文件分配表"，一般称其为FAT（File Allocation Table）。这张表也是十分的重要，其结构也十分特殊，在此笔者不做更深入的分析。<br>
+　　在本章的最后，我们来共同研究一下关于磁盘格式化的知识。BIOS 13H中断为我们提供了一个格式化磁道的功能，这项功能的一个显著特点就是需要我们提供一组数据来描述磁盘扇区。这组数据的基本结构如下：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><img src="figures/F8_2.gif"></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　其中"扇区长度"这个字节是用00-04分别表示128、256、512、1024字节。如果我们现在准备格式化一片1.44MB磁盘的0面第一磁道，那么程序中应给出这样一组数据：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page235.html">上一页</a> <a href="page237.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

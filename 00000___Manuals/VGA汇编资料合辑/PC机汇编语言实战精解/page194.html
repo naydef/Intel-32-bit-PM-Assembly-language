@@ -1,0 +1,180 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page193.html">上一页</a> <a href="page195.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-194-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ERR_EXIT:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+MAIN<br>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+MOV<br>
+INC<br>
+JMP<br>
+<br>
+MOV<br>
+MOV<br>
+MOV<br>
+MOV<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+<br>
+MOV<br>
+INT<br>
+ENDP<br>
+ENDS<br>
+END
+</td>
+<td colspan=5>
+AH,22H<br>
+DX,OFFSET FCB2<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+BX,DX<br>
+WORD PTR [BX+21H]<br>
+READ_REC<br>
+<br>
+BX,OFFSET FCB1<br>
+AX,WORD PTR [BX+10H]<br>
+DX,WORD PTR [BX+12H]<br>
+BX,OFFSET FCB2<br>
+WORD PTR [BX+10H],AX<br>
+WORD PTR [BX+12H],DX<br>
+<br>
+AH,10H<br>
+DX,OFFSET FCB2<br>
+21H<br>
+<br>
+AH,4CH<br>
+21H<br>
+<br>
+<br>
+MAIN
+</td>
+<td colspan=9>
+；将读入的数据写入"目标文件"<br>
+<br>
+<br>
+；数据正确地写入"目标文件"了吗？<br>
+；数据未能正确写入，转ERR_EXIT<br>
+；BX寄存器指向FCB2<br>
+；FCB2的"随机记录号"减1<br>
+；继续处理下一个记录<br>
+<br>
+；BX寄存器指向FCB1<br>
+；取得"源文件"的长度<br>
+<br>
+；BX寄存器指向FCB2<br>
+；令"目标文件"长度等于"源文件"长度<br>
+<br>
+<br>
+；关闭"目标文件"<br>
+<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　大家可以跟踪执行这两个功能，看看它们对FCB中的数据有哪些影响。仔细分析这个程序，就会发现使用随机存取功能可以很容易的读写文件中任意处的数据，看来如果我们将文件的结构规定的越简单，那么处理文件就会相对容易一些。<br>
+　　通过上面这几个程序例，我们会发现DOS提供的"顺序"和"随机"这两种存取方式存在一个共同的缺点就是无法一次读入多个记录，这很不便于我们编制程序。当然我们前面曾经讨论过一种解决方法，就是将一个记录的长度设为整个文件的长度，这样可以一次取到整个文件的数据。这个方法虽可行但不够灵活，有时我们需不定量的读取一批数据且又要保持记录的长度不变，那么使用这个方法就有所不便。所以我下面就想介绍一下DOS提供的又一组随机存取功能--随机块存取。<br>
+　　所谓块存取的意思就是说使用这一组功能可以指定一次读写的记录个数，比如一次从文件中读出16个记录，至于其它方面和随机存取功能相同，唯一要注意是就是要开辟出足够的DTA空间容纳这些数据。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page193.html">上一页</a> <a href="page195.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

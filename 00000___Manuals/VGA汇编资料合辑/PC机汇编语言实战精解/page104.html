@@ -1,0 +1,263 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子过程和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page103.html">上一页</a> <a href="page105.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-104-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+not_fd:<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+rol<br>
+push<br>
+and<br>
+xlat<br>
+mov<br>
+int<br>
+pop<br>
+loop<br>
+mov<br>
+int<br>
+mov<br>
+mov<br>
+int<br>
+jmp<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+ax,1<br>
+ax<br>
+ax,000fh<br>
+<br>
+ah,0eh<br>
+10h<br>
+ax<br>
+outloop<br>
+ah,4ch<br>
+21h<br>
+dx,offset errmsg<br>
+ah,09h<br>
+21h<br>
+exit<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+<br>
+；暂存AX寄存器<br>
+；保留低4位<br>
+；取得对应的ASCII码<br>
+；利用10H中断的0EH功能<br>
+；输出AL中的字符<br>
+；取回AX寄存器<br>
+；处理下一个数位<br>
+；结束程序<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序中并没有使用LODS指令，而是把SI寄存器作为一个可以作间接寻址的一般寄存器应用。如何使用串处理指令解决这个问题呢？请看下面的程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+data<br>
+<br>
+mess<br>
+ascii<br>
+errmsg<br>
+data<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+out_cx:<br>
+<br>
+<br>
+<br>
+outloop:<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+segment<br>
+assume<br>
+db<br>
+db<br>
+db<br>
+ends<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+repnz<br>
+jz<br>
+jmp<br>
+sub<br>
+mov<br>
+mov<br>
+mov<br>
+rol<br>
+rol<br>
+rol
+</td>
+<td colspan=6>
+<br>
+ds:data<br>
+'Price: $1.00',0dh,0ah,0<br>
+'0123456789ABCDEF'<br>
+07h,'Character not found!',<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+es,ax<br>
+di,offset mess<br>
+cx,14<br>
+al,'$'<br>
+scasb<br>
+out_cx<br>
+not_found<br>
+di,offset mess+1<br>
+ax,di<br>
+bx,offset ascii<br>
+cx,4<br>
+ax,1<br>
+ax,1<br>
+ax,1
+</td>
+<td colspan=8>
+<br>
+<br>
+<br>
+<br>
+0dh,0ah,'$'	；字符未找到<br>
+<br>
+<br>
+<br>
+<br>
+；初始化DS、ES寄存器指向数据段<br>
+<br>
+<br>
+；DI寄存器指向字符串MESS<br>
+；在14个字符中查找'$'<br>
+；要查找的字符是'$'<br>
+；扫描字符串<br>
+；找到'$'后转至OUT_CX<br>
+；未找到'$'则转至NOT_FOUND<br>
+；计算'$'符的偏移位置<br>
+；偏移位置送入AX寄存器<br>
+；BX寄存器指向ASCII表<br>
+；处理4个数位<br>
+；AX寄存器向左循环移4位<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page103.html">上一页</a> <a href="page105.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>

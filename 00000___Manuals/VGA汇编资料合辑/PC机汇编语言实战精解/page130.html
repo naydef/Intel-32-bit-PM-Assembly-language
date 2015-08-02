@@ -1,0 +1,206 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page129.html">上一页</a> <a href="page131.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-130-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>逻辑"AND"操作的结果</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0001</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=010D</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:010D</td><td colspan=2>D1C8</td><td colspan=6>ROR AX,1&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>准备进行移位操作</font></td><td colspan=4><font face="楷体_GB2312" size=2>符号标志再次清0</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　最后是利用移位指令改变符号位时标志寄存器的变化，可以看到移位指令"ROR"没有改变SF标志。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>移位后的结果</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=8000</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=010F</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:010F</td><td colspan=2>B208</td><td colspan=6>MOV DL,08</td><td colspan=4><font face="楷体_GB2312" size=2>符号标志无变化</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　从上面的跟踪结果我们可以看到数学运算和逻辑操作结果的符号位如果有变化，则SF标志随之改变。但是用数据传递指令和移位指令改变符号位后SF标志无变化（注意上面程序中指令MOV和ROR执行后的SF标志）。为保险起见，我们专门验证一下各类移位指令对SF的影响：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>
+C:\ASM\>DEBUG [Enter]<br>
+-a100[Enter]<br>
+13CD:0100 mov ax,7fff<br>
+13CD:0103 shl ax,1<br>
+13CD:0105 shr ax,1<br>
+13CD:0107 mov ax,4000<br>
+13CD:010A rol ax,1<br>
+13CD:010C[Enter]
+</td>
+<td colspan=12>
+<br>
+<br>
+；AX寄存器送入7FFFH<br>
+；逻辑左移<br>
+；逻辑右移<br>
+；AX寄存器送入4000H<br>
+；循环左移<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>AX寄存器送入7FFFH</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=7FFF</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=0103</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:0103</td><td colspan=2>D1E0</td><td colspan=6>SHL AX,1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>准备进行逻辑左移</font></td><td colspan=4><font face="楷体_GB2312" size=2>注意SF标志为0</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　以下是逻辑左移指令的跟踪结果，可以看到符号标志位发生改变。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>逻辑左移的结果</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=FFFE</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=0105</td>
+<td colspan=5>NV UP EI NG NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:0105</td><td colspan=2>D1E8</td><td colspan=6>SHR AX,1</td><td colspan=4><font face="楷体_GB2312" size=2>SF标志置1</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　逻辑右移指令同样影响SF标志，这可以通过下面的跟踪结果看出。由此我们可以认为逻辑
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page129.html">上一页</a> <a href="page131.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

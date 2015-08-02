@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page154.html">上一页</a> <a href="page156.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第6章 文字输出与键盘输入</td> <!章节名>
+<td></td><td>-155-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3>
+0BE2:0115<br>
+0BE2:0118<br>
+0BE2:011A<br>
+0BE2:011C<br>
+0BE2:011F<br>
+0BE2:0122<br>
+0BE2:0124<br>
+0BE2:0125<br>
+0BE2:0126<br>
+0BE2:0128<br>
+0BE2:0129<br>
+0BE2:012A<br>
+0BE2:012C<br>
+0BE2:012D<br>
+0BE2:012E<br>
+0BE2:0130<br>
+0BE2:0131<br>
+0BE2:0133<br>
+0BE2:0135<br>
+0BE2:0137<br>
+0BE2:0139<br>
+0BE2:013B<br>
+0BE2:013D
+</td>
+<td colspan=2>
+MOV<br>
+MOV<br>
+INT<br>
+MOV<br>
+MOV<br>
+MOV<br>
+OUT<br>
+INC<br>
+MOV<br>
+OUT<br>
+DEC<br>
+MOV<br>
+OUT<br>
+INC<br>
+MOV<br>
+OUT<br>
+MOV<br>
+INT<br>
+DEC<br>
+JNZ<br>
+MOV<br>
+INT<br>
+[Enter]
+</td>
+<td colspan=5>
+DX,0102<br>
+AH,09<br>
+21<br>
+CX,0F0F<br>
+DX,03D4<br>
+AL,0A<br>
+DX,AL<br>
+DX<br>
+AL,CH<br>
+DX,AL<br>
+DX<br>
+AL,0B<br>
+DX,AL<br>
+DX<br>
+AL,CL<br>
+DX,AL<br>
+AH,00<br>
+16<br>
+CH<br>
+011F<br>
+AH,4C<br>
+21<br>
+<br>
+</td>
+<td colspan=8>
+；显示字符串"Press any key..."<br>
+<br>
+<br>
+；起始线、终止线装入CH、CL寄存器<br>
+；DX指向索引寄存器<br>
+；选择CRTC10寄存器<br>
+；输出索引号<br>
+；DX指向数据寄存器<br>
+；取得起始线<br>
+；输出起始地址至CRTC10<br>
+；DX指向索引寄存器<br>
+；选择CRTC11寄存器<br>
+；输出索引号<br>
+；DX指向数据寄存器<br>
+；取得终止线<br>
+；输出终止地址至CRTC11<br>
+；等待键盘输入<br>
+<br>
+；光标起始地址减1<br>
+；若起始地址未减至0则转011F继续<br>
+；结束程序<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　因为这些程序没有良好的可移植性，因此利用DEBUG做些试验就可以了。<br>
+　　② CRTC12－CRTC13寄存器是显示起始地址寄存器，这两个寄存器其实是用于控制显示内存分页的。我们在前面讨论"直接写屏"时并未研究分页的情况，只是简单地说了计算偏移量的标准形式应该是"显示页号×每页的字节数＋页内偏移量"。因此，第二个显示页在整个16KB显存中的偏移位置应该是0B800H:1000H。对于我们设计程序而言，将数据写入相应的内存地址处就算完成了写屏的工作，这些数据能否以字符形式出现在屏幕上，就要由显示卡上的控制电路负责转换。那么卡上的电路究竟从显存的哪个地址起始处理数据呢？这个地址就是由CRTC12和CRTC13这两个寄存器的值所决定。通过改变这两个寄存器的内容，我们可以控制卡上的电路从显存的任意位置处开始处理数据。这两个寄存器的结构如图6-9：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><img src="figures/F6_9.gif"><br><font face="楷体_GB2312">图6-9 CRTC12-CRTC13寄存器的结构</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　有一点必须注意，我们往往习惯于以字节为单位规定显示页的大小，但是显示卡上的控
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page154.html">上一页</a> <a href="page156.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

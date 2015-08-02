@@ -1,0 +1,198 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page236.html">上一页</a> <a href="page238.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-237-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+DATA<br>
+SEC_DATA<br>
+<br>
+<br>
+<br>
+<br>
+DATA
+</td>
+<td colspan=2>
+SEGMENT<br>
+DB<br>
+DB<br>
+DB<br>
+．．．．<br>
+DB<br>
+ENDS
+</td>
+<td colspan=5>
+<br>
+1,0,1,2<br>
+1,0,2,2<br>
+1,0,3,2<br>
+．．．．<br>
+1,0,15,2<br>
+<br>
+</td>
+<td colspan=9>
+<br>
+；第1扇区信息<br>
+；第2扇区信息<br>
+；第3扇区信息<br>
+；顺次排列各扇区信息，注意扇区号的递增<br>
+；最后一个扇区<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　相应的代码段如下：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CODE<br>
+MAIN<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+MAIN<br>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+SEGMENT<br>
+PROC<br>
+MOV<br>
+MOV<br>
+MOV<br>
+MOV<br>
+MOV<br>
+MOV<br>
+MOV<br>
+MOV<br>
+INT<br>
+JC<br>
+．．．．<br>
+ENDP<br>
+ENDS<br>
+END
+</td>
+<td colspan=5>
+<br>
+FAR<br>
+AX，DATA<br>
+ES，AX<br>
+BX，OFFSET SEC_DATA<br>
+AH，05H<br>
+AL，15<br>
+CH，1<br>
+DH，0<br>
+DL，0<br>
+13H<br>
+ERROR<br>
+．．<br>
+<br>
+<br>
+MAIN
+</td>
+<td colspan=9>
+<br>
+<br>
+；设置ES：BX寄存器指向扇区信息表<br>
+<br>
+<br>
+；选择13H中断的"格式化磁道"功能<br>
+；格式化15个扇区<br>
+；格式化第1条磁道<br>
+；选择0磁头<br>
+；格式化A驱<br>
+；执行<br>
+；出错转ERROR<br>
+；请大家自行完成以下部分<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这样一个程序执行起来意思不大，我们现在把那个数据表做些修改，将最后一个扇区的长度改为1024B，即把最后一个字节改为03H，然后再运行这个程序，这样就可以在这片磁盘上做出一条特殊的磁道。大家可以试着用DISKCOPY拷贝这片磁盘，看看能不能顺利完成。很多加密软件就是通过对磁盘进行"非常规"格式化来获得防拷贝能力的，笔者在此只是给大家开一个头儿，激发一下学习热情而已，更深入的知识还要靠各位自己去钻研。<br>
+　　至于磁盘校验功能大家不必深入掌握，因为最好的校验方法末过于将所有的扇区都读一遍，能正确读出当然就能说明磁盘无损坏。<br><br>
+<font face="黑体">
+本章结束语<br><br>
+</font>
+　　在这一章中，我们不仅讨论了文件的存取，还讨论了有关磁盘的细节问题。在即将开始的新的一章里，我们将对PC系统的图形功能做一番深入探讨。与本章的内容相比，那是一个多彩的世界。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page236.html">上一页</a> <a href="page238.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

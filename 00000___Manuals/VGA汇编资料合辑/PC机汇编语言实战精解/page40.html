@@ -1,0 +1,201 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page39.html">上一页</a> <a href="page41.html">下一页</a> <a href="page45.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-40-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们继续使用"T"命令跟踪RET指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-t</td><td colspan=16><font face="楷体_GB2312" size="2">注意堆栈指针SP寄存器恢复成FFFEH</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0161</td><td colspan=2>BX=0001</td><td colspan=2>CX=0000</td><td colspan=2>DX=6131</td><td colspan=2>SP=FFFE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0A3E</td><td colspan=2>ES=0A3E</td><td colspan=2>SS=0A3E</td><td colspan=2>CS=0A3E</td><td colspan=2>IP=0107</td>
+<td colspan=5>NV UP EI PL ZR NA PE CY</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:0107</td><td colspan=2>3C1B</td><td colspan=6 align="center">CMP AL,1B</td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td><td colspan=12 align="center"><font face="楷体_GB2312" size="2">可以看到CPU确实返回到0107处执行CMP指令</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　前面我们编写过一些程序用RET指令返回DOS，RET为什么会有这样的功能呢？<br>
+　　如果在启动DEBUG之后注意观察SP寄存器的初值，就会发现DOS将程序调入内存执行时已事先在堆栈中放入了数据，这个数据就是：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="3">-dfffe</td><td colspan="10" align="center"><font face="楷体_GB2312" size=2>DOS预先存于堆栈中的返回地址</td><td colspan="5"></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="2">0A3E:FFF0</td><td></td><td colspan="10">　　　　　　　　　　　　　　　　　　　　　00 00</td><td></td><td colspan="4">　　　　　　..</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　当CPU执行RET指令时，这个"0"将被弹到IP寄存器中，也就是说CPU将从CS：0处继续执行指令。那么在CS：0处有没有指令呢？我们可以把CS：0处的指令"反汇编"出来。在"－"后打入"U0"并回车：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-u0[Enter]</td><td colspan=16></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:0000</td><td colspan=3>CD20</td><td colspan=2>INT</td><td colspan=4>20</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:0002</td><td colspan=3>FF9F009A</td><td colspan=2>CALL</td><td colspan=4>FAR [BX+9A00]</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:0006</td><td colspan=3>F0</td><td colspan=2>LOCK</td><td colspan=4></td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:0007</td><td colspan=3>FE1D</td><td colspan=2>CALL</td><td colspan=4>FAR [DI]</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:0009</td><td colspan=3>F0</td><td colspan=2>LOCK</td><td colspan=4></td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:000A</td><td colspan=3>4F</td><td colspan=2>DEC</td><td colspan=4>DI</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0A3E:000B</td><td colspan=3>038D048A</td><td colspan=2>ADD</td><td colspan=4>CX,[DI+8A04]</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td><td colspan=3></td><td colspan=2>.</td><td colspan=4></td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td><td colspan=3></td><td colspan=2>.</td><td colspan=4></td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2></td><td colspan=3></td><td colspan=2>.</td><td colspan=4></td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/attention.gif"></td>
+<td colspan=15><font face="楷体_GB2312">
+　　当我们用A命令输入指令时，这些指令都被DEBUG编译成机器码。我们要想通过机器码重新获得指令，就必须"Unassembled"（反汇编），这就是命令码"U"的来历。<br>
+　　此命令可以将内存中任意位置开始的机器码反汇编成指令，若打入"U100[Enter]"，那么DEBUG将把CS：100处开始的指令显示在屏幕上。<br>
+　　"反"出来的指令和我们当初输入的指令应该是相同的。那些紧挨着逻辑地址后面的16进制数就是指令编译后的机器码。我们可以大概了解一些常用指令对应的机器码是什么，比如"INT"和"CD"之间的关系。<br>
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　反汇编的结果真是不可思意，CS：0处竟然有一条"INT 20"指令。为什么会有这样的一条指令呢？<br>
+　　前面已经提到过，在我们的程序之前，DOS保留了256字节的内存空间安排了一些重要的数据，这个"CD 20"就是DOS打的小埋伏。这是因为在DOS正式成为PC机的标准操作系统之前，已有人编写了一个称为"CP/M－86"的操作系统，遗憾的是这个可怜的软件没能竞争DOS。不过
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page39.html">上一页</a> <a href="page41.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>
+

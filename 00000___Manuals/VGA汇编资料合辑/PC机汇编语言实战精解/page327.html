@@ -1,0 +1,146 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page326.html">上一页</a> <a href="page328.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-327-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+module1.<br>
+data<br>
+<br>
+num1<br>
+num2<br>
+data<br>
+......
+</td>
+<td colspan=2>
+asm<br>
+segment<br>
+assume<br>
+dw<br>
+dw<br>
+ends<br>
+<br>
+</td>
+<td colspan=5>
+<br>
+para COMMON 'data'<br>
+ds:data<br>
+?<br>
+?<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+module2.<br>
+data<br>
+<br>
+num1<br>
+num2<br>
+data<br>
+......
+</td>
+<td colspan=2>
+asm<br>
+segment<br>
+assume<br>
+dw<br>
+dw<br>
+ends<br>
+<br>
+</td>
+<td colspan=5>
+<br>
+para COMMON 'data'<br>
+ds:data<br>
+2<br>
+5<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　由于两个模块中的DATA段都是"COMMON"类型的，所以这两个模块在连接的时候模块1中的DATA段会被模块2中的DATA段"覆盖"。因此虽然模块1的数据段中有两个字的数据，模块2的数据段内也有两个字，但是最终生成的可执行文件中只有一个数据段且其中只有两个字，而不是有四个字。<br>
+　　正是由于"覆盖"的关系，所以模块1中的num1与模块2中的num1实际是在内存同一地址处，所以在模块1中引用num1就等于引用了模块2中的num1。这样就形成了数据共享的关系。<br>
+　　以上介绍的是模块化程序设计技术中最基本的内容，实际上模块化程序设计技术中还有两个重点内容：第一是汇编子程序库<a href="#note1"><sup>①</sup></a>的建立与维护；第二是汇编语言与高级语言的联合编程。限于篇幅，有关这两方面的内容本书不再介绍。<br>
+<font face="黑体">
+　　本章结束语<br>
+</font>
+　　本章对于程序设计技术所进行的讨论是很简单的，并不十分全面。有些重要的内容，如TSR程序的设计技巧我们没有进行更多的研究，实际上单单是TSR程序的设计技巧就足以写一本书来讲述。笔者在这最后一章内只是很初步地给大家开了个头儿，更深入的内容还要读者自己去探索。想学会一种本领不容易，想学精一种本领就更难了，探索是永无止境的。<br>
+<br><br><br><br><br><br><br><br><br><br><br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<tr>
+<td></td><td></td>
+<td colspan="9"><hr></td><td colspan="9"></td>
+<td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td>
+<td colspan="18"><font face="楷体_GB2312" size="2"><a name="note1">① LINK程序最后提示大家输入一个扩展名为LIB的文件，这类文件就是子程序库文件。</a>
+</font></td>
+<td></td><td></td>
+</tr>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page326.html">上一页</a> <a href="page328.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

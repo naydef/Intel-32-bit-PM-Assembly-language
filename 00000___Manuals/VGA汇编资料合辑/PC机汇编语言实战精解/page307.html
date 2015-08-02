@@ -1,0 +1,213 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page306.html">上一页</a> <a href="page308.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第11章 更高级的技术</td> <!章节名>
+<td></td><td>-307-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+ax,251ch<br>
+21h<br>
+<br>
+dx,offset install<br>
+27h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；结束程序并驻留<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　CPU之所以能够一边放音乐一边做其它工作，还有一个重要的原因就是定时器的发声通道可以独立工作。只要CPU给定时器设定了参数N并打开了定时器，则声音就会连续不断的发出，此时CPU就可以进行其它工作而不必再参与声音的产生。剩下的工作就是每隔55MS关照一下正在播放的音符，看看是否应该播放下一个音符了。<br>
+　　至此有关内存驻留技术的讨论可以告一段落，注意内存驻留技术最关键的两点--程序驻留与中断驱动。本书给出的程序例利用了系统一些很有特色的中断，实际上驻留内存的程序可以由任意的中断来驱动，比如DOS系统中的磁盘高速缓存程序SMARTDRV就是重编了"13H"中断服务程序来工作的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="112">11．2 内存分配技术</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　试想一个程序如果需要开辟一个32KB的大缓冲区用于处理磁盘文件，那么这个程序应该如何编写呢？按前面我们讨论过的内容，这个程序可以写成下面这样：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+LARGE.ASM<br>
+data<br>
+<br>
+msg<br>
+buffer<br>
+data<br>
+<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+db<br>
+db<br>
+ends<br>
+<br>
+segment<br>
+assume<br>
+proc<br>
+push<br>
+xor<br>
+push<br>
+mov<br>
+mov<br>
+<br>
+lea<br>
+mov
+</td>
+<td colspan=5>
+<br>
+<br>
+ds:data<br>
+'I have a large buffer-<br>
+32768 dup (?)<br>
+<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ds<br>
+ax,ax<br>
+ax<br>
+ax,data<br>
+ds,ax<br>
+<br>
+dx,msg<br>
+ah,9
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+-32KB--ha! ha! ha!',0dh,0ah,07h,24h<br>
+；定义一个32KB的缓冲区<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化堆栈<br>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+；显示字符串MSG<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page306.html">上一页</a> <a href="page308.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

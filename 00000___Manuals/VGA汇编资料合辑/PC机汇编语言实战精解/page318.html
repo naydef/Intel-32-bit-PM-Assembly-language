@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page317.html">上一页</a> <a href="page319.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-318-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　参数中的"NZ"其实是作为指令"JNZ"的一部分给出的。另一部分"J"在宏的内部。这里要注意字符"&"不可以丢掉。与OPE宏一样，如果把参数做些变化，则这个宏就会被展开其它样子。比如：<br>
+　　COMPARE	AX，BX，LE，NEXT<br>
+　　展开之后就是：<br>
+　　cmp　　 ax,bx<br>
+　　jle　　	next<br>
+　　带参数的宏还有其它一些活用的例子，限于篇幅不再详细讨论了。下面给出了一个宏汇编程序实例，这个程序可以将一个字符串中的大小写字母互相转换，将此程序编译连接之后大家可以自己用DEBUG观察反汇编结果，以研究源程序中应用宏的技巧。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+DEMO.ASM<br>
+print<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+comp<br>
+<br>
+<br>
+<br>
+<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+next1:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+next2:<br>
+<br>
+<br>
+next3:
+</td>
+<td colspan=2>
+<br>
+MACRO<br>
+mov<br>
+mov<br>
+int<br>
+ENDM<br>
+<br>
+MACRO<br>
+cmp<br>
+j&pa2<br>
+ENDM<br>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+print<br>
+<br>
+mov<br>
+mov<br>
+<br>
+lodsb<br>
+comp<br>
+comp<br>
+<br>
+xor<br>
+<br>
+stosb<br>
+jmp<br>
+<br>
+</td>
+<td colspan=6>
+<br>
+p1<br>
+dx,offset p1<br>
+ah,09<br>
+21h<br>
+<br>
+<br>
+pa1,pa2,pa3<br>
+al,pa1<br>
+next&pa3<br>
+<br>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+msg<br>
+<br>
+si,offset msg<br>
+di,si<br>
+<br>
+<br>
+24h,z,3<br>
+20h,le,2<br>
+<br>
+al,20h<br>
+<br>
+<br>
+next1<br>
+<br>
+</td>
+<td colspan=8>
+<br>
+；输出字符串的宏<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；用于进行数据比较的宏<br>
+；将参数PA1与AL寄存器中的数据比较<br>
+；根据PA2给出的条件及PA3给出的部分<br>
+；目的地址进行转移<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；输出转换前的字符串MSG<br>
+<br>
+；SI、DI寄存器指向字符串<br>
+<br>
+<br>
+；取得一个字符<br>
+；将其与'$'进行比较，若相等转NEXT3<br>
+；将其与空格相比较，若小于或等于空格符<br>
+；转NEXT2<br>
+；将大小写字母互换<br>
+<br>
+；将转换后的字符存回字符串<br>
+；转NEXT1继续<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page317.html">上一页</a> <a href="page319.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page178.html">上一页</a> <a href="page180.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-179-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　请注意打开后的FCB中当前记录块设置为0，当前记录也是0，在这种情况下我们要是执行读操作那么必然读入这个文件的第一块中第一个记录。记录长度我们取默认值128，执行一次读操作后就会有128字节数据被读进内存：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>P</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=1400</td><td colspan=2>BX=0000</td><td colspan=2>CX=005A</td><td colspan=2>DX=0000</td><td colspan=2>SP=0000</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=2589</td><td colspan=2>ES=2579</td><td colspan=2>SS=2589</td><td colspan=2>CS=258C</td><td colspan=2>IP=0017</td>
+<td colspan=5>NV UP EI PL ZR NA PE NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>258C:0017</td><td colspan=2>0AC0</td><td colspan=6>OR AL,AL</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　用P命令执行中断，如果被读取的CONFIG文件长度大于128字节，那么就应该看到AL寄存器返回了0，说明此时已有128字节数据正确地读入了内存中。那么这128字节读到内存的什么地方了呢？我们现在把ES:80H处的数据列出：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-DES:80</td><td colspan=3></td><td colspan=13></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>2579:0080</td><td colspan=10>5B 4D 45 4E 55 5D 0D 0A-4D 45 4E 55 49 54 45 4D</td><td></td><td colspan=5>[MENU]..MENUITEM</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>2579:0090</td><td colspan=10>3D 47 45 4E 45 52 41 4C-2C 57 49 4E 44 4F 57 53</td><td></td><td colspan=5>=GENERAL,WINDOWS</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>2579:00A0</td><td colspan=10>39 35 20 43 4F 4E 46 49-47 55 52 41 54 49 4F 4E</td><td></td><td colspan=5>95 CONFIGURATION</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>2579:00B0</td><td colspan=10>0D 0A 4D 45 4E 55 49 54-45 4D 3D 44 4F 53 2C 44</td><td></td><td colspan=5>..MENUITEM=DOS,D</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>2579:00C0</td><td colspan=10>4F 53 20 50 52 4F 4D 50-54 20 43 4F 4E 46 49 47</td><td></td><td colspan=5>OS PROMPT CONFIG</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>2579:00D0</td><td colspan=10>55 52 41 54 49 4F 4E 0D-0A 4D 45 4E 55 49 54 45</td><td></td><td colspan=5>URATION..MENUITE</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>2579:00E0</td><td colspan=10>4D 3D 45 4D 4D 2C 44 4F-53 20 26 20 45 4D 53 20</td><td></td><td colspan=5>M=EMM,DOS & EMS </td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>2579:00F0</td><td colspan=10>4D 45 4D 4F 52 59 20 43-4F 4E 46 49 47 55 52 41</td><td></td><td colspan=5>MEMORY CONFIGURA</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　大家应该看到自己的CONFIG文件的内容。笔者在前言中说过，学习汇编语言对读者的记忆力是有要求的，这并非是笔者没事找事，如果现在问大家一句："ES寄存器指向的段内有什么重要的数据？"大家能否不加思索地说出来呢？<br>
+　　如果大家能马上反应出ES寄存器指向PSP所在段，那么下面的讨论就很容易被大家所接受了。我们前面说过，PSP是DOS调入一个可执行程序时在内存中预存的一些重要的数据，PSP共有256个字节，其中后面的128个字节就是提供给文件处理功能使用的，我们把这128个字节的空间称为"缺省的DTA"。<br>
+　　所谓DTA，英文全文为"Data Trastor Area"，翻译过来就是"数据传输区"。当我们进行文件读写操作时这操作系统就要使用DTA和应用程序交换数据，操作系统对DTA的要求是至少能够容纳下一个记录的数据。由于DOS默认一个记录长度为128字节，所以在我们这个示例程序中我们使用了系统默认的DTA。如果程序改变了记录的长度，那么就必须设定新的DTA。相应的系统功能我们将在讨论完这个示例程序后介绍。<br>
+　　执行了"顺序读"操作后我们来看看FCB有什么变化：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page178.html">上一页</a> <a href="page180.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

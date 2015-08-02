@@ -1,0 +1,130 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page19.html">上一页</a> <a href="page21.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-20-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="黑体" lang="ZH-CN"><a name="223"><p>2．2．3 程序的缺点</p></a></font>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　至此，我们已经把这个程序完整地分析了一遍。下面的工作就是看看这个程序有什么缺点。毫无疑问，无法返回DOS是程序的最大问题；不过还要注意这样的事实：同样的程序，在使用不同CPU的机器上发出声音的频率不一样。原因在于CPU执行指令的速度有快有慢，486完成LOOP的速度肯定比286快，因此这个程序在486上执行时产生的声音比286机发出的声音尖。说白了，此程序不可能精确地控制声音频率。下面一节的内容就是来改变这些缺点的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="黑体" lang="ZH-CN"><a name="23"><p>2．3 回到DOS的怀抱</p></a></font>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　通过图2－4可以看出，整个程序由两层循环构成。内层循环由"LOOP"指令控制完成，外层循环由"JMP"完成。这两层循环有着极大的差别，CPU执行LOOP指令时根据CX减量结果控制转移，这称为条件转移；而执行JMP指令时没有任何条件需要CPU判断。因此，用JMP完成的外层循环是"死"的，没有出口。我们要想返回操作系统，首先要解决"死循环"问题。这是很容易做到的，显而易见，用LOOP指令代替JMP指令，把程序改成PROG1－A那样，外层循环不就"活"了吗？
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td> <!左边距>
+<td colspan=16>
+PROG1－A<br>
+0B01:0100 mov cx,800<br>
+0B01:0103 in al,61<br>
+0B01:0105 xor al,2<br>
+0B01:0107 out 61,al<br>
+0B01:0109 mov cx,500<br>
+0B01:010C loop 10C<br>
+0B01:010E loop 103<br>
+0B01:0110 
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　真能如我们所想的吗？如果用G命令执行这个新程序，那么后果仍然是"灾难性"的。让我们仔细分析这个程序：<br>
+　　第一条指令在CX中放了一个数字800H作为外层循环的计数值，也就是说CPU在首次执行最后一行的LOOP时CX中应该是800才对。可是不要忘记，程序中还有个内层循环，它同样用到了CX寄存器。事实上在执行到第五条指令时CX寄存器中的800就已经不复存在了。而且退出内循环后CX已经是0，最后一个LOOP指令已经失去了正确的计数值。<br>
+　　看来问题有点棘手，内循环破坏了外循环的计数值，怎么办？<br>
+　　问题并不难解决。很容易想到只要在进入内循环之前把CX寄存器中的数据做个副本，在退出内循环后恢复CX寄存器中的数据就可以了。程序PROG1－B就是依据此想法改进的。我们新增加了两条指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：PUSH/POP<br>
+用　途：将寄存器或存存储单元中的16位数据压入/弹出"堆栈"<br>
+格　式：PUSH/POP  寄存器（16bit）<br>
+　　　　PUSH/POP  存储器（16bit）<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page19.html">上一页</a> <a href="page21.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

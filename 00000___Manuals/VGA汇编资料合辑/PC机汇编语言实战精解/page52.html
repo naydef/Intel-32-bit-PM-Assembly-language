@@ -1,0 +1,282 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page51.html">上一页</a> <a href="page53.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-52-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=2>
+-U[Enter]<br>
+0A3E:0100<br>
+0A3E:0102<br>
+0A3E:0104<br>
+0A3E:0107<br>
+0A3E:0109<br>
+0A3E:010B<br>
+0A3E:010D
+</td>
+<td colspan=2>
+<br>
+B0B6<br>
+E643<br>
+B8A904<br>
+E642<br>
+8AC4<br>
+E642<br>
+E461
+</td>
+<td>
+<br>
+MOV<br>
+OUT<br>
+MOV<br>
+OUT<br>
+MOV<br>
+OUT<br>
+IN
+</td>
+<td colspan=2>
+<br>
+AL,B6<br>
+43,AL<br>
+AX,04A9<br>
+42,AL<br>
+AL,AH<br>
+42,AL<br>
+AL,61
+</td>
+<td colspan=2 align="center">|<br>|<br>|<br>|<br>|<br>|<br>|<br>|</td>
+<td colspan=2>
+0A3E:010F<br>
+0A3E:0110<br>
+0A3E:0112<br>
+0A3E:0114<br>
+0A3E:0116<br>
+0A3E:0118<br>
+0A3E:0119<br>
+0A3E:011B
+</td>
+<td colspan=2>
+50<br>
+0C03<br>
+E661<br>
+B401<br>
+CD21<br>
+58<br>
+E661<br>
+C3
+</td>
+<td>
+PUSH<br>
+OR<br>
+OUT<br>
+MOV<br>
+INT<br>
+POP<br>
+OUT<br>
+RET
+</td>
+<td colspan=2>
+AX<br>
+AL,03<br>
+61,AL<br>
+AH,01<br>
+21<br>
+AX<br>
+61,AL<br>
+<br>
+</td>
+<td></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　PROG7的结构过于简单了，还没有涉及有关分段的更多概念，下面给出的这个例子更复杂一些，这个例程中具有"数据"和"代码"两个段，而且有两个"过程"。程序中新出现了一个陌生的指令：──SUB
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：SUB（subtract）<br>
+用　途：将两个数据作减法<br>
+格　式：SUB  寄存器，立即数<br>
+　　　　SUB  寄存器，寄存器<br>
+　　　　SUB  寄存器，存储单元<br>
+　　　　SUB  存储单元，寄存器<br>
+　　　　SUB  存储单元，立即数<br>
+执　行：两个数据相减，结果保存在左边的寄存器或存储器中，标志寄存器中相关位被设置
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=2>
+PROG7-A<br>
+PORT_B<br>
+data<br>
+<br>
+<td colspan=2>
+<br>
+equ<br>
+segment<br>
+assume<br>
+</td>
+<td colspan=3>
+<br>
+61H<br>
+<br>
+ds:data<br>
+</td>
+<td colspan=9>
+<br>
+；#1--常量定义<br>
+；#2--数据段定义<br>
+；通知编译程序默认DS寄存器指向数据段<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=2>
+mess<br>
+</td>
+<td colspan=8>
+db 'Press any key to stop!!!',24h
+</td>
+<td colspan=6>
+；定义一个字符串
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=2>
+data<br>
+<br>
+code<br>
+<br>
+sound<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+ends<br>
+<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+out<br>
+<br>
+mov<br>
+out<br>
+mov<br>
+out<br>
+<br>
+in<br>
+</td>
+
+<td colspan=3>
+<br><br><br>
+cs:code<br>
+near<br>
+al,10110110b<br>
+43h,al<br>
+<br>
+ax,4a9h<br>
+42h,al<br>
+al,ah<br>
+42h,al<br>
+<br>
+al,PORT_B
+</td>
+<td colspan=9>
+；数据段结束<br>
+<br>
+；#3--代码段开始<br>
+；通知编译程序默认CS寄存器指向代码段<br>
+；#4--SOUND子过程开始<br>
+；初始化定时器<br>
+<br><br>
+；设定频率<br>
+<br><br><br><br>
+；打开定时器和与门<br>
+</td>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page51.html">上一页</a> <a href="page53.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

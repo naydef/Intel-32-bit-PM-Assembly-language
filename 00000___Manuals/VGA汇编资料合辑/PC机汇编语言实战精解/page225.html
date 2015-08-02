@@ -1,0 +1,165 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page224.html">上一页</a> <a href="page226.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-225-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　如何将一个32位的二进制数据转换成十进制的形式显示出来？这个问题大家倒是可以深入思考一下，上面这个程序给出了一种算法，还有没有更好的方法呢？<br>
+　　还有一个不常用的功能需要讨论一下，那就是文件的删除。DOS提供了41H号功能调用完成这个工作，这个功能可以参考表7-1中的有关说明，有关的程序例不再给出。需要提醒大家的是不要使用"*.*"这样的通配符，句柄功能不支持通配符；另外凡是具有"只读"、"隐含"等属性的文件也不能用此功能删除。<br>
+　　在本节的最后我准备给出另一种处理命令行参数的方法，然后开始新一节的讨论。我们在讨论FCB功能时曾经给出过利用"缺省FCB"处理命令行参数的方法，那种方法缺乏灵活性，如果我们需要处理多个参数或树型目录使用缺省FCB就不行了。解决这个问题就要使用下面介绍的知识了。仿照前面的形式，我们先来看看在程序段前缀中还有什么值得注意的内容，我们还是要求助于DEBUG：<br>
+　　C:\ASM\>debug tasm.exe aaa\bbb\ccc ddd[Enter]<br>
+　　我们知道缺省的FCB在PSP的前128个字节中，后128个字节中有些什么内容我们还不清楚，现在就让我们列出后面的128个字节来看一看：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-d80[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6F:0080</td><td colspan=10>10 20 61 61 61 5C 62 62-62 5C 63 63 63 20 64 64</td><td></td><td colspan=5>. aaa\bbb\ccc dd</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6F:0090</td><td colspan=10>64 0D 20 64 64 64 0D 00-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>d. ddd..........</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6F:00A0</td><td colspan=10>00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>................</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6F:00B0</td><td colspan=10>00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>................</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6F:00C0</td><td colspan=10>00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>................</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6F:00D0</td><td colspan=10>00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>................</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6F:00E0</td><td colspan=10>00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>................</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0F6F:00F0</td><td colspan=10>00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00</td><td></td><td colspan=5>................</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这一下问题全清楚了，对于FCB功能来讲这后128个字节用作缺省的DTA空间，由于句柄功能不再使用DTA传输数据，所以DOS把命令行参数放在这个区域中供程序使用。与放在缺省FCB中的参数不同的是DOS会把整个参数字符串原样放在这个区域中，不对其进行任何的处理。<br>
+　　从结构上大家可以看到参数字符串的起始地址不是0080H，位于0080H处的一个字节保存了一个8位的数据，这个数据反映了参数字符串的长度。实际的参数字符串从0082H开始，以回车符结束。偏移81H处有一个空格，在处理时通常将其忽略。下面给出了一个演示程序，这个是另一个版本的LIST程序，它可以显示任意目录下的文本文件，只需给出路径名：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+LIST.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+msg<br>
+line<br>
+start:
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+db<br>
+<br>
+</td>
+<td colspan=14>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+far<br>
+start<br>
+'Press any key to continue...',0dh,0ah,24h<br>
+?<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page224.html">上一页</a> <a href="page226.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

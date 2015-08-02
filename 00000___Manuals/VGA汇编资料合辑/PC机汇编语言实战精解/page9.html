@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第1章 汇编语言基础知识</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page8.html">上一页</a> <a href="page10.html">下一页</a> <a href="page11.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第1章 汇编语言基础知识</td> <!章节名>
+<td></td><td>-9-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td>
+<td colspan=18>
+储单元就被CPU"选中"，那么CPU就可以把这个存储单元所存的数据通过另一组线路（数据总线）取出，或向这个存储单元存入新的数据。
+　　不同的CPU所具有的地址线数量是不一样的，像8086/88只有20根地址线，所能给出的地址范围是0-220－1（1048575），所以8086/88只能配备1MB存储器。而286有24根地址线，当然可配备224个字节的存储器。386/486有32根地址线，所以最多可配备4GB存储器。<br>
+　　前面所说的存储器都是直接和CPU相联接的，这些存储器和CPU往往安装在同一块电路板上，因此通常把这类存储器称为"内存储器"（内存）。在机器中还有另一类存储器-"外存储器"，这类存储器一般指得是软盘、硬盘、磁带和光盘等容量较大的存储设备。<br>
+　　外存储器和内存相联接而不和CPU直接联接，即CPU无法直接将外存中的数据取到自己内部进行处理，而只能先通过另一部分控制电路将外存中的数据取到内存中，再进行进一步的处理。处理后的数据也是先放在内存中，再传至外存。<br>
+　　正是由于这个原因，外存的容量并不受CPU地址线数量的限制。其容量可从几百KB直至几个GB不等。而且外存往往是机械--电子结合的设备，其数据存取速度远低于内存。
+<font face="黑体" lang="ZH-CN"><a name="16"><p>1．6  寄存器</p></a></font>
+　　寄存器又分为内部寄存器与外部寄存器，所谓内部寄存器，其实也是一些小的存储单元，也能存储数据。但同存储器相比，寄存器又有自己独有的特点：<br>
+　　①  寄存器位于CPU内部，数量很少，仅十四个；<br>
+　　②  寄存器所能存储的数据不一定是8bit，有一些寄存器可以存储16bit数据，对于386/486处理器中的一些寄存器则能存储32bit数据；<br>
+　　③  每个内部寄存器都有一个名字，而没有类似存储器的地址编号。<br>
+　　寄存器的功能十分重要，CPU对存储器中的数据进行处理时，往往先把数据取到内部寄存器中，而后再作处理。关于各个寄存器的具体问题后面会深入讨论。<br>
+　　外部寄存器是计算机中其它一些部件上用于暂存数据的寄存器，它与CPU之间通过"端口"交换数据，所以外部寄存器具有寄存器和内存储器双重特点。有些时候我们常把外部寄存器就称为"端口"，这种说法不太严格，但经常这样说。<br>
+　　外部寄存器虽然也用于存放数据，但是它保存的数据具有特殊的用途。某些寄存器中各个位的0、1状态反映了外部设备的工作状态或方式；还有一些寄存器中的各个位可对外部设备进行控制；也有一些端口作为CPU同外部设备交换数据的通路。所以说，端口是CPU和外设间的联系桥梁。<br>
+　　CPU对端口的访问也是依据端口的"编号"（地址），这一点又和访问存储器一样。不过考虑到机器所联接的外设数量并不多，所以在设计机器的时候仅安排了1024个端口地址，端口地址范围为0--3FFH。图1－5反映了CPU、内存、端口和外设间的联系关系。
+</td>
+<td></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page8.html">上一页</a> <a href="page10.html">下一页</a> <a href="page11.html">下一章</a></p>
+</body>
+</html>
+

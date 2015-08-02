@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page256.html">上一页</a> <a href="page258.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第9章 图形显示</td> <!章节名>
+<td></td><td>-257-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+adjust:<br>
+<br>
+<br>
+next:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+line<br>
+<br>
+point<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+point<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+cmp<br>
+jg<br>
+jmp<br>
+<br>
+add<br>
+sub<br>
+<br>
+add<br>
+loop<br>
+<br>
+pop<br>
+pop<br>
+pop<br>
+pop<br>
+pop<br>
+pop<br>
+ret<br>
+endp<br>
+<br>
+proc<br>
+push<br>
+push<br>
+push<br>
+mov<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+pop<br>
+pop<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end<br>
+</td>
+<td colspan=5>
+ax,bx<br>
+adjust<br>
+next<br>
+<br>
+[x1+bp],dx<br>
+ax,delta2<br>
+<br>
+ax,delta1<br>
+lineloop<br>
+<br>
+di<br>
+si<br>
+dx<br>
+cx<br>
+bx<br>
+ax<br>
+<br>
+<br>
+<br>
+near<br>
+ax<br>
+cx<br>
+dx<br>
+cx,x1<br>
+dx,y1<br>
+al,color<br>
+ah,0ch<br>
+10h<br>
+dx<br>
+cx<br>
+ax<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；将AX中的2ΔY′累加值与BX中的ΔX′比较<br>
+；若2ΔY′大于ΔX′则转ADJUST进行调整<br>
+；否则转NEXT继续<br>
+<br>
+；将Y1坐标加上一个增量值<br>
+；同时AX中2ΔY′的累加值减去一个2ΔX′<br>
+<br>
+；继续在AX寄存器中累加2ΔY′<br>
+；转LINELOOP继续画点<br>
+<br>
+；恢复各寄存器初值<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；返回主过程<br>
+<br>
+<br>
+；画点子过程<br>
+；保存寄存器<br>
+<br>
+<br>
+；X坐标送入CX寄存器<br>
+；Y坐标送入BX寄存器<br>
+；颜色值送入AL寄存器<br>
+；调用10H中断的0CH功能画一个点<br>
+<br>
+；恢复寄存器<br>
+<br>
+<br>
+；返回LINE子过程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序很长，数据量很大，一旦录入出了错很不好查找。不过只要大家有耐心，最终还是会被这个程序的输出所吸引的。当然，程序中出现的新指令我们还是要先讨论的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：NEG（Negate）<br>
+用　途：求一个数的相反数<br>
+格　式：NEG  寄存器
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page256.html">上一页</a> <a href="page258.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

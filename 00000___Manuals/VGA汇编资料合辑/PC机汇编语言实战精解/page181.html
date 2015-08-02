@@ -1,0 +1,180 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page180.html">上一页</a> <a href="page182.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-181-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ERR_EXIT:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+MAIN<br>
+BUFFER<br>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+MOV<br>
+INT<br>
+<br>
+OR<br>
+JNZ<br>
+<br>
+MOV<br>
+INT<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+<br>
+MOV<br>
+INT<br>
+ENDP<br>
+LABEL<br>
+ENDS<br>
+END
+</td>
+<td colspan=5>
+DX,OFFSET MY_FCB<br>
+21H<br>
+<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+AH,4CH<br>
+21H<br>
+<br>
+AH,9<br>
+DX,OFFSET ERRMSG<br>
+21H<br>
+<br>
+AH,4CH<br>
+21H<br>
+<br>
+BYTE<br>
+<br>
+MAIN
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；正确读入数据了吗？<br>
+；没有正确读入数据，转ERR_EXIT<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+；输出错误信息<br>
+<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+；在代码段中设置新的DTA<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在此例中我们使用了一个新的系统功能--1AH，这个功能用于设置应用程序自己的DTA，用法很简单：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：1AH<br>
+用　途：设置应用程序的DTA<br>
+参　数：DS:DX = 应用程序的DTA起始"段:偏移"地址<br>
+调　用：INT 21H<br>
+返　回：无
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　使用这个功能之后，DOS就不再使用缺省的DTA了。之后所有的磁盘服务都使用新的DTA，直至应用程序设置了另一个DTA为止。我在设计这个程序时用了一点小技巧，当应用程序打开一个文件后，DOS会把有关这个文件的一些特征信息存入FCB中。其中FCB偏移10H的四个字节（我们习惯称为一个"双字"）填入了文件的长度，我的CONFIG文件长度只有667字节，所以我将这个双字的低16位取出作为一个记录的长度存入FCB偏移0EH处，这样一来一个记录的长度恰好等于文件的长度，所以应用程序只需顺序读一次就能读入整个文件的内容。<br>
+　　当然，使用这样的技巧是有限制的，那就是被处理的文件长度要小于64KB，这是因为DOS只用一个字表示记录的大小。如果需要处理更大的文件，则可根据需要设置合适的记录长度和DTA。<br>
+　　这个程序中没有使用DB伪指令定义DTA缓冲区，而是将DTA设置在代码段中，并起始于代码段的后面，这样做的目的是为了缩短编译后可执行文件的长度。大家也可以在数据段中用于DB伪指令定义一个数千字节的DTA空间，看看编译后成EXE文件的长度和这个程序有无差别，差别有多大。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page180.html">上一页</a> <a href="page182.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

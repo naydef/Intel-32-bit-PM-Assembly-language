@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page14.html">上一页</a> <a href="page16.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第2章 开始设计程序</td> <!章节名>
+<td></td><td>-15-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-a</td><td colspan=16><font face="楷体_GB2312" size=2>输入的命令</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0B01:0100</td><td colspan=16><font face="楷体_GB2312" size=2>程序的起始地址</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align="center"><img src="icons/attention.gif"></td>
+<td colspan=16><FONT FACE="楷体_GB2312" LANG="ZH-CN" SIZE=3>
+"A"命令的作用是告诉DEBUG现在开始编写程序，它可以后加一个地址作为参数，即可以从代码段的任何位置开始输入程序。对于新编一个程序来说，必须从100H开始。因此我们也可打入"A100[?]"。对于修改一个已经存在的程序中的部分指令，可在A后面打入将要修改指令的偏移地址即可。例如要重写位于偏移量200H处的指令，可打入"A200[?]"。此时屏幕上将显示0B01：0200。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　输入了"A"命令之后，屏幕上应出现一个以"段:偏移"形式表示的逻辑地址。这个地址就是程序的起始地址。它和CPU中CS:IP指向的位置相同。<br>
+　　在不同的机器，不同的DOS版本中，用户程序的起始段地址是不同的。如果看到的段地址不是0B01，那并没有任何关系。关于偏移地址必为0100的原因前面说过，这是DOS的安排。<br>
+　　看到逻辑地址后，我们即可敲入程序1。DEBUG会自动把输入的汇编指令译成机器码并保存在相应存储单元中。每条指令译完后DEBUG会自动列出下条指令的逻辑地址，因此我们只要打入程序右侧的那些指令即可。左边的逻辑地址是自动给出的。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=16>
+-a[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=2>
+0B01:0100<br>
+0B01:0102<br>
+0B01:0104<br>
+0B01:0106<br>
+0B01:0109<br>
+0B01:010B<br>
+0B01:010D
+</td>
+<td colspan=4>
+in al,61<br>
+xor al,2<br>
+out 61,al<br>
+mov cx,400<br>
+loop 109<br>
+jmp 100<br>
+←--此处直接回车
+</td>
+<td colspan=10>
+用户输入的内容
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在运行这个程序前，我们应先将此程序存盘。因为程序中的一个细小的"BUG"都可导致"死机"的后果。那如何保存此程序呢？<br>
+　　既然要存盘，总要给程序取个名字。程序命名要用到DEBUG的第三条命令--N，操作如下：<br>
+　　－NPROG1．COM[Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2 align="center"><img src="icons/attention.gif"></td>
+<td colspan=16><FONT FACE="楷体_GB2312" LANG="ZH-CN" SIZE=3>
+"N"命令实际来自于英文单词"Name"。有些参考书讨论这个命令时常提醒用户注意不要在"N"后面加空格，其实有无空格并没有关系，至少在6.0以上版的DOS系统没有这个要求。当然，文件扩展名必须是"COM"，不能是"EXE"或其它的。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　有了名字后，我们还应告诉DEBUG此程序的字节数。由于程序从100H开始，因此我们只要把最后一条指令的下一个地址减去100H即可得到程序长度。前面那个程序的长度应该是010D－100＝0D。<br>
+　　DEBUG规定存盘程序的长度应放在"BX"和"CX"寄存器中，也就是说把BX，CX两个16位寄存器联合起来存放一个32位的长度值，高16位在BX中。因此，若要存盘的内容不足64K，则应将BX置0，而将长度放入CX中。这就要用到前面介绍的"R"命令。操作如下：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page14.html">上一页</a> <a href="page16.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

@@ -1,0 +1,207 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page128.html">上一页</a> <a href="page130.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第6章 文字输出与键盘输入</td> <!章节名>
+<td></td><td>-129-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>
+13CD:0104 add ax,3<br>
+13CD:0107 or ax,8000<br>
+13CD:010A and ax,7fff<br>
+13CD:010D ror ax,1<br>
+13CD:010F[Enter]
+</td>
+<td colspan=12>
+；计算0FFFEH+3<br>
+；将AX寄存器的符号位置1<br>
+；将AX寄存器的符号位清0<br>
+；将AX寄存器的最低位移至符号位<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　 输入了以上程序，我们即可开始跟踪这个实验程序，下面给出了跟踪过程，可以看到用MOV指令将一个带符号数送入累加器后符号标志为0。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>AX寄存器预先置入0FFFFH</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=FFFF</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=0103</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:0103</td><td colspan=2>48</td><td colspan=6>DEC AX&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>准备计算0FFFFH-1</font></td><td colspan=4><font face="楷体_GB2312" size=2>符号标志为0</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　以下是计算0FFFFH-1的结果，可以看到符号位由0变为1，说明计算结果为负数。可见标志寄存器只受计算指令的控制，不受数据传递指令的控制。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>计算结果为-2</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=FFFE</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=0104</td>
+<td colspan=5>NV UP EI NG NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:0104</td><td colspan=2>050300</td><td colspan=6>ADD AX,0003&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>准备计算-2+3</font></td><td colspan=4><font face="楷体_GB2312" size=2>符号标志置1</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　注意以上我们都把0FFFFH作为带符号数-1来看待，实际上0FFFFH同时也表示无符号数65535。SF标志并不反映65535-1的后果，65535-1的后果由CF标志反映。由此再次说明我们是通过判断不同的标志位"暗示"出我们对某个数是否带符号的理解。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>-2+3=1</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0001</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=0107</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:0107</td><td colspan=2>0D0080</td><td colspan=6>OR AX,8000&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>准备进行逻辑操作</font></td><td colspan=4><font face="楷体_GB2312" size=2>符号标志清0</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　通过跟踪-2+3的计算，再次看到符号标志的改变情况：当计算结果符号位为1时SF=1，否则SF=0。同时通过CF的变化，我们也可以看到65534+3的结果。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>-t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font face="楷体_GB2312" size=2>逻辑"OR"操作的结果</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=8001</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13CD</td><td colspan=2>ES=13CD</td><td colspan=2>SS=13CD</td><td colspan=2>CS=13CD</td><td colspan=2>IP=010A</td>
+<td colspan=5>NV UP EI NG NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13CD:010A</td><td colspan=2>25FF7F</td><td colspan=6>AND AX,7FFF</td><td colspan=4><font face="楷体_GB2312" size=2>符号标志再次置1</font></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　逻辑"OR"操作同样改变符号标志，下面给出逻辑"AND"操作的跟踪结果，可以看出逻辑操作指令与数学计算指令一样要影响SF标志位：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page128.html">上一页</a> <a href="page130.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

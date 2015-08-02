@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第10章 细节补充</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page278.html">上一页</a> <a href="page280.html">下一页</a> <a href="page291.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第10章 细节补充</td> <!章节名>
+<td></td><td>-279-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+loop1:<br>
+<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+jnz<br>
+mov<br>
+int<br>
+<br>
+pop<br>
+iret<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+pushf<br>
+pop<br>
+or<br>
+push<br>
+popf<br>
+<br>
+jmp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+exit<br>
+ax,0e07h<br>
+10h<br>
+<br>
+ax<br>
+<br>
+<br>
+ax,0<br>
+ds,ax<br>
+bx,4<br>
+<br>
+dx,offset new01<br>
+word ptr ds:[bx],dx<br>
+word ptr ds:[bx+2],cs<br>
+<br>
+<br>
+ax<br>
+ah,1<br>
+ax<br>
+<br>
+<br>
+loop1<br>
+<br>
+begin
+</td>
+<td colspan=9>
+；若计数器未满65536则退出服务程序<br>
+；计数器计满65536后响一次铃<br>
+<br>
+<br>
+；恢复AX寄存器<br>
+；中断返回<br>
+<br>
+；初始化DS寄存器指向中断向量表<br>
+<br>
+；BX寄存器指向01H中断向量<br>
+<br>
+；将中断服务程序的入口地址<br>
+；CS:OFFSET NEW01填入中断向量表<br>
+<br>
+<br>
+；将标志寄存器压入堆栈<br>
+；标志寄存器弹出至AX寄存器<br>
+；将TF标志位置1<br>
+；将修改后的标志寄存器压入堆栈<br>
+；而后将其送回标志寄存器<br>
+<br>
+；陷入死循环<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序还演示了如何自行编制中断服务程序，其实编制中断服务程序与一般的程序设计方法一样，只是要注意在中断向量表中的相应位置填入正确的程序入口。这个程序运行之后就不能返回系统了，它将TF标志设为1，使CPU进入单步运行状态，而后进入了死循环。由于工作于单步状态下，所以CPU每次执行一个指令后就会产生01中断。而后CPU开始执行01中断服务程序。<br>
+　　NEW01就是中断服务程序的入口，这一小段程序设了一个计数器COUNTER，每当计数器计满65536之后就响一次铃，所以计算机会发出连续的蜂鸣音。<br>
+　　最后要提醒大家的是当CPU响应中断时IF标志会自动清零，所以CPU在执行中断服务程序时是连续执行的，不再产生单步中断。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="103">10．3 条件转移指令</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　条件转移指令在8086/88汇编语言中占据着重要的地位，它是CPU实现"判断"的基础。通过前面一段的学习我们已经知道，条件转移指令的条件实际上都来自于标志寄存器。所以原则上说除了TF、IF、DF等用于控制CPU工作状态的几个标志位没有对应的条件转移指令外，其
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page278.html">上一页</a> <a href="page280.html">下一页</a> <a href="page291.html">下一章</a></p>
+</body>
+</html>

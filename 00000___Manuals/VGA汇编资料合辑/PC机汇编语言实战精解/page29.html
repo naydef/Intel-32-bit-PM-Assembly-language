@@ -1,0 +1,142 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page28.html">上一页</a> <a href="page30.html">下一页</a> <a href="page45.html">下一章</a></p>
+
+<table border="0" align="center" width="800" frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width="3%"></td><td width="6%"></td><td width="1%"></td> <!左侧空白>
+<td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td>
+<td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td><td width="5%"></td>
+<td width="1%"></td><td width="6%"></td><td width="3%"></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height="60" valign="bottom">
+<td></td><td></td><td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第3章 中断调用与子程序</td> <!章节名>
+<td></td><td>-29-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan="20"><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size="3">
+<tr height="20"><td colspan="22"></td></tr> <!顶部空白>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="18">　　“nn”可以是00H－0FFH中任一个数。<a href="page29.html#note1"><sup>①</sup></a><br>
+　　每个被使用中断都有对应的中断服务程序，所有这些中断服务程序在内存中的起始（入口）逻辑地址被组织在一起，保存于内存中的一段特定的区域内。这段区域从逻辑地址0000:0000开始，到0000:03FFH为止共1KB字节。<br>
+　　每4个字节保存一个中断服务程序的入口，从0000:00000开始，0－3字节保存0号中断服务程序的入口地址，4－7字节保存1号中断服务程序的入口地址，以此类推。保存所有256个中断服务程序的入口地址恰好使用1KB存储器。<br>
+　　由于每个入口地址都指向内存中的一段程序，所以我们引用数学中向量的概念，把这些入口地址称为&quot;中断向量&quot;，256个&quot;中断向量&quot;组织在一起形成一个&quot;表&quot;，我们把这个&quot;表&quot;称为&quot;中断向量表&quot;。这个表就是CPU取得中断服务程序入口地址的依据。给定一个中断号，即可根据下式计算其对应服务程序入口地址在中断向量表中的偏移量：<br>
+　　　　偏移量＝nn×4<br>
+　　利用DEBUG程序可以观察到中断向量表。进入DEBUG，在&quot;－&quot;后打入&quot;D0:0[Enter]&quot;，屏幕上就会显示出中断向量表中的部分入口地址。<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="3" align="center"><img src="icons/attention.gif" width="39" height="50"></td>
+<td colspan="15"><font FACE="楷体_GB2312" LANG="ZH-CN" SIZE="3">
+为了能观察内存中任意位置存放的数据，DEBUG提供了一条&quot;内存转储&quot;命令，命令码是&quot;D&quot;（Dump）。使用方法很简单，在提示符后输入&quot;D 
+逻辑地址 长度&quot;并回车，DEBUG会从指定地址开始将内存中的数据以16进制形式显示在屏幕上，同时在屏幕右则显示出一些数据所对应的ASCII字符。<br>
+如果没有给出完整的逻辑地址，只给出偏移量，则DEBUG会默认DS为段地址。如果未指定地址，则DEBUG就认为起始地址是跟在由前一个D命令所显示的单元的后面。连续输入不带参数的D命令，可连续显示内存中的数据。下面列出了D命令的一些用法：<br>
+－D0：0[Enter] 从内存0：0处开始显示数据<br>
+－DES：100[Enter] 从内存中ES所指定段的偏移100H处开始显示数据<br>
+－D0B30：0 3FF[Enter] 从内存中0B30：0处开始连续显示1KB数据 </font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="18">　　下面列出的数据就是笔者所用PC中的一部分中断向量表。 
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="3">-d0:0 5F</td><td colspan="10" align="center">16进制形式的数据</td><td colspan="5" align="center">相应的ASCII码</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="2">0000:0000</td><td></td><td colspan="10">89 3E 7E BE B0 05 70 00-C3 E2 00 F0 B0 05 70 00</td><td></td><td colspan="4">.&gt;~...p.......p.</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="2">0000:0010</td><td></td><td colspan="10">B0 05 70 00 54 FF 00 F0-4C E1 00 F0 6F EF 00 F0</td><td></td><td colspan="4">..p.T...L...o...</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="2">0000:0020</td><td></td><td colspan="10">76 18 B0 D3 88 20 B0 D3-6F EF 00 F0 6F EF 00 F0</td><td></td><td colspan="4">v.... ..o...o...</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="2">0000:0030</td><td></td><td colspan="10">6F EF 00 F0 6F EF 00 F0-57 EF 00 F0 B0 05 70 00</td><td></td><td colspan="4">o...o...W.....p.</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="2">0000:0040</td><td></td><td colspan="10">C4 21 B0 D3 4D F8 00 F0-41 F8 00 F0 EA 02 A7 B0</td><td></td><td colspan="4">.!..M...A.......</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="2">0000:0050</td><td></td><td colspan="10">39 E7 00 F0 AE 03 71 02-01 06 AC B2 D2 EF 00 F0</td><td></td><td colspan="4">9.....q.........</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="18">　　屏幕右边所显示的是和数据对应的ASCII字符，关于ASCII码的知识第一章中有介绍。在中断向量表中有一些向量为0，表示这个向量未使用。</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td>
+<td colspan="9"><hr></td><td colspan="9"></td>
+<td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td>
+<td colspan="18"><font face="楷体_GB2312" size="2"><a name="note1">① INT指令是“万能”的，它可以调用系统中任意一个中断，不论这个中断为谁服务。</a> 
+</font></td>
+<td></td><td></td>
+</tr>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan="20"><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height="60" valign="top">
+<td></td><td></td>
+<td colspan="9"><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan="9" align="right"><i><a href="http://www.nucstorm.com">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page28.html">上一页</a> <a href="page30.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>

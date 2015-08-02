@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page48.html">上一页</a> <a href="page50.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第4章 奇妙的声音</td> <!章节名>
+<td></td><td>-49-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3><hr></td>
+<td colspan=4 align="center"><font size=5>CODE ENDS</td>
+<td colspan=11><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312">
+　　ENDS伪操作和SEGMENT是相配合的，表示一个段结束。需要注意的是段的名字表示了这个段的起始段地址，它和段的性质并无关系，所以并不是名为"CODE"的段就一定是代码段。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　对于PROG7来说，由于程序只需要一个代码段就可以了，所以只定义了一个"CODE"段，后面我们会谈到定义多个段的方法。
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3><hr></td>
+<td colspan=4 align="center"><font size=5>ORG</td>
+<td colspan=11><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312">
+　　伪指令"ORG"的主要作用就是控制偏移量。它不仅可以用于代码段中，也可用于其它段。而且这个伪指令不仅单用于程序省首部，在程序之中也可以插入使用。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　PROG7只有一个代码段，因此它可以编译成.COM类的可执行文件。注意.COM类的程序都要从偏移0100H处开始执行，所以在源程序中也要明确指出程序第一条指令的偏移为0100H，这就是指令"ORG"的作用。<br>
+　　程序中的第三行和倒数第三行是"过程定义"伪操作。讲到这儿我们需要先明确几个概念：大家知道，一个程序往往由一个主程序和若干子程序组成，在汇编语言中，我们称其为"主过程"和"子过程"。而把由"主过程"和"子过程"共同组成的完整的程序称为"进程"。因此在编写一个"进程"时就需要用"过程定义"伪操作将不同的"过程"区分开，这就要用到"PROC"伪指令。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3><hr></td>
+<td colspan=4 align="center"><font size=5>PROC - ENDP</td>
+<td colspan=11><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312">
+　　"PROC"伪指令的应用格式很简单，"过程名 PROC 属性"。其中过程名表示了这一过程的起始地址，它和这一过程是"主"还是"子"没有任何联系。名字不决定属性，这个特点同"SEGMENT"一样；属性指的是这一过程是"近程"（NEAR）还是"远程"（FAR），它将决定调用此过程的CALL指令和过程最后的RET指令的编译结果。<br>
+　　结束一个过程在形式上和结束一个段相似，只是END后面加了表示过程（PROCEDURE）的字母"P"而不是表示段（SEGMENT）的"S"："过程名  ENDP"。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在"PROC"与"ENDP"之间的就是真正的代码，最后一行的"END"伪指令用于表示"进程结束"，即整个源程序编制完毕。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3><hr></td>
+<td colspan=4 align="center"><font size=5>END</td>
+<td colspan=11><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312">
+　　伪指令"END"的用法很简单："END 过程名"。跟在它后面的"过程名"指出了整个程序的入口，也就是程序中"主过程"，这个过程是DOS调入程序后首先要执行的。当然，这个过程名在某些情况下可以省略，比如在编写"COM"类程序的时候。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><hr></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page48.html">上一页</a> <a href="page50.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

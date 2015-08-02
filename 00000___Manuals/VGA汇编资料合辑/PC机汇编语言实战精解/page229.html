@@ -1,0 +1,76 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page228.html">上一页</a> <a href="page230.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第8章 文件句柄功能与磁盘</td> <!章节名>
+<td></td><td>-229-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们说这一类磁盘不"正常"，最常见的现象就是它们不能进行常规的DISKCOPY。原因在于标准的磁盘复制软件（DISKCOPY、PCTOOLS）无法正确拷贝这些特殊容量的扇区。这种磁盘完全是人为的用一些特殊的方法格式化而成，常用于装载一些商品软件。习惯上我们把这类磁盘称为"加密盘"，加密是计算机技术中一个很重要也很有趣的专项内容，大家可以参阅其它书籍自行研究这门学问，在本书中不做深入讨论。<br>
+　　不同的磁盘之所以有不同的容量原因在于它们具有不同的磁道数和扇区数。值得注意的是每个扇区的容量都是512个字节，连硬盘也不例外。举360K倍密磁盘为例，它的一个面上划分了40条磁道，每条磁道上分成9个扇区，所以两个面共有扇区数为2′40′9＝720个，总共可以容纳512′720＝368640个字节的数据，恰好是368640／1024＝360K；而1.44M的3寸盘的一个面上有80条磁道，每条磁道划分了18个扇区，总容量为512′2′80′18＝1474560个字节，恰为1440K。<br>
+　　说到这里细心的读者可能马上会发现问题，当使用FORMAT程序格式化一片360K的磁盘后，程序报告磁盘的总容量为362496个字节，比实际容量少了6144个字节，合12个扇区；而格式化1.44M磁盘后程序报告的总容量为1457664个字节，比实际容量少33个扇区。这看起来好象有些怪异，实际上FORMAT程序"遗失"的这些扇区在DOS的文件管理环节中占有重要的地位，它们不能由用户保存数据用，而是由操作系统专用，保存有关文件的重要的特征信息。这些扇区集中于磁盘的"零"磁道上，我们常称其为"系统保留扇区"。<br>
+　　磁盘上的任一个扇区均可以用"面"、"磁道"、"扇区"三个参数进行定位，我们现在使用的软盘都是双面存储的，早期的单面磁盘已经淘汰。驱动器都有两个磁头，对应磁盘的两个面儿，这两个磁头的编号为0和1，在编程时我们可以通过指定磁头的方式存取任意一个面儿上的某个扇区，具体说究竟哪个磁头是0哪个是1这倒无关紧要。<br>
+　　磁道的编号是由0开始，360K磁盘磁道编号由0至39，720K、1.2M、1.44M磁盘的磁道编号为0－79，共80条。编号为0的磁道在磁盘的最外一圈，由外向内顺次排列。这里又有一个微妙的问题，不同的磁道周长不一样，而其容量却都一样，每条磁道包含的扇区数相同，这样看来越靠近内圈（磁道编号越大）的磁道其数据存储就越"紧凑"。<br>
+　　我们知道"数据"落实到磁盘上都是一些磁性信号，这些磁信号相邻的越"紧"，在存取时相互干扰就越严重。因此越靠近内圈的磁道数据的存取就越困难，所以磁道不能过于靠近磁盘内圈。<br>
+　　一片磁盘的永久标签上都印有48TPI、96TPI这样的文字，其含义是每一英寸直径上所能容纳的磁道数（Track Per Inch）。360K磁盘每一英寸直径上可以容纳48条磁道，磁盘上开的磁头读写窗口长度也比英寸要大，所以原则上这片磁盘可以格式化为48条磁道，不过内圈的8条磁道并没有使用，原因就是笔者前面所说的那样，内圈的磁道读写不很可靠。<br>
+　　每一条磁道的扇区编号是由1开始的，在编程时应指明所存取的扇区位于磁盘的哪个面儿（即磁头号0、1），哪条磁道（0－39）的哪个（或哪几个）扇区。<br>
+　　为方便编程，PC系统为程序设计者提供了一组功能调用，即"INT 13H"中断。其中断服务程序位于BIOS内，并非由DOS提供。这个中断提供了许多有关磁盘的服务，最常用的是前6项，即磁盘复位、取驱动器状态、扇区读写、校验与格式化磁道。本书只把最常用的几项功能作一些简要介绍，使大家对软硬盘的逻辑结构和编程控制方法有初步了解，而更深入的内容需参考其它相关书籍。先来讨论驱动器复位和扇区读写这三项功能（见表8-4）：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page228.html">上一页</a> <a href="page230.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

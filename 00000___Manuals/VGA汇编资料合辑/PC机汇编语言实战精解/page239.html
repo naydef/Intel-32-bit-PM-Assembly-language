@@ -1,0 +1,121 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page238.html">上一页</a> <a href="page240.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第9章 图形显示</td> <!章节名>
+<td></td><td>-239-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>
+C:\ASM\>DEBUG[Enter]<br>
+-a100<br>
+121D:0100 mov ax,0004<br>
+121D:0103 int 10<br>
+121D:0105 int 20<br>
+121D:0107<br>
+</td>
+<td colspan=12>
+　　有一点还要提醒各位，即使显示系统已被设定为图形模式，但BIOS 10H中断所提供的字符显示功能包括设定光标位置等同样可以应用。10H中断服务会自己判断显示系统的工作模式而采取相应的方法完成这些功能。我们编制程序时仍可调用这些功能。<br>
+　　在讨论具体的图形功能调用之前我们需要先搞清楚这样几个问题：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　1、图形的构成<br>
+　　一幅图形究竟由什么构成，美术工作者也许会说图形是由一系列线条或色块构成。此种说
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=12>
+法并不错，但并不适用于计算机。电脑中的图形，无论是出现在显示器上还是打印机上，其实都是由一系列的点组成。以最简单的图形--直线为例，当一组点以很密的间距排列时，从总体上看它们就是一条直线（图9-1）。而且点越小越密，所组成的线就越细越光滑。所以我们可以看出，如果能解决在显示器上画"点"这个问题，实际上也就解决了画图的问题。
+</td>
+<td colspan=6 align=center><img src="figures/F9_1.gif"><br><font face="楷体_GB2312">图9-1 直线的构成</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　2、色彩的构成与表达<br>
+　　在第六章里我们对这个问题已有所讨论。各种色彩都可以由三种“基本色”红（Red）、绿（Green）、蓝（Blue）（通常称之为RGB）合成出来。就CGA而言，它具有两个彩色组，每组的4种色彩分别由数字0、1、2、3表示，具体的对应关系如下：<br>
+<font face="楷体_GB2312">
+　　彩色组0：0--屏幕底色	1--绿色	2--红色	3--黄色<br>
+　　彩色组1：0--屏幕底色	1--青色	2--品红	3--白色<br>
+</font>
+　　一般情况下电脑默认使用彩色组1的四种色彩，不过BIOS提供了一个功能调用，用于选定使用彩色组0。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　3、图形字符<br>
+　　计算机中的字符与图形本是一回事。显示器上出现的字符也是由点组成的，这一点我们在第六章已有讲述。比如说字母A，它在屏幕上实际是如图9-2所示的一组点。<br>
+　　现在的问题就是这样一组点如何用数字表示。试想如果我们把不亮的点用0表示，把亮点用1表示，那么字母A最顶端的8个点就可以表示为"00010000"，这实际上是一个8位二进制数。下面几行同样可以用几个8位二进制数表示，因此字母A可以用8个8位二进制数表示，共用8个字节。<br>
+　　在计算机内有很多地方使用这种方法描述文字与符号，我们所常见的汉字也有用此方法描述的。只不过由于汉字的宽度与高度都大于8个点，所以描述汉字要使用更多的字节。<br>
+　　我们常把描述一个字符（汉字）的一组点称为"点阵"，而把"点阵"的"数字表示"称为"字模"（Font Mask），以刚才所举的字母A为例，组成字母A的64个点就是这个字母的点阵，而表示这个点阵的8个8位二进制数就是这个字母的字模。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page238.html">上一页</a> <a href="page240.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

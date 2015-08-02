@@ -1,0 +1,179 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page187.html">上一页</a> <a href="page189.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-188-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+ERR_EXIT:<br>
+<br>
+<br>
+MAIN<br>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+MOV<br>
+INT<br>
+ENDP<br>
+ENDS<br>
+END
+</td>
+<td colspan=5>
+<br>
+AH,4CH<br>
+21H<br>
+<br>
+<br>
+MAIN
+</td>
+<td colspan=9>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们使用了两个FCB打开两个文件，第一个FCB用于"源文件"CONFIG.SYS，第二个用于"目的文件"CONFIG.TXT。程序从"源文件"中读入数据，转换成小写后写入"目的文件"，如此循环，直至读数据时DOS返回了错误码01H为止。这个程序的思路很清楚，无需过多解释。大家可以在DOS下直接执行这个程序，看看有何结果。<br>
+　　不知道各位读者看到的结果和笔者看到的是否一样，执行此程序后，当前目录下出现了一个新的文件--CONFIG.TXT，但这个文件的长度为0，它没有实质内容。<br>
+　　出现这样一个结果的原因稍有些复杂，我们先来看看如何解决这个问题。很简单，执行完所有的"顺序写"操作后将"目的文件"CONFIG.TXT关闭即可。DOS提供的关闭文件功能如下所述：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+功能号：10H<br>
+用　途：关闭一个已打开的文件<br>
+参　数：DS:DX = 打开的FCB起始地址<br>
+调　用：INT 21H<br>
+返　回：AL = 0 -- 成功关闭文件<br>
+　　　　AL = 0FFH -- 关闭失败
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个功能和"打开文件"功能正相反，但AL返回的状态码含义是一样的。我们现在利用这个功能将上面的程序中标号ERR_EXIT后面部分改成下面这样：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+ERR_EXIT:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+<br>
+MOV<br>
+INT
+</td>
+<td colspan=5>
+<br>
+AH,10H<br>
+DX,OFFSET FCB2<br>
+21H<br>
+<br>
+AH,4CH<br>
+21H
+</td>
+<td colspan=9>
+<br>
+；利用DOS的10H功能<br>
+；将FCB2指示的文件关闭<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　重新编译程序并执行，这时就会看到当前目录下出现的CONFIG.TXT文件长度不再是0了。而且用TYPE命令确实可以看到其中的字符全部是小写。<br>
+　　不知道你的"源文件"有多大，如果你的CONFIG文件长度不是恰好凑够整数个记录的话那么你会发现生成的目的文件长度和源文件不等。这个问题我们暂且忽略，现在先来讨论一下为什么将文件关闭后就能获得正确的结果。<br>
+　　"关闭文件"其实有两个作用，第一是将DOS的文件缓冲区中的内容写入磁盘中；第二是在磁盘的目录表中建立一个具有正确特征信息的目录项。我先来谈一谈DOS的文件缓冲区是怎么回事。如果你很熟悉如何建立CONFIG文件，那么在你建立一个新的配置文件时一定不会忘记使用"BUFFERS=xx"设置DOS的缓冲区数。很多DOS手册都指出了设置合适的缓冲区数可以提高DOS的磁盘操作效率，这个道理从何而来？我们现在就要搞清楚DOS的缓冲区是什么样的结构。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page187.html">上一页</a> <a href="page189.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

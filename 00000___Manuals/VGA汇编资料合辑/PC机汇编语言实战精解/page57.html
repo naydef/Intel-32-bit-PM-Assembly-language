@@ -1,0 +1,132 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page56.html">上一页</a> <a href="page58.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第4章 奇妙的声音</td> <!章节名>
+<td></td><td>-57-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+小于＋127，仅占一个字节，因此，编译程序便自动地将另一个字节置成"90H"，于是在可执行程序中就有了"NOP"指令。<br>
+　　如果不想程序中出现"NOP"指令，那么就必须在源程序中明确指出"JMP"指令是"短程"跳转，这只需将第一条指令改写成"JMP  SHORT  START"即可，指令中的"SHORT"就是告诉编译程序将此处的"JMP"指令处理为短程转移。
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td>
+<td colspan=18><FONT FACE="黑体" LANG="ZH-CN" SIZE=3><a name="42">4．2  精确定时</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在<a href="page45.html#41">4.1节</a>中我们已经讨论了如何通过定时器的通道3发出确定频率的声音，这一节我们要一起学习怎样精确地定时，这样才能解决演奏音乐的问题。<br>
+　　PC中的定时电路有三个通道，通道3用于发声，通道1用于控制系统内部的时钟。大家都十分清楚用DOS的"TIME"命令可以观察并修改系统内部的一个时钟，这个时钟之所以能连续运转主要依靠定时器的通道1。<br>
+　　通道1的工作方式和通道3一样，但是系统启动时设定其发出一个频率固定为18.2Hz的信号，这个信号直接送到系统中的"中断控制器"。每一个"Hz"都产生一个硬件中断，一般称这个硬中断为"IRQ0"，对应的中断号是08H。也就是说，当计算机启动后，我们的机器看上去十分平静，但实际上CPU非常忙碌。在定时器的控制下每隔55毫秒就要执行一个08H号中断，这个中断的主要工作就是连续地计数。<br>
+　　在内存"0040H：006CH"处有四字节的存储空间专门用于保存计数值，CPU每执行一次08H中断，这四字节的计数值就被加1，不难算出这个计数值每增加1091后时间恰好过了1分钟，每增加65454后时间恰好过了1小时。系统内部的时钟之所以能准确走时，靠得就是08H中断和这四字节的计数值。因此我们要想精确的定时，必须依靠时钟计数值才行。<br>
+　　程序PROG9.ASM是一个能准确发出1000Hz声音的程序，声音持续时间为5秒钟。这个程序中又出现了一条新的指令：
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：ADD（add）<br>
+用　途：将两个数据相加<br>
+格　式：ADD  寄存器，立即数<br>
+　　　　ADD  寄存器，存储单元<br>
+　　　　ADD  寄存器，寄存器<br>
+　　　　ADD  存储单元，立即数<br>
+　　　　ADD  存储单元，寄存器<br>
+执　行：两个数据相加，结果保存在左边的寄存器或存储单元中，右边数据不变。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=2>
+PROG9.ASM<br>
+PORT_B<br>
+code<br>
+<br><br>
+main
+<td colspan=2>
+<br>
+equ<br>
+segment<br>
+assume<br>
+org<br>
+proc
+</td>
+<td colspan=3>
+<br>
+61H<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near
+</td>
+<td colspan=9>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page56.html">上一页</a> <a href="page58.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

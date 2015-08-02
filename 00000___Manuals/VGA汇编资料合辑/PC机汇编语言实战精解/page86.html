@@ -1,0 +1,236 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子过程和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page85.html">上一页</a> <a href="page87.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-86-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>-g=1e 2b</td><td colspan=14></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0944</td><td colspan=2>BX=0013</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFFC</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=1031</td><td colspan=2>ES=1021</td><td colspan=2>SS=1031</td><td colspan=2>CS=1033</td><td colspan=2>IP=002B</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1033:002B</td><td colspan=2>C20200</td><td colspan=6>RET 0002</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　带参数的RET指令可以自动修改SP寄存器，如果在这里简单的使用不带参数的RET指令，则这个子程序返回后SP应该等于"0FFFEH"，RET指令加上参数之后，SP寄存器就会被修改为0000，等于以前压入的参数自动出栈。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=8>-t</td><td colspan=10><font face="楷体_GB2312" size=2>注意SP寄存器的变化</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0944</td><td colspan=2>BX=0013</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=0000</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=1031</td><td colspan=2>ES=1021</td><td colspan=2>SS=1031</td><td colspan=2>CS=1033</td><td colspan=2>IP=0010</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1033:0010</td><td colspan=2>B409</td><td colspan=6>MOV AH,09</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>g=10</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=6>WELCOME TO PC WORLD</td><td colspan=12><font face="楷体_GB2312" size=2>转换后的字符串</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>Program terminated normally</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　下面这个程序也是一个有关如何应用BP寄存器实例，这个程序示例揭示了BP寄存器的又一用途--动态分配内存。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CALC.ASM<br>
+CR<br>
+LF<br>
+data<br>
+<br>
+mess<br>
+ascii<br>
+data<br>
+<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+equ<br>
+equ<br>
+segment<br>
+assume<br>
+db 'welco<br>
+db '01234<br>
+ends<br>
+<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+<br>
+mov<br>
+push<br>
+mov<br>
+call<br>
+call<br>
+mov
+</td>
+<td colspan=6>
+<br>
+0dh<br>
+0ah<br>
+<br>
+ds:data<br>
+me to pc world',0dh,0ah,24h<br>
+56789abcdef'<br>
+<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+<br>
+dx,offset mess<br>
+dx<br>
+bx,offset ascii<br>
+calc<br>
+hexout<br>
+ah,4ch
+</td>
+<td colspan=8>
+<br>
+；回车符的ASCII码<br>
+；换行符的ASCII码<br>
+<br>
+<br>
+；定义一个小写字符串<br>
+；十六进制的数字<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；设置数据段寄存器<br>
+<br>
+<br>
+；DX寄存器指向字符串首<br>
+；字符串首地址压入堆栈<br>
+；BX寄存器指向ASCII表<br>
+；调用CALC子过程计算字符数<br>
+；调用HEXOUT子过程输出字符数<br>
+；结束进程
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page85.html">上一页</a> <a href="page87.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>
+

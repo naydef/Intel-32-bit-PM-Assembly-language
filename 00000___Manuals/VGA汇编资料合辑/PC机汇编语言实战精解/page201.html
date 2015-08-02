@@ -1,0 +1,222 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page200.html">上一页</a> <a href="page202.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-201-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+ERR_EXIT:<br>
+<br>
+<br>
+MAIN<br>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+<br>
+MOV<br>
+INT<br>
+ENDP<br>
+ENDS<br>
+END
+</td>
+<td colspan=5>
+ERR_EXIT<br>
+<br>
+AH,9<br>
+DX,OFFSET MSG<br>
+21H<br>
+<br>
+AH,4CH<br>
+21H<br>
+<br>
+<br>
+MAIN
+</td>
+<td colspan=9>
+；未能找到指定的文件，转ERR_EXIT<br>
+<br>
+；显示"OK！！！"<br>
+<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们要讨论的第二个问题是个比较重要的内容，尽管这部分内容也不常用，但它是FCB文件功能与文件句柄功能的一个最显著的区别。我们知道存在于磁盘上的内容不仅是文件，还有子目录和卷标。即使是文件也有只读、隐含等很多种不同的属性。如何处理这些具有属性的文件，这就要用到扩展的FCB。我们前面讨论过有关文件属性的问题，DOS实际上是用一个字节表示文件属性，这个字节存放在扩展FCB的最后，也就是紧挨着驱动器号前面的那个字节。有关这方面的知识请大家复习一下本章的第二节。我准备通过一个实际程序来说明这个问题，请看例程LABEL.ASM：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+LABEL.ASM<br>
+DATA<br>
+<br>
+EXT_FCB<br>
+<br>
+<br>
+<br>
+DRIVE2<br>
+FILE_NAME<br>
+EXT_NAME<br>
+<br>
+NEW_NAME<br>
+<br>
+MSG<br>
+DATA<br>
+<br>
+CODE<br>
+<br>
+MAIN<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+SEGMENT<br>
+ASSUME<br>
+LABEL<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ENDS<br>
+<br>
+SEGMENT<br>
+ASSUME<br>
+PROC<br>
+MOV<br>
+MOV
+</td>
+<td colspan=5>
+<br>
+<br>
+DS:DATA<br>
+BYTE<br>
+DB 0FFH<br>
+DB 5 DUP(0)<br>
+DB 00001000B<br>
+DB 0<br>
+DB '*       '<br>
+DB '*  '<br>
+DB 5 DUP(0)<br>
+DB 'ABCDEFGHIJK'<br>
+<br>
+DB 'OK!!!',0DH,0AH,24H<br>
+<br>
+<br>
+<br>
+CS:CODE<br>
+FAR<br>
+AX,DATA<br>
+DS,AX
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+；扩展FCB标志<br>
+<br>
+；属性字节（磁盘卷标）<br>
+；驱动器号，0：当前  1：A  2：B  ...<br>
+；文件名<br>
+；扩展名<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page200.html">上一页</a> <a href="page202.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

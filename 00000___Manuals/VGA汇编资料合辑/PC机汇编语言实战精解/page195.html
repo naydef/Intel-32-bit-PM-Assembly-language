@@ -1,0 +1,195 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page194.html">上一页</a> <a href="page196.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-195-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="732">7．3．2 随机块读写功能</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2><img src="icons/note.gif"></td>
+<td colspan=2>
+功能号：<br>
+用　途：<br>
+参　数：<br>
+调　用：<br>
+返　回：<br>
+<br><br><br><br>
+</td>
+<td colspan=6>
+27H<br>
+随机读取出一组记录<br>
+DS:DX--打开的FCB首地址<br>
+CX--要读取的记录数<br>
+INT 21H<br>
+AL = 0--读到全部指定记录<br>
+AL = 1--已读到文件尾<br>
+AL = 2--记录溢出段<br>
+AL = 3--读出部分记录<br>
+CX = 实际读到的记录数
+</td>
+<td></td>
+<td colspan=2>
+功能号：<br>
+用　途：<br>
+参　数：<br>
+调　用：<br>
+返　回：<br>
+<br><br><br><br>
+</td>
+<td colspan=6>
+28H<br>
+随机写出一组记录<br>
+DS:DX--打开的FCB首地址<br>
+CX--要写出的记录数<br>
+INT 21H<br>
+AL = 0--写出全部的记录<br>
+AL = 1--磁盘已满<br>
+AL = 2--记录溢出段<br>
+CX = 实际写出的记录数
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　从给出的应用方法我们可以看到随机块存取与随机存取功能在使用上的区别就在于入口参数与返回的结果中要涉及记录个数，其余的基本一致。不过这里我有必要说明一下这两个功能的出错情况：<br>
+<font face="楷体_GB2312">
+　　（1）如果这两个功能返回的错误码02H，则表明记录溢出了DTA所在段。不过这时可能已经读入或写出了一些记录，出现这种情况程序需要根据CX返回的数据判断究竟读入了多少记录。<br>
+　　（2）如果返回的错误码为00H，表明子功能正确执行，此时DOS会修改FCB中随机记录号、当前记录块号和当前记录号，使它们都指向下一个记录。<br>
+　　（3）如果随机块写功能写出0个记录，则DOS将不写出任何数据，但此时DOS要修正文件长度，使之增长或缩减到由随机记录域和记录长度域两者结合所指示的长度。这是个很有趣的现象，有时我们可以用此方法修改文件的长度，这在一些杀病毒程序中有应用。<br>
+</font>
+　　下面的程序例给出了这两个功能的实际应用情况，注意程序是如何调整目的文件的长度的。跟踪的结果附在程序例后面：<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+FCBCOPY.ASM<br>
+<br>
+；数据段定义同FCB7.ASM，此处省略<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+CODE<br>
+<br>
+MAIN<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+SEGMENT<br>
+ASSUME<br>
+PROC<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ
+</td>
+<td colspan=5>
+<br>
+CS:CODE<br>
+FAR<br>
+AX,DATA<br>
+DS,AX<br>
+<br>
+AH,0FH<br>
+DX,OFFSET FCB1<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+；初始化DS寄存器<br>
+<br>
+<br>
+；打开"源文件"<br>
+<br>
+<br>
+；"源文件"正确打开了吗？<br>
+；若没有正确打开文件，转ERR_EXIT
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page194.html">上一页</a> <a href="page196.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

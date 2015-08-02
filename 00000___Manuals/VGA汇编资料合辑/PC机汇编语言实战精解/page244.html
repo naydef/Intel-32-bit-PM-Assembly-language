@@ -1,0 +1,183 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page243.html">上一页</a> <a href="page245.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-244-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+disp<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+pop<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+si<br>
+bx<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；恢复寄存器<br>
+<br>
+；返回主过程<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4 align="center"><img src="figures/F9_3.gif"><br><font face="楷体_GB2312">图9-3 "啊"的点阵</font></td>
+<td colspan=14>
+　　能够在不启动汉字系统的情况下直接在屏幕上显示出汉字的确是件很有趣的事，很多电子游戏都具有这样的能力。说句实话，这并非是一件很难办的事情。我们已经知道字符是由一组点构成，而现在我们又掌握了画点的方法，那么理所当然我们能够在屏幕上"画"出字符和汉字，问题的关键就在于每个点应画在什么地方。这首先需要将一组点的排列数字化，我们刚刚说过这个问题，下面我举出一个汉字的实例，来更明确地说明这个问题：<br>
+　　图9-3就是GB-2312－80汉字库的第一个字--"啊"的点阵，同西文字符相比，汉字的点阵规模要大一些，达到16 16点。每一行上的16个点可用两个字节表示，描述一个汉字共使用32个字节。我们要解决的第一个问题就是在获得了字模数据后如何处理这32个字
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+节。DOTMAP给出了一种算法。下面给出的这个子程序同样可以完成这项工作，不过它使用了一个新的指令--TEST（位测试）。</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="3" align="center"><img src="icons/note.gif" width="39" height="50"></td>
+<td colspan="15">
+助记符：TEST（Test）<br>
+用　途：测试寄存器或内存单元中一个位或几个位的0，1状态<br>
+格　式：TEST 	寄存器，立即数<br>
+　　　　TEST	寄存器，寄存器<br>
+　　　　TEST 	寄存器，存储单元<br>
+　　　　TEST 	存储单元，立即数<br>
+　　　　TEST 	存储单元，寄存器<br>
+执　行：CPU将源操作数与目的操作数相"与"，但不保留结果，只是根据结<br>
+　　　　果设置标志位
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+disp<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+loop2:<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+proc<br>
+push<br>
+push<br>
+push<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+push<br>
+mov
+</td>
+<td colspan=5>
+near<br>
+bx<br>
+si<br>
+di<br>
+cx,16<br>
+si,offset buffer<br>
+dx,100<br>
+<br>
+cx<br>
+bx,8000h
+</td>
+<td colspan=9>
+；DISP子过程<br>
+；保存寄存器<br>
+<br>
+<br>
+；处理32个字节（16个字）<br>
+；SI寄存器指向文件缓冲区<br>
+；汉字左上角的Y坐标送入DX寄存器<br>
+<br>
+；暂存CX寄存器中的计数值<br>
+；将"掩模"送入BX寄存器
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page243.html">上一页</a> <a href="page245.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

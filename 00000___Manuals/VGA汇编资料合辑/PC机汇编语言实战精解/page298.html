@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第11章 更高级的技术</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page297.html">上一页</a> <a href="page299.html">下一页</a> <a href="page328.html">附录A</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-298-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"></td>
+<td colspan=15>
+　　　　DS:DX=新的中断服务程序入口地址<br>
+调　用：INT 21H<br>
+返　回：无
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们一般提倡使用系统功能调用设置中断服务程序入口，这样做有利于增强程序的可移植性。<br>
+　　还有一点需要注意的是在进入中断服务程序之后首先要保存一些需要使用的寄存器，在服务程序结束时再恢复这些寄存器的原值。这样可以保证被中断的程序能正确的运行。<br>
+　　给出的示例程序虽然能够正确地处理F11和F12两个功能键，但是它有一个致命的缺陷，就是除了F11和F12两键之外，其它的键全部"罢工"了。<br>
+　　我们编制的这个中断服务程序比较的简单，它只能处理F11和F12两个键，而不能处理其它的键。不过当我们在中断向量表中重新设定09H中断服务程序的入口后，这个不完善的中断服务程序就完全接管了键盘。这相当于我们彻底推翻了原09H中断服务程序的"专制统治"，建立了一个"共和政府"。遗憾的是这个"共和政府"的领导者"NEW09"的能力实在是有限，根本领导不了键盘上的"全体人民"。<br>
+　　如果需要保持键盘的原功能，那么就需要编制一个很完善的09H中断服务程序，这样做的工作量是很大的。难道非这样做不可吗？<br>
+　　其实原来的09H中断服务程序虽然"专制"，但是它的能力还是比较强的。试想如果我们不"完全推翻"原09H中断服务程序，而是让"NEW09"与原来的服务程序组成一个"君主立宪"政府，由原09H中断服务程序负责键盘上多数"人民"，由"NEW09"负责F11与F12这两个"少数民族"，互相合作，这样就能保持键盘的原功能了。<br>
+　　依照这个思路，可以把程序TSR.ASM修改成下面的模样：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+NEW09.ASM<br>
+code<br>
+<br>
+<br>
+start:<br>
+<br>
+old09<br>
+new09:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+<br>
+jmp<br>
+dd<br>
+<br>
+push<br>
+push<br>
+push<br>
+push<br>
+push<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+in<br>
+push
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+<br>
+short install<br>
+?<br>
+<br>
+ax<br>
+bx<br>
+cx<br>
+di<br>
+es<br>
+<br>
+ax,0b800h<br>
+es,ax<br>
+di,0<br>
+<br>
+al,60h<br>
+ax
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；转驻留部分的安装程序<br>
+；保存原09H中断向量<br>
+；新的09H中断服务程序<br>
+；保存寄存器<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+；ES寄存器指向显示缓存段<br>
+<br>
+；DI寄存器指向显示缓存首部<br>
+<br>
+；取得扫描码<br>
+；并存入堆栈
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page297.html">上一页</a> <a href="page299.html">下一页</a> <a href="page328.html">附录A</a></p>
+</body>
+</html>

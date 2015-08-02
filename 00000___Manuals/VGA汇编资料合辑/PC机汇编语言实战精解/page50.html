@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第4章 奇妙的声音</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page49.html">上一页</a> <a href="page51.html">下一页</a> <a href="page80.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-50-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　所有这些伪操作和实际代码共同组成了完整的源程序，其大致结构为"段"内含着"过程"，"过程"内含着"指令"，最后用"END"结束"进程"并指出"主过程"。<br>
+　　这样的源程序可以用行编辑器（EDLIN）或全屏编辑器（WS、WPS、EDIT）编制并将它们以"ASM"为扩展名保存在磁盘上，接下来的工作就是用编译程序将这些源程序文件译成可执行的程序文件。通常使用的编译程序有两种，一种是由MicroSoft开发的MASM（Macro Assembler），另一种是由Borland开发的TASM（Turbo Assembler）。<br>
+　　使用MASM应这样操作：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+C:\ASM\>masm[Enter]<br>
+Microsoft (R) Macro Assembler Version 5.00<br>
+Copyright (C) Microsoft Corp 1981-1985, 1987.  All rights reserved.<br>
+<br>
+Source filename [.ASM]:prog7[Enter]　　　<font face="楷体_GB2312" size=2>（输入待编译的源程序文件名）</font><br>
+Object filename [prog7.OBJ]:[Enter]　　　<font face="楷体_GB2312" size=2>（输入编译后生成的目标程序文件名）</font><br>
+Source listing  [NUL.LST]:[Enter]　　　　<font face="楷体_GB2312" size=2>（输入列表文件名）</font><br>
+Cross-reference [NUL.CRF]:[Enter]　　　　<font face="楷体_GB2312" size=2>（输入交叉引用表文件名）</font><br>
+<br>
+　51540 + 435052 Bytes symbol space free<br>
+<br>
+　　　0 Warning Errors　　<font face="楷体_GB2312" size=2>（警告性错误）</font><br>
+　　　0 Severe  Errors　　<font face="楷体_GB2312" size=2>（严重性错误）</font>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　".LST"是编译之后生成的列表文件，默认情况是不输出这个文件，如果需要输出这个文件，则应该键入文件名，不能再直接回车。".CRF"是交叉引用表文件，默认也是不输出。<br>
+　　"Warning Errors"是编译程序发现的警告性错误，"Severe Errors"则是比较严重的错误。如果编译之后这严重错误为0，则此时磁盘上将产生一个扩展名为"OBJ"的文件，这个文件就是源程序编译而成的目标文件。<br>
+　　如果使用TASM（Turbo Assembly）则需要这样操作：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+C:\ASM\>tasm prog7[Enter]<br>
+Turbo Assembler  Version 3.2  Copyright (c) 1988, 1992 Borland International<br>
+<br>
+Assembling file:   prog7.ASM<br>
+Error messages:    None　　　<font face="楷体_GB2312" size=2>（严重性错误）</font><br>
+Warning messages:  None　　　<font face="楷体_GB2312" size=2>（警告性错误）</font><br>
+Passes:            1<br>
+Remaining memory:  460k<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　若程序没有错误，则"Error messages"和"Warning messages"后都是"NONE"；源程序被正确编译扩展名为".OBJ"的目标文件；如果程序中有错误，则TASM会报告错误数量、性质和类型，而且不产生目标文件；同样的，"警告性错误"（WARNING）不影响目标文件的生成。出现错误后应使用编辑软件修改源程序并再次编译，直至看到两个"NONE"为止。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page49.html">上一页</a> <a href="page51.html">下一页</a> <a href="page80.html">下一章</a></p>
+</body>
+</html>
+

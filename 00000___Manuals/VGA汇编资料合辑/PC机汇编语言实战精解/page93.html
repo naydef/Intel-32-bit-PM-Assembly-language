@@ -1,0 +1,224 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子程序和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page92.html">上一页</a> <a href="page94.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第5章 子程序和串处理</td> <!章节名>
+<td></td><td>-93-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=8>dss:fffc</td><td colspan=10><font face="楷体_GB2312" size=2>注意返回地址为0123</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0E69:FFF0</td><td colspan=7></td><td colspan=3><u>23 01</u> 00 00</td><td colspan=3></td><td colspan=3>#...</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　可以看到返回地址是0123，恰好是LOW4B处。当第一次执行RET指令时，CPU将返回到这个地址处继续执行。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-g=125 12e</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>1</td><td colspan=16><font face="楷体_GB2312" size=2>程序显示出ESC键的ASCII码高4位对应的十六进制数</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0231</td><td colspan=2>BX=0103</td><td colspan=2>CX=0004</td><td colspan=2>DX=1B31</td><td colspan=2>SP=FFFC</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0E69</td><td colspan=2>ES=0E69</td><td colspan=2>SS=0E69</td><td colspan=2>CS=0E69</td><td colspan=2>IP=012E</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0E69:012E</td><td colspan=2>C3</td><td colspan=6>RET</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　利用"G"命令在012E处打一个断点，以便于观察RET指令的执行。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-t</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0231</td><td colspan=2>BX=0103</td><td colspan=2>CX=0004</td><td colspan=2>DX=1B31</td><td colspan=2>SP=FFFE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0E69</td><td colspan=2>ES=0E69</td><td colspan=2>SS=0E69</td><td colspan=2>CS=0E69</td><td colspan=2>IP=0123</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0E69:<u>0123</u></td><td colspan=2>8AC6</td><td colspan=6>MOV AL,DH</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312" size=2>CPU返回0123处继续执行程序</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　可以看到CPU正确地返回到0123处继续执行程序，再往下CPU将直接进入0125处。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-t</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=021B</td><td colspan=2>BX=0103</td><td colspan=2>CX=0004</td><td colspan=2>DX=1B31</td><td colspan=2>SP=FFFE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0E69</td><td colspan=2>ES=0E69</td><td colspan=2>SS=0E69</td><td colspan=2>CS=0E69</td><td colspan=2>IP=0125</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0E69:<u>0125</u></td><td colspan=2>240F</td><td colspan=6>AND AL,0F</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="楷体_GB2312" size=2>程序直接进入了0125处</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　我们再次用"G"命令在012E处打上断点，以便于观察RET指令第二次执行的情况。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=9>-g=125 12e</td><td colspan=9></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>B</td><td colspan=16><font face="楷体_GB2312" size=2>程序显示出ESC键对应ASCII码的低半个字节</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0242</td><td colspan=2>BX=0103</td><td colspan=2>CX=0004</td><td colspan=2>DX=1B42</td><td colspan=2>SP=FFFE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0E69</td><td colspan=2>ES=0E69</td><td colspan=2>SS=0E69</td><td colspan=2>CS=0E69</td><td colspan=2>IP=012E</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0E69:012E</td><td colspan=2>C3</td><td colspan=6>RET</td>
+<td colspan=8></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　再次用"T"命令跟踪RET指令，注意此时堆栈中已经没有CALL指令压入的返回地址，只有DOS存入的一个"0"
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page92.html">上一页</a> <a href="page94.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>
+

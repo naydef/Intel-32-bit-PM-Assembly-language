@@ -1,0 +1,230 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子程序和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page80.html">上一页</a> <a href="page82.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第5章 子程序和串处理</td> <!章节名>
+<td></td><td>-81-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td></td><td></td>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+hexout<br>
+<br>
+<br>
+hexloop:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+hexout<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+call<br>
+cmp<br>
+jnz<br>
+mov<br>
+int<br>
+endp<br>
+proc<br>
+push<br>
+mov<br>
+<br>
+push<br>
+mov<br>
+rol<br>
+push<br>
+and<br>
+xlat<br>
+mov<br>
+mov<br>
+int<br>
+pop<br>
+pop<br>
+loop<br>
+mov<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+pop<br>
+ret<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=4>
+hexout<br>
+al,ESCKEY<br>
+getkey<br>
+ax,4c00h<br>
+21h<br>
+<br>
+near<br>
+ax<br>
+cx,2<br>
+<br>
+cx<br>
+cl,4<br>
+al,cl<br>
+ax<br>
+al,0fh<br>
+ascii<br>
+dl,al<br>
+ah,2<br>
+21h<br>
+ax<br>
+cx<br>
+hexloop<br>
+dl,CR<br>
+ah,2<br>
+21h<br>
+dl,LF<br>
+21h<br>
+ax<br>
+<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+；调用HEXOUT子过程<br>
+；是ESC键吗？<br>
+；不是ESC键，返回GETKEY处继续<br>
+；选择DOS API的4CH功能<br>
+；结束进程<br>
+<br>
+；HEXOUT子过程<br>
+；保存AX寄存器<br>
+；显示2位十六进制数<br>
+<br>
+；保存CX寄存器<br>
+；CL寄存器置入循环左移位数<br>
+；循环左移AL，将高4位与低4位交换<br>
+；暂存AX寄存器以备后面处理低4位<br>
+；屏蔽低4位，保留高4位<br>
+；取高4位对应十六进制数字的ASCII码<br>
+；将ASCII码送入DL寄存器<br>
+；选择DOS API的02功能<br>
+；输出DL寄存器中的字符<br>
+；取回AX寄存器<br>
+；取回CX寄存器<br>
+；处理低4位<br>
+；DL寄存器送入回车符<br>
+；选择DOS API的02功能<br>
+；显示回车符<br>
+；DL寄存器送入换行符<br>
+；显示换行符<br>
+；恢复AX寄存器的原值<br>
+；子过程返回<br>
+<br><br><br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　先来讨论程序中出现的一个新指令--XLAT：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：XLAT（Translate）<br>
+用　途：换码指令，将AL寄存器中的数据与存储器中数据进行交换<br>
+格　式：XLAT<br>
+　　　　XLAT ADDR<br>
+执　行：AL中的数据被位于DS：[BX＋AL]处的数据替代
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　CPU执行此指令时会把AL中的数作为偏移量从BX指向的表中取出一字节数据并以此取代AL中的数据。这条指令有些绕，应用起来也有些麻烦：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page80.html">上一页</a> <a href="page82.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>
+

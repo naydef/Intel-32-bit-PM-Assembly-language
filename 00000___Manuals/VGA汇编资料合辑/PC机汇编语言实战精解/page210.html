@@ -1,0 +1,141 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第8章 文件句柄功能与磁盘</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page209.html">上一页</a> <a href="page211.html">下一页</a> <a href="page238.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-208-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+0，1，2的数据，分别表示"读"、"写"和"读/写"三种方式。如果大家熟悉C语言，肯定知道用FOPEN函数打开文件时也要指明存取方式：r表示"读取"；rw表示"读/写"。如果大家不清楚C语言为什么要有这样的要求，那么学到这里，我想你应该对这个问题有了比较明白的认识--C语言也要求助于DOS为其打开文件，它也要遵守DOS的规定。<br>
+　　事实上DOS允许我们同时打开多个文件，每打开一个文件DOS都会给我们返回一个句柄，各个文件对应的句柄都是不同的。我们知道每打开一个文件后DOS都会取得与这个文件相关的一些特征信息保存在自己内部，而DOS用于保存这些信息的空间可不是无穷无尽的，所以能够同时打开的文件数就有限制。DOS启动后究竟为打开文件准备了多少内存呢？这个问题的答案在CONFIG.SYS文件中。还记得我们前面讨论的BUFFERS设置吗？在CONFIG文件中还有一项"FILES=？？？"的配置项，这一项就是告诉DOS启动时要准备出打开"？？？"个文件所需的内存空间。而我们的程序所能同时打开的文件个数是"？？？－5"个，这是因为文件句柄号是从05H开始的。<br>
+　　在本节的最后，我们来讨论一下有关"建立文件"的内容。下面给出了3CH功能的用法，利用句柄功能建立一个文件和用FCB功能并无太大区别，要注意的有这样几点：<br>
+<font face="楷体_GB2312">
+　　第一，不要忘记用ASCIIZ串给出路径和文件名；<br>
+　　第二，如果指定目录下无重名的目录项，则DOS会新建一个目录项并返回句柄。如果指定目录下有一个与待建立的文件重名的目录项，则DOS会将旧的文件长度截为0。此一点和FCB功能相同。<br>
+　　第三，CX寄存器中要设定待建文件的属性。属性的定义和FCB功能相同，但是句柄功能无法建立具有卷标属性或子目录属性的目录项。同FCB功能相比这可以说是句柄功能的一个弱项。<br>
+　　第四，若出错，则CF标志置位，同时AX寄存器返回错误码供程序处理。这其实是所有句柄功能的一个共同特点。这些错误代码都出自一个统一的错误代码表，见表7-2。<br>
+　　第五，文件成功建立之后我们即可对其进行写操作，3CH功能不涉及"打开方式"的问题。建立文件功能的用法并不难，大家可自己编制实验程序将其掌握。
+</font>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18 align=center><font face="楷体_GB2312">表7-2 错误代码表</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>01</td><td colspan=4>非法功能号</td><td colspan=2>10</td><td colspan=4>非法环境</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>02</td><td colspan=4>文件未找到</td><td colspan=2>11</td><td colspan=4>非法格式</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>03</td><td colspan=4>路径名不正确</td><td colspan=2>12</td><td colspan=4>非法存取代码</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>04</td><td colspan=4>同时打开的文件太多</td><td colspan=2>13</td><td colspan=4>非法数据</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>05</td><td colspan=4>拒绝存取</td><td colspan=2>14</td><td colspan=4>未定义</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>06</td><td colspan=4>非法文件句柄</td><td colspan=2>15</td><td colspan=4>非法指定设备</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>07</td><td colspan=4>内存控制块被破坏</td><td colspan=2>16</td><td colspan=4>试图删除当前的目录</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>08</td><td colspan=4>内存不够</td><td colspan=2>17</td><td colspan=4>设备不一致</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td><td colspan=2>09</td><td colspan=4>非法存储块地址</td><td colspan=2>18</td><td colspan=4>已没有文件</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18><font face="黑体"><a name="811">8．1．1 文件的存取</a></font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　一个文件正常打开（或建立）之后，我们下面对文件进行存取的时候就不再依靠那个ASCIIZ串了，而完全依靠DOS给我们的文件句柄。这可以从表－－中所列的读写功能的用法中看出一些眉目来。下面我们就来看一看文件的读写功能是如何应用的。请看程序STARMAP.ASM：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page209.html">上一页</a> <a href="page211.html">下一页</a> <a href="page238.html">下一章</a></p>
+</body>
+</html>

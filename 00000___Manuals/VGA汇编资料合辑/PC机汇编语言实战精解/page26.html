@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page25.html">上一页</a> <a href="page27.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-26-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　不难看出JNZ指令的转移与否也是有条件的，这样的转移指令被称为"条件转移指令"。在汇编语言中还有大量的条件转移指令，这些指令大部分都受到标志寄存器中某些位的控制。而且条件转移指令有很多都有"对立面"--转移条件恰好相反的指令。如与JNZ相对的指令：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：JZ（JUMP  IF  ZERO）<br>
+用　途：根据运算结果是否为0来控制转移<br>
+格　式：JZ  目的地址<br>
+执　行：若ZF＝1则转移至目的地址执行指令；ZF＝0时继续执行下面的指令
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这两条指令应用格式完全一致，而转移条件正相反。还有一点需要注意：条件转移指令只能在－128－＋127字节范围内进行跳转，即目的地址与转移指令后面一条指令的起始地址之差不能大于＋127或小于－128。这个性质很容易验证：输入命令A100[ ]，然后输入"JZ  182[Enter]"，DEBUG马上会显示"error"，这是因为182H－102H＝80H＝128〉＋127的缘故。同理，"JZ 81[Enter]"也会出错。<br>
+　　标志寄存器还有第二个用途，就是控制CPU内部的工作状态。这一点恰和端口的作用相对应，端口是对外部设备的工作状态进行控制。关于此种用途的实际应用将在后面介绍。<br>
+　　PROG2－B的结尾没有RET指令，但它却能正常的返回操作系统。这是那条"INT 20"指令作用的结果。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：INT（INTERUPT）<br>
+用　途：调用中断服务程序<br>
+格　式：INT  nn<br>
+执　行：CPU暂时停止执行当前的程序，根据nn的值去执行另一段程序，这段程序完成一个特定的工作，此程序执行完后，CPU自动返回原来的程序，从停下的地方继续执行。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　INT 20的作用是命令CPU去执行操作系统提供的20H号中断服务程序，这段程序可以使机器重新控制在DOS手中。因此，执行过"INT 20"后，CPU将不在回到PROG2－B。<br>
+　　RET是一条指令，而INT 20的实质是执行一段程序，两者所完成的工作却完全一样，这又是什么原因呢？难道是RET指令的功能强大的可以和一段程序相比吗？这个问题引出了本书的第三章--中断调用与子程序。这一章会给出这个问题的答案。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="黑体" lang="ZH-CN">本章结束语</font><br>
+　　这一章中说得最多的一句话就是"这个问题将在后面讨论"。确实，我们留下了很多问题。为什么要这样？笔者的目的有两个：<br>
+　　其一是为压缩内容。这一章所涉及的内容已经相当多了，需要大量的记忆。如果我们面面俱道，那并不利于读者很好地掌握重点内容；其二，笔者认为带着问题学习往往会有好的效果。当我们对一个问题"恍然大悟"的时候，我们对这个问题的理解和记忆就会更深刻。<br>
+　　请耐心地学下去。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page25.html">上一页</a> <a href="page27.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

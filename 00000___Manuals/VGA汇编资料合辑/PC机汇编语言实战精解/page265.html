@@ -1,0 +1,216 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page264.html">上一页</a> <a href="page266.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第9章 图形显示</td> <!章节名>
+<td></td><td>-265-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+2000H+0A50H+0DH=2A5DH；<br>
+　　④ 由于53除以4的余数是1，所以这个点在字节内占用bit5、bit4两位，这个字节应该是00100000B。<br>
+　　结论：画出此点的方法是向内存0B800H:2A5DH处写入20H即可。<br>
+　　通过上面所述的这些步骤大家就可以总结出计算显示缓冲区偏移量的方法，在此笔者不再总结。下面给出的一个程序可以在屏幕上由（0，0）向（199，199）处画一条绿色直线，程序中的画点子过程就是应用了直接写屏的方法。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+DRAW.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+lineloop:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+<br>
+pixel<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+mov<br>
+<br>
+call<br>
+inc<br>
+inc<br>
+cmp<br>
+jnz<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+endp<br>
+<br>
+proc<br>
+push
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+ax,0004<br>
+10h<br>
+<br>
+ah,0bh<br>
+bh,1<br>
+bl,0<br>
+10h<br>
+<br>
+cx,0<br>
+dx,0<br>
+<br>
+pixel<br>
+cx<br>
+dx<br>
+dx,199<br>
+lineloop<br>
+<br>
+ah,0<br>
+16h<br>
+<br>
+ax,0003h<br>
+10h<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+near<br>
+ax
+</td>
+<td colspan=9>
+<br>
+<br>
+<br>
+<br>
+<br>
+；设置图形显示模式4<br>
+<br>
+<br>
+；选择彩色组0<br>
+<br>
+<br>
+<br>
+<br>
+；直线起始点坐标为（0，0）<br>
+<br>
+<br>
+；画出一个绿色点<br>
+；X坐标加1<br>
+；Y坐标加1<br>
+；画到第199个点了吗？<br>
+；若没画完直线，转LINELOOP继续<br>
+<br>
+；等待键盘输入<br>
+<br>
+<br>
+；设置字符显示模式3<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+；画点子程序，使用直接写屏方法<br>
+；保存寄存器
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page264.html">上一页</a> <a href="page266.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

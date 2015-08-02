@@ -1,0 +1,229 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page242.html">上一页</a> <a href="page244.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第9章 图形显示</td> <!章节名>
+<td></td><td>-243-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+<br>
+disp<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+loop2:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+loop3:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+next_dot:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td colspan=2>
+pop<br>
+loop<br>
+<br>
+mov<br>
+int<br>
+<br>
+mov<br>
+int<br>
+endp<br>
+<br>
+proc<br>
+push<br>
+push<br>
+mov<br>
+mov<br>
+mov<br>
+<br>
+push<br>
+mov<br>
+mov<br>
+<br>
+lodsw<br>
+xchg<br>
+<br>
+shl<br>
+push<br>
+jnc<br>
+mov<br>
+mov<br>
+int<br>
+<br>
+inc<br>
+pop<br>
+dec<br>
+jnz<br>
+<br>
+inc<br>
+pop<br>
+loop
+</td>
+<td colspan=4>
+cx<br>
+loop1<br>
+<br>
+ax,0003h<br>
+10h<br>
+<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+near<br>
+bx<br>
+si<br>
+cx,16<br>
+si,offset buffer<br>
+dx,100<br>
+<br>
+cx<br>
+cx,152<br>
+di,16<br>
+<br>
+<br>
+ah,al<br>
+<br>
+ax,1<br>
+ax<br>
+next_dot<br>
+ah,0ch<br>
+al,2<br>
+10h<br>
+<br>
+cx<br>
+ax<br>
+di<br>
+loop3<br>
+<br>
+dx<br>
+cx<br>
+loop2
+</td>
+<td colspan=10>
+；恢复CX中的计数值<br>
+；转LOOP1继续<br>
+<br>
+；设置字符显示模式3<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+；DISP子过程<br>
+；保存寄存器<br>
+<br>
+；处理32个字节（16个字）<br>
+；SI寄存器指向文件缓冲区<br>
+；汉字左上角的Y坐标送入DX寄存器<br>
+<br>
+；暂存CX寄存器中的计数值<br>
+；汉字左上角的X坐标送入CX寄存器<br>
+；处理一个字的16个Bit<br>
+<br>
+；取得一个字的数据<br>
+；交换高低字节<br>
+<br>
+；数据左移1位，最高位移入CF标志<br>
+；保存移位后的结果<br>
+；若移出的位是0，转NEXT_DOT<br>
+；画一个洋红色的点<br>
+<br>
+<br>
+<br>
+；X坐标加1，准备处理下一个点<br>
+；恢复移位后的结果<br>
+；16个Bit处理完了吗？<br>
+；若未处理完16个Bit，转LOOP3继续<br>
+<br>
+；Y坐标加1，准备处理下一条线<br>
+；恢复CX寄存器中的计数值<br>
+；转LOOP2继续
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page242.html">上一页</a> <a href="page244.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

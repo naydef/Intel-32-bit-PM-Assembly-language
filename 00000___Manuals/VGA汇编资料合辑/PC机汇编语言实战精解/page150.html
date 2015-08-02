@@ -1,0 +1,146 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第6章 文字输出与键盘输入</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page149.html">上一页</a> <a href="page151.html">下一页</a> <a href="page168.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-150-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-t</td><td colspan=16><font face="楷体_GB2312" size=2>AH寄存器的原值被乘积覆盖</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=000C</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13C6</td><td colspan=2>ES=13C6</td><td colspan=2>SS=13C6</td><td colspan=2>CS=13C6</td><td colspan=2>IP=0106</td>
+<td colspan=5>NV UP EI PL NZ NA PE NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13C6:0106</td><td colspan=2>BBFFFF</td><td colspan=6>MOV BX,FFFF</td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　接下来的程序反映了"MUL"指令对有符号数的处理，我们利用"G"命令一次将其执行完，看看程序执行的结果如何：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>-g=106 10b[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2><font face="楷体_GB2312" size=2>积的低16位</font></td><td colspan=4><font face="楷体_GB2312" size=2>乘数</font></td><td colspan=12><font face="楷体_GB2312" size=2>积的高16位</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=000C</td><td colspan=2>BX=0000</td><td colspan=2>CX=0000</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=13C6</td><td colspan=2>ES=13C6</td><td colspan=2>SS=13C6</td><td colspan=2>CS=13C6</td><td colspan=2>IP=010B</td>
+<td colspan=5>NV UP EI PL NZ AC PE CY</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>13C6:010B</td><td colspan=2>90</td><td colspan=6>NOP</td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　以上三行指令跟踪的结果反映了两个16位数据相乘的结果，可以看到MUL指令的确不能处理负数。它把-1（0FFFFH）当作了65535，所以得出的结果是000BFFF4H，其高位000BH出现在DX寄存器中。<BR>
+　　为什么不能将16位数据与8位数据相乘？这是因为被乘数究竟是8位还是16位完全取决于"MUL"指令后面的操作数。如果这个操作数是一个8位的寄存器或者是内存中的一个字节，那么CPU就会认为被乘数是AL寄存器中的一个8位数据；反之，如果这个操作数是一个16位的寄存器或者内存中的一个字，那么CPU就会认为被乘数是AX寄存器中的一个16位数据。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　试验&LT;2&GT;<br>
+　　C:\ASM\>DEBUG[Enter]<br>
+　　-a100[Enter]<br>
+　　13C6:0100 mov ax,fff6<br>
+　　13C6:0103 mov dx,b<br>
+　　13C6:0106 mov bx,c<br>
+　　13C6:0109 div bx<br>
+　　13C6:010B mov ax,2000<br>
+　　13C6:010E mov dx,ff<br>
+　　13C6:0111 mov bl,ff<br>
+　　13C6:0113 div bl<br>
+　　13C6:0115 [Enter]
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page149.html">上一页</a> <a href="page151.html">下一页</a> <a href="page168.html">下一章</a></p>
+</body>
+</html>

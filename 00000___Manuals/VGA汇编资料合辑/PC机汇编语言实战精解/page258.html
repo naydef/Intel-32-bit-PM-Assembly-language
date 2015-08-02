@@ -1,0 +1,261 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第9章 图形显示</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page257.html">上一页</a> <a href="page259.html">下一页</a> <a href="page269.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-258-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3></td>
+<td colspan=15>
+　　　　NEG  存储单元<br>
+执　行：寄存器或存储单元中原有数据被其相反数代替
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　很多参考书上都把这条指令称为"求补"指令，这个"求补"说得有些含糊，给人的感觉好象是源操作数不是补码形式，可能是原码或反码，执行此指令后源操作数将被其补码代替。其实汇编语言中出现的数都是补码形式，根本不需要再求。所以说这条指令的实际用途是求源操作数的相反数，NEG(-1) = +1，NEG 30 = -30。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/note.gif"></td>
+<td colspan=15>
+助记符：JGE  （Jump if Great or Equal）<br>
+用　途：比较两个数，根据比较结果进行转移<br>
+格　式：JGE	目的地址<br>
+执　行：两个数相比较，第一个数大于或等于第二个数时此指令完成转移。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这是一个条件转移指令，它类似于指令JAE。如同指令JA与JAE的关系一样，与这个指令沾亲的一条指令就是"JG（Jump if Great）"。而和这一对指令相对立的指令对就是"JL（Jump if Less）"与"JLE"。这一组四条指令与前面见过的指令"JA/JAE"、"JB/JBE"好象如出一辙，大有重复的嫌疑，其实不然，这里面还有些小奥妙。<br>
+　　在讨论这组指令的区别之前，我们先编两小段程序：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+PROG1.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+mess1<br>
+mess2<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+outmess:<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+db<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+cmp<br>
+ja<br>
+mov<br>
+<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+start<br>
+'Great!',0dh,0ah,'$'<br>
+'Less!',0dh,0ah,'$'<br>
+<br>
+ah,1<br>
+al,255<br>
+dx,offset mess1<br>
+al,ah<br>
+outmess<br>
+dx,offset mess2<br>
+<br>
+ah,09h<br>
+21h<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=2>
+PROG2.ASM<br>
+code<br>
+<br>
+<br>
+main<br>
+<br>
+mess1<br>
+mess2<br>
+start:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+outmess:<br>
+<br>
+<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+<br>
+segment<br>
+assume<br>
+org<br>
+proc<br>
+jmp<br>
+db<br>
+db<br>
+<br>
+mov<br>
+mov<br>
+mov<br>
+cmp<br>
+jg<br>
+mov<br>
+<br>
+mov<br>
+int<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+<br>
+<br>
+cs:code,ds:code<br>
+100h<br>
+near<br>
+start<br>
+'Great!',0dh,0ah,'$'<br>
+'Less!',0dh,0ah,'$'<br>
+<br>
+ah,1<br>
+al,255<br>
+dx,offset mess1<br>
+al,ah<br>
+outmess<br>
+dx,offset mess2<br>
+<br>
+ah,09h<br>
+21h<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这两小段程序比较好理解，它将AL寄存器中的数和AH寄存器相比较，如果AL>AH则输出字符串"Great!"，否则输出"Less!"。我们特意在AL寄存器内装入了255，在AH寄存器内装入了1，所以这个程序会毫无疑问地输出"Great!"。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page257.html">上一页</a> <a href="page259.html">下一页</a> <a href="page269.html">下一章</a></p>
+</body>
+</html>

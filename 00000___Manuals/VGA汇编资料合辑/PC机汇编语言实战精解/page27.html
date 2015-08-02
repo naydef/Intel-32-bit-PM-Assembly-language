@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page26.html">上一页</a> <a href="page28.html">下一页</a> <a href="page45.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第3章 中断调用与子程序</td> <!章节名>
+<td></td><td>-27-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+<font face="隶书" lang="ZH-CN" size=6><p align="CENTER">第3章  中断调用与子程序</p></font>
+<font face="黑体" lang="ZH-CN"><a name="31"><p>3．1 中断的概念和处理过程</p></a></font>
+<font face="黑体" lang="ZH-CN"><a name="311"><p>3．1．1 中断的基本概念</p></a></font>
+<p>
+　　"中断"在计算机技术中占有极其重要的地位。它来源于我们日常的生活。举一个生活中的简单例子：A君正在自己的书房内读书，厨房的煤气灶上正烧着开水，客厅中有一部电话，A君的一位朋友约好要给他打电话。<br>
+　　读书是A君的主要工作，但A君同时又要处理其它事情：水开了，A君必须去关煤气灶；电话铃响，又需要去接电话。<br>
+　　对于这样的事情，A君可以有这样两种处理方案：<br>
+<font face="楷体_GB2312" lang="ZH-CN" size=3>
+　　方案（1）：<br>
+　　先读几行书，记下页码后去客厅看看有无电话打来，若无电话则再跑到厨房看看水开了没有，如果水未开就返回书房看书。如此循环。<br>
+　　"咳！我活得可真够累的啊．．．．．．"A君感慨地说。<br>
+　　感慨归感慨，但是必须承认，这的确是个方案。而且只要循环的“频率”足够高，则这个方案还是行之有效的。<br>
+</font>
+　　当然，人是不会这样工作找累受的，但CPU却能这样运行。比如某时刻CPU正在执行一个程序，打印机正在打印，打印字符要由CPU负责供给。而操作人员正要接键输入字符，输入的字符也要CPU负责保存。<br>
+　　在这样的情况下，CPU就可以按方案（1）处理这两项工作：执行一段程序，停下来转去执行一小段程序来判断是否有键盘输入，有输入则保存输入的字符；而后转去执行另一小段程序去给打印机发送数据；最后返回主要的程序继续执行，如此循环。<br>
+　　这样一种工作方式在一些结构非常简单的计算机中确实是有应用的，此种方式一般称为“设备轮循”。如果让CPU以很高的速度进行轮循就能保证每种外设都能及时得到CPU的支援。<br>
+　　当然，“设备轮循”使得CPU的运行效率很低，因为无论外设是否需要CPU提供服务CPU都要去“关照”它们。而如果某个外设需要CPU支援的时候CPU正在“关照”其他设备，那么此设备就可能因为得不到CPU的支援而陷入运转混乱状态。由此看来，这种令CPU无时无刻不在四处奔走、东挡西杀的工作方式是不能用在PC电脑中的。<br>
+<font face="楷体_GB2312" lang="ZH-CN" size=3>
+　　方案（2）：<br>
+　　A君专心致志地看书，若电话铃响，则记下正在看的页码，放下书去接电话。接完电话返回来继续从记下的页码处读书；若水开发出响声，则记下页码，放下书去关煤气灶，而后返
+</p>
+</font>
+</font>
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page26.html">上一页</a> <a href="page28.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>
+

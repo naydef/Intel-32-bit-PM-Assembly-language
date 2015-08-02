@@ -1,0 +1,245 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第5章 子程序和串处理</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page100.html">上一页</a> <a href="page102.html">下一页</a> <a href="page116.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第5章 子程序和串处理</td> <!章节名>
+<td></td><td>-101-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+jz<br>
+mov<br>
+int<br>
+inc<br>
+jmp<br>
+<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=5>
+exit<br>
+ah,2<br>
+21h<br>
+bx<br>
+outchar<br>
+<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=9>
+；是结尾则结束程序<br>
+；显示这个字符<br>
+<br>
+；BX寄存器指向下一个字符<br>
+；处理下一个字符<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　在这个程序中我们用"0"作字符串结束标志，用BX寄存器作为指针取得每个字符并用21H中断的2号功能输出。用BX作指针不大方便，若改用"串处理"指令会使程序简化一些，下面是经过修改的程序：<br>
+OUTSTR1.ASM
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+data<br>
+<br>
+mess<br>
+data<br>
+code<br>
+<br>
+main<br>
+<br>
+<br>
+<br>
+<br>
+outchar:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+exit:<br>
+<br>
+<br>
+main<br>
+code<br>
+<br>
+</td>
+<td colspan=2>
+segment<br>
+assume<br>
+db<br>
+ends<br>
+segment<br>
+assume<br>
+proc<br>
+mov<br>
+mov<br>
+cld<br>
+mov<br>
+<br>
+lodsb<br>
+or<br>
+jz<br>
+mov<br>
+int<br>
+jmp<br>
+<br>
+mov<br>
+int<br>
+endp<br>
+ends<br>
+end
+</td>
+<td colspan=6>
+<br>
+ds:data<br>
+'Price: $1.00',0dh,0ah,0<br>
+<br>
+<br>
+cs:code<br>
+far<br>
+ax,data<br>
+ds,ax<br>
+<br>
+si,offset mess<br>
+<br>
+<br>
+al,al<br>
+exit<br>
+ah,0eh<br>
+10h<br>
+outchar<br>
+<br>
+ah,4ch<br>
+21h<br>
+<br>
+<br>
+main
+</td>
+<td colspan=8>
+<br>
+<br>
+；定义一个中间含有'$'的字符串<br>
+<br>
+<br>
+<br>
+<br>
+；初始化DS寄存器指向数据段<br>
+<br>
+；将方向标志位DF清0<br>
+；SI寄存器指向字符串首地址<br>
+<br>
+；取一个字符送入AL寄存器<br>
+；AL寄存器是0吗？<br>
+；是0则结束程序<br>
+；选择10H中断的0EH功能<br>
+；显示AL寄存器中的字符<br>
+；处理下一个字符<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序中又出现了一些新的东西，下面我们分别讨论：<br>
+　　<font face="黑体">（1）SI--源地址索引寄存器（Source Index）</font><br>
+　　我们在前面谈到过这个寄存器，它的主要用途是为"串处理"指令提供"源数据串"的首地址。之所以称它为"源"地址索引寄存器是因为只有那些有"取"数据操作的串指令才引用SI，而其它串指令如"串存"、"串扫描"指令都不使用SI寄存器。那么在这个程序中哪个指令是有"取"数据操作的串指令呢？
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page100.html">上一页</a> <a href="page102.html">下一页</a> <a href="page116.html">下一章</a></p>
+</body>
+</html>

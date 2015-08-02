@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page205.html">上一页</a> <a href="page207.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-206-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个程序可以取代DOS提供的TYPE命令，它用于显示文本文件的内容，用法与TYPE命令一致。不过这个程序每显示一屏信息就会暂停一次，按一键后继续显示下一屏。当然，被显示的文件每一行的字符数要小于80个。<br><br>
+<font face="黑体">
+本章结束语<br><br>
+</font>
+　　至此，有关FCB文件操作功能我们已经基本上讨论完了，当然还有一些很不常用的功能我们没有涉及，这些内容可以在其它的参考书上找到。通过对FCB功能的研究，我们可以发现FCB功能所具有的一些特点，归纳如下：<br>
+<font face="楷体_GB2312">
+　　（1）FCB结构源于CP/M操作系统，所以在CP/M系统下编制的程序很容易移植到DOS系统下，这一点在DOS发展的初期具有重要的作用；<br>
+　　（2）FCB的结构对于我们编程来讲是可见的，一个FCB打开后，所有有关于这个文件的信息都保存于FCB中，可以供应用程序使用；<br>
+　　（3）应用扩展FCB可以存取具有特殊属性的文件，而且可以处理象卷标这样的目录；这是其它文件功能所不具备的能力；<br>
+　　（4）FCB功能将文件划分为记录，程序员可以根据需要任意设置记录长度；<br>
+　　（5）一般情况下使用FCB功能打开文件的数目没有限制，除非是在网络环境下装入了文件共享程序（SHARE命令）。不过要打开众多的FCB，需要在内存中开辟相应数量的文件控制块，这些都增加了内存的开销；<br>
+　　（6）FCB功能不能处理树型目录，也就是不能处理"路径名"，因此FCB功能的应用范围受到了限制；<br>
+　　（7）FCB功能返回的错误信息很少，不利于程序处理错误。DOS的版本3对此做了改进，提供了一个新的功能调用59H以获得更多的错误信息，但应用起来仍不方便；
+</font>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page205.html">上一页</a> <a href="page207.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第3章 中断调用与子程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page29.html">上一页</a> <a href="page31.html">下一页</a> <a href="page45.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-30-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+    　　有了中断向量表，CPU就可以根据中断号找到对应服务程序的入口地址。把这个地址装入CS和IP，CPU就开始执行中断服务程序。<br>
+    　　每个中断服务程序的末尾都有一条&quot;中断返回&quot;指令，这个指令在形式上和RET相似： 
+</td>
+<td></td><td></td>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="3" align="center"><img src="icons/note.gif" width="39" height="50"></td>
+<td colspan="15">助记符：IRET（Interrupt Return）<br>
+用  途：从中断服务程序返回被中断程序<br>
+格  式：IRET<br>
+执  行：CPU返回被中断处继续执行指令 </td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td><!左边距>
+<td colspan="18">　　指令看似简单，但CPU的实际动作却是很复杂的。在产生中断的时候CPU已经自动地把将要执行的指令的逻辑地址推入堆栈，那么执行IRET时CPU会自动地从堆栈中取出事先存放在堆栈中的返回地址并将其装人CS:IP中，同时CPU还会从堆栈中恢复标志寄存器的原状态，这样一个中断就处理完了。 
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td>
+<td colspan="18"><font face="黑体" lang="ZH-CN"><a name="32"><p>3．2 几个常用的软件中断</p></a></font>
+<p>（1）INT 20H</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这个软中断在上一章已经用到了，它的作用就是结束我们的程序并将机器的控制权交给DOS。这个中断由DOS为我们提供，提供这个中断的目的是为了和CP/M－86操作系统兼容。MicroSoft并不提倡使用这个中断来结束程序。DOS为我们提供了更好的方法，这将在后面介绍。</p>
+<p>（2）INT 21H</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这个软中断也是DOS为我们提供的，它的服务程序包括大量的功能，这些功能都是为方便PC程序员编程而设计的。我们把这个中断称为DOS API（Application Programming Interface），也就是"应用程序编程接口"。如果在所编的程序中需要DOS提供服务，比如打开文件、分配内存等，就需要调用21H中断。下面我们来看几个常用的功能。</p>
+</td>
+<td></td><td></td>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="3" align="center"><img src="icons/note.gif" width="39" height="50"></td>
+<td colspan="15">
+功能号：01H <br>
+用  途：从键盘接收一个字符并显示在屏幕当前光标位置 <br>
+参  数：AH=01；AH寄存器中放功能号 <br>
+调  用：INT 21H；调用21H中断服务程序 <br>
+返  回：AL=键入字符的ASCII码
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td><!左边距>
+<td colspan="18">　　凡是调用系统功能编制程序，功能号一律放入AH寄存器。01功能在执行时机器会等待用户按键盘，用户按键后它会把与此键对应的ASCII码由AL寄存器返回给程序。所以如果程序需要其使用者输入一个字符时（例如输入Y/N），可以使用这个功能。
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan="3" align="center"><img src="icons/note.gif" width="39" height="50"></td>
+<td colspan="15">
+功能号：02H <br>
+用  途：在屏幕当前光标位置处显示一个字符 <br>
+参  数：AH=02H <br>
+        DL=要显示字符的ASCII码 <br>
+调  用：INT 21H <br>
+返  回：AL=显示字符的ASCII码 <br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td><!左边距>
+<td colspan="18">　　这个功能用于把DL中的ASCII字符显示在屏幕上光标所在的位置。此功能返回时会把DL中
+</td>
+<td></td><td></td><!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page29.html">上一页</a> <a href="page31.html">下一页</a> <a href="page45.html">下一章</a></p>
+</body>
+</html>
+

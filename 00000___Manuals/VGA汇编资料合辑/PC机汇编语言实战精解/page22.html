@@ -1,0 +1,202 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第2章 开始设计程序</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page21.html">上一页</a> <a href="page23.html">下一页</a> <a href="page27.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-22-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=3 align="center"><img src="icons/attention.gif"></td>
+<td colspan=15><font face="楷体_GB2312" lang="ZH-CN" size=3>
+为了能够看到程序执行的细节情况，我们先学习DEBUG的一个新命令--T。T命令主要用于"跟踪"（TRACE）程序，这是DEBUG最重要的功能。利用T命令，我们可以一次执行一条指令，每执行一条指令后DEBUG都会把所有的寄存器内容列出来，这样即可看到指令执行的结果。我们现在跟踪这个程序。
+</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　程序输入完毕，我们首先使用"R"命令将所有寄存器的当前值列出，重点观察一下SP寄存器与AX寄存器的值。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-r</td><td colspan=6><font face="楷体_GB2312" size="2">AX寄存器的初值</font></td><td colspan=10><font face="楷体_GB2312" size="2">SP寄存器的指向</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0000</td><td colspan=2>BX=0000</td><td colspan=2>CX=000A</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0B01</td><td colspan=2>ES=0B01</td><td colspan=2>SS=0B01</td><td colspan=2>CS=0B01</td><td colspan=2>IP=0100</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0B01:0100</td><td colspan=2>B83412</td><td colspan=6 align="center">MOV AX,1234</td><td colspan=4><font face="楷体_GB2312" size="2">第一条待执行的指令</font></td>
+<td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　现在我们输入一个"T"命令，CPU就会将第一条指令"MOV AX，1234"执行，执行之后DEBUG会将执行结果显示出来。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-t</td><td colspan=6><font face="楷体_GB2312" size="2">注意此寄存器的变化</font></td><td colspan=10><font face="楷体_GB2312" size="2">指令指针的增加</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=1234</td><td colspan=2>BX=0000</td><td colspan=2>CX=000A</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0B01</td><td colspan=2>ES=0B01</td><td colspan=2>SS=0B01</td><td colspan=2>CS=0B01</td><td colspan=2>IP=0103</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0B01:0103</td><td colspan=2>BBCDAB</td><td colspan=6 align="center">MOV BX,ABCD</td><td colspan=4><font face="楷体_GB2312" size="2">第二条待执行的指令</font></td>
+<td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　以上显示的内容就是执行了指令"MOV  AX，1234"之后的各寄存器的状态，可以看到AX寄存器中确实存入了1234。另外一点，请注意IP寄存器的变化情况。<br>
+　　再次输入"T"命令，则指令"MOV BX，ABCD"也会被执行。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-t</td><td colspan=6><font face="楷体_GB2312" size="2">BX寄存器存入ABCD</font></td><td colspan=10><font face="楷体_GB2312" size="2">指令指针继续增长</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=1234</td><td colspan=2>BX=ABCD</td><td colspan=2>CX=000A</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEE</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0B01</td><td colspan=2>ES=0B01</td><td colspan=2>SS=0B01</td><td colspan=2>CS=0B01</td><td colspan=2>IP=0106</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0B01:0106</td><td colspan=2>50</td><td colspan=6 align="center">PUSH AX</td><td colspan=4><font face="楷体_GB2312" size="2">需要重点观察的指令</font></td>
+<td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　"PUSH"指令的执行情况是我们要点要观察的，单步执行此指令之后请注意SP寄存器的变化。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>-t</td><td colspan=6></td><td colspan=10><font face="楷体_GB2312" size="2">SP寄存器减量</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=1234</td><td colspan=2>BX=ABCD</td><td colspan=2>CX=000A</td><td colspan=2>DX=0000</td><td colspan=2>SP=FFEC</td><td colspan=2>BP=0000</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=0B01</td><td colspan=2>ES=0B01</td><td colspan=2>SS=0B01</td><td colspan=2>CS=0B01</td><td colspan=2>IP=0107</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>0B01:0107</td><td colspan=2>53</td><td colspan=6 align="center">PUSH BX</td><td colspan=4></td>
+<td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这是第一次执行PUSH指令，可以观察到SP寄存器由原来的FFEE变成了FFEC，恰好是减了2。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page21.html">上一页</a> <a href="page23.html">下一页</a> <a href="page27.html">下一章</a></p>
+</body>
+</html>
+

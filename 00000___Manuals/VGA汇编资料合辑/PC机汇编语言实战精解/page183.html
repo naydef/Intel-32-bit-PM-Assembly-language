@@ -1,0 +1,234 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page182.html">上一页</a> <a href="page184.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td> <!左侧空白>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td> <!右侧空白>
+</tr>
+
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td></td><td></td>
+<td colspan=6><img src="icons/flag.gif"></td><td colspan=4></td><td colspan=6 align="right">第7章 文件控制块</td> <!章节名>
+<td></td><td>-183-</td><td></td> <!页码>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+READ_LOOP:<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ERR_EXIT:<br>
+<br>
+EXIT:<br>
+<br>
+<br>
+MAIN<br>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+MOV<br>
+MOV<br>
+MOV<br>
+DIV<br>
+ADD<br>
+MOV<br>
+MOV<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+LOOP<br>
+<br>
+LOOP<br>
+<br>
+MOV<br>
+INT<br>
+ENDP<br>
+ENDS<br>
+END
+</td>
+<td colspan=5>
+AX,[BX+10H]<br>
+DX,[BX+12H]<br>
+CX,[BX+0EH]<br>
+CX<br>
+AX,2<br>
+CX,AX<br>
+BP,DX<br>
+<br>
+AH,14H<br>
+DX,BX<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+READ_LOOP<br>
+<br>
+READ_LOOP<br>
+<br>
+AH,4CH<br>
+21H<br>
+<br>
+<br>
+MAIN
+</td>
+<td colspan=9>
+；取得文件长度低字<br>
+；取得文件长度高字<br>
+；取得记录长度<br>
+；计算文件包含的记录数<br>
+；记录数加2<br>
+；将增大的记录数作为循环计数<br>
+<br>
+<br>
+；准备从文件中读入数据<br>
+；DX指向打开了的FCB<br>
+；读入一个记录<br>
+；正确读入了吗？<br>
+；若数据未正确读入，转ERR_EXIT<br>
+；继续读入下一个记录<br>
+<br>
+；继续读入<br>
+<br>
+；结束程序<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　下面是这个程序的跟踪分析结果：
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>C:\ASM\>DEBUG FCB6.EXE[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=4>g=0 24[Enter]</td><td colspan=4><font face="楷体_GB2312" size=2>循环计数　数据的余数</font></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=0007</td><td colspan=2>BX=0000</td><td colspan=2>CX=0007</td><td colspan=2>DX=001B</td><td colspan=2>SP=0000</td><td colspan=2>BP=001B</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=2589</td><td colspan=2>ES=2579</td><td colspan=2>SS=2589</td><td colspan=2>CS=258C</td><td colspan=2>IP=0024</td>
+<td colspan=5>NV UP EI PL NZ NA PO NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>258C:0024</td><td colspan=2>B414</td><td colspan=6>MOV AH,14</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　笔者的CONFIG文件有667个字节，我们取记录长度为默认值128字节，这里我们可以看到程序计算出CONFIG文件包含5个记录零1BH个字节。为了能分析出错情况，我们将算出的记录数加了2并将其置入CX寄存器做为循环计数。
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>g=24 30[Enter]</td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>AX=1403</td><td colspan=2>BX=0000</td><td colspan=2>CX=0002</td><td colspan=2>DX=0000</td><td colspan=2>SP=0000</td><td colspan=2>BP=001B</td><td colspan=2>SI=0000</td><td colspan=2>DI=0000</td><td colspan=2></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>DS=2589</td><td colspan=2>ES=2579</td><td colspan=2>SS=2589</td><td colspan=2>CS=258C</td><td colspan=2>IP=0030</td>
+<td colspan=5>NV UP EI PL NZ NA PE NC</td><td colspan=3></td>
+<td></td><td></td> <!右边距>
+</tr>
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>258C:0030</td><td colspan=2>E2F2</td><td colspan=6>LOOP 0024</td><td colspan=4></td><td colspan=4></td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　一次执行全部循环，可以看到AL寄存器返回的第一的错误码是03H，这个错误码的含义是
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page182.html">上一页</a> <a href="page184.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=gb2312">
+<title>第7章 文件控制块</title>
+</head>
+
+<body>
+<style type="text/css">
+body {
+	background-color: #c0c0c0;
+}
+
+table {
+	background-color: #c0c0c0;
+	line-height: 24px;
+}
+</style>
+<!导航条>
+<p><a href="content1.html">目录</a> <a href="page201.html">上一页</a> <a href="page203.html">下一页</a> <a href="page207.html">下一章</a></p>
+<table 	border=0 align="center" width=800 frame="box" rules="none">
+<!标尺行>
+<tr>
+<td width=3%></td><td width=6%></td><td width=1%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td><td width=5%></td>
+<td width=1%></td><td width=6%></td><td width=3%></td>
+</tr>
+<!页眉行>
+<tr height=60 valign="bottom">
+<td></td><td>-202-</td><td></td> <!页码>
+<td colspan=6>PC机汇编语言实战精解</td><td colspan=4></td><td colspan=6 align="right"><img src="icons/flag.gif"></td> <!书名>
+<td></td><td></td><td></td> <!右侧空白>
+</tr>
+<!页眉线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!正文>
+<font face="宋体" lang="ZH-CN" size=3>
+<tr height=20><td colspan=22></td></tr> <!顶部空白>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ERR_EXIT:<br>
+<br>
+<br>
+MAIN<br>
+CODE<br>
+<br>
+</td>
+<td colspan=2>
+MOV<br>
+MOV<br>
+INT<br>
+OR<br>
+JNZ<br>
+<br>
+MOV<br>
+MOV<br>
+INT<br>
+<br>
+MOV<br>
+INT<br>
+ENDP<br>
+ENDS<br>
+END
+</td>
+<td colspan=5>
+AH,17H<br>
+DX,OFFSET EXT_FCB<br>
+21H<br>
+AL,AL<br>
+ERR_EXIT<br>
+<br>
+AH,9<br>
+DX,OFFSET MSG<br>
+21H<br>
+<br>
+AH,4CH<br>
+21H<br>
+<br>
+<br>
+MAIN
+</td>
+<td colspan=9>
+；选择文件改名功能<br>
+；DX指向特殊的FCB<br>
+；修改磁盘卷标<br>
+；改名功能执行正确吗？<br>
+；若不正确，转ERR_EXIT<br>
+<br>
+；显示"OK！！！"<br>
+<br>
+<br>
+<br>
+；结束进程<br>
+<br>
+<br>
+<br>
+<br>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+<tr>
+<td></td><td></td> <!左边距>
+<td colspan=18>
+　　这个小程序可以将当前盘上的卷标改成"ABCDEFGHIJK"，请注意我们在扩展FCB中定义的属性字节，其Bit3位为1，这说明我们要改名的是磁盘卷标而非其它的文件。如果将属性字节改成10H，则这个程序可以改子目录名。当然，改子目录名时就不能使用"*.*"了。后面我们还要讲文件句柄功能，那些功能也能处理有属性的文件，但它们都不能完成对卷标和子目录名的操作。<br>
+　　至于本节最后一个问题--命令行参数则是一个十分重要的内容，所谓重要主要表现为这个技术很常用。那么究竟何为"命令行参数"呢？这是我们首先要讨论的问题。<br>
+　　我们知道DOS的所有功能都是以"命令"的形式提供给我们的，当我们需要DOS为我们做一些事情的时候我们要在DOS提示符后面打入一个命令，如COPY或TYPE等。而我们如果需要运行一个可执行程序时也要在提示符后打入程序名，比如FORMAT等。一般情况下我们把这样一种人机交互方式称为"命令行"方式。<br>
+　　所谓的"命令行参数"指得是在命令或程序名后面打入的一些具有某种特殊意义的字符。以DIR命令为例，如果我们仅仅打入"DIR"这命令，DOS会按顺序显示磁盘目录；如果我们打入"DIR/P"，那么DOS就会在显示一个屏幕的目录名后暂停并等待按键。这个命令中出现的"/P"就是我们所说的命令行参数。再比如程序FORMAT.COM，我们使用这个程序格式化磁盘时必须要指出相应的驱动器，假如我们要格式化的软盘在"A:"中，这时我们需要打入"FORMAT A:"命令，其中的"A:"也是命令行参数。<br>
+　　需要指出的是有些参考书把"/"后面的字符称为"开关"，把用空格隔开的字符称为"参数"。比如FORMAT程序的这样一个用法--"FORMAT A:/S"，其中的"A:"是参数，"/S"是开关。这两种叫法是比较正规的，不过笔者并没有采用这样的叫法，原因是对于设计程序来说它们的处理方法没什么区别。<br>
+　　说了这么多东西大家好象觉得"命令行参数"是个很神秘的家伙，其实不然。命令行参数很容易处理，至少不是那么难以寻觅。我们现在就来在内存中找一找，看看它究竟出现在哪儿。请大家在DOS提示符后打入下面这个命令：<br>
+　　<font face="Arial" size=5>C:\ASM\>debug tasm.exe aaa bbb[Enter]</font>
+</td>
+<td></td><td></td> <!右边距>
+</tr>
+
+</font>
+
+<!页脚线>
+<tr valign="top">
+<td></td><td colspan=20><hr></td><td></td>
+</tr>
+<!页脚>
+<tr height=60 valign="top">
+<td></td><td></td>
+<td colspan=9><i>Copyright &copy; 2004-2005 <a href="mailto:webmaster@nucstorm.com">Chunk Lee</a></i></td>
+<td colspan=9 align="right"><i><a href="http://www.nucstorm.com" target="_top">www.nucstorm.com</a></i></td>
+<td></td><td></td>
+</tr>
+</table>
+<!导航条>
+<p align="right"><a href="content1.html">目录</a> <a href="page201.html">上一页</a> <a href="page203.html">下一页</a> <a href="page207.html">下一章</a></p>
+</body>
+</html>
