@@ -6,7 +6,7 @@
 ;
 ;	Mighten Dai, 16:24, July 19, 2015
 ;   Finally Modified by: ;	Mighten Dai<mighten.dai@gmail.com>
-;                             23:00, Aug 02, 2015
+;                             23:23, Aug 02, 2015
 ;
 ;
 ;    Kernel, Base Address 0x0002_0000, length = 65,536 Bytes
@@ -36,7 +36,7 @@ kernel_32_bit_entry:
 	call	_32_show_string
 
 	; Switch to Task A by using Task Gate.
-	jmp		Kernel_TaskGate_Selector:0
+	jmp		TaskA_Gate_Selector:0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 PM_String:  db '[Kernel]: Hello, I am a regenerated Kernel, goto A, never wanna back...', 0

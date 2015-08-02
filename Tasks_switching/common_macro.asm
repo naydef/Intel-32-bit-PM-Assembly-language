@@ -12,7 +12,7 @@ Task_A_Selector         EQU	0x28 ; # 5
 Task_B_Selector         EQU	0x30 ; # 6
 Kernel_Task_Selector    EQU	0x38 ; # 7
 
-Kernel_TaskGate_Selector EQU 0x40 ; # 8
+TaskA_Gate_Selector		EQU 0x40 ; # 8
 
 
 
