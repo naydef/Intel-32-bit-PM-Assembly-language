@@ -5,7 +5,7 @@
 ;    By using Library codes to fill this file.
 ;
 ;   Finally Modified by: ;	Mighten Dai<mighten.dai@gmail.com>
-;                             16:56, July 20, 2015
+;                             22:59, Aug 02, 2015
 ;
 ;##############################################
 
@@ -21,7 +21,7 @@ GDT_Head:
 	DQ		0x00008903_0200006E ; # 5  Task A TSS
 	DQ		0x00008903_026E006E ; # 6  Task B TSS
 	DQ		0x00008980_00000400 ; # 7  Kernel Task TSS
-;	DQ		0x00008500_28000000 ; # 8  Task Gate A
+	DQ		0x00008500_00280000 ; # 8  Task Gate A
 GDT_Tail:
 
 	times 0x200 - ( $ - GDT_Head ) db 0x00

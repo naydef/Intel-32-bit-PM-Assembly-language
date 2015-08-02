@@ -12,6 +12,8 @@ Task_A_Selector         EQU	0x28 ; # 5
 Task_B_Selector         EQU	0x30 ; # 6
 Kernel_Task_Selector    EQU	0x38 ; # 7
 
+Kernel_TaskGate_Selector EQU 0x40 ; # 8
+
 
 
 phy_address_kernel_data_base          EQU 0x0003_0000
@@ -26,5 +28,5 @@ phy_address_Task_B_empty_stack_esp    EQU 0x0009_0000
 
 phy_address_video_buffer_head         EQU 0x000B_8000
 
-GDT_Limit       EQU     0x8 * 8
+GDT_Limit       EQU     0x8 * 9
 GDT_Base        EQU     phy_address_kernel_data_base

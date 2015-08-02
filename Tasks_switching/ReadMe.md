@@ -6,6 +6,9 @@ This program using NASM syntax mainly Control the i386 CPU to
 
 Simultaneously, create 3 tasks.
 
+And simultaneously I will switch task by using Task Gate
+Kernel Task --TaskGate--> Task A   --TSS_Selector--> Task B
+
 ----------------------------
 ## Output on screen, more details  /Screen_Capture are described as PNG-photo file.
 Bootstrap Print: 
@@ -77,4 +80,4 @@ No stack-overflow checking mechanism!!!
                   July 14, 2015
 
 	Finally Modified by: Mighten Dai<mighten.dai@gmail.com>
-                             19:33, Aug 01, 2015
+                             23:01, Aug 02, 2015
