@@ -1,0 +1,332 @@
+;THIS DOCUMENT DESCRIBES THE WINDOWS TO POWER MANAGEMENT SOFTWARE INTERFACE.
+;FOLLOWING ASSUMPTIONS ARE MADE FOR IT'S PROPER WORKING .
+
+;THIS IS AN INTEL SMD1 APPS PRODUCT..
+;EMAIL AT SDATTA@MIPOS3.INTEL.COM
+;PROPERTY OF INTEL CORP. OF SANTA CLARA,CA.
+;DATE : OCT 1990...
+;* * * * * * * * * * * * * * * * * * * * * * * * * * * *
+;THE POWER MANAGEMENT SERVICES ARE REQUESTED FROM HIGH LEVEL SOFTWARE
+;BY SETTING UP THE REGISTER VALUES INTO THE EXTENDED CMOS RAM AND THEN
+;PERFORMING AN 8 BIT IO READ OPERATION TO PORT ADDRESS 26H.
+;THIS GENERATES A TRAP AND SL ENTERS THE SYSTEM MANAGEMENT MODE AND THE
+;PMI.COM PROCESSES THE REQUEST. THE RESULTS ARE PASSED ON TO THE EXTENDED
+;CMOS RAM AGAIN..SO THAT HIGH LEVEL CALLER CAN USE THEM.
+;* * * * * * * * * * * * * * * * * * * * * * * * * * * *
+;  THE FOLLOWING REGISTERS WILL HAVE INFO FOR PM SOFTWARE :
+;         AH = FUNCTION CODE .					    
+;         AL = MUST BE FREE ...INTERFACE STRUCTURE DESTROYS AL...
+;         CX = TIMER COUNTS OR DIVISOR FACTORS IF ANY.
+;         BH = DEVICE CODE IF ANY..(NOTE : CLOCK IS ALSO A DEVICE)
+;         BL = POWER LEVEL
+;-----------------------------------------------------------------
+;THE EXTENDED CMOS RAM LOCATIONS SET UP IS AS FOLLOWS...
+
+;VALUE OF AL IN HEX = EXTENDED CMOS RAM LOCATION 00H.
+;VALUE OF AH IN HEX = EXTENDED CMOS RAM LOCATION 01H.
+
+;VALUE OF BL IN HEX = EXTENDED CMOS RAM LOCATION 02H.
+;VALUE OF BH IN HEX = EXTENDED CMOS RAM LOCATION 03H.
+
+;VALUE OF CL IN HEX = EXTENDED CMOS RAM LOCATION 04H.
+;VALUE OF CH IN HEX = EXTENDED CMOS RAM LOCATION 05H.
+
+;NOTE : MACROS READ_XMOS AND WRITE_XMOS CAN PERFORM READ AND WRITE OPERATIONS
+;ON EXTENDED CMOS RAM AND ARE LOCATED IN PWRMN.MAC FILE...HIGH LEVEL SOFTWARE
+;CALLERS CAN MAKE USE OF THEM...
+
+;------------------------------------------------------------------
+
+;THE POWER MANAGEMENT ROUTINES HAVE THEIR OWN HIDDEN STACKS IN SYSTEM
+;MANAGEMENT RAM AND THEY DO NOT TOUCH THE HIGH LEVEL SOFTWARE STACK.
+
+;IN CASE OF UNSUCCESSFUL EXECUTION CY FLAG IS SET AS PER OUR TRADITION
+;HIGH LEVEL SOFTWARE CAN TAKE ADVANTAGE OF THIS IF NEEDED..
+
+;---------------------------------------------------------------------
+
+;THE REGISTER VALUES FOR THE FUNCTION CALLS SUPPORTED ARE LISTED BELOW..
+;THESE REGISTER VALUES MUST BE SET UP IN EXTENDED CMOS RAM OF SL SYSTEM
+;AS IT WAS DESCRIBED IN THE ABOVE PARAGRAPHS...
+
+;---------------------------------------------------------------------
+;THE FUNCTION CALLS SUPPORTED ARE DEFINED BELOW....
+;---------------------------------------------------------------------
+;FUNCTION - 1 :
+
+;SET CPU CLOCK SPEED AS A FUNCTION OF EFI.
+
+;INPUT VALUES.....
+
+AH =  SET_CPU_CLOCK	1		; Set the CPU clock speed
+BH =  "a" OR 61H WHICH IDENTIFIES CLOCK.
+BL =  	0 = IF IT IS EFI
+	1 = IF IT IS /2
+	2 = IF IT IS /4
+	3 = IF IT IS /8
+
+;RETURN VALUES.....
+
+RETURN VALUE = AX = 00H FOR SUCCESSFUL EXECUTION.
+
+;----------------------------------------------------------------------
+;FUNCTION - 2 :
+
+;GET CPU CLOCK SPEED AS A FUNCTION OF EFI.
+
+;INPUT VALUES.....
+
+AH =  GET_CPU_CLOCK	81H	
+BH =  "a" OR 61H WHICH IDENTIFIES CLOCK.
+
+PM SOFTWARE RETURNS THE FOLLOWING..(IN EXTENDED CMOS RAM FORMAT OFCOURSE.)
+
+;RETURN VALUES.....
+
+BL =  	0 = IF IT IS EFI
+	1 = IF IT IS /2
+	2 = IF IT IS /4
+	3 = IF IT IS /8
+
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;-----------------------------------------------------------------------
+;FUNCTION - 3 :
+; LOAD GLOBAL STANDBY TIMER VALUE...
+
+AH =  LOAD_GST		3	; Load the Global Standby Timer
+CX =  Timer Value IN BINARY ..
+
+;RETURN VALUES.....
+
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;---------------------------------------------------------------------
+;FUNCTION - 4 :
+; GET GLOBAL STANDBY TIMER VALUE...
+
+AH =  GET_GST		83H	; GET the Global Standby Timer
+
+PM SW RETURNS...
+
+CX =  Timer Value IN BINARY AS THE TIMER ACCEPTS IT 4.096 SEC / BIT.
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;---------------------------------------------------------------------
+;FUNCTION - 5 :
+; LOAD AUTO POWER OFF TIMER...
+
+AH =  LOAD_APOT		4	; Load the Auto Power Off Timer
+CX =  Timer Value IN BINARY...
+
+PM SW RETURNS...
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;-------------------------------------------------------------------
+;FUNCTION - 6 :
+; GET AUTO POWER OFF TIMER...
+
+AH =  GET_APOT		84H	; GET the Auto Power Off Timer
+
+PM SW RETURNS..
+CX =  Timer Value IN BINARY...
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;--------------------------------------------------------------------
+;FUNCTION - 7 :
+; LOAD AUTO POWER OFF WARNING TIMER...
+
+AH =  LOAD_APOW		5	; Load the Auto Power Off Warning Timer
+CX =  TIMER VALUE IN BINARY...
+
+PM SW RETURNS..
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;--------------------------------------------------------------------
+;FUNCTION - 8 :
+;GET AUTO POWER OFF WARNING TIMER...
+
+AH =  GET_APOW		85H	; GET the Auto Power Off Warning Timer
+PM SW RETURNS..
+CX =  TIMER VALUE IN BINARY...
+AX = 00 FOR SUCCESSFUL EXECUTION..
+;---------------------------------------------------------------------
+;FUNCTION - 9 :
+;DISABLE AUTO POWER OFF FUNCTION..
+
+AH =  DISABLE_POFF	6	; Disable Auto Power Off
+
+RETURN VALUE ..
+AX = 00 FOR SUCCESSFUL EXECUTION..
+;----------------------------------------------------------------------
+;FUNCTION - 10 :
+;ENABLE AUTO POWER OFF FUNCTION..
+
+AH =  ENABLE_POFF	7	; Enable Auto Power Off
+
+RETURN VALUE ..
+AX = 00 FOR SUCCESSFUL EXECUTION..
+;------------------------------------------------------------------------
+;FUNCTION - 11 :
+;DISABLE GLOBAL STANDBY FEATURE..
+
+AH =  DISABLE_STANDBY	8
+
+RETURN VALUE ..
+AX = 00 FOR SUCCESSFUL EXECUTION..
+;------------------------------------------------------------------------
+;FUNCTION - 12 :
+;ENABLE GLOBAL STANDBY FEATURE..
+
+AH =  ENABLE_STANDBY	9
+
+RETURN VALUE ..
+AX = 00 FOR SUCCESSFUL EXECUTION..
+;------------------------------------------------------------------------
+;FUNCTION - 13 :
+;READ LOCAL STANDBY TIMER VALUE AND ALSO DEVICE STATUS...
+
+AH =  READ_STEPDOWN	11H	; Returns the Local standby timer for 
+BH =  device code		; the device selected ....
+
+;THE RETURN VALUES ARE AS FOLLOWS..
+CX =  Timer value on return
+BL = 00 IF DEVICE IS ON BUT IT'S LOCAL STANDBY TIMER IS DISABLED..
+BL = 01 IF DEVICE IS OFF AND IT'S LOCAL STANDBY TIMER IS DISABLED..
+BL = 02 IF DEVICE IS ON AND IT'S LOCAL STANDBY TIMER IS ENABLED..
+BL = 03 IF DEVICE IS OFF AND IT'S LOCAL STANDBY TIMER IS ENABLED..
+AX = 0 FOR SUCCESSFUL EXECUTION..
+;-----------------------------------------------------------------------
+;FUNCTION - 14 :
+;LOAD LOCAL STANDBY TIMER VALUE AND ALSO DEVICE STATUS...
+
+AH =  LOAD_STEPDOWN	12H	;
+BH =  device code		;
+CX =  Timer value		;
+;RETURN VALUES..
+;AX = 00 FOR SUCCESSFUL EXECUTION...
+;-----------------------------------------------------------------------
+;FUNCTION - 15 :
+;PUTS THE DESIGNATED DEVICE TO REQUIRED POWER LEVEL..
+;NOW SUPPORTS ONLY TWO POWER LEVELS..ON OR OFF..
+
+AH =  SET_DEV_PON	13H	; Set device to power level
+BH =  device code
+BL =  level..00= TURN OFF THE DEVICE..AND BL = 0FFH = TURN ON THE DEVICE..
+
+RETURN VALUES...
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;----------------------------------------------------------------------
+;FUNCTION - 16 :
+;READS THE POWER LEVEL OF A DESIGNATED DEVICE...
+;NOW SUPPORTS ONLY TWO POWER LEVELS..ON OR OFF..
+
+AH =  READ_DEV_PWR	15H
+BH =  device code
+
+;RETURN VALUES...
+BL =  DEVICE POWER LEVEL 00 = OFF AND ON IS 0FFH
+AX = 00 FOR PERFECT EXECUTION...
+;------------------------------------------------------------------
+;FUNCTION - 17 :
+;ENABLES THE LOCAL STANDBY..
+
+AH =  ENABLE_STEP	17H	; Enable local standby
+BH =  device code
+;RETURN VALUES...
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;-------------------------------------------------------------------
+;FUNCTION - 18 :
+;DISABLES THE LOCAL STANDBY..
+
+AH =  DISABLE_STEP	18H	; Disable local standby
+BH =  device code
+
+;RETURN VALUES...
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;-------------------------------------------------------------------
+;FUNCTION - 19 :
+;CONTROLS THE NUMERICS 80387SX CLOCK..
+
+AH =  SET_MPU_CLOCK	19H
+BH =  "b" OR 62H
+BL =  	0 = EFI
+	1 = /2
+	2 = /4
+	3 = /8
+	4 = /16
+;RETURN VALUES...
+AX = 00 FOR SUCCESSFUL EXECUTION...
+;------------------------------------------------------------
+;FUNCTION - 20 :
+;GETS THE VALUE OF THE  NUMERICS 80387SX CLOCK..
+
+AH =  GET_MPU_CLOCK	99H
+BH =  "b" OR 62H
+
+PM SW RETURNS...
+BL =  	0 = EFI
+	1 = /2
+	2 = /4
+	3 = /8
+	4 = /16
+;AX = 00 FOR SUCCESSFUL EXECUTION...
+;------------------------------------------------------------
+;FUNCTION - 21 :
+;CONTROLS THE MODE AND ENABLE OF CACHE ...
+
+AH = CONFIG_CACHE     1AH
+BH =  "f" = 66H
+BL = 0 FOR DIRECT MAPPED..
+BL = 1 FOR 2-WAY SET ASSOCIATIVITY..
+BL = 2 FOR 4 WAY SET ASSOCIATIVITY..
+CL = 00 FOR DISABLE CACHE...
+CL = 0FFH FOR ENABLE CACHE..
+
+;RETURN VALUE...
+;AX = 00 FOR SUCCESSFUL EXECUTION...
+;-------------------------------------------------------------
+;DETAILED EXPANSION OF DEVICE CODES FOLLOW....
+
+Device	Device		Device Power levels
+code	Name
+
+a	CPU Clk        	0 = EFI
+			1 = EFI / 2
+			2 = EFI / 4
+			3 = EFI / 8
+
+b	MCP Clk		0 = EFI
+			1 = EFI / 2
+			2 = EFI / 4
+			3 = EFI / 8
+			4 = EFI / 16
+
+
+
+
+f	Cache 
+
+
+A	Floppy Disk	
+
+B	Hard Disk	
+
+C	Backlight	
+
+D	LCD		
+
+
+M	FLASH VPP	0 = Full On
+			1 = Full Off
+
+I	iNC Control 2	
+			
+
+J	iNC Control 1	
+
+K	Modem		
+;-----------------------------------------------------------------
+;DEVICE CODES....
+A = FLOPPY DISK	...DEVPWR0
+B = HARD DISK .....DEVPWR3
+C = BACKLIGHT .....DEVPWR1
+D = LCD PANEL......DEVPWR2
+Z = UNKNOWN .......DEVPWR5
+
+
+

@@ -1,0 +1,238 @@
+
+;MACROS FOR POWER MANAGEMENT SOFTWARE.
+;THIS MACRO TOOL-KIT CONTAINS ROUTINES THAT ARE USED TO OPEN 82360SL AND
+;CPU SPACES AND READ , WRITE AND CHANGE THEIR VALUES..
+;DATED SEP 1 , 1990.
+;Intel Corp. 2625 Walsh Ave,Santa Clara, CA 95051.
+
+
+;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+;    INTEL CORPORATION  MAKES  NO WARRANTY  FOR THE  USE OF THIS
+
+;    EXAMPLE  AND  ASSUMES  NO  RESPONSIBILITY  FOR  ANY  ERRORS
+
+;    WHICH  MAY  APPEAR  IN  THIS  EXAMPLE  PROGRAM   NOR  DOES
+
+;    IT MAKE  A  COMMITMENT  TO  UPDATE  THE  INFORMATION  THAT
+
+;    ARE  CONTAINED  HEREIN.
+
+;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+;      < < < < < <  I M P O R T A N T    N O T I C E  > > > > > >      *
+
+;THIS MODULE IS DESIGNED TO SERVE AS AN EXAMPLE FOR BIOS PROGRAMMERS   *
+;WHO PROGRAM 386 SL BASED AT SYSTEM. IT MUST BE CONSIDERED AS AN       *
+;EXAMPLE AND A PROGRAMMING IMPLEMENTATION RATHER THAN A LINE BY LINE   *
+;CODE THAT HAS BEEN MAXIMISED FOR PROGRAMMING EFFICIENCY. THE PROGRAM  *
+;HAS BEEN WRITTEN FOR CLARITY RATHER THAN PROGRAMMING ELEGANCE.	       *
+
+;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+;ASSEMBLERS DIRECTIVES FOLLOW...
+
+	.386C			;ENABLE 386 INSTRUCTION GENERATION.
+
+;----------------------------------------------------
+;UNLOCK_CPUPWRMODE MACRO LIFTS THE LOCKED BIT OF CPUPWRMODE REGISTER
+;AND MAKES IT WRITABLE. ENOUGH JMP $+2 INSTRUCTIONS HAVE BEEN USED 
+;TO ALLOW SILICON RECOVERY TIME FOR EARLY A0 STEP CPU'S AND IO 'S.
+;THEY CAN BE REDUCED AND IN SOME PLACES REMOVED FOR OUR LATER PARTS.
+
+UNLOCK_CPUPWRMODE     MACRO     ;enable access to registers
+
+	JMP	$+2
+	MOV	AX,8000H	;this macro allows access
+
+	OUT	CFGSTAT,AL	; to the cpupowermode register
+
+	JMP	$+2
+
+	XCHG	AL,AH		;this macro allows access
+	OUT	CPUPWRMODE,AL
+
+	JMP	$+2
+
+	out	CPUPWRMODE,AX
+
+	JMP	$+2
+
+	ENDM
+;-----------------------------------------------------------------
+;THE CHANGE_REG MACRO IS DESIGNED TO SET OR RESET PARTICULAR BITS OF
+;A 386 SL CPU REGISTER. THE MACRO TAKES 3 INPUT PARAMETERS.
+;<1> THE REGISTER NAME ,<2> THE BIT PATTERN TO BE ANDED LOGICALLY WITH
+;THE EXISTING REGISTER VALUE ,<3> THE BIT PATTERN TO BE ORED LOGICALLY
+;WITH THE EXISTING REGISTER VALUE.
+;------------------------------------------------------------------
+
+CHANGE_REG	MACRO   PORT,AND_VALUE,OR_VALUE
+
+	JMP	$+2
+
+	MOV	DX,PORT		;this macro modifies any io reg.
+	IN	AX,DX		;port=the hex number of the io port
+
+	JMP	$+2
+
+	AND	AX,AND_VALUE	;and_value=port value will be anded
+	OR	AX,OR_VALUE	; with this value
+	OUT	DX,AX		;or_value=port value will be ored
+
+	JMP	$+2
+
+	ENDM			; with this value
+;-----------------------------------------------------------------
+;THIS MACRO IS SAME AS THE CHANGE_REG MACRO ALREADY DESCRIBED , BUT
+;IT OPERATES ON BYTE REGISTERS ONLY..
+;-----------------------------------------------------------------
+
+CHANGE_REGB MACRO PORTB, AND_VALUEB, OR_VALUEB	 ;byte regs only!!!!!
+
+	JMP	$+2
+
+	MOV	DX,PORTB	;this macro modifies any io reg.
+	IN	AL,DX		;portb=the hex number of the io port
+
+	JMP	$+2
+
+	AND	AL,AND_VALUEB	;and_valueb=port value will be anded
+	OR	AL,OR_VALUEB	; with this value
+	OUT	DX,AL		;or_valueb=port value will be ored
+
+	JMP	$+2
+
+	ENDM			; with this value
+;---------------------------------------------------------------------
+;THIS MACRO OPENS UP 82360SL SPACE SO THAT THE REGISTERS IN 82360SL CAN BE
+;ACCESSED...
+
+OPEN_82360SL		MACRO		
+
+	JMP	$+2
+
+;THE FOLLOWING IS A CRITICAL SECTION OF CODE . DO NOT SET BREAK POINTS
+;IN BETWEEN...ELSE MACRO MAY FAIL TO WORK..
+
+	CLI                    ; disable interrupts
+        MOV     DX,0FFFBH      ; 1st IO address
+        IN      AL,DX          ; 1st dummy IO read 
+        OR      DL,0FFH        ; 2nd IO address
+        IN      AL,DX          ; 2nd IO read
+        AND     DL,0FDh        ; 3rd IO address
+        IN      AL,DX          ; 3rd IO read
+        AND     DL,0F9h        ; 4th IO address
+        IN      AL,DX          ; 4th dummy IO read
+
+	JMP	$+2
+
+
+	ENDM
+;---------------------------------------------------------------------
+;  Write into the 82360SL register with the given data.
+;  Inputs  : P1 = Register index in config space.
+;            P2 = Data to be written into the register. 
+;  Outputs : None.
+
+WRITE_82360SL     MACRO   P1,P2
+
+	JMP	$+2
+
+        MOV     AL, P1          ; POINT TO THE INDEX.
+        OUT     CFGINDEX, AL    ; PROGRAM CFGINDEX REGISTER.
+        MOV     AL, P2          ; GET THE DATA TO BE WRITTEN.
+        OUT     CFGDATA, AL     ; WRITE IT.
+
+	JMP	$+2
+
+        ENDM
+;-------------------------------------------------------------------
+;  ALTER_82360SL_REG MACRO SETS THE BITS PASSED ON BY THE MACRO CALLER.
+;  Inputs  : P1 = Register index in config space.
+;            P2 = Bits to be reset in the register--AND PATTERN-- 
+;            P3 = Bits to be set --OR PATTERN--
+;  Outputs : None.
+
+ALTER_82360SL     MACRO   P1,P2,P3
+
+	JMP	$+2
+
+	READ_82360SL	  P1
+
+	JMP	$+2
+
+	AND	AL,P2
+        OR	AL, P3          ; POINT TO THE INDEX.
+	MOV	AH,P1
+	XCHG	AH,AL
+        OUT     CFGINDEX, AL    ; PROGRAM CFGINDEX REGISTER.
+
+	JMP	$+2
+
+        XCHG	AH,AL           ; GET THE DATA TO BE WRITTEN.
+        OUT     CFGDATA, AL     ; WRITE IT.
+
+	JMP	$+2
+
+        ENDM
+;-------------------------------------------------------------------
+;  Read the data byte from the 82360SL register on to accumulator.
+;  Input  : P1 = Register index in 82360SL configuration space.
+;  Output : AL = Data byte read from the register.
+ 
+READ_82360SL      MACRO     P1
+
+	JMP	$+2
+
+        MOV     AL,P1           ; POINT TO THE INDEX.
+        OUT     CFGINDEX,AL     ; PROGRAM CFGINDEX REGISTER.
+
+	JMP	$+2
+
+        IN      AL,CFGDATA      ; READ THE DATA.
+
+	JMP	$+2
+
+        ENDM
+;--------------------------------------------------------------------
+;WRITE_XMOS MACRO FOLLOWS...WRITES A BYTE SPECIFIED TO EXTENDED CMOS RAM.
+;P1 = ADDRESS OF THE EXTENDED CMOS LOACTION.
+;P2 = DATA TO BE WRITTEN INTO THE EXTENDED CMOS RAM..
+
+WRITE_XMOS	MACRO	P1,P2
+
+	MOV	AL,P1
+	OUT	XMOS_ADD,AL
+
+	JMP	$+2
+	JMP	$+2
+
+	MOV	AL,P2
+	OUT	XMOS_DATA,AL
+
+	JMP	$+2
+	JMP	$+2
+
+	ENDM
+;-------------------------------------------------------------------
+;READ_XMOS MACRO FOLLOWS...WRITES A BYTE SPECIFIED TO EXTENDED CMOS RAM.
+;LEAVES THE BYTE IN AL.
+READ_XMOS	MACRO	P1
+
+	MOV	AL,P1
+	OUT	XMOS_ADD,AL
+
+	JMP	$+2
+	JMP	$+2
+
+	IN	AL,XMOS_DATA
+
+	JMP	$+2
+	JMP	$+2
+
+	ENDM
+;-------------------------------------------------------------------
+

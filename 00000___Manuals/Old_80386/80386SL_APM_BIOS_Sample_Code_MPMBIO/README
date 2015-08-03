@@ -1,0 +1,66 @@
+Dated Aug 29,1991.
+Format : Brief Editor.
+
+
+
+                Section 1 : What is in those files (APM BIOS)
+
+
+Section 1 :
+
+1. LOADAPM.ASM :
+
+      It can do following things...
+
+        a) If no switches are specified or /d is specified as a switch then
+it will load the APM Power Management code onto System Management RAM and
+and then enables it. It also initializes the Power Management timers and 
+several other related registers.
+
+        b) If an invalid or /h switch is given on the command line then 
+the program will print spit out the help menu onto the screen.
+
+      Tip to the user : If you specify an invalid switch or /h then please
+observe that the message at the end tells the user that Power Management 
+is not loaded. IN REALITY IT EVEN DISABLES ANY PREVIOUSLY LOADED 
+POWER MANAGEMENT..So you can effectively use this technique to disable 
+and STOP power management any time you want. Like editing you code or
+stuff like that. 
+
+       c) If you specify /b as the command switch this version of load
+program does unique tricks. It loads the whole load program along with
+INT15 extension and INIT routines to shadow RAM at 0E000:0 with proper
+signature and checksums..and will prompt you to SOFT-BOOT the machine.
+When you do that the ROM_SEARCH routines of standard BIOS will install
+APM compatible BIOS as an OPTIONAL PLUGGABLE AT ROM. So INIT routines
+gain control and initialize and enable POWER MANAGEMENT. It allows the
+user to HAVE POWER MANAGEMENT installed at the time of MSDOS LOADING so
+any installable drivers can take advantage of it...
+
+    Note : Please note that this technique allows Intel Corp. to upgrade
+BIOS ROUTINES with out any need to ship ROM BIOS CHIPS but only by
+sending soft files INIT.SYS and INT15.SYS and APM.SYS
+
+
+2. APMI.ASM : The real core program that sits in SM RAM at SMI VECTOR
+and does all Power Management. 
+
+Note : This file is not MSDOS executable.
+
+3. INT15.ASM : Extension APM services for the existing standard BIOS
+INT15 driver..
+
+Note : This file is not MSDOS executable.
+
+4. INIT.ASM  : Has all the code to interface with ROM_SEARCH utilities
+of a standard AT compatible BIOS...Loads all the stuff to proper  places..
+
+Note : This file is not MSDOS executable.
+
+5. REG_EQU.INC : Holy book of equates.
+
+6. PWRMN.MAC   : My handy tool kit...
+
+
+                        --------------------------
+
