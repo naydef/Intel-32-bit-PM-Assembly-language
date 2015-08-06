@@ -8,6 +8,7 @@
 ;   Finally Modified by: ;	Mighten Dai<mighten.dai@gmail.com>
 ;                             23:50, July 21, 2015
 ;
+;       *****This is a configure-setter, its Vir-Address must remain equal to  Phy-Address!!!!!
 ;
 ;    Kernel, Base Physical Address 0x0002_0000, length = 65,536 Bytes
 ;			!!!!!! Caution: Offset address was counted from 0x00000000 !!!!!!!
@@ -46,7 +47,7 @@ kernel_32_bit_entry:
 	mov		esp, vir_address_kernel_empty_stack_esp
 
 	;;; Display some info on screen to celebrate this victory!!!!
-	mov		esi, PM_String + vir_address_kernel_base
+	mov		esi, PM_String + phy_address_kernel_base
 	mov		edi, vir_address_video_buffer_head    ; Video Buffer head.
 	mov		ah, 0x07                              ; Color Attributes
 	mov		dx, 0x0412
